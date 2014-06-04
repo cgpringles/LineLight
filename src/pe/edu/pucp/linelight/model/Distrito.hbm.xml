@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Distrito" table="distrito" catalog="linelight">
+        <id name="idDistrito" type="java.lang.Integer">
+            <column name="idDistrito" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" />
+        </property>
+        <property name="fecRegistro" type="date">
+            <column name="fec_registro" length="10" />
+        </property>
+        <property name="activo" type="binary">
+            <column name="activo" not-null="true" />
+        </property>
+        <set name="vias" table="via" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idDistrito" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Via" />
+        </set>
+        <set name="distritoxhorarios" table="distritoxhorario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idDistrito" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Distritoxhorario" />
+        </set>
+        <set name="zonas" table="zona" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idDistrito" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Zona" />
+        </set>
+    </class>
+</hibernate-mapping>

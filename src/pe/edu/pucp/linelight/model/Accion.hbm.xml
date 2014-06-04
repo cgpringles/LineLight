@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Accion" table="accion" catalog="linelight">
+        <id name="idAccion" type="java.lang.Integer">
+            <column name="idAccion" />
+            <generator class="identity" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" />
+        </property>
+        <property name="estado" type="java.lang.Boolean">
+            <column name="estado" />
+        </property>
+        <set name="usuarioxaccions" table="usuarioxaccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idAccion" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Usuarioxaccion" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Vehiculoxnodo" table="vehiculoxnodo" catalog="linelight">
+        <composite-id name="id" class="pe.edu.pucp.linelight.model.VehiculoxnodoId">
+            <key-property name="idVehiculo" type="int">
+                <column name="idVehiculo" />
+            </key-property>
+            <key-property name="idParamAlgoritmo" type="int">
+                <column name="idParamAlgoritmo" />
+            </key-property>
+            <key-property name="idEjecucionAlgoritmo" type="int">
+                <column name="idEjecucionAlgoritmo" />
+            </key-property>
+            <key-property name="idUsuario" type="string">
+                <column name="idUsuario" length="10" />
+            </key-property>
+            <key-property name="idConfiguracionSistema" type="int">
+                <column name="idConfiguracionSistema" />
+            </key-property>
+            <key-property name="idNodo" type="long">
+                <column name="idNodo" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="vehiculo" class="pe.edu.pucp.linelight.model.Vehiculo" update="false" insert="false" fetch="select">
+            <column name="idVehiculo" not-null="true" />
+            <column name="idParamAlgoritmo" not-null="true" />
+            <column name="idEjecucionAlgoritmo" not-null="true" />
+            <column name="idUsuario" length="10" not-null="true" />
+            <column name="idConfiguracionSistema" not-null="true" />
+        </many-to-one>
+        <many-to-one name="nodo" class="pe.edu.pucp.linelight.model.Nodo" update="false" insert="false" fetch="select">
+            <column name="idNodo" not-null="true" />
+        </many-to-one>
+        <property name="test" type="string">
+            <column name="test" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

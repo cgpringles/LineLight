@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Distritoxhorario" table="distritoxhorario" catalog="linelight">
+        <composite-id name="id" class="pe.edu.pucp.linelight.model.DistritoxhorarioId">
+            <key-property name="idDistrito" type="int">
+                <column name="idDistrito" />
+            </key-property>
+            <key-property name="idHorario" type="int">
+                <column name="idHorario" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="horario" class="pe.edu.pucp.linelight.model.Horario" update="false" insert="false" fetch="select">
+            <column name="idHorario" not-null="true" />
+        </many-to-one>
+        <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">
+            <column name="idDistrito" not-null="true" />
+        </many-to-one>
+        <property name="numCarros" type="string">
+            <column name="numCarros" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

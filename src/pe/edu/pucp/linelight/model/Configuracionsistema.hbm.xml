@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Configuracionsistema" table="configuracionsistema" catalog="linelight">
+        <id name="idConfiguracionSistema" type="java.lang.Integer">
+            <column name="idConfiguracionSistema" />
+            <generator class="identity" />
+        </id>
+        <property name="TPeriodo" type="java.lang.Integer">
+            <column name="t_periodo" />
+        </property>
+        <property name="NPeriodo" type="java.lang.Integer">
+            <column name="n_periodo" />
+        </property>
+        <property name="TCiclo" type="java.lang.Integer">
+            <column name="t_ciclo" />
+        </property>
+        <property name="TVerdeMax" type="java.lang.Integer">
+            <column name="t_verde_max" />
+        </property>
+        <property name="TVerdeMin" type="java.lang.Integer">
+            <column name="t_verde_min" />
+        </property>
+        <property name="TRojoMax" type="java.lang.Integer">
+            <column name="t_rojo_max" />
+        </property>
+        <property name="TRojoMin" type="java.lang.Integer">
+            <column name="t_rojo_min" />
+        </property>
+        <property name="TDefault" type="java.lang.Integer">
+            <column name="t_default" />
+        </property>
+        <property name="conversionKmM" type="java.lang.Double">
+            <column name="conversion_km_m" precision="22" scale="0" />
+        </property>
+        <set name="ejecucionalgoritmos" table="ejecucionalgoritmo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idConfiguracionSistema" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" />
+        </set>
+    </class>
+</hibernate-mapping>

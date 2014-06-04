@@ -1,0 +1,7 @@
+<Distrito nombre="Pueblo Libre">
+	<Zona id="0" img="/ImagesMap/PuebloLibreZ0.png" latitudIni="-12.0555" longitudIni="-77.0893" latitudFin="-12.0794" longitudFin="-77.0457"/>
+	<Zona id="1" img="/ImagesMap/PuebloLibreZ1.png" latitudIni="12" longitudIni="13" latitudFin="14" longitudFin="15"/>
+	<Zona id="2" img="/ImagesMap/PuebloLibreZ2.png" latitudIni="12" longitudIni="13" latitudFin="14" longitudFin="15"/>
+	<Zona id="3" img="/ImagesMap/PuebloLibreZ3.png" latitudIni="12" longitudIni="13" latitudFin="14" longitudFin="15"/>
+	<Zona id="4" img="/ImagesMap/PuebloLibreZ4.png" latitudIni="12" longitudIni="13" latitudFin="14" longitudFin="15"/>
+</Distrito>

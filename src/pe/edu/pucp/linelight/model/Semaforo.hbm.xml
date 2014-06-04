@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Semaforo" table="semaforo" catalog="linelight">
+        <composite-id name="id" class="pe.edu.pucp.linelight.model.SemaforoId">
+            <key-property name="idSemaforo" type="int">
+                <column name="idSemaforo" />
+            </key-property>
+            <key-property name="idNodo" type="long">
+                <column name="idNodo" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="nodo" class="pe.edu.pucp.linelight.model.Nodo" update="false" insert="false" fetch="select">
+            <column name="idNodo" not-null="true" />
+        </many-to-one>
+        <property name="tverde" type="java.lang.Integer">
+            <column name="tverde" />
+        </property>
+        <property name="estado" type="java.lang.Boolean">
+            <column name="estado" />
+        </property>
+        <property name="trojo" type="java.lang.Integer">
+            <column name="trojo" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" />
+        </property>
+        <property name="tipo" type="java.lang.Integer">
+            <column name="tipo" />
+        </property>
+        <property name="via1" type="string">
+            <column name="via1" length="45" />
+        </property>
+        <property name="via2" type="string">
+            <column name="via2" length="45" />
+        </property>
+        <property name="distrito" type="string">
+            <column name="distrito" length="45" />
+        </property>
+        <set name="ejecucionalgoritmoxsemaforos" table="ejecucionalgoritmoxsemaforo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idSemaforo" not-null="true" />
+                <column name="idNodo" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo" />
+        </set>
+    </class>
+</hibernate-mapping>

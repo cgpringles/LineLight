@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Zona" table="zona" catalog="linelight">
+        <composite-id name="id" class="pe.edu.pucp.linelight.model.ZonaId">
+            <key-property name="idDistrito" type="int">
+                <column name="idDistrito" />
+            </key-property>
+            <key-property name="idZona" type="int">
+                <column name="idZona" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">
+            <column name="idDistrito" not-null="true" />
+        </many-to-one>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" />
+        </property>
+        <property name="imagen" type="binary">
+            <column name="imagen" />
+        </property>
+        <property name="iniLatitud" type="java.lang.Double">
+            <column name="iniLatitud" precision="22" scale="0" />
+        </property>
+        <property name="iniLongitud" type="java.lang.Double">
+            <column name="iniLongitud" precision="22" scale="0" />
+        </property>
+        <property name="finLatitud" type="java.lang.Double">
+            <column name="finLatitud" precision="22" scale="0" />
+        </property>
+        <property name="finLongitud" type="java.lang.Double">
+            <column name="finLongitud" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

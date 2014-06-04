@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Tramo" table="tramo" catalog="linelight">
+        <composite-id name="id" class="pe.edu.pucp.linelight.model.TramoId">
+            <key-property name="idTramo" type="int">
+                <column name="idTramo" />
+            </key-property>
+            <key-property name="idDistrito" type="int">
+                <column name="idDistrito" />
+            </key-property>
+            <key-property name="idVia" type="long">
+                <column name="idVia" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="via" class="pe.edu.pucp.linelight.model.Via" update="false" insert="false" fetch="select">
+            <column name="idDistrito" not-null="true" />
+            <column name="idVia" not-null="true" />
+        </many-to-one>
+        <property name="estado" type="java.lang.Boolean">
+            <column name="estado" />
+        </property>
+        <set name="tramoxnodos" table="tramoxnodo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTramo" not-null="true" />
+                <column name="idDistrito" not-null="true" />
+                <column name="idVia" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Tramoxnodo" />
+        </set>
+        <set name="tramoxincidencias" table="tramoxincidencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTramo" not-null="true" />
+                <column name="idDistrito" not-null="true" />
+                <column name="idVia" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Tramoxincidencia" />
+        </set>
+    </class>
+</hibernate-mapping>

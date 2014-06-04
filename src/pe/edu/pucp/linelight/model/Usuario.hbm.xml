@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Usuario" table="usuario" catalog="linelight">
+        <id name="idUsuario" type="string">
+            <column name="idUsuario" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="perfil" class="pe.edu.pucp.linelight.model.Perfil" fetch="select">
+            <column name="idPerfil" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="app" type="string">
+            <column name="app" length="45" not-null="true" />
+        </property>
+        <property name="apm" type="string">
+            <column name="apm" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="100" not-null="true" />
+        </property>
+        <property name="correo" type="string">
+            <column name="correo" length="45" />
+        </property>
+        <property name="dni" type="string">
+            <column name="dni" length="8" />
+        </property>
+        <property name="fechaNac" type="date">
+            <column name="fechaNac" length="10" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="10" />
+        </property>
+        <property name="celular" type="string">
+            <column name="celular" length="11" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="45" />
+        </property>
+        <property name="estado" type="java.lang.Integer">
+            <column name="estado" />
+        </property>
+        <property name="estadobd" type="java.lang.Integer">
+            <column name="estadobd" />
+        </property>
+        <property name="primerAcceso" type="java.lang.Integer">
+            <column name="primerAcceso" />
+        </property>
+        <set name="usuarioxaccions" table="usuarioxaccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idUsuario" length="10" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Usuarioxaccion" />
+        </set>
+        <set name="ejecucionalgoritmos" table="ejecucionalgoritmo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idUsuario" length="10" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" table="ejecucionalgoritmo" catalog="linelight">
+        <composite-id name="id" class="pe.edu.pucp.linelight.model.EjecucionalgoritmoId">
+            <key-property name="idParamAlgoritmo" type="int">
+                <column name="idParamAlgoritmo" />
+            </key-property>
+            <key-property name="idEjecucionAlgoritmo" type="int">
+                <column name="idEjecucionAlgoritmo" />
+            </key-property>
+            <key-property name="idUsuario" type="string">
+                <column name="idUsuario" length="10" />
+            </key-property>
+            <key-property name="idConfiguracionSistema" type="int">
+                <column name="idConfiguracionSistema" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="paramalgoritmo" class="pe.edu.pucp.linelight.model.Paramalgoritmo" update="false" insert="false" fetch="select">
+            <column name="idParamAlgoritmo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="pe.edu.pucp.linelight.model.Usuario" update="false" insert="false" fetch="select">
+            <column name="idUsuario" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="configuracionsistema" class="pe.edu.pucp.linelight.model.Configuracionsistema" update="false" insert="false" fetch="select">
+            <column name="idConfiguracionSistema" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" />
+        </property>
+        <property name="velocidadMaxima" type="java.lang.Double">
+            <column name="velocidadMaxima" precision="22" scale="0" />
+        </property>
+        <property name="nombreEjecucion" type="string">
+            <column name="nombreEjecucion" length="100" />
+        </property>
+        <property name="velocidadHistorica" type="java.lang.Double">
+            <column name="velocidadHistorica" precision="22" scale="0" />
+        </property>
+        <set name="vehiculos" table="vehiculo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idParamAlgoritmo" not-null="true" />
+                <column name="idEjecucionAlgoritmo" not-null="true" />
+                <column name="idUsuario" length="10" not-null="true" />
+                <column name="idConfiguracionSistema" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Vehiculo" />
+        </set>
+        <set name="ejecucionalgoritmoxsemaforos" table="ejecucionalgoritmoxsemaforo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idParamAlgoritmo" not-null="true" />
+                <column name="idEjecucionAlgoritmo" not-null="true" />
+                <column name="idUsuario" length="10" not-null="true" />
+                <column name="idConfiguracionSistema" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo" />
+        </set>
+        <set name="ejecucionalgoritmoxcuadraxnodos" table="ejecucionalgoritmoxcuadraxnodo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idParamAlgoritmo" not-null="true" />
+                <column name="idEjecucionAlgoritmo" not-null="true" />
+                <column name="idUsuario" length="10" not-null="true" />
+                <column name="idConfiguracionSistema" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxcuadraxnodo" />
+        </set>
+    </class>
+</hibernate-mapping>

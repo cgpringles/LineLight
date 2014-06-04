@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Paramalgoritmo" table="paramalgoritmo" catalog="linelight">
+        <id name="idParamAlgoritmo" type="java.lang.Integer">
+            <column name="idParamAlgoritmo" />
+            <generator class="identity" />
+        </id>
+        <property name="maxTamPoblacion" type="int">
+            <column name="maxTamPoblacion" not-null="true" />
+        </property>
+        <property name="maxCicloSinCambiar" type="int">
+            <column name="maxCicloSinCambiar" not-null="true" />
+        </property>
+        <property name="tasaCasamiento" type="double">
+            <column name="tasaCasamiento" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="tasaMutacion" type="double">
+            <column name="tasaMutacion" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="tamPoblacionInicial" type="java.lang.Integer">
+            <column name="tamPoblacionInicial" />
+        </property>
+        <property name="elitismo" type="java.lang.Boolean">
+            <column name="elitismo" />
+        </property>
+        <set name="ejecucionalgoritmos" table="ejecucionalgoritmo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idParamAlgoritmo" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Vehiculo" table="vehiculo" catalog="linelight">
+        <composite-id name="id" class="pe.edu.pucp.linelight.model.VehiculoId">
+            <key-property name="idVehiculo" type="int">
+                <column name="idVehiculo" />
+            </key-property>
+            <key-property name="idParamAlgoritmo" type="int">
+                <column name="idParamAlgoritmo" />
+            </key-property>
+            <key-property name="idEjecucionAlgoritmo" type="int">
+                <column name="idEjecucionAlgoritmo" />
+            </key-property>
+            <key-property name="idUsuario" type="string">
+                <column name="idUsuario" length="10" />
+            </key-property>
+            <key-property name="idConfiguracionSistema" type="int">
+                <column name="idConfiguracionSistema" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="ejecucionalgoritmo" class="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" update="false" insert="false" fetch="select">
+            <column name="idParamAlgoritmo" not-null="true" />
+            <column name="idEjecucionAlgoritmo" not-null="true" />
+            <column name="idUsuario" length="10" not-null="true" />
+            <column name="idConfiguracionSistema" not-null="true" />
+        </many-to-one>
+        <property name="posInit" type="string">
+            <column name="posInit" length="45" />
+        </property>
+        <property name="posFin" type="string">
+            <column name="posFin" length="45" />
+        </property>
+        <property name="posActual" type="string">
+            <column name="posActual" length="45" />
+        </property>
+        <property name="velocidad" type="string">
+            <column name="velocidad" length="45" />
+        </property>
+        <set name="vehiculoxnodos" table="vehiculoxnodo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idVehiculo" not-null="true" />
+                <column name="idParamAlgoritmo" not-null="true" />
+                <column name="idEjecucionAlgoritmo" not-null="true" />
+                <column name="idUsuario" length="10" not-null="true" />
+                <column name="idConfiguracionSistema" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Vehiculoxnodo" />
+        </set>
+    </class>
+</hibernate-mapping>

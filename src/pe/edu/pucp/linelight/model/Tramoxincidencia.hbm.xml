@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Tramoxincidencia" table="tramoxincidencia" catalog="linelight">
+        <composite-id name="id" class="pe.edu.pucp.linelight.model.TramoxincidenciaId">
+            <key-property name="idIncidencia" type="int">
+                <column name="idIncidencia" />
+            </key-property>
+            <key-property name="idTramo" type="int">
+                <column name="idTramo" />
+            </key-property>
+            <key-property name="idDistrito" type="int">
+                <column name="idDistrito" />
+            </key-property>
+            <key-property name="idVia" type="long">
+                <column name="idVia" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="incidencia" class="pe.edu.pucp.linelight.model.Incidencia" update="false" insert="false" fetch="select">
+            <column name="idIncidencia" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tramo" class="pe.edu.pucp.linelight.model.Tramo" update="false" insert="false" fetch="select">
+            <column name="idTramo" not-null="true" />
+            <column name="idDistrito" not-null="true" />
+            <column name="idVia" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

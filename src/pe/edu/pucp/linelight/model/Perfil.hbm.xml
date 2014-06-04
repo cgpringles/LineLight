@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="pe.edu.pucp.linelight.model.Perfil" table="perfil" catalog="linelight">
+        <id name="idPerfil" type="java.lang.Integer">
+            <column name="idPerfil" />
+            <generator class="identity" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" />
+        </property>
+        <property name="estado" type="java.lang.Integer">
+            <column name="estado" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="20" />
+        </property>
+        <property name="estadobd" type="java.lang.Integer">
+            <column name="estadobd" />
+        </property>
+        <set name="menus" table="perfilxmenu" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="idPerfil" not-null="true" />
+            </key>
+            <many-to-many entity-name="pe.edu.pucp.linelight.model.Menu">
+                <column name="idMenu" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idPerfil" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Usuario" />
+        </set>
+    </class>
+</hibernate-mapping>
