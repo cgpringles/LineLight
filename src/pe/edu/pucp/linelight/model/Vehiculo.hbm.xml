@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Vehiculo" table="vehiculo" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.VehiculoId">
@@ -20,12 +20,16 @@
             <key-property name="idConfiguracionSistema" type="int">
                 <column name="idConfiguracionSistema" />
             </key-property>
+            <key-property name="idHorario" type="int">
+                <column name="idHorario" />
+            </key-property>
         </composite-id>
         <many-to-one name="ejecucionalgoritmo" class="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" update="false" insert="false" fetch="select">
             <column name="idParamAlgoritmo" not-null="true" />
             <column name="idEjecucionAlgoritmo" not-null="true" />
             <column name="idUsuario" length="10" not-null="true" />
             <column name="idConfiguracionSistema" not-null="true" />
+            <column name="idHorario" not-null="true" />
         </many-to-one>
         <property name="posInit" type="string">
             <column name="posInit" length="45" />
@@ -46,6 +50,7 @@
                 <column name="idEjecucionAlgoritmo" not-null="true" />
                 <column name="idUsuario" length="10" not-null="true" />
                 <column name="idConfiguracionSistema" not-null="true" />
+                <column name="idHorario" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Vehiculoxnodo" />
         </set>

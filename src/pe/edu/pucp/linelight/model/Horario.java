@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0
+// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -14,17 +14,23 @@ public class Horario  implements java.io.Serializable {
      private Integer idHorario;
      private String hora;
      private String dia;
+     private Integer probAvenida;
+     private Integer probCalle;
      private Set viaxhorarios = new HashSet(0);
      private Set distritoxhorarios = new HashSet(0);
+     private Set ejecucionalgoritmos = new HashSet(0);
 
     public Horario() {
     }
 
-    public Horario(String hora, String dia, Set viaxhorarios, Set distritoxhorarios) {
+    public Horario(String hora, String dia, Integer probAvenida, Integer probCalle, Set viaxhorarios, Set distritoxhorarios, Set ejecucionalgoritmos) {
        this.hora = hora;
        this.dia = dia;
+       this.probAvenida = probAvenida;
+       this.probCalle = probCalle;
        this.viaxhorarios = viaxhorarios;
        this.distritoxhorarios = distritoxhorarios;
+       this.ejecucionalgoritmos = ejecucionalgoritmos;
     }
    
     public Integer getIdHorario() {
@@ -48,6 +54,20 @@ public class Horario  implements java.io.Serializable {
     public void setDia(String dia) {
         this.dia = dia;
     }
+    public Integer getProbAvenida() {
+        return this.probAvenida;
+    }
+    
+    public void setProbAvenida(Integer probAvenida) {
+        this.probAvenida = probAvenida;
+    }
+    public Integer getProbCalle() {
+        return this.probCalle;
+    }
+    
+    public void setProbCalle(Integer probCalle) {
+        this.probCalle = probCalle;
+    }
     public Set getViaxhorarios() {
         return this.viaxhorarios;
     }
@@ -61,6 +81,13 @@ public class Horario  implements java.io.Serializable {
     
     public void setDistritoxhorarios(Set distritoxhorarios) {
         this.distritoxhorarios = distritoxhorarios;
+    }
+    public Set getEjecucionalgoritmos() {
+        return this.ejecucionalgoritmos;
+    }
+    
+    public void setEjecucionalgoritmos(Set ejecucionalgoritmos) {
+        this.ejecucionalgoritmos = ejecucionalgoritmos;
     }
 
 

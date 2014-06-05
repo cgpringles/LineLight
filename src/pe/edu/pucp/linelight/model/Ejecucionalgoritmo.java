@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0
+// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -14,12 +14,14 @@ public class Ejecucionalgoritmo  implements java.io.Serializable {
 
      private EjecucionalgoritmoId id;
      private Paramalgoritmo paramalgoritmo;
+     private Horario horario;
      private Usuario usuario;
      private Configuracionsistema configuracionsistema;
      private Date fecha;
      private Double velocidadMaxima;
-     private String nombreEjecucion;
-     private Double velocidadHistorica;
+     private Double velocidadHistoria;
+     private String nombreSimulacion;
+     private Double tiempoEjecucion;
      private Set vehiculos = new HashSet(0);
      private Set ejecucionalgoritmoxsemaforos = new HashSet(0);
      private Set ejecucionalgoritmoxcuadraxnodos = new HashSet(0);
@@ -28,21 +30,24 @@ public class Ejecucionalgoritmo  implements java.io.Serializable {
     }
 
 	
-    public Ejecucionalgoritmo(EjecucionalgoritmoId id, Paramalgoritmo paramalgoritmo, Usuario usuario, Configuracionsistema configuracionsistema) {
+    public Ejecucionalgoritmo(EjecucionalgoritmoId id, Paramalgoritmo paramalgoritmo, Horario horario, Usuario usuario, Configuracionsistema configuracionsistema) {
         this.id = id;
         this.paramalgoritmo = paramalgoritmo;
+        this.horario = horario;
         this.usuario = usuario;
         this.configuracionsistema = configuracionsistema;
     }
-    public Ejecucionalgoritmo(EjecucionalgoritmoId id, Paramalgoritmo paramalgoritmo, Usuario usuario, Configuracionsistema configuracionsistema, Date fecha, Double velocidadMaxima, String nombreEjecucion, Double velocidadHistorica, Set vehiculos, Set ejecucionalgoritmoxsemaforos, Set ejecucionalgoritmoxcuadraxnodos) {
+    public Ejecucionalgoritmo(EjecucionalgoritmoId id, Paramalgoritmo paramalgoritmo, Horario horario, Usuario usuario, Configuracionsistema configuracionsistema, Date fecha, Double velocidadMaxima, Double velocidadHistoria, String nombreSimulacion, Double tiempoEjecucion, Set vehiculos, Set ejecucionalgoritmoxsemaforos, Set ejecucionalgoritmoxcuadraxnodos) {
        this.id = id;
        this.paramalgoritmo = paramalgoritmo;
+       this.horario = horario;
        this.usuario = usuario;
        this.configuracionsistema = configuracionsistema;
        this.fecha = fecha;
        this.velocidadMaxima = velocidadMaxima;
-       this.nombreEjecucion = nombreEjecucion;
-       this.velocidadHistorica = velocidadHistorica;
+       this.velocidadHistoria = velocidadHistoria;
+       this.nombreSimulacion = nombreSimulacion;
+       this.tiempoEjecucion = tiempoEjecucion;
        this.vehiculos = vehiculos;
        this.ejecucionalgoritmoxsemaforos = ejecucionalgoritmoxsemaforos;
        this.ejecucionalgoritmoxcuadraxnodos = ejecucionalgoritmoxcuadraxnodos;
@@ -61,6 +66,13 @@ public class Ejecucionalgoritmo  implements java.io.Serializable {
     
     public void setParamalgoritmo(Paramalgoritmo paramalgoritmo) {
         this.paramalgoritmo = paramalgoritmo;
+    }
+    public Horario getHorario() {
+        return this.horario;
+    }
+    
+    public void setHorario(Horario horario) {
+        this.horario = horario;
     }
     public Usuario getUsuario() {
         return this.usuario;
@@ -90,19 +102,26 @@ public class Ejecucionalgoritmo  implements java.io.Serializable {
     public void setVelocidadMaxima(Double velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
     }
-    public String getNombreEjecucion() {
-        return this.nombreEjecucion;
+    public Double getVelocidadHistoria() {
+        return this.velocidadHistoria;
     }
     
-    public void setNombreEjecucion(String nombreEjecucion) {
-        this.nombreEjecucion = nombreEjecucion;
+    public void setVelocidadHistoria(Double velocidadHistoria) {
+        this.velocidadHistoria = velocidadHistoria;
     }
-    public Double getVelocidadHistorica() {
-        return this.velocidadHistorica;
+    public String getNombreSimulacion() {
+        return this.nombreSimulacion;
     }
     
-    public void setVelocidadHistorica(Double velocidadHistorica) {
-        this.velocidadHistorica = velocidadHistorica;
+    public void setNombreSimulacion(String nombreSimulacion) {
+        this.nombreSimulacion = nombreSimulacion;
+    }
+    public Double getTiempoEjecucion() {
+        return this.tiempoEjecucion;
+    }
+    
+    public void setTiempoEjecucion(Double tiempoEjecucion) {
+        this.tiempoEjecucion = tiempoEjecucion;
     }
     public Set getVehiculos() {
         return this.vehiculos;

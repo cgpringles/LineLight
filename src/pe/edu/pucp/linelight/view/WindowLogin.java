@@ -148,14 +148,14 @@ public class WindowLogin extends javax.swing.JFrame {
             perfil=new Perfil();
             perfil=PerfilController.getPerfilId(usuario.getPerfil().getIdPerfil());
             int seg=0,mant=0,opt=0,conf=0, rep=0;
-//        for (Object m : perfil.getMenus()) {
-//            Menu menu=(Menu)m;
-//            if(menu.getIdMenu()==1)seg=1;
-//            if(menu.getIdMenu()==2)conf=1;
-//            if(menu.getIdMenu()==3)opt=1;
-//            if(menu.getIdMenu()==4)mant=1;
-//            if (menu.getIdMenu()==5)rep=1;
-//        }
+        for (Object m : perfil.getMenus()) {
+            Menu menu=(Menu)m;
+            if(menu.getIdMenu()==1)seg=1;
+            if(menu.getIdMenu()==2)conf=1;
+            if(menu.getIdMenu()==3)opt=1;
+            if(menu.getIdMenu()==4)mant=1;
+            if (menu.getIdMenu()==5)rep=1;
+        }
         
             WindowPrincipal wm = new WindowPrincipal();
 //            wm.setMenus(seg, mant, conf, opt);

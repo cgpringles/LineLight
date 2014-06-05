@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0
+// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
 
 
 
@@ -15,17 +15,19 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
      private int idConfiguracionSistema;
      private int idSemaforo;
      private long idNodo;
+     private int idHorario;
 
     public EjecucionalgoritmoxsemaforoId() {
     }
 
-    public EjecucionalgoritmoxsemaforoId(int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idSemaforo, long idNodo) {
+    public EjecucionalgoritmoxsemaforoId(int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idSemaforo, long idNodo, int idHorario) {
        this.idParamAlgoritmo = idParamAlgoritmo;
        this.idEjecucionAlgoritmo = idEjecucionAlgoritmo;
        this.idUsuario = idUsuario;
        this.idConfiguracionSistema = idConfiguracionSistema;
        this.idSemaforo = idSemaforo;
        this.idNodo = idNodo;
+       this.idHorario = idHorario;
     }
    
     public int getIdParamAlgoritmo() {
@@ -70,6 +72,13 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
     public void setIdNodo(long idNodo) {
         this.idNodo = idNodo;
     }
+    public int getIdHorario() {
+        return this.idHorario;
+    }
+    
+    public void setIdHorario(int idHorario) {
+        this.idHorario = idHorario;
+    }
 
 
    public boolean equals(Object other) {
@@ -83,7 +92,8 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
  && ( (this.getIdUsuario()==castOther.getIdUsuario()) || ( this.getIdUsuario()!=null && castOther.getIdUsuario()!=null && this.getIdUsuario().equals(castOther.getIdUsuario()) ) )
  && (this.getIdConfiguracionSistema()==castOther.getIdConfiguracionSistema())
  && (this.getIdSemaforo()==castOther.getIdSemaforo())
- && (this.getIdNodo()==castOther.getIdNodo());
+ && (this.getIdNodo()==castOther.getIdNodo())
+ && (this.getIdHorario()==castOther.getIdHorario());
    }
    
    public int hashCode() {
@@ -95,6 +105,7 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
          result = 37 * result + this.getIdConfiguracionSistema();
          result = 37 * result + this.getIdSemaforo();
          result = 37 * result + (int) this.getIdNodo();
+         result = 37 * result + this.getIdHorario();
          return result;
    }   
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo" table="ejecucionalgoritmoxsemaforo" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.EjecucionalgoritmoxsemaforoId">
@@ -23,6 +23,9 @@
             <key-property name="idNodo" type="long">
                 <column name="idNodo" />
             </key-property>
+            <key-property name="idHorario" type="int">
+                <column name="idHorario" />
+            </key-property>
         </composite-id>
         <many-to-one name="semaforo" class="pe.edu.pucp.linelight.model.Semaforo" update="false" insert="false" fetch="select">
             <column name="idSemaforo" not-null="true" />
@@ -33,6 +36,7 @@
             <column name="idEjecucionAlgoritmo" not-null="true" />
             <column name="idUsuario" length="10" not-null="true" />
             <column name="idConfiguracionSistema" not-null="true" />
+            <column name="idHorario" not-null="true" />
         </many-to-one>
         <property name="tverde" type="java.lang.Integer">
             <column name="tverde" />

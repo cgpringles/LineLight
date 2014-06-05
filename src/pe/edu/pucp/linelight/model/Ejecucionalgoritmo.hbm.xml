@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" table="ejecucionalgoritmo" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.EjecucionalgoritmoId">
@@ -17,9 +17,15 @@
             <key-property name="idConfiguracionSistema" type="int">
                 <column name="idConfiguracionSistema" />
             </key-property>
+            <key-property name="idHorario" type="int">
+                <column name="idHorario" />
+            </key-property>
         </composite-id>
         <many-to-one name="paramalgoritmo" class="pe.edu.pucp.linelight.model.Paramalgoritmo" update="false" insert="false" fetch="select">
             <column name="idParamAlgoritmo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="horario" class="pe.edu.pucp.linelight.model.Horario" update="false" insert="false" fetch="select">
+            <column name="idHorario" not-null="true" />
         </many-to-one>
         <many-to-one name="usuario" class="pe.edu.pucp.linelight.model.Usuario" update="false" insert="false" fetch="select">
             <column name="idUsuario" length="10" not-null="true" />
@@ -33,11 +39,14 @@
         <property name="velocidadMaxima" type="java.lang.Double">
             <column name="velocidadMaxima" precision="22" scale="0" />
         </property>
-        <property name="nombreEjecucion" type="string">
-            <column name="nombreEjecucion" length="100" />
+        <property name="velocidadHistoria" type="java.lang.Double">
+            <column name="velocidadHistoria" precision="22" scale="0" />
         </property>
-        <property name="velocidadHistorica" type="java.lang.Double">
-            <column name="velocidadHistorica" precision="22" scale="0" />
+        <property name="nombreSimulacion" type="string">
+            <column name="nombreSimulacion" length="45" />
+        </property>
+        <property name="tiempoEjecucion" type="java.lang.Double">
+            <column name="tiempoEjecucion" precision="22" scale="0" />
         </property>
         <set name="vehiculos" table="vehiculo" inverse="true" lazy="true" fetch="select">
             <key>
@@ -45,6 +54,7 @@
                 <column name="idEjecucionAlgoritmo" not-null="true" />
                 <column name="idUsuario" length="10" not-null="true" />
                 <column name="idConfiguracionSistema" not-null="true" />
+                <column name="idHorario" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Vehiculo" />
         </set>
@@ -54,6 +64,7 @@
                 <column name="idEjecucionAlgoritmo" not-null="true" />
                 <column name="idUsuario" length="10" not-null="true" />
                 <column name="idConfiguracionSistema" not-null="true" />
+                <column name="idHorario" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo" />
         </set>
@@ -63,6 +74,7 @@
                 <column name="idEjecucionAlgoritmo" not-null="true" />
                 <column name="idUsuario" length="10" not-null="true" />
                 <column name="idConfiguracionSistema" not-null="true" />
+                <column name="idHorario" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxcuadraxnodo" />
         </set>

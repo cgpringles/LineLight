@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Perfil" table="perfil" catalog="linelight">
         <id name="idPerfil" type="java.lang.Integer">
@@ -20,7 +20,7 @@
         <property name="estadobd" type="java.lang.Integer">
             <column name="estadobd" />
         </property>
-        <set name="menus" table="perfilxmenu" inverse="false" lazy="true" fetch="select">
+        <set name="menus" table="perfilxmenu" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="idPerfil" not-null="true" />
             </key>

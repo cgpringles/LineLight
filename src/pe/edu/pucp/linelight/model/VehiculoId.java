@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0
+// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
 
 
 
@@ -14,16 +14,18 @@ public class VehiculoId  implements java.io.Serializable {
      private int idEjecucionAlgoritmo;
      private String idUsuario;
      private int idConfiguracionSistema;
+     private int idHorario;
 
     public VehiculoId() {
     }
 
-    public VehiculoId(int idVehiculo, int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema) {
+    public VehiculoId(int idVehiculo, int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idHorario) {
        this.idVehiculo = idVehiculo;
        this.idParamAlgoritmo = idParamAlgoritmo;
        this.idEjecucionAlgoritmo = idEjecucionAlgoritmo;
        this.idUsuario = idUsuario;
        this.idConfiguracionSistema = idConfiguracionSistema;
+       this.idHorario = idHorario;
     }
    
     public int getIdVehiculo() {
@@ -61,6 +63,13 @@ public class VehiculoId  implements java.io.Serializable {
     public void setIdConfiguracionSistema(int idConfiguracionSistema) {
         this.idConfiguracionSistema = idConfiguracionSistema;
     }
+    public int getIdHorario() {
+        return this.idHorario;
+    }
+    
+    public void setIdHorario(int idHorario) {
+        this.idHorario = idHorario;
+    }
 
 
    public boolean equals(Object other) {
@@ -73,7 +82,8 @@ public class VehiculoId  implements java.io.Serializable {
  && (this.getIdParamAlgoritmo()==castOther.getIdParamAlgoritmo())
  && (this.getIdEjecucionAlgoritmo()==castOther.getIdEjecucionAlgoritmo())
  && ( (this.getIdUsuario()==castOther.getIdUsuario()) || ( this.getIdUsuario()!=null && castOther.getIdUsuario()!=null && this.getIdUsuario().equals(castOther.getIdUsuario()) ) )
- && (this.getIdConfiguracionSistema()==castOther.getIdConfiguracionSistema());
+ && (this.getIdConfiguracionSistema()==castOther.getIdConfiguracionSistema())
+ && (this.getIdHorario()==castOther.getIdHorario());
    }
    
    public int hashCode() {
@@ -84,6 +94,7 @@ public class VehiculoId  implements java.io.Serializable {
          result = 37 * result + this.getIdEjecucionAlgoritmo();
          result = 37 * result + ( getIdUsuario() == null ? 0 : this.getIdUsuario().hashCode() );
          result = 37 * result + this.getIdConfiguracionSistema();
+         result = 37 * result + this.getIdHorario();
          return result;
    }   
 

@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 03/06/2014 08:23:06 PM by Hibernate Tools 3.6.0
+// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
 
 
 
@@ -17,11 +17,12 @@ public class EjecucionalgoritmoxcuadraxnodoId  implements java.io.Serializable {
      private int idDistrito;
      private long idVia;
      private long idNodo;
+     private int idHorario;
 
     public EjecucionalgoritmoxcuadraxnodoId() {
     }
 
-    public EjecucionalgoritmoxcuadraxnodoId(int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idTramo, int idDistrito, long idVia, long idNodo) {
+    public EjecucionalgoritmoxcuadraxnodoId(int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idTramo, int idDistrito, long idVia, long idNodo, int idHorario) {
        this.idParamAlgoritmo = idParamAlgoritmo;
        this.idEjecucionAlgoritmo = idEjecucionAlgoritmo;
        this.idUsuario = idUsuario;
@@ -30,6 +31,7 @@ public class EjecucionalgoritmoxcuadraxnodoId  implements java.io.Serializable {
        this.idDistrito = idDistrito;
        this.idVia = idVia;
        this.idNodo = idNodo;
+       this.idHorario = idHorario;
     }
    
     public int getIdParamAlgoritmo() {
@@ -88,6 +90,13 @@ public class EjecucionalgoritmoxcuadraxnodoId  implements java.io.Serializable {
     public void setIdNodo(long idNodo) {
         this.idNodo = idNodo;
     }
+    public int getIdHorario() {
+        return this.idHorario;
+    }
+    
+    public void setIdHorario(int idHorario) {
+        this.idHorario = idHorario;
+    }
 
 
    public boolean equals(Object other) {
@@ -103,7 +112,8 @@ public class EjecucionalgoritmoxcuadraxnodoId  implements java.io.Serializable {
  && (this.getIdTramo()==castOther.getIdTramo())
  && (this.getIdDistrito()==castOther.getIdDistrito())
  && (this.getIdVia()==castOther.getIdVia())
- && (this.getIdNodo()==castOther.getIdNodo());
+ && (this.getIdNodo()==castOther.getIdNodo())
+ && (this.getIdHorario()==castOther.getIdHorario());
    }
    
    public int hashCode() {
@@ -117,6 +127,7 @@ public class EjecucionalgoritmoxcuadraxnodoId  implements java.io.Serializable {
          result = 37 * result + this.getIdDistrito();
          result = 37 * result + (int) this.getIdVia();
          result = 37 * result + (int) this.getIdNodo();
+         result = 37 * result + this.getIdHorario();
          return result;
    }   
 
