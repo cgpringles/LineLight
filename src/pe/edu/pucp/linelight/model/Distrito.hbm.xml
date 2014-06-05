@@ -29,7 +29,7 @@
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Distritoxhorario" />
         </set>
-        <set name="zonas" table="zona" inverse="true" lazy="true" fetch="select">
+        <set name="zonas" table="zona" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="idDistrito" not-null="true" />
             </key>
