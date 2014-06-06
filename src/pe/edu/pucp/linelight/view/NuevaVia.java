@@ -20,6 +20,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.dom4j.DocumentException;
 import pe.edu.pucp.linelight.controller.DistritoController;
 import pe.edu.pucp.linelight.controller.ViaController;
+import pe.edu.pucp.linelight.controller.jcThread;
+import pe.edu.pucp.linelight.controller.parseViasStructure;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.structure.MapParser;
@@ -35,7 +37,11 @@ public class NuevaVia extends javax.swing.JFrame {
      */
     public NuevaVia() {
         initComponents();
-        
+        jProgressBar1.setVisible(false);
+        lblprogreso.setVisible(false);
+        jButton4.setEnabled(true);
+        jButton5.setEnabled(true);
+        cmbDistrito.setEnabled(true);
         Date fecha=new Date();
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
         txtFecha.setText(sdf.format(fecha));
@@ -67,6 +73,8 @@ public class NuevaVia extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        lblprogreso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Vías");
@@ -104,6 +112,8 @@ public class NuevaVia extends javax.swing.JFrame {
             }
         });
 
+        lblprogreso.setText("Registrando vías... ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,6 +145,12 @@ public class NuevaVia extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblprogreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +172,11 @@ public class NuevaVia extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(lblprogreso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -195,7 +215,13 @@ public class NuevaVia extends javax.swing.JFrame {
                                     Distrito d=DistritoController.obtenerDistrito(nombDistrito);
 
                                     try {
-                                        MapParser.parseViasStructure(sourceFile, d);
+                                        jProgressBar1.setVisible(true);
+                                        lblprogreso.setVisible(true);
+                                        jButton4.setEnabled(false);
+                                        jButton5.setEnabled(false);
+                                        cmbDistrito.setEnabled(false);
+                                        new Thread(new jcThread( this.jProgressBar1 , 250 ) ).start();
+                                        new Thread(new parseViasStructure(sourceFile,d,this)).start();
                                     } catch (DocumentException ex) {
                                         Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                                     }
@@ -204,20 +230,7 @@ public class NuevaVia extends javax.swing.JFrame {
                                 else {
                                     System.out.print("Open command cancelled by user.");
                                 }
-                       
-                       
-                      //tengo que pasarle el distrito o el id y contar cuantas filas he cargado
-                      int id_n= DistritoController.obteneridDistrito(nombDistrito);
-                      ArrayList<Via> list=new ArrayList<Via>();
-                      list=ViaController.obtenerVias(id_n);
-                      int numVias=list.size();
-                      //ViasCargadas viasCar=new ViasCargadas();
-                      //ViasCargadas viasCar=new ViasCargadas(numVias);
-//                      
-                      //DetalleVias nuevo= new DetalleVias();
-                      DetalleVias nuevo=new DetalleVias(numVias,nombDistrito);
-                      nuevo.setVisible(true);
-                      this.dispose();
+                     //this.dispose();
                    }
                 }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -299,6 +312,8 @@ public class NuevaVia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel lblprogreso;
     private javax.swing.JTextField txtFecha;
     // End of variables declaration//GEN-END:variables
 }
