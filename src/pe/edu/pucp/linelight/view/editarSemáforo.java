@@ -8,6 +8,7 @@ package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.JOptionPane;
 import pe.edu.pucp.linelight.controller.TipoViaController;
 import pe.edu.pucp.linelight.controller.semaforoController;
@@ -395,8 +396,12 @@ public class editarSemáforo extends javax.swing.JFrame {
                         semaforo.setTrojo(Integer.parseInt(txtTiempoRojo.getText()));
                         semaforo.setTverde(Integer.parseInt(txtTiempoVerde.getText()));
                         semaforo.setEstado(cmbEstado.getSelectedIndex() == 0 ? true : false);
-
+                        
+                        Semaforo semaforoHermano = semaforoController.obtenerHermano(semaforo);
+                        semaforoHermano.setTrojo(Integer.parseInt(txtTiempoVerde.getText()));
+                        semaforoHermano.setTverde(Integer.parseInt(txtTiempoRojo.getText()));
                         semaforoController.actualizarSemaforo(semaforo);
+                        semaforoController.actualizarSemaforo(semaforoHermano);
                         this.dispose();
                         }
                         }
