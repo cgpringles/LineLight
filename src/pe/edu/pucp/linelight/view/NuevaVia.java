@@ -42,10 +42,7 @@ public class NuevaVia extends javax.swing.JFrame {
         jButton4.setEnabled(true);
         jButton5.setEnabled(true);
         cmbDistrito.setEnabled(true);
-        Date fecha=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
-        txtFecha.setText(sdf.format(fecha));
-        
+        cmbDistrito.addItem("Seleccione");
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         ArrayList<Distrito> listDist=new ArrayList<Distrito>();
@@ -82,6 +79,12 @@ public class NuevaVia extends javax.swing.JFrame {
         jLabel21.setText("Selecciona un archivo:");
 
         jLabel1.setText("Distrito:");
+
+        cmbDistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDistritoActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("Fecha:");
 
@@ -206,33 +209,51 @@ public class NuevaVia extends javax.swing.JFrame {
                    }
                    else //si ha seleccionado si
                    {
-                      JFileChooser fc = new JFileChooser();
-                            FileNameExtensionFilter filter = new FileNameExtensionFilter("XML","xml");
-                            fc.setFileFilter(filter);
-                            int returnVal = fc.showOpenDialog(this);
-                                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                                    File sourceFile = fc.getSelectedFile();
-                                    Distrito d=DistritoController.obtenerDistrito(nombDistrito);
+                       //Distrito ya tiene vias?
+                       boolean viasCargadas = false;
+                       viasCargadas = DistritoController.verificarViasDistrito(nombDistrito);
+                       //
+                       if (viasCargadas == true)
+                            seleccion = JOptionPane.showOptionDialog(
+                            NuevaVia.this, // Componente padre
+                            "El distrito ya cuenta con vias registras. ¿Desea sobreescribir la información?", //Mensaje
+                            "Mensaje de confirmación", // Título
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,    // null para icono por defecto.
+                            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+                            "Si");
+                       if (seleccion == 0 || viasCargadas == false){
+                           //borrar toda la data
+                           if (viasCargadas == true)
+                               ViaController.eliminarVias(nombDistrito);
+                                    JFileChooser fc = new JFileChooser();
+                                          FileNameExtensionFilter filter = new FileNameExtensionFilter("XML","xml");
+                                          fc.setFileFilter(filter);
+                                          int returnVal = fc.showOpenDialog(this);
+                                              if (returnVal == JFileChooser.APPROVE_OPTION) {
+                                                  File sourceFile = fc.getSelectedFile();
+                                                  Distrito d=DistritoController.obtenerDistrito(nombDistrito);
 
-                                    try {
-                                        jProgressBar1.setVisible(true);
-                                        lblprogreso.setVisible(true);
-                                        jButton4.setEnabled(false);
-                                        jButton5.setEnabled(false);
-                                        cmbDistrito.setEnabled(false);
-                                        new Thread(new jcThread( this.jProgressBar1 , 250 ) ).start();
-                                        new Thread(new parseViasStructure(sourceFile,d,this)).start();
-                                    } catch (DocumentException ex) {
-                                        Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                                                  try {
+                                                      jProgressBar1.setVisible(true);
+                                                      lblprogreso.setVisible(true);
+                                                      jButton4.setEnabled(false);
+                                                      jButton5.setEnabled(false);
+                                                      cmbDistrito.setEnabled(false);
+                                                      new Thread(new jcThread( this.jProgressBar1 , 250 ) ).start();
+                                                      new Thread(new parseViasStructure(sourceFile,d,this)).start();
+                                                  } catch (DocumentException ex) {
+                                                      Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                                                  }
 
-                                } 
-                                else {
-                                    System.out.print("Open command cancelled by user.");
-                                }
-                     //this.dispose();
+                                              } 
+                                              else {
+                                                  System.out.print("Open command cancelled by user.");
+                                              }
+                        }
                    }
-                }        // TODO add your handling code here:
+                }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -267,6 +288,18 @@ public class NuevaVia extends javax.swing.JFrame {
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaActionPerformed
+
+    private void cmbDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDistritoActionPerformed
+        // TODO add your handling code here:
+        if (cmbDistrito.getSelectedIndex() != 0){
+        Distrito distrito = DistritoController.obtenerDistrito((String)cmbDistrito.getSelectedItem());
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
+        txtFecha.setText(sdf.format(distrito.getFecRegistro()));
+        }else{
+            txtFecha.setText("");
+        }
+        
+    }//GEN-LAST:event_cmbDistritoActionPerformed
 
     /**
      * @param args the command line arguments

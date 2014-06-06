@@ -45,6 +45,64 @@ public class ViaController {
         }
         return lista;
     }
+        
+        public static void eliminarVias(String nombDistrito){
+        
+    Session s=null;
+        ArrayList<Long> idNodos = new ArrayList<Long>();
+        try
+        {
+        s = HibernateUtil.iniciaOperacion();
+        
+        String hql= "SELECT id.idNodo FROM Tramoxnodo WHERE id.idDistrito = :id GROUP BY id.idNodo";
+            Query q = s.createQuery(hql);
+            q.setParameter("id", DistritoController.obteneridDistrito(nombDistrito));            
+            idNodos = (ArrayList<Long>)q.list();
+
+            
+            hql= "DELETE FROM Tramoxnodo WHERE id.idDistrito = :id";
+            q = s.createQuery(hql);
+            q.setParameter("id", DistritoController.obteneridDistrito(nombDistrito));            
+            q.executeUpdate();
+            
+            hql= "DELETE FROM Tramo WHERE id.idDistrito = :id";
+            q = s.createQuery(hql);
+            q.setParameter("id", DistritoController.obteneridDistrito(nombDistrito));            
+            q.executeUpdate();
+            
+            hql= "DELETE FROM Via WHERE idDistrito = :id";
+            q = s.createQuery(hql);
+            q.setParameter("id", DistritoController.obteneridDistrito(nombDistrito));            
+            q.executeUpdate();
+            
+            for (int i = 0; i < idNodos.size(); i++){
+                hql= "DELETE FROM Nodo WHERE idNodo = :id";
+                q = s.createQuery(hql);
+                long idnodo = (long)idNodos.get(i);
+                q.setParameter("id", idnodo);            
+                q.executeUpdate();
+            }
+            
+            for (int i = 0; i < idNodos.size(); i++){
+                hql= "DELETE FROM Semaforo WHERE id.idNodo = :id";
+                q = s.createQuery(hql);
+                long idnodo = (long)idNodos.get(i);
+                q.setParameter("id", idnodo);            
+                q.executeUpdate();
+            }
+            
+            HibernateUtil.cierraOperacion(s);   
+        }
+        catch (HibernateException e)
+        {
+        HibernateUtil.manejaExcepcion(s);
+        }
+        finally
+        {
+            s.close();  
+        }
+    }
+        
      public static ArrayList<Via> obtenerViasxId(int idTipo){
         
     Session s=null;
@@ -284,18 +342,22 @@ public class ViaController {
          if (tipoVia != null)
                  idTipoVia = TipoViaController.obteneridTipo(tipoVia);
          
-         Criterion idViaCriteria = (identificador == null ? Restrictions.isNotNull("id.idVia") : Restrictions.eq("id.idVia", Long.parseLong(identificador)));
-         Criterion distritoCriteria = (distrito == null ? Restrictions.isNotNull("distrito.idDistrito") : Restrictions.eq("distrito.idDistrito", idDistrito));
-         Criterion viaCriteria = (via == null ? Restrictions.isNotNull("nombre") : Restrictions.like("nombre", via));
-         Criterion tipoViaCriteria = (tipoVia == null ? Restrictions.isNotNull("tipovia.idTipoVia") : Restrictions.like("tipovia.idTipoVia", idTipoVia));
+         Criterion idViaCriteria = (identificador != null ? Restrictions.eq("id.idVia", Long.parseLong(identificador)) : null);
+         Criterion distritoCriteria = (distrito != null ? Restrictions.eq("distrito.idDistrito", idDistrito) : null);
+         Criterion viaCriteria = (via != null ? Restrictions.like("nombre", via) : null);
+         Criterion tipoViaCriteria = (tipoVia != null ? Restrictions.like("tipovia.idTipoVia", idTipoVia) : null);
+
+         if (idViaCriteria != null)
+             criteria.add(Restrictions.conjunction().add(idViaCriteria));
+         if (distritoCriteria != null)
+             criteria.add(Restrictions.conjunction().add(distritoCriteria));
+         if (viaCriteria != null)
+             criteria.add(Restrictions.conjunction().add(viaCriteria));
+         if (tipoViaCriteria != null)
+             criteria.add(Restrictions.conjunction().add(tipoViaCriteria));
          
-         
-         
-         Criterion completaCriteria = Restrictions.conjunction().add(distritoCriteria)
-                                      .add(viaCriteria)
-                                      .add(tipoViaCriteria)
-                                      .add(idViaCriteria);
-         criteria.add(completaCriteria);
+         if (idViaCriteria == null && distritoCriteria == null && viaCriteria == null && tipoViaCriteria == null)
+             return vias;
          
          vias = (ArrayList<Via>)criteria.list();
          return vias;
