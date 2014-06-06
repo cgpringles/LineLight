@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -129,6 +130,21 @@ public class parseViasStructure implements Runnable{
                         v.setNombre(nombreVia);
                     }
                 }
+             String nombre = v.getNombre();
+            
+             if (nombre == null)
+                v.setNombre(Long.toString(v.getId().getIdVia()) + Integer.toString(v.getId().getIdDistrito()));                       
+            //agregar velocidad maxima (aleatorio)
+            Random ran = new Random();
+            if (v.getTipovia()!=null){
+                if (v.getTipovia().getIdTipoVia() == 1)
+                    v.setVelocidad(ran.nextInt(10) + 30);
+                if (v.getTipovia().getIdTipoVia() == 2)
+                    v.setVelocidad(ran.nextInt(30) + 30);  
+            }else{
+                v.setVelocidad(30);
+            }
+            
             listaVias.add(v);
             for (int i=0;i<l.size()-1;i++)
             { 

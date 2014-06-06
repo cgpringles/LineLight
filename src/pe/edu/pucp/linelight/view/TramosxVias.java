@@ -167,7 +167,7 @@ public class TramosxVias extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaTramos);
 
-        jButton2.setText("Cancelar");
+        jButton2.setText("Cerrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -217,29 +217,15 @@ public class TramosxVias extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int numFila=tablaTramos.getSelectedRow();
-        if (numFila>=0){
-        
-        String nombre=txtVia.getText();
-        
-        String distrito= txtDistrito.getText();
-        int idDist=DistritoController.obteneridDistrito(distrito);
-        String tipoVia= txtTipo.getText();
-        int idTipo=TipoViaController.obteneridTipo(tipoVia);
-        long idVia=ViaController.obtenerIdVia(nombre, idTipo, idDist);
-        String tramo=(String)tablaTramos.getValueAt(numFila, 1);
-        int idTramo= Integer.parseInt(tramo.substring(6, tramo.length()));
-        String e=(String)tablaTramos.getValueAt(numFila, 0);
-        //System.out.println(idVia);
-        Boolean estado=true;
-        if (e.equals("Habilitado")){ 
-        estado=false;
-        //ViaController.cambiarEstadoTramo(estado,idVia,idDist,idTramo);
-        }
-       if (e.equals("Deshabilitado")){
-        estado=true;
-       // ViaController.cambiarEstadoTramo(estado,idVia,idDist,idTramo);
-       }
+        int [] numFila = tablaTramos.getSelectedRows();
+                        if (numFila.length != 0){
+                        String nombre = txtVia.getText();
+                        String distrito = txtDistrito.getText();
+                        int idDist = DistritoController.obteneridDistrito(distrito);
+                        String tipoVia = txtTipo.getText();
+                        int idTipo = TipoViaController.obteneridTipo(tipoVia);
+                        long idVia = ViaController.obtenerIdVia(nombre, idTipo, idDist);
+                                
           int seleccion = JOptionPane.showOptionDialog(
                     TramosxVias.this, // Componente padre
                     "¿Esta seguro que desea guardar los cambios?", //Mensaje
@@ -254,21 +240,28 @@ public class TramosxVias extends javax.swing.JFrame {
                 {
                    if(seleccion == 1)//si ha seleccionado no
                    {
-                      //TramosxVias.this.dispose();
                    }
-                   else //si ha seleccionado si
+                   else 
                    {
-                       ViaController.cambiarEstadoTramo(estado,idVia,idDist,idTramo);
-                       //Actualizar la tabla de tramos
-                       
-                       DefaultTableModel tbm1= new DefaultTableModel();
+                       for (int i = 0; i < numFila.length; i++){
+                                        String tramo =(String)tablaTramos.getValueAt(numFila[i], 1);
+                                        int idTramo = Integer.parseInt(tramo.substring(6, tramo.length()));
+                                        String e =(String)tablaTramos.getValueAt(numFila[i], 0);
+                                        //System.out.println(idVia);
+                                        Boolean estado=true;
+                                        if (e.equals("Habilitado")) estado=false;
+                                        if (e.equals("Deshabilitado")) estado=true;
+                                         ViaController.cambiarEstadoTramo(estado,idVia,idDist,idTramo);
+                                        
+                       }
+                       DefaultTableModel tbm1 = new DefaultTableModel();
                        ArrayList<Tramo> listaTramos=new ArrayList<Tramo>();
                        listaTramos=ViaController.obtenerTramosxVias(idVia, idDist);
-                       String [] titulos={"Estado","Tramo"};
+                       String [] titulos = {"Estado","Tramo"};
                        tbm1.setColumnIdentifiers(titulos);
                        tablaTramos.setModel(tbm1);    
-                       for (int i=0;i<listaTramos.size();i++){
-                        String datos[]=new String[2];
+                       for (int i=0; i < listaTramos.size(); i++){
+                        String datos[] = new String[2];
                         boolean est=listaTramos.get(i).getEstado();
                         if (est==true) datos[0]="Habilitado";
                         else{datos[0]="Deshabilitado";}

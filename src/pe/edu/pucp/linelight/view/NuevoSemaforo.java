@@ -22,6 +22,9 @@ import pe.edu.pucp.linelight.controller.DistritoController;
 import pe.edu.pucp.linelight.controller.TipoViaController;
 import pe.edu.pucp.linelight.controller.semaforoController;
 import pe.edu.pucp.linelight.controller.ViaController;
+import pe.edu.pucp.linelight.controller.jcThread;
+import pe.edu.pucp.linelight.controller.parseSemaforosStructure;
+import pe.edu.pucp.linelight.controller.parseViasStructure;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Nodo;
 import pe.edu.pucp.linelight.model.Semaforo;
@@ -42,9 +45,12 @@ public class NuevoSemaforo extends javax.swing.JFrame {
      */
     public NuevoSemaforo() {
         initComponents();
-        Date fecha=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
-        txtFecha.setText(sdf.format(fecha));
+        jProgressBar1.setVisible(false);
+        lblprogreso.setVisible(false);
+        jButton3.setEnabled(true);
+        jButton5.setEnabled(true);
+        cmbDistritoMasivo.setEnabled(true);
+        
         getContentPane().setBackground(new java.awt.Color(240, 240, 240));
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -82,6 +88,8 @@ public class NuevoSemaforo extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         cmbDistritoMasivo = new javax.swing.JComboBox();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        lblprogreso = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -146,7 +154,14 @@ public class NuevoSemaforo extends javax.swing.JFrame {
         jLabel26.setForeground(new java.awt.Color(255, 0, 0));
         jLabel26.setText("(*) Datos Obligatorios");
 
-        cmbDistritoMasivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona Distrito" }));
+        cmbDistritoMasivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
+        cmbDistritoMasivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDistritoMasivoActionPerformed(evt);
+            }
+        });
+
+        lblprogreso.setText("Registrando semáforos... ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -156,27 +171,30 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 210, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblprogreso, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jLabel23))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                    .addComponent(cmbDistritoMasivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel25)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(jLabel21)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel22)
+                                            .addComponent(jLabel23))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                            .addComponent(cmbDistritoMasivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel25)))
+                                .addGap(6, 6, 6)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(jLabel26)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -193,13 +211,17 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
-                .addComponent(jLabel26)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(67, 67, 67)
+                .addComponent(lblprogreso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel26)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Registro masivo", jPanel4);
@@ -541,12 +563,18 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                       }else{
                       
                             long nodoId = semaforoController.obtenerIdNodo(via1, via2);
+                            boolean existeSemaforo = semaforoController.verificarSemaforo(via1, via2);
+                            
                             //depende lo que devuelve verificamos o no si existe interseccion....
-                            if (nodoId == 0){
+                            if (nodoId == 0  || existeSemaforo == true){
+                                String mensaje = "";
+                                if (nodoId == 0)
+                                    mensaje = "Los datos brindados de vías no coinciden con una intersección";
+                                else
+                                    mensaje = "Ya existe un semaforo en la ubicación señalada";
                                     seleccion = JOptionPane.showOptionDialog(
-                                    NuevoSemaforo.this, 
-                                    "Los datos brindados de vías no coinciden con una intersección", 
-                                    "Mensaje de sugerencia",
+                                    NuevoSemaforo.this, mensaje,
+                                    "Mensaje de error",
                                     JOptionPane.OK_OPTION,
                                     JOptionPane.OK_OPTION,
                                     null,
@@ -569,16 +597,18 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                   nuevoSemaforo1.setVia1(via2);
                                   nuevoSemaforo1.setVia2(via1);
                                   nuevoSemaforo1.setDistrito(distrito);
-
-                                  int semaforoId = semaforoController.obtenerIdSemaforo();
+                                  
+                                  String idSem1 = Long.toString(nodoId).substring(5) + "1";
+                                  String idSem2 = Long.toString(nodoId).substring(5) + "2";
+                                  
                                   //El id del semaforo
                                   SemaforoId idSemaforo = new SemaforoId();
-                                  idSemaforo.setIdSemaforo(semaforoId);
+                                  idSemaforo.setIdSemaforo(Integer.parseInt(idSem1));
                                   idSemaforo.setIdNodo(nodoId);
                                   nuevoSemaforo.setId(idSemaforo);
 
                                   SemaforoId idSemaforo1 = new SemaforoId();
-                                  idSemaforo1.setIdSemaforo(semaforoId + 1);
+                                  idSemaforo1.setIdSemaforo(Integer.parseInt(idSem2));
                                   idSemaforo1.setIdNodo(nodoId);
                                   nuevoSemaforo1.setId(idSemaforo1);
 
@@ -650,35 +680,59 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                     new Object[] { "Aceptar"},    
                                     "Aceptar");
                        }else{
-                           int numSemCargados = 0;
-                           JFileChooser fc = new JFileChooser();
-                            FileNameExtensionFilter filter = new FileNameExtensionFilter("XML","xml");
-                            fc.setFileFilter(filter);
-                            int returnVal = fc.showOpenDialog(this);
-                                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                                    File sourceFile = fc.getSelectedFile();
-                                    Distrito d=DistritoController.obtenerDistrito((String)cmbDistritoMasivo.getSelectedItem());
-                                    
-                                    try {
-                                        numSemCargados = semaforoController.parseSemaforos(sourceFile, d);
-                                    } catch (DocumentException ex) {
-                                        Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                           boolean semaforosCargados = false;
+                           semaforosCargados = semaforoController.verificarSemaforoDistrito((String)cmbDistritoMasivo.getSelectedItem());
+                       //
+                       if (semaforosCargados == true)
+                            seleccion = JOptionPane.showOptionDialog(
+                            NuevoSemaforo.this, // Componente padre
+                            "El distrito ya cuenta con semaforos registros. ¿Desea sobreescribir la información?", //Mensaje
+                            "Mensaje de confirmación", // Título
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,    // null para icono por defecto.
+                            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+                            "Si");
+                              if (seleccion == 0 || semaforosCargados == false){
+                                  if (semaforosCargados == true)
+                                        semaforoController.eliminarSemaforos((String)cmbDistritoMasivo.getSelectedItem());
+                                  int numSemCargados = 0;
+                                    JFileChooser fc = new JFileChooser();
+                                     FileNameExtensionFilter filter = new FileNameExtensionFilter("XML","xml");
+                                     fc.setFileFilter(filter);
+                                     int returnVal = fc.showOpenDialog(this);
+                                         if (returnVal == JFileChooser.APPROVE_OPTION) {
+                                             File sourceFile = fc.getSelectedFile();
+                                             Distrito d=DistritoController.obtenerDistrito((String)cmbDistritoMasivo.getSelectedItem());
 
-                                } 
-                                else {
-                                    System.out.print("Open command cancelled by user.");
-                                }
-                       
-                       
-                      //tengo que pasarle el distrito o el id y contar cuantas filas he cargado
-                            SemaforosCargados semCar = new SemaforosCargados(numSemCargados);                          
-                            semCar.setVisible(true);
-                            this.dispose();
+                                             try {
+                                                 jProgressBar1.setVisible(true);
+                                                 lblprogreso.setVisible(true);
+                                                 jButton3.setEnabled(false);
+                                                 jButton5.setEnabled(false);
+                                                 cmbDistritoMasivo.setEnabled(false);
+                                                 new Thread(new jcThread(this.jProgressBar1 , 50) ).start();
+                                                 new Thread(new parseSemaforosStructure(sourceFile,d,this)).start();
+                                                 
+                                                 //numSemCargados = semaforoController.parseSemaforos(sourceFile, d);
+                                             } catch (DocumentException ex) {
+                                                 Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                                             }
+
+                                         } 
+                                         else {
+                                             System.out.print("Open command cancelled by user.");
+                                         }
+                                             //tengo que pasarle el distrito o el id y contar cuantas filas he cargado
+                                    //SemaforosCargados semCar = new SemaforosCargados(numSemCargados);                          
+                                    //semCar.setVisible(true);
+//                                    this.dispose();
+                              }
+                           }
+                                    
+                           }
+
                        }
-                   }
-                }
-        
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -837,6 +891,18 @@ public class NuevoSemaforo extends javax.swing.JFrame {
         ValidationUtil.validateNumTam(txtTiempoVerde.getText(), 3, evt);
     }//GEN-LAST:event_txtTiempoVerdeKeyTyped
 
+    private void cmbDistritoMasivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDistritoMasivoActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        if (cmbDistritoMasivo.getSelectedIndex() != 0){
+        Distrito distrito = DistritoController.obtenerDistrito((String)cmbDistritoMasivo.getSelectedItem());
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
+        txtFecha.setText(sdf.format(distrito.getFecRegistro()));
+        }else{
+            txtFecha.setText("");
+        }
+    }//GEN-LAST:event_cmbDistritoMasivoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -908,8 +974,10 @@ public class NuevoSemaforo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JLabel lblprogreso;
     private javax.swing.JTextPane txtDescripcion;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtTiempoRojo;
