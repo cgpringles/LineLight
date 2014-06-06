@@ -8,7 +8,6 @@ package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.JOptionPane;
 import pe.edu.pucp.linelight.controller.TipoViaController;
 import pe.edu.pucp.linelight.controller.semaforoController;
@@ -19,19 +18,19 @@ import pe.edu.pucp.linelight.util.ValidationUtil;
  *
  * @author USER
  */
-public class editarSemáforo extends javax.swing.JFrame {
+public class editarSemaforo extends javax.swing.JFrame {
 
     /**
      * Creates new form nuevoSemáforo
      */
-    public editarSemáforo() {
+    public editarSemaforo() {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(240, 240, 240));
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
 
-    public editarSemáforo(String idSemaforo, String nombreDistrito, String via1, String via2, 
+    public editarSemaforo(String idSemaforo, String nombreDistrito, String via1, String via2, 
             String tiempoVerde, String tiempoRojo, String estado){
             initComponents();
             getContentPane().setBackground(new java.awt.Color(240, 240, 240));
@@ -365,7 +364,7 @@ public class editarSemáforo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int seleccion = JOptionPane.showOptionDialog(
-                    editarSemáforo.this, // Componente padre
+                    editarSemaforo.this, // Componente padre
                     "¿Esta seguro que desea guardar los cambios?", //Mensaje
                     "Mensaje de confirmación", // Título
                     JOptionPane.YES_NO_OPTION,
@@ -382,7 +381,7 @@ public class editarSemáforo extends javax.swing.JFrame {
                         String tiempoRojo = txtTiempoRojo.getText();
                         if (tiempoVerde.isEmpty() || tiempoRojo.isEmpty()){
                             seleccion = JOptionPane.showOptionDialog(
-                                    editarSemáforo.this, 
+                                    editarSemaforo.this, 
                                     "Complete los campos obligatorios", 
                                     "Mensaje de error",
                                     JOptionPane.OK_OPTION,
@@ -396,12 +395,8 @@ public class editarSemáforo extends javax.swing.JFrame {
                         semaforo.setTrojo(Integer.parseInt(txtTiempoRojo.getText()));
                         semaforo.setTverde(Integer.parseInt(txtTiempoVerde.getText()));
                         semaforo.setEstado(cmbEstado.getSelectedIndex() == 0 ? true : false);
-                        
-                        Semaforo semaforoHermano = semaforoController.obtenerHermano(semaforo);
-                        semaforoHermano.setTrojo(Integer.parseInt(txtTiempoVerde.getText()));
-                        semaforoHermano.setTverde(Integer.parseInt(txtTiempoRojo.getText()));
+
                         semaforoController.actualizarSemaforo(semaforo);
-                        semaforoController.actualizarSemaforo(semaforoHermano);
                         this.dispose();
                         }
                         }
@@ -424,7 +419,7 @@ public class editarSemáforo extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         int seleccion = JOptionPane.showOptionDialog(
-                    editarSemáforo.this, // Componente padre
+                    editarSemaforo.this, // Componente padre
                     "¿Esta seguro que desea salir sin guardar los cambios?", //Mensaje
                     "Mensaje de confirmación", // Título
                     JOptionPane.YES_NO_OPTION,
@@ -437,7 +432,7 @@ public class editarSemáforo extends javax.swing.JFrame {
                 {
                    if(seleccion == 0)
                    {
-                      editarSemáforo.this.dispose();
+                      editarSemaforo.this.dispose();
                    }
                    else
                    {
@@ -473,20 +468,20 @@ public class editarSemáforo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(editarSemáforo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(editarSemaforo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(editarSemáforo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(editarSemaforo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(editarSemáforo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(editarSemaforo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(editarSemáforo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(editarSemaforo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new editarSemáforo().setVisible(true);
+                new editarSemaforo().setVisible(true);
             }
         });
     }

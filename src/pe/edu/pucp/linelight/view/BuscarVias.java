@@ -60,30 +60,7 @@ public class BuscarVias extends javax.swing.JPanel {
         cmbVia.addItem(listVias.get(i).getNombre());
         }
         
-        /*
-        String [] titulos={"Distrito","Tipo de Via","Nombre","Veloc.Máxima","Descripción"};
-        tbm.setColumnIdentifiers(titulos);
-        tablaVia.setModel(tbm);
         
-        
-        for (int i=0;i<listVias.size();i++){
-        String datos[]=new String[5];
-        String dist;
-        String tipo;
-        String distrito;
-        int veloc;
-        tipo=TipoViaController.obtenernombTipo(listVias.get(i).getTipovia().getIdTipoVia());
-        veloc=TipoViaController.obtenerVeloc(listVias.get(i).getTipovia().getIdTipoVia());
-        distrito=DistritoController.obtenerNombDistrito(((Via)(listVias.get(i))).getDistrito().getIdDistrito());
-        datos[0]=distrito;
-        datos[1]=tipo;
-        datos[2]=listVias.get(i).getNombre();
-        datos[3]=Integer.toString(veloc);
-        datos[4]=listVias.get(i).getDescripcion();;
-        tbm.addRow(datos);
-        }
-        tablaVia.setModel(tbm);
-//       */
     }
 
     /**
@@ -290,14 +267,15 @@ public class BuscarVias extends javax.swing.JPanel {
         String [] titulos={"Distrito","Tipo de Via","Nombre","Veloc.Máxima","Descripción"};
         tbm.setColumnIdentifiers(titulos);
         tablaVia.setModel(tbm);
-        
-        
         for (int i=0;i<viaCriteria.size();i++){
         String datos[]=new String[5];
         String tipo;
         int veloc;
-        tipo=TipoViaController.obtenernombTipo(viaCriteria.get(i).getTipovia().getIdTipoVia());
-        veloc=TipoViaController.obtenerVeloc(viaCriteria.get(i).getTipovia().getIdTipoVia());
+        if(viaCriteria.get(i).getTipovia() != null)
+            tipo=TipoViaController.obtenernombTipo(viaCriteria.get(i).getTipovia().getIdTipoVia());
+        else
+            tipo = "Via no clasificada";
+        veloc=(viaCriteria.get(i).getVelocidad());
         distrito=DistritoController.obtenerNombDistrito(((Via)(viaCriteria.get(i))).getDistrito().getIdDistrito());
         datos[0]=distrito;
         datos[1]=tipo;
@@ -307,8 +285,6 @@ public class BuscarVias extends javax.swing.JPanel {
         tbm.addRow(datos);
         }
         tablaVia.setModel(tbm);
-        
-        
     }//GEN-LAST:event_buscar_usuario_buttonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
