@@ -157,10 +157,19 @@ public class WindowLogin extends javax.swing.JFrame {
             if (menu.getIdMenu()==5)rep=1;
         }
         
+        
+        if(usuario.getPrimerAcceso()==1){//es el primer acceso, pide cambiar clave
+            WindowPrimerAcceso wpm= new WindowPrimerAcceso();
+            wpm.setVisible(true);
+            this.setVisible(false);
+        
+        }else{
             WindowPrincipal wm = new WindowPrincipal();
-//            wm.setMenus(seg, mant, conf, opt);
             wm.setVisible(true);
             this.setVisible(false);
+        }
+        
+            
         }
 
         else
@@ -174,6 +183,7 @@ public class WindowLogin extends javax.swing.JFrame {
         }
     }
 
+    
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         login();
         
