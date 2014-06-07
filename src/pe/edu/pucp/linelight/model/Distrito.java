@@ -85,6 +85,18 @@ public class Distrito  implements java.io.Serializable {
     public void setZonas(Set zonas) {
         this.zonas = zonas;
     }
+    public Zona getZona(int i) {
+        for (Object z:this.getZonas())
+        {
+            //Validamos que sea zona 0 = mapa general
+            if (((Zona)z).getId().getIdZona()==i)
+            {
+                return (Zona)z;
+            }
+        }
+        return null;
+    }
+
 
 
 

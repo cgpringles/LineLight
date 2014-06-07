@@ -109,4 +109,11 @@ public class MapaController {
         }
         
     }
+    
+    public static void eliminarMapa(Distrito distrito){
+        for (Object zona : distrito.getZonas()) {
+            ZonaController.eliminarZona((Zona)zona);
+        }
+        DistritoController.eliminarDistrito(distrito);
+    }
 }
