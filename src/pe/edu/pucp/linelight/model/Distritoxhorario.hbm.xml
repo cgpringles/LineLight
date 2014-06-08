@@ -18,8 +18,8 @@
         <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">
             <column name="idDistrito" not-null="true" />
         </many-to-one>
-        <property name="numCarros" type="string">
-            <column name="numCarros" length="45" />
+        <property name="numCarros" type="int">
+            <column name="numCarros"  />
         </property>
     </class>
 </hibernate-mapping>

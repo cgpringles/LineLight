@@ -12,7 +12,7 @@ public class Distritoxhorario  implements java.io.Serializable {
      private DistritoxhorarioId id;
      private Horario horario;
      private Distrito distrito;
-     private String numCarros;
+     private int numCarros;
 
     public Distritoxhorario() {
     }
@@ -23,7 +23,7 @@ public class Distritoxhorario  implements java.io.Serializable {
         this.horario = horario;
         this.distrito = distrito;
     }
-    public Distritoxhorario(DistritoxhorarioId id, Horario horario, Distrito distrito, String numCarros) {
+    public Distritoxhorario(DistritoxhorarioId id, Horario horario, Distrito distrito, int numCarros) {
        this.id = id;
        this.horario = horario;
        this.distrito = distrito;
@@ -51,11 +51,11 @@ public class Distritoxhorario  implements java.io.Serializable {
     public void setDistrito(Distrito distrito) {
         this.distrito = distrito;
     }
-    public String getNumCarros() {
+    public int getNumCarros() {
         return this.numCarros;
     }
     
-    public void setNumCarros(String numCarros) {
+    public void setNumCarros(int numCarros) {
         this.numCarros = numCarros;
     }
 
