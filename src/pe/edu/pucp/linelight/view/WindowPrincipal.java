@@ -79,6 +79,9 @@ public class WindowPrincipal extends javax.swing.JFrame {
         sesion_menu = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -133,7 +136,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
         menu_principal.add(seguridad_menu);
 
         mantenimiento_menu.setBackground(new java.awt.Color(204, 204, 204));
-        mantenimiento_menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/semaforo.png"))); // NOI18N
+        mantenimiento_menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mapa.PNG"))); // NOI18N
         mantenimiento_menu.setText("Mantenimiento");
 
         jMenuItem3.setText("Semáforos");
@@ -190,7 +193,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
         menu_principal.add(config_menu);
 
         optim_menu.setBackground(new java.awt.Color(204, 204, 204));
-        optim_menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/simulacion.png"))); // NOI18N
+        optim_menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rendimiento.png"))); // NOI18N
         optim_menu.setText("Optimización");
         optim_menu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -225,6 +228,23 @@ public class WindowPrincipal extends javax.swing.JFrame {
         sesion_menu.add(jMenuItem7);
 
         menu_principal.add(sesion_menu);
+
+        jMenu2.setBackground(new java.awt.Color(204, 204, 204));
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reportes.png"))); // NOI18N
+        jMenu2.setText("Reportes");
+
+        jMenuItem9.setText("Vías");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem9);
+
+        jMenuItem10.setText("Seguridad");
+        jMenu2.add(jMenuItem10);
+
+        menu_principal.add(jMenu2);
 
         setJMenuBar(menu_principal);
 
@@ -316,6 +336,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
     private void optim_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optim_menuMouseClicked
         // TODO add your handling code here:
         this.setSize(bigsize);
+        this.setTitle("Optimización");
         panel_principal.setSize(bigsize.width, bigsize.height-75);
         panel_principal.revalidate();
         PanelSimulacionMonitoreo panelSimulacionMonitoreo = new PanelSimulacionMonitoreo();
@@ -396,6 +417,10 @@ public class WindowPrincipal extends javax.swing.JFrame {
         panel_principal.setVisible(true);       
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -436,7 +461,9 @@ public class WindowPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -444,6 +471,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu mantenimiento_menu;
     private javax.swing.JMenuBar menu_principal;
     private javax.swing.JMenu optim_menu;
