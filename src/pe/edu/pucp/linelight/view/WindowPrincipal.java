@@ -242,6 +242,11 @@ public class WindowPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem9);
 
         jMenuItem10.setText("Seguridad");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem10);
 
         menu_principal.add(jMenu2);
@@ -418,8 +423,23 @@ public class WindowPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
+        this.setSize(smallsize);
+        this.setTitle("Reportes - Seguridad");
+        panel_principal.setSize(smallsize.width,647);    
+        SeguridadReportes panel_config= new SeguridadReportes();
+        panel_config.setSize(panel_principal.getSize());
+        panel_principal.removeAll();
+        panel_principal.add(panel_config);
+        panel_principal.revalidate();
+        panel_config.revalidate();
+         panel_principal.repaint();
+        panel_config.repaint();
+        panel_principal.setVisible(true);    
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
      * @param args the command line arguments

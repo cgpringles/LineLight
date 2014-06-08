@@ -35,6 +35,30 @@ public class UsuarioController {
         }
 
     }
+    
+    
+    public static List<Usuario> getAllUsuarios() throws HibernateException {
+        List<Usuario> listaUsuarios = null;
+        Session s = null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+            Query query=null;
+            
+                query = s.createQuery("FROM Usuario u");
+
+            
+            
+            listaUsuarios = query.list();
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return listaUsuarios;
+    }
 
     public static void editarUsuario(Usuario usuario) {
         Session s = null;
