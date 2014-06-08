@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
 import pe.edu.pucp.linelight.controller.DistritoController;
+import pe.edu.pucp.linelight.controller.MapaController;
 import pe.edu.pucp.linelight.controller.UsuarioController;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Perfil;
@@ -220,6 +221,10 @@ public class buscarMapa extends javax.swing.JPanel {
 
     private void buscarMapaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarMapaButtonActionPerformed
         // TODO add your handling code here:
+        buscar();
+    }//GEN-LAST:event_buscarMapaButtonActionPerformed
+
+    private void buscar(){
         List<Distrito> distritos_b = new ArrayList<>();
         distritos_b = DistritoController.getDistritos(nombreTextField.getText());
         DefaultTableModel modelo=new DefaultTableModel();
@@ -244,8 +249,9 @@ public class buscarMapa extends javax.swing.JPanel {
         }
         jTable1.setModel(modelo);
         jTable1.repaint();
-    }//GEN-LAST:event_buscarMapaButtonActionPerformed
-
+    }
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         NuevoMapa nuevo= new NuevoMapa();
         nuevo.setVisible(true);
@@ -266,8 +272,12 @@ public class buscarMapa extends javax.swing.JPanel {
         {
             if(seleccion == 0)
             {
+                
+                int idDistrito=(int)jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
+                Distrito d = DistritoController.obtenerDistritoById(idDistrito);
+                MapaController.eliminarMapa(d);
                 JOptionPane.showMessageDialog(buscarMapa.this, "Item borrado","Acción",INFORMATION_MESSAGE,null);
-
+                buscar();
             }
             else
             {

@@ -280,5 +280,23 @@ public class DistritoController {
         return d;
     }
   
+    public static void eliminarDistrito(Distrito distrito){
+        Session s=null;
+        try
+        {
+            s=HibernateUtil.iniciaOperacion();
+            s.delete(distrito);
+            HibernateUtil.cierraOperacion(s);
+            
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+    }
     
 }

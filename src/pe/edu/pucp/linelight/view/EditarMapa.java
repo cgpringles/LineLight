@@ -38,7 +38,8 @@ public class EditarMapa extends javax.swing.JFrame {
         
         nombreTextField.setText(distrito.getNombre());
         activoCheckBox.setSelected(distrito.getActivo()[0]!=0);
-        Zona zona0 = (Zona) distrito.getZonas().toArray()[0];
+        
+        Zona zona0 = distrito.getZona(0);
         Image img = Toolkit.getDefaultToolkit().createImage(zona0.getImagen());
         Image simg = img.getScaledInstance(435, 240, Image.SCALE_SMOOTH);
         ImageIcon icon =new ImageIcon(simg);
