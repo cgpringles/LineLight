@@ -87,13 +87,12 @@ public class EjecucionAlgoritmoController {
     
     public static void migrarVehiculos(int numVehiculos, List<Object> listaV){
         
-//        vehiculosRobot = listaV;
-//        
-//        GA.trafico = new Trafico(numVehiculos,false); // true vehiculos aleatorio, false vehiculos ya generados
-//        GA.trafico.imprimirTrafico();
-//        GA.trafico.exportarSerializableTrafico();
-//        GA.trafico.exportarTextoTrafico();
-//        GA.trafico.imprimirTrafico();
+        vehiculosRobot = listaV;
+        
+        GA.trafico = new Trafico(numVehiculos,false); // true vehiculos aleatorio, false vehiculos ya generados        
+        GA.trafico.exportarSerializableTrafico();
+        GA.trafico.exportarTextoTrafico();
+        GA.trafico.imprimirTrafico();
                 
 //        GA.trafico = new Trafico(2000,true);
 //        GA.trafico.imprimirTrafico();
@@ -101,9 +100,9 @@ public class EjecucionAlgoritmoController {
 //        GA.trafico.exportarSerializableTrafico();
 //        GA.trafico.exportarTextoTrafico();
      
-        GA.trafico = new Trafico(numVehiculos);
-        GA.trafico.importarSerializableTrafico();
-        GA.trafico.imprimirTrafico();                
+//        GA.trafico = new Trafico(numVehiculos);
+//        GA.trafico.importarSerializableTrafico();
+//        GA.trafico.imprimirTrafico();                
     }
     
 }

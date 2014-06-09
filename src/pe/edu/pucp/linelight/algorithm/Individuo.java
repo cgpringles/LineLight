@@ -212,7 +212,7 @@ public class Individuo
 //            ruta.setPosIniY(-1);
 //            ruta.setPosFinX(-1);
 //            ruta.setPosFinY(-1);
-            ruta.setLastdecision(-1);
+//            ruta.setLastdecision(-1);
         }
 
         velocidadPromedio = velocidadPromedio/vehiculos.length;
@@ -274,8 +274,8 @@ public class Individuo
         /**/
         int distante_next;
         
-        int res1 = actualPosX - next_x;
-        int res2 = actualPosY - next_y;
+        long res1 = actualPosX - next_x;
+        long res2 = actualPosY - next_y;
         distante_next = ((int) (Math.sqrt ((Math.pow(res1, 2) + Math.pow(res2, 2)))))/100 + 1;
         /**/        
         

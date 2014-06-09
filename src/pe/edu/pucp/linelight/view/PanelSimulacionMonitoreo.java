@@ -507,10 +507,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         int numVehiculos=3;
-//        Usuario user = GeneralUtil.getUsuario_sesion();
-//        gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
-//        List<Object> vehiculos = gr.getListaVehiculosRuta();
-//        
+        Usuario user = GeneralUtil.getUsuario_sesion();
+        gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
+        List<Object> vehiculos = gr.getListaVehiculosRuta();
+        
 //        /*Impresion de vehiculos generado, para comprobar posiciones de Ruta correcta*/
 //        System.out.println("Numero de Vehiculos: " + vehiculos.size());
 //        for(int i=0; i<vehiculos.size(); i++) {
@@ -522,33 +522,11 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 //            }
 //        }
         
-        EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , null);
+        EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
         EjecucionAlgoritmoController.iniciarSimulacion();
-//        
-//        this.jTextField3.setText("" + GA.velocidad);
-//        this.jTextField4.setText("" + GA.tiempoEjecucion); 
         
-//          /*Data Original del Trafico*/
-//        GA.trafico = new Trafico(2000,true);
-//        GA.trafico.imprimirTrafico();
-//        /*Exportar Datos generados en un archivo*/        
-//        GA.trafico.exportarSerializableTrafico();
-//        GA.trafico.exportarTextoTrafico();
-//     
-//        GA.trafico = new Trafico(2000);
-//        GA.trafico.importarSerializableTrafico();
-//        GA.trafico.imprimirTrafico();
-               
-//        Paramalgoritmo paramAlgoritmo = ParamAlgoritmoController.getParamAlgoritmoById(1); // podemos usar siempre el primero        
-
-//        int tpi = paramAlgoritmo.getTamPoblacionInicial();
-//        int tmp = paramAlgoritmo.getMaxTamPoblacion();
-//        int msc = paramAlgoritmo.getMaxCicloSinCambiar();        
-//        double tc = paramAlgoritmo.getTasaCasamiento();
-//        double tm = paramAlgoritmo.getTasaMutacion();
-//        
-//        GA.trafico.ejecutarAlgoritmo(tpi, tmp, msc, tc, tm); // valores que jala (10, 10, 50, 0.85, 0.1)
-        
+        this.jTextField3.setText("" + GA.velocidad);
+        this.jTextField4.setText("" + GA.tiempoEjecucion);         
                
     }//GEN-LAST:event_iniciarSimulacionButtonActionPerformed
 
