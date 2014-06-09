@@ -33,17 +33,17 @@ public class Poblacion
             //utilizado para la poblacion inicial
             for (int i = 0; i < tamPoblacion; i++)
             {   
-                int auxFitness=0;
-//                System.out.println("Individuo "+i);             
+                int auxFitness;
+                System.out.println("Individuo "+i);             
                 Individuo newIndividual = new Individuo(i,true); //se coloca un indice a cada individuo para colocar los tiempos por defecto como un individuo inicial, individuo id=0                
                 individuos[i] = newIndividual;
                 auxFitness = newIndividual.getFitness(); // al momento de crearse los individuos aleatoriamente, se irá acmulando la totalFitness total
-//                System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
-//                System.out.println("Velocidad Promedio de Individuo "+i+": "+ newIndividual.getVelocidadPromedio());
+                System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
+                System.out.println("Velocidad Promedio de Individuo "+i+": "+ newIndividual.getVelocidadPromedio());
                 totalFitness += auxFitness;
-//                newIndividual.imprimirAllGen();
+                newIndividual.imprimirAllGen();
             }
-        }        
+        }
     }
 
     public Individuo getIndividual(int index) 

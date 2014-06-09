@@ -22,6 +22,7 @@ public class Ruta implements Serializable
     /*Atributos*/
     private ArrayList<Integer> posX = new ArrayList<>();
     private ArrayList<Integer> posY = new ArrayList<>();
+    private ArrayList<Long> idNodoRuta = new ArrayList<>();
     
     private int posIniX = -1;
     private int posIniY = -1;
@@ -53,6 +54,11 @@ public class Ruta implements Serializable
         return new int[]{posX.get(actualPosRoute+1),posY.get(actualPosRoute+1)};
     }
     
+    public long getNextIdNodo()
+    {        
+        return idNodoRuta.get(actualPosRoute+1);
+    }
+    
     private void generarRandomRoute()
     {
         reset();
@@ -71,10 +77,11 @@ public class Ruta implements Serializable
         reset();
         agregarGeneradaPosIni(id);
         int lengthRoute = ((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(id))).size(); // sacar el tamaño de la lista de ruta para el vehiculo "id"
-        int j=0;
-        while(lengthRoute-- >= 0)
-        {
+        int j=0;        
+        while(lengthRoute-- > 0)
+        {            
             addNextGeneradaRoute(id,j);
+            j++;
         }       
         agregarGeneradaPosFin(id);
     }
@@ -98,8 +105,8 @@ public class Ruta implements Serializable
     private void agregarGeneradaPosIni(int i)
     {
         // se accede al get(0) debido a que ahi se ecnontrara la posicion inicial
-        int posIniX = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).get(0).getLongitud());
-        int posIniY = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).get(0).getLatitud());
+        int posIniX = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).get(0).getLongitud()*Config.factorPos);
+        int posIniY = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).get(0).getLatitud()*Config.factorPos);
         
         setPosIniX(posIniX);
         setPosIniY(posIniY);
@@ -155,8 +162,8 @@ public class Ruta implements Serializable
     {
         int j = ((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).size() - 1;
          
-        int newPosX = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).get(j).getLongitud());
-        int newPosY = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).get(j).getLatitud());
+        int newPosX = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).get(j).getLongitud()*Config.factorPos);
+        int newPosY = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(i))).get(j).getLatitud()*Config.factorPos);
         
         setPosFinX(newPosX);
         setPosFinY(newPosY);
@@ -276,11 +283,12 @@ public class Ruta implements Serializable
     private void addNextGeneradaRoute(int id, int j)
     {       
         
-        int newPosX = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(id))).get(j).getLongitud());
-        int newPosY = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(id))).get(j).getLatitud());       
+        int newPosX = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(id))).get(j).getLongitud()*Config.factorPos);
+        int newPosY = (int) (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(id))).get(j).getLatitud()*Config.factorPos);
         int decision  = new Random().nextInt(4); // probaremos la descicion tomada
-                
-        addGeneradaRoute(newPosX, newPosY);
+        long idNodo = (((List<Node>)(EjecucionAlgoritmoController.vehiculosRobot.get(id))).get(j).getId());
+        
+        addGeneradaRoute(newPosX, newPosY, idNodo);
         setLastdecision(decision);
     }    
     
@@ -293,10 +301,11 @@ public class Ruta implements Serializable
         }
     }
 
-    public void addGeneradaRoute(int newPosX, int newPosY)
+    public void addGeneradaRoute(int newPosX, int newPosY, long idNodo)
     {
         getPosX().add(newPosX); // el get() entrega la lista de posiciones X del vehiculo
         getPosY().add(newPosY); // el get() entrega la lista de posiciones Y del vehiculo
+        getIdNodoRuta().add(idNodo);
     }
     
     
@@ -388,5 +397,13 @@ public class Ruta implements Serializable
     public void setLastdecision(int lastdecision) 
     {
         this.lastdecision = lastdecision;
+    }
+
+    public ArrayList<Long> getIdNodoRuta() {
+        return idNodoRuta;
+    }
+
+    public void setIdNodoRuta(ArrayList<Long> idNodoRuta) {
+        this.idNodoRuta = idNodoRuta;
     }
 }

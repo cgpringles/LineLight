@@ -122,12 +122,13 @@ public class Trafico implements Serializable
     {
         ArrayList<Integer> listaX = value.getPosX();
         ArrayList<Integer> listaY = value.getPosY();
+        ArrayList<Long> listaNodo = value.getIdNodoRuta();
         System.out.print("  Ruta: [");
         for (int i=0; i<listaX.size() && i<listaY.size(); i++)
         {                
-            System.out.print("("+listaX.get(i)+","+listaY.get(i)+") ");            
+            System.out.print("("+listaX.get(i)+","+listaY.get(i)+","+ listaNodo.get(i) +") ");            
         }
-        System.out.println(" ]");
+        System.out.println("]");
     }
     
     public void exportarSerializableTrafico()
@@ -157,22 +158,20 @@ public class Trafico implements Serializable
             /*Escribir los datos de cada vehículo: placa, velocidad, punto inicio, punto final, punto actual, ruta*/
             for (int i=0; i<GA.trafico.vehiculos.length; i++)
             {
-                pw.print(GA.trafico.vehiculos[i].getPlaca() + " " +
-                        GA.trafico.vehiculos[i].getVelocidad() + " " +
-                        GA.trafico.vehiculos[i].getRoute().getPosIniX() + " " + 
-                        GA.trafico.vehiculos[i].getRoute().getPosIniY() + " " +
-                        GA.trafico.vehiculos[i].getRoute().getPosFinX()+ " " + 
-                        GA.trafico.vehiculos[i].getRoute().getPosFinY() + " " +
-                        GA.trafico.vehiculos[i].getRoute().getActualPosX()+ " " + 
-                        GA.trafico.vehiculos[i].getRoute().getActualPosY() + "   " );
-                               
+                pw.print("Placa: " + GA.trafico.vehiculos[i].getPlaca() +
+                        "  Velocidad: " + GA.trafico.vehiculos[i].getVelocidad() + " " +
+                        "  P.Inicio (" + GA.trafico.vehiculos[i].getRoute().getPosIniX() + "," +  GA.trafico.vehiculos[i].getRoute().getPosIniY() + ")" +
+                        "  P.Fin (" + GA.trafico.vehiculos[i].getRoute().getPosFinX()+ "," + GA.trafico.vehiculos[i].getRoute().getPosFinY() + ")" +
+                        "  P.Actual (" + GA.trafico.vehiculos[i].getRoute().getActualPosX() + "," + GA.trafico.vehiculos[i].getRoute().getActualPosY() + ")" );
+                
+                pw.print("  Ruta: [");                               
                 for (int j=0; j<GA.trafico.vehiculos[i].getRoute().getPosX().size() && 
                         j<GA.trafico.vehiculos[i].getRoute().getPosY().size(); j++)
                 {                
-                    pw.print(GA.trafico.vehiculos[i].getRoute().getPosX().get(j) + " " + 
-                            GA.trafico.vehiculos[i].getRoute().getPosY().get(j) + " "); 
+                    pw.print("(" + GA.trafico.vehiculos[i].getRoute().getPosX().get(j) +","+ 
+                            GA.trafico.vehiculos[i].getRoute().getPosY().get(j) + ") "); 
                 }
-                pw.println();
+                pw.println(" ]");
             }
             
         } catch (Exception e) {
