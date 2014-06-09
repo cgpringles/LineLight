@@ -127,12 +127,6 @@ public class Carro{
             { 
 //                System.out.println("D: "+cuadra.getFlujoActual());
                 cuadra.disminuirFlujoActual();
-                if (cuadra.getFlujoActual()<0)
-                {
-                    System.out.println("?");
-                    
-                    
-                }
                 status=cambiarCuadra(cuadra.getEndNode().getListaCuadras());
             }
     }

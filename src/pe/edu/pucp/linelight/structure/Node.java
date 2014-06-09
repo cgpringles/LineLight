@@ -65,7 +65,20 @@ public class Node{
     
     public void agregarListaCuadra(Edge e)
     {
-        listaCuadras.add(e);
+//        if (!existeCuadra(e))
+            listaCuadras.add(e);
+    }
+    
+    public boolean existeCuadra(Edge e)
+    {
+        for (Edge c:listaCuadras )
+        {
+            System.out.println(c.getId()+"-"+e.getId());
+            if (c.getId()==e.getId())
+                return true;
+        }
+        
+        return false;
     }
 
     /**
