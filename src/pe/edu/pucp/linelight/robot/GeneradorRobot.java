@@ -183,11 +183,11 @@ public class GeneradorRobot extends Thread{
             }
             else
             {
-                System.out.println("Fin ruta...");
+                //System.out.println("Fin ruta...");
                 break;
             }
         }
-        System.out.println("Cant generado: "+cantGenerado);
+        //System.out.println("Cant generado: "+cantGenerado);
         return listaNodosRuta;
     }
     

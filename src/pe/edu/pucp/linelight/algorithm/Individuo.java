@@ -88,23 +88,18 @@ public class Individuo
     }
     
     private void establecerIdNodos()
-    {
-        
-        Vehiculo [] vehiculos = GA.trafico.getVehiculos();
+    {               
+        Vehiculo [] vehiculos = GA.trafico.getVehiculos();        
         
         int j=0;
-        for (int i=0; i<idNodoSemaforo.length  ;){
+        for (int i=0; i<idNodoSemaforo.length; ){
             Ruta ruta = vehiculos[j].getRoute();
             for (int k=0; k< ruta.getIdNodoRuta().size(); k++) {
                 idNodoSemaforo[i] = ruta.getIdNodoRuta().get(k);
                 i++;
             }
-            j++;             
+            j++;
         }
-        
-//        for (int i=0; i<idNodoSemaforo.length  ; i++){
-//            System.out.println("Valor de idNodoSemaforo [" + i + "]  :" + idNodoSemaforo[i]);
-//        }
     }
 
     public int getEstado()
@@ -210,7 +205,7 @@ public class Individuo
 //            ruta.setLastdecision(-1);
         }
 
-        velocidadPromedio = velocidadPromedio/vehiculos.length;
+        velocidadPromedio = (velocidadPromedio/vehiculos.length)/2;
         return fitness;
     }
     

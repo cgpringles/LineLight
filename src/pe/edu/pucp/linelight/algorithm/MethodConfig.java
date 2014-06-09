@@ -12,16 +12,16 @@ public class MethodConfig {
     
     public static void setSizeAllGen()
     {
-        if (Config.N_CROSS==0) {
-            int numInt = 0;
+        if(Config.N_CROSS == 0)
+        {
+            int numInt = 0;            
             Vehiculo [] vehiculos = GA.trafico.getVehiculos();
             for (int i=0; i<vehiculos.length  ;i++){
                 numInt += vehiculos[i].getRoute().getPosX().size();
             }
-            
-            System.out.println("Cantidad de Intersecciones: " + numInt);
+
             Config.N_CROSS = numInt; //numero de intersecciones en el mapa, que poseen 2 semaforos
-            Config.size_allGen = Config.N_PERIOD * Config.N_CROSS;            
+            Config.size_allGen = Config.N_PERIOD * Config.N_CROSS;
         }
         
 //        if(Config.N_CROSS == 0)
