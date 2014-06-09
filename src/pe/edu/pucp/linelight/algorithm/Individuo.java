@@ -25,24 +25,34 @@ public class Individuo
     private byte[] cromosoma;
     private byte[] tSemaforoInicio;
     private byte[] tSemaforoFin;
+    private long[] idNodoSemaforo;
 
     /*Constructor*/
     public Individuo(int numIndividuo, boolean crearGenesRandom)
     {
-        MethodConfig.setSizeAllGen(); //para calcular la cantidad de semaforos que habran y por lo tanto la longitud del cromosoma
-        cromosoma = new byte[Config.size_allGen]; /*Aca vemos la longitud asignada al cromosoma*/
+        MethodConfig.setSizeAllGen(); //cambiara la longitud de cruces o intersecciones
+        cromosoma = new byte [Config.size_allGen];
         tSemaforoInicio = new byte[Config.N_CROSS]; /*Se alamcena los tiempos de los semaforos generados en decimal*/
-        tSemaforoFin = new byte[Config.N_CROSS]; /*Se alamcena los tiempos de los semaforos generados en decimal*/
+        tSemaforoFin = new byte[Config.N_CROSS];
+        idNodoSemaforo = new long[Config.N_CROSS];
         id = numIndividuo;
-        estado = 1; //individuo con true y false igual seteara sus estados
-        generarIndviduos(crearGenesRandom);
+        estado = 1;
+        generarIndividuos(crearGenesRandom);        
+        
+//        MethodConfig.setSizeAllGen(); //para calcular la cantidad de semaforos que habran y por lo tanto la longitud del cromosoma
+//        cromosoma = new byte[Config.size_allGen]; /*Aca vemos la longitud asignada al cromosoma*/
+//        tSemaforoInicio = new byte[Config.N_CROSS]; /*Se alamcena los tiempos de los semaforos generados en decimal*/
+//        tSemaforoFin = new byte[Config.N_CROSS]; /*Se alamcena los tiempos de los semaforos generados en decimal*/
+//        id = numIndividuo;
+//        estado = 1; //individuo con true y false igual seteara sus estados
+//        generarIndividuos(crearGenesRandom);
     }
     
     /*Métodos*/ 
-    private void generarIndviduos(boolean crearGenesRandom)
+    private void generarIndividuos(boolean crearGenesRandom)
     {
         /*True: crear valores aleatorios, util en la poblacion inicial
-         * False: crear individuos vacios para el casamiento*/
+         * False: crear individuos vacios para el casamiento*/        
         if(crearGenesRandom)
         {
             crearGenes(true);
@@ -63,17 +73,43 @@ public class Individuo
             if (id >0 && random) 
             {                
                 tSemaforo1 = (byte) (Config.tiempoVerdeMin + (new Random()).nextInt(Config.tiempoVerdeMax-Config.tiempoVerdeMin));                
-                tSemaforo2 =  (byte) (Config.tiempoRojoMin + (new Random()).nextInt(Config.tiempoRojoMax-Config.tiempoRojoMin));
+                tSemaforo2 = (byte) (Config.tiempoRojoMin + (new Random()).nextInt(Config.tiempoRojoMax-Config.tiempoRojoMin));
             }
             else 
             {
-                tSemaforo1 = (byte)Config.defaultTime;
-                tSemaforo2 = (byte)Config.defaultTime;
-            }            
-
-//            System.out.println("Tiempos Cruce " + i +": ["+tSemaforoInicio[i]+","+tSemaforoFin[i]+"]");                        
+                tSemaforo1 = (byte) (Config.defaultTime);
+                tSemaforo2 = (byte) (Config.defaultTime);
+            }         
+            
+            establecerIdNodos();
             representarTiempos(i,tSemaforo1,tSemaforo2);            
-        }        
+        }
+    }
+    
+    private void establecerIdNodos()
+    {
+        idNodoSemaforo[0] = 1403201971;
+        idNodoSemaforo[1] = 1403201971;
+        idNodoSemaforo[2] = 1909464604;
+        idNodoSemaforo[3] = 1909464604;
+        idNodoSemaforo[4] = 1403202032;
+        idNodoSemaforo[5] = 1909464513;
+        idNodoSemaforo[6] = 1273975409;
+        
+        idNodoSemaforo[7] = 1409885149;
+        
+        idNodoSemaforo[8] = 499844763;
+        idNodoSemaforo[9] = 1836204802;       
+        idNodoSemaforo[10] = 316802238;
+        idNodoSemaforo[11] = 494413680;
+        idNodoSemaforo[12] = 1674944692;
+        idNodoSemaforo[13] = 1674944686;
+        idNodoSemaforo[14] = 316802240;
+        idNodoSemaforo[15] = 316802241;
+        idNodoSemaforo[16] = 1355562671;
+        idNodoSemaforo[17] = 316802242;
+        idNodoSemaforo[18] = 316802426;
+        idNodoSemaforo[19] = 1397487118;       
     }
 
     public int getEstado()
@@ -172,10 +208,10 @@ public class Individuo
             ruta.setActualPosRoute(-1);
             ruta.setActualPosX(-1);
             ruta.setActualPosY(-1);
-            ruta.setPosIniX(-1);
-            ruta.setPosIniY(-1);
-            ruta.setPosFinX(-1);
-            ruta.setPosFinY(-1);
+//            ruta.setPosIniX(-1);
+//            ruta.setPosIniY(-1);
+//            ruta.setPosFinX(-1);
+//            ruta.setPosFinY(-1);
             ruta.setLastdecision(-1);
         }
 
@@ -205,59 +241,91 @@ public class Individuo
         int next_x = next[0]; /*saber hacia que punto se dirige el vehiculo*/
         int next_y = next[1];
         
-        /*direccion: 0(abajo N->S), 1(arriba S->N), 2(derecha O->E), 3(izquierda E->O)*/
-        int direction = actualPosX-next_x==0?(next_y-actualPosY>=0?1:0):(next_x-actualPosX>=0?2:3);
+        long idNext_Nodo = ruta.getNextIdNodo(); //sacar el idNodo de la Ruta
         
-        int distante_next=0;
-        switch(direction)
-        {
-            case 0:
-                distante_next = actualPosY - next_y ;
-                break;
-            case 1:
-                distante_next = next_y - actualPosY;
-                break;
-            case 2:
-                distante_next = next_x - actualPosX;
-                break;
-            case 3:
-                distante_next = actualPosX - next_x;
-                break;
-        }
+        int direction=0;
+        int difX = next_x - actualPosX;
+        int difY = next_y - actualPosY;
+        
+        if (difX >= 0 && difY >= 0) direction = 2;
+        if (difX <  0 && difY <  0) direction = 3;
+        if (difX <  0 && difY >= 0) direction = 1;
+        if (difX >= 0 && difY <  0) direction = 0;
+        
+        /*direccion: 0(abajo N->S), 1(arriba S->N), 2(derecha O->E), 3(izquierda E->O)*/
+//        int direction = actualPosX-next_x==0?(next_y-actualPosY>=0?1:0):(next_x-actualPosX>=0?2:3);
+//        
+//        int distante_next=0;
+//        switch(direction)
+//        {
+//            case 0:
+//                distante_next = actualPosY - next_y ;
+//                break;
+//            case 1:
+//                distante_next = next_y - actualPosY;
+//                break;
+//            case 2:
+//                distante_next = next_x - actualPosX;
+//                break;
+//            case 3:
+//                distante_next = actualPosX - next_x;
+//                break;
+//        }
+        /**/
+        int distante_next;
+        
+        int res1 = actualPosX - next_x;
+        int res2 = actualPosY - next_y;
+        distante_next = ((int) (Math.sqrt ((Math.pow(res1, 2) + Math.pow(res2, 2)))))/100 + 1;
+        /**/        
         
         int time_to_next = distante_next / vel; //tiempo para el siguiente semáforo
-        
+               
         /*** Si aún hay tiempo para llegar a un semaforo ***/
         if(time_restante > time_to_next)
         {
             time_restante -= time_to_next;  /*se quita al tiempo total el tiempo que ya transcurrio*/          
             current_time += time_to_next;  /*se acumula el tiempo ya transcurrido*/
 
-            /*Esta fórmula permitirá obtener el indice al que llega el vehiculo*/
-            int i = ((next_y/Config.entreCallesY)*((Config.mapX+Config.entreCallesX)/Config.entreCallesX)) + 
-                    (next_x/Config.entreCallesX);
-                    
-            int index_time = (i*Config.size_oneGen)+current_time;
-            if(index_time < 0 || index_time > cromosoma.length)
-            {                
-                throw new Error("Se calculo mal, obtener demora por error de index time: " + index_time);
-            }
-            byte gentime = cromosoma[index_time];
-            
-            //Avanzar para el siguinte punto de la ruta
-            ruta.setActualPosRoute(ruta.getActualPosRoute()+1);
+//            /*Esta fórmula permitirá obtener el indice al que llega el vehiculo*/
+//            int i = ((next_y/Config.entreCallesY)*((Config.mapX+Config.entreCallesX)/Config.entreCallesX)) + 
+//                    (next_x/Config.entreCallesX);
+                               
+//            int index_time = (i*Config.size_oneGen)+current_time;
+            int i = obtenerInterseccionEnCromosoma(idNext_Nodo);
+            int index_time = (i*Config.size_oneGen) + current_time;
 
+            
+//            if(index_time < 0 || index_time > cromosoma.length)
+//            {                
+//                throw new Error("Se calculo mal, obtener demora por error de index time: " + index_time);
+//            }
+            
+            ruta.setActualPosRoute(ruta.getActualPosRoute()+1);
+            
             //Situar posición del vehiculo en la posicion del semáforo a la que acaba de llegar o pasar
             ruta.setActualPosX(next_x);
             ruta.setActualPosY(next_y);
-                
-            int time_red = calcularTiempoRojo(index_time,direction,gentime);
+            int time_red=0;
+            
+            //cuando i es -1 quiere decir que el nodo que se esta evaluando no posee semaforos
+            if (index_time >= 0 && index_time < cromosoma.length) {
+            
+                byte gentime = cromosoma[index_time];            
+
+//                //Avanzar para el siguinte punto de la ruta
+//                ruta.setActualPosRoute(ruta.getActualPosRoute()+1);
+
+                time_red = calcularTiempoRojo(index_time, direction, gentime);
+            }
+            else 
+                index_time = 0;
             
             current_time += (time_red-index_time);
             demora += (time_red-index_time);
-
+            
             distancia += distante_next;
-            tiempo += time_to_next + (time_red-index_time);
+            tiempo += time_to_next + (time_red-index_time); 
             
             demora += obtenerDemora(vehículo, current_time);
         }
@@ -289,6 +357,15 @@ public class Individuo
         
         return demora;
     }
+    private int obtenerInterseccionEnCromosoma(long id)
+    {
+        /*Buscara si el nodo de la ruta posee un semaforo, un nodo Semaforo*/
+        for(int i=0; i<idNodoSemaforo.length; i++){
+            if (idNodoSemaforo[i] == id) return i;
+        }        
+        return -1;        
+    }
+    
     
     private int calcularTiempoRojo(int index_time, int direction, byte gentime)
     {
@@ -341,6 +418,8 @@ public class Individuo
         tSemaforoInicio[i] = tSemaforo1; /*guarda el tiempo del primer semaforo(el que inicia) en el cruce*/
         tSemaforoFin[i] = tSemaforo2; /*guarda el tiempo del segundos semaforo*/       
         
+//        System.out.println("Tiempos Cruce " + i +": ["+tSemaforoInicio[i]+","+tSemaforoFin[i]+"]");
+        
         /*Representacion de tiempos en cromosoma*/
         byte tipo2;
         byte tipo1 = (byte)new Random().nextInt(4);
@@ -370,8 +449,8 @@ public class Individuo
             else {
                 flag2 = true;
                 flag1 = false;
-            } 
-        }       
+            }
+        }
     }
         
     public void imprimirAllGen()

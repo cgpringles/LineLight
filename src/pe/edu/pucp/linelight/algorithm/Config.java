@@ -25,7 +25,7 @@ public class Config
     public final static int entreCallesX = 100; /*cada cuantos metros para calle en X*/
     public final static int entreCallesY = 100; /*cada cuantos metros para calle en Y*/
     
-    public static int N_CROSS = 0; /*Número de semáforos,  sera la cantidad de cruces y enc ada uno se ubicara un semaforo*/
+    public static int N_CROSS = 0; /*Número de interseccione donde en cada uno se ubicara un par de semaforos*/
     
     public static int size_oneGen = N_PERIOD; /**/
     public static int size_allGen = 0; /*Tamaño de genes*/
@@ -40,5 +40,6 @@ public class Config
     public final static int tiempoRojoMin = 10;
     public final static int defaultTime = 60; /*dependera del N_PERIOD*/
     
-    public final static Double kmAms = 0.2777777777777778;            
+    public final static Double kmAms = 0.2777777777777778;
+    public final static int factorPos = 10000000;
 }

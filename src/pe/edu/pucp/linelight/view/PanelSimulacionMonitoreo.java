@@ -507,39 +507,50 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private void iniciarSimulacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionButtonActionPerformed
         // TODO add your handling code here:
         
-//        int numVehiculos=10;
+        int numVehiculos=3;
 //        Usuario user = GeneralUtil.getUsuario_sesion();
 //        gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
-//        List<Object> vehiculos = gr.getListaVehiculosRuta();       
+//        List<Object> vehiculos = gr.getListaVehiculosRuta();
+//        
+//        /*Impresion de vehiculos generado, para comprobar posiciones de Ruta correcta*/
+//        System.out.println("Numero de Vehiculos: " + vehiculos.size());
+//        for(int i=0; i<vehiculos.size(); i++) {
+//            List<Node> vehiculoI = ((List<Node>) vehiculos.get(i));
+//            System.out.println("Datos vehiculo " + i + " - longitud de ruta : " + vehiculoI.size());
+//            for(int j=0; j< vehiculoI.size(); j++) {
+//                Node nodoVehiculo = vehiculoI.get(j);
+//                System.out.println("Nodo "+ j +" (long,latit): " + nodoVehiculo.getLongitud() + "," + nodoVehiculo.getLatitud());
+//            }
+//        }
         
-//        (List<Node>)(l.get(0));
+        EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , null);
+        EjecucionAlgoritmoController.iniciarSimulacion();
+//        
+//        this.jTextField3.setText("" + GA.velocidad);
+//        this.jTextField4.setText("" + GA.tiempoEjecucion); 
         
-          /*Data Original del Trafico*/
-        GA.trafico = new Trafico(2000,true);
-        GA.trafico.imprimirTrafico();
-        /*Exportar Datos generados en un archivo*/        
-        GA.trafico.exportarSerializableTrafico();
-        GA.trafico.exportarTextoTrafico();
-     
-        GA.trafico = new Trafico(2000);
-        GA.trafico.importarSerializableTrafico();
-        GA.trafico.imprimirTrafico();
-        
-        
-//        EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
-        Paramalgoritmo paramAlgoritmo = ParamAlgoritmoController.getParamAlgoritmoById(1); // podemos usar siempre el primero
-//        EjecucionAlgoritmoController.iniciarSimulacion(vehiculos, paramAlgoritmo);
+//          /*Data Original del Trafico*/
+//        GA.trafico = new Trafico(2000,true);
+//        GA.trafico.imprimirTrafico();
+//        /*Exportar Datos generados en un archivo*/        
+//        GA.trafico.exportarSerializableTrafico();
+//        GA.trafico.exportarTextoTrafico();
+//     
+//        GA.trafico = new Trafico(2000);
+//        GA.trafico.importarSerializableTrafico();
+//        GA.trafico.imprimirTrafico();
+               
+//        Paramalgoritmo paramAlgoritmo = ParamAlgoritmoController.getParamAlgoritmoById(1); // podemos usar siempre el primero        
 
-        int tpi = paramAlgoritmo.getTamPoblacionInicial();
-        int tmp = paramAlgoritmo.getMaxTamPoblacion();
-        int msc = paramAlgoritmo.getMaxCicloSinCambiar();        
-        double tc = paramAlgoritmo.getTasaCasamiento();
-        double tm = paramAlgoritmo.getTasaMutacion();
+//        int tpi = paramAlgoritmo.getTamPoblacionInicial();
+//        int tmp = paramAlgoritmo.getMaxTamPoblacion();
+//        int msc = paramAlgoritmo.getMaxCicloSinCambiar();        
+//        double tc = paramAlgoritmo.getTasaCasamiento();
+//        double tm = paramAlgoritmo.getTasaMutacion();
+//        
+//        GA.trafico.ejecutarAlgoritmo(tpi, tmp, msc, tc, tm); // valores que jala (10, 10, 50, 0.85, 0.1)
         
-        GA.trafico.ejecutarAlgoritmo(tpi, tmp, msc, tc, tm); // valores que jala (10, 10, 50, 0.85, 0.1)
-        
-        this.jTextField3.setText("" + GA.velocidad);
-        this.jTextField4.setText("" + GA.tiempoEjecucion);         
+               
     }//GEN-LAST:event_iniciarSimulacionButtonActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed

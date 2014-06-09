@@ -72,28 +72,38 @@ public class EjecucionAlgoritmoController {
          return id + 1;
     }
     
-    public static void iniciarSimulacion(List<Object> vehiculos, Paramalgoritmo paramAlgoritmo){
+    public static void iniciarSimulacion(){
         
-        return ;        
+        Paramalgoritmo paramAlgoritmo = ParamAlgoritmoController.getParamAlgoritmoById(1); // podemos usar siempre el primero
+        
+        int tpi = paramAlgoritmo.getTamPoblacionInicial();
+        int tmp = paramAlgoritmo.getMaxTamPoblacion();
+        int msc = paramAlgoritmo.getMaxCicloSinCambiar();        
+        double tc = paramAlgoritmo.getTasaCasamiento();
+        double tm = paramAlgoritmo.getTasaMutacion();
+        
+        GA.trafico.ejecutarAlgoritmo(tpi, tmp, msc, tc, tm); // valores que jala (10, 10, 50, 0.85, 0.1)                
     }
     
     public static void migrarVehiculos(int numVehiculos, List<Object> listaV){
         
-        vehiculosRobot = listaV;
-        
-        GA.trafico = new Trafico(numVehiculos,false); // true vehiculos aleatorio, false vehiculos ya generados
-        GA.trafico.imprimirTrafico();
+//        vehiculosRobot = listaV;
+//        
+//        GA.trafico = new Trafico(numVehiculos,false); // true vehiculos aleatorio, false vehiculos ya generados
+//        GA.trafico.imprimirTrafico();
+//        GA.trafico.exportarSerializableTrafico();
+//        GA.trafico.exportarTextoTrafico();
+//        GA.trafico.imprimirTrafico();
                 
 //        GA.trafico = new Trafico(2000,true);
 //        GA.trafico.imprimirTrafico();
 //        /*Exportar Datos generados en un archivo*/        
 //        GA.trafico.exportarSerializableTrafico();
 //        GA.trafico.exportarTextoTrafico();
-//     
-//        GA.trafico = new Trafico(2000);
-//        GA.trafico.importarSerializableTrafico();
-//        GA.trafico.imprimirTrafico();        
-                
+     
+        GA.trafico = new Trafico(numVehiculos);
+        GA.trafico.importarSerializableTrafico();
+        GA.trafico.imprimirTrafico();                
     }
     
 }
