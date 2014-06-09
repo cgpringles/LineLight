@@ -20,6 +20,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.dom4j.DocumentException;
 import pe.edu.pucp.linelight.controller.DistritoController;
 import pe.edu.pucp.linelight.controller.ViaController;
+import pe.edu.pucp.linelight.controller.jcThread;
+import pe.edu.pucp.linelight.controller.parseViasStructure;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.structure.MapParser;
@@ -35,11 +37,12 @@ public class NuevaVia extends javax.swing.JFrame {
      */
     public NuevaVia() {
         initComponents();
-        
-        Date fecha=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
-        txtFecha.setText(sdf.format(fecha));
-        
+        jProgressBar1.setVisible(false);
+        lblprogreso.setVisible(false);
+        jButton4.setEnabled(true);
+        jButton5.setEnabled(true);
+        cmbDistrito.setEnabled(true);
+        cmbDistrito.addItem("Seleccione");
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         ArrayList<Distrito> listDist=new ArrayList<Distrito>();
@@ -67,6 +70,8 @@ public class NuevaVia extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        lblprogreso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Vías");
@@ -74,6 +79,12 @@ public class NuevaVia extends javax.swing.JFrame {
         jLabel21.setText("Selecciona un archivo:");
 
         jLabel1.setText("Distrito:");
+
+        cmbDistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDistritoActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("Fecha:");
 
@@ -103,6 +114,8 @@ public class NuevaVia extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
+
+        lblprogreso.setText("Registrando vías... ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,6 +148,12 @@ public class NuevaVia extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblprogreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +175,11 @@ public class NuevaVia extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(lblprogreso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -186,40 +209,51 @@ public class NuevaVia extends javax.swing.JFrame {
                    }
                    else //si ha seleccionado si
                    {
-                      JFileChooser fc = new JFileChooser();
-                            FileNameExtensionFilter filter = new FileNameExtensionFilter("XML","xml");
-                            fc.setFileFilter(filter);
-                            int returnVal = fc.showOpenDialog(this);
-                                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                                    File sourceFile = fc.getSelectedFile();
-                                    Distrito d=DistritoController.obtenerDistrito(nombDistrito);
+                       //Distrito ya tiene vias?
+                       boolean viasCargadas = false;
+                       viasCargadas = DistritoController.verificarViasDistrito(nombDistrito);
+                       //
+                       if (viasCargadas == true)
+                            seleccion = JOptionPane.showOptionDialog(
+                            NuevaVia.this, // Componente padre
+                            "El distrito ya cuenta con vias registras. ¿Desea sobreescribir la información?", //Mensaje
+                            "Mensaje de confirmación", // Título
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,    // null para icono por defecto.
+                            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+                            "Si");
+                       if (seleccion == 0 || viasCargadas == false){
+                           //borrar toda la data
+                           if (viasCargadas == true)
+                               ViaController.eliminarVias(nombDistrito);
+                                    JFileChooser fc = new JFileChooser();
+                                          FileNameExtensionFilter filter = new FileNameExtensionFilter("XML","xml");
+                                          fc.setFileFilter(filter);
+                                          int returnVal = fc.showOpenDialog(this);
+                                              if (returnVal == JFileChooser.APPROVE_OPTION) {
+                                                  File sourceFile = fc.getSelectedFile();
+                                                  Distrito d=DistritoController.obtenerDistrito(nombDistrito);
 
-                                    try {
-                                        MapParser.parseViasStructure(sourceFile, d);
-                                    } catch (DocumentException ex) {
-                                        Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                                                  try {
+                                                      jProgressBar1.setVisible(true);
+                                                      lblprogreso.setVisible(true);
+                                                      jButton4.setEnabled(false);
+                                                      jButton5.setEnabled(false);
+                                                      cmbDistrito.setEnabled(false);
+                                                      new Thread(new jcThread( this.jProgressBar1 , 250 ) ).start();
+                                                      new Thread(new parseViasStructure(sourceFile,d,this)).start();
+                                                  } catch (DocumentException ex) {
+                                                      Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                                                  }
 
-                                } 
-                                else {
-                                    System.out.print("Open command cancelled by user.");
-                                }
-                       
-                       
-                      //tengo que pasarle el distrito o el id y contar cuantas filas he cargado
-                      int id_n= DistritoController.obteneridDistrito(nombDistrito);
-                      ArrayList<Via> list=new ArrayList<Via>();
-                      list=ViaController.obtenerVias(id_n);
-                      int numVias=list.size();
-                      //ViasCargadas viasCar=new ViasCargadas();
-                      //ViasCargadas viasCar=new ViasCargadas(numVias);
-//                      
-                      //DetalleVias nuevo= new DetalleVias();
-                      DetalleVias nuevo=new DetalleVias(numVias,nombDistrito);
-                      nuevo.setVisible(true);
-                      this.dispose();
+                                              } 
+                                              else {
+                                                  System.out.print("Open command cancelled by user.");
+                                              }
+                        }
                    }
-                }        // TODO add your handling code here:
+                }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -254,6 +288,18 @@ public class NuevaVia extends javax.swing.JFrame {
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaActionPerformed
+
+    private void cmbDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDistritoActionPerformed
+        // TODO add your handling code here:
+        if (cmbDistrito.getSelectedIndex() != 0){
+        Distrito distrito = DistritoController.obtenerDistrito((String)cmbDistrito.getSelectedItem());
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
+        txtFecha.setText(sdf.format(distrito.getFecRegistro()));
+        }else{
+            txtFecha.setText("");
+        }
+        
+    }//GEN-LAST:event_cmbDistritoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +345,8 @@ public class NuevaVia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel lblprogreso;
     private javax.swing.JTextField txtFecha;
     // End of variables declaration//GEN-END:variables
 }

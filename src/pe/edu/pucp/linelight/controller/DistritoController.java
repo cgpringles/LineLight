@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 /**
  *
@@ -61,6 +62,31 @@ public class DistritoController {
         return d;
     }
     
+        public static boolean verificarViasDistrito(String nombDistrito){
+        boolean viasCargadas = false;
+        Session s = null;
+        try
+        {
+            s=HibernateUtil.iniciaOperacion();
+            List distrito = s.createCriteria(Via.class).add(Restrictions.like("id.idDistrito", 
+                    DistritoController.obteneridDistrito(nombDistrito))).list();
+            HibernateUtil.cierraOperacion(s); 
+            if (distrito.isEmpty()) 
+                return false;
+            else 
+                return true;         
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+        return viasCargadas; 
+    }
+        
     public static Distrito obtenerDistrito(String nombreDistrito)
     {
         Session s=null;
@@ -254,5 +280,23 @@ public class DistritoController {
         return d;
     }
   
+    public static void eliminarDistrito(Distrito distrito){
+        Session s=null;
+        try
+        {
+            s=HibernateUtil.iniciaOperacion();
+            s.delete(distrito);
+            HibernateUtil.cierraOperacion(s);
+            
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+    }
     
 }

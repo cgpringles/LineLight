@@ -19,7 +19,7 @@
             <column name="idDistrito" not-null="true" />
         </many-to-one>
         <property name="numCarros" type="int">
-            <column name="numCarros"/>
+            <column name="numCarros"  />
         </property>
     </class>
 </hibernate-mapping>

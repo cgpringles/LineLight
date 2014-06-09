@@ -502,6 +502,139 @@ public class semaforoController {
             System.out.println("Fin carga de xml");
             return numSem;
     }
+
+    public static Semaforo obtenerHermano(Semaforo semaforo) {
+    Semaforo semaforoHermano = new Semaforo();
+    Session s = null;
+        
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            Criteria semaforoCriteria = s.createCriteria(Semaforo.class);
+            Criterion via1Criteria =  (Restrictions.eq("via1", semaforo.getVia2()));       
+            Criterion via2Criteria = (Restrictions.eq("via2", semaforo.getVia1()));
+            semaforoCriteria.add(Restrictions.and(via2Criteria, via1Criteria));
+            semaforoHermano = (Semaforo)semaforoCriteria.list().get(0);          
+            HibernateUtil.cierraOperacion(s);
+            return semaforoHermano;
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+    return semaforoHermano;
+    }
+    
+     public static boolean verificarSemaforoDistrito(String nombDistrito){
+        boolean semaforosCargadas = false;
+        Session s = null;
+        try
+        {
+            s=HibernateUtil.iniciaOperacion();
+            List semaforo = s.createCriteria(Semaforo.class).add(Restrictions.like("distrito", 
+                    nombDistrito)).list();
+            HibernateUtil.cierraOperacion(s); 
+            if (semaforo.isEmpty()) 
+                return false;
+            else 
+                return true;         
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+        return semaforosCargadas; 
+    }
+
+    public static void eliminarSemaforos(String nombDistrito) {
+    Session s=null;
+        ArrayList<Long> idNodos = new ArrayList<Long>();
+        try
+        {
+        s = HibernateUtil.iniciaOperacion();
+       
+            String hql= "DELETE FROM Semaforo WHERE distrito like :nombre";
+            Query q = s.createQuery(hql);
+            q.setParameter("nombre", nombDistrito);            
+            q.executeUpdate();
+            ;
+            
+            
+            HibernateUtil.cierraOperacion(s);   
+        }
+        catch (HibernateException e)
+        {
+        HibernateUtil.manejaExcepcion(s);
+        }
+        finally
+        {
+            s.close();  
+        }
+    
+    }
+
+    public static ArrayList<Semaforo> obtenerSemaforosxdistrito(String nombreDist) {
+        Session s=null;
+        ArrayList<Semaforo> lista= new ArrayList<Semaforo>();
+        try
+        {
+        s=HibernateUtil.iniciaOperacion();
+        Query query = s.createQuery("FROM Semaforo WHERE distrito like (:nombreVia)");
+        query.setParameter("nombreVia", nombreDist);
+        lista = (ArrayList<Semaforo>)query.list();
+        
+        HibernateUtil.cierraOperacion(s);   
+        return lista;
+        }
+        catch (HibernateException e)
+        {
+        HibernateUtil.manejaExcepcion(s);
+        }
+        finally
+        {
+            s.close();  
+        }
+        return lista;
+    }
+
+    public static boolean verificarSemaforo(String via1, String via2) {
+        Session s = null;
+        
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            
+            //Obtenemos lista de restriccion
+            Query query = s.createQuery("FROM Semaforo WHERE via1 like :viaN1 and via2 like :viaNN2");
+            query.setParameter("viaN1", via1);
+            query.setParameter("viaN2", via2);
+            
+            List nodoEncontrado = query.list();
+            HibernateUtil.cierraOperacion(s);
+            if (nodoEncontrado.isEmpty())
+                return false;
+            else
+                return true;
+            
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+         return true;
+    }
         
    
 }
