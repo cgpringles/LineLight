@@ -506,7 +506,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private void iniciarSimulacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionButtonActionPerformed
         // TODO add your handling code here:
         
-        int numVehiculos=3;
+        int numVehiculos = 200;
         Usuario user = GeneralUtil.getUsuario_sesion();
         gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
         List<Object> vehiculos = gr.getListaVehiculosRuta();

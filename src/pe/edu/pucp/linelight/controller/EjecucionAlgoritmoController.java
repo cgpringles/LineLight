@@ -82,7 +82,7 @@ public class EjecucionAlgoritmoController {
         double tc = paramAlgoritmo.getTasaCasamiento();
         double tm = paramAlgoritmo.getTasaMutacion();
         
-        GA.trafico.ejecutarAlgoritmo(tpi, tmp, msc, tc, tm); // valores que jala (10, 10, 50, 0.85, 0.1)                
+        GA.trafico.ejecutarAlgoritmo(tpi, tmp, 20, tc, tm); // valores que jala (10, 10, 50, 0.85, 0.1)                
     }
     
     public static void migrarVehiculos(int numVehiculos, List<Object> listaV){

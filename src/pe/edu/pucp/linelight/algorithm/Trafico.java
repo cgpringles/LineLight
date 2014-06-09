@@ -315,6 +315,7 @@ public class Trafico implements Serializable
             long time_start, time_end;
             time_start = System.currentTimeMillis();            
             
+//            System.out.println("Población " + generationCount);
             int fittest = iniPob.getFittest().getFitness();
             float velocidad = iniPob.getFittest().getVelocidadPromedio();
             if(fittest == last_fittest)
