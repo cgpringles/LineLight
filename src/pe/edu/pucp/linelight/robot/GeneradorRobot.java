@@ -13,11 +13,15 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pe.edu.pucp.linelight.controller.DistritoController;
+import pe.edu.pucp.linelight.controller.HorarioController;
 import pe.edu.pucp.linelight.controller.NodoController;
 import pe.edu.pucp.linelight.controller.TramoController;
 import pe.edu.pucp.linelight.controller.ZonaController;
+import pe.edu.pucp.linelight.model.Distritoxhorario;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
+import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Nodo;
+import pe.edu.pucp.linelight.model.Tipovia;
 import pe.edu.pucp.linelight.model.Tramo;
 import pe.edu.pucp.linelight.model.Tramoxnodo;
 import pe.edu.pucp.linelight.model.Vehiculo;
@@ -66,11 +70,11 @@ public class GeneradorRobot extends Thread{
     }
     
     
-    public GeneradorRobot(int cantRobots,WindowsMapPanel wmp,int idDistrito)
+    public GeneradorRobot(WindowsMapPanel wmp,int idDistrito,String dd, String hh)
     {
         this.cantRobots=cantRobots;
-        this.hh=hh;
-        this.mm=mm;;
+        Horario h=HorarioController.obtenerHorario(dd, hh);
+        this.cantRobots=HorarioController.obtenerCarrosxHorarioxDistrito(h.getIdHorario(), idDistrito);
         this.listaCarros=new ArrayList<>();
         this.wmp=wmp;
         this.map=wmp.getMap();
@@ -79,10 +83,33 @@ public class GeneradorRobot extends Thread{
         
         int numTramos=listaEdge.size();
         Random rnd=new Random();
+        int prob;
+        int rangoProb=h.getProbAvenida();
         for (int i=0;i<cantRobots;i++)
         {
             Carro c=new Carro();
-            c.setStartPoint(listaEdge.get(rnd.nextInt(numTramos)));
+            
+            prob=rnd.nextInt(100)+1;
+            Edge e;
+            //Random cae en rango de avenida, seleccionar avenida
+            if (prob<=rangoProb)
+            {
+                do
+                {
+                    e=listaEdge.get(rnd.nextInt(numTramos));
+                } while (!isAvenida(e));
+                System.out.println("Avenida");
+            }
+            else
+            {
+                do
+                {
+                    e=listaEdge.get(rnd.nextInt(numTramos));  
+                } while (!isCalle(e));
+                System.out.println("Calle");
+            }
+            
+            c.setStartPoint(e);
             listaCarros.add(c);
         }
         start();
@@ -110,6 +137,23 @@ public class GeneradorRobot extends Thread{
             }
         }
     }
+    
+    public static boolean isAvenida(Edge e)
+    {
+        if (e.getTipoVia().equalsIgnoreCase("Avenida"))
+            return true;
+        
+        return false;
+    }
+    
+    public static boolean isCalle(Edge e)
+    {
+        if (e.getTipoVia().equalsIgnoreCase("Calle"))
+            return true;
+        
+        return false;
+    }
+    
     
     public List<Node> generarRuta(Edge tramoInicial)
     {
@@ -182,11 +226,18 @@ public class GeneradorRobot extends Thread{
 //            nodeFinal=new Node(nf.getIdNodo(),nf.getLatitud(),nf.getLongitud(),z);
             nodeFinal=findNodeById(nf.getIdNodo(), listaNodosLocal);
 //            String tvia=txni.getTramo().getVia().getDescripcion();
-            String tvia="";
-            Edge e=new Edge(txni.getTramo().getId().getIdTramo(),nodeOrigin,nodeFinal,50,tvia);
             
-            //Agregamos a lista de posibles caminos
-            e.getOriginNode().agregarListaCuadra(e);
+            Tipovia tv=txni.getTramo().getVia().getTipovia();
+            
+            String tvia="";
+            if (tv!=null) tvia=tv.getDescripcion();
+            
+            Edge e=new Edge(txni.getTramo().getId().getIdTramo(),nodeOrigin,nodeFinal,50,tvia);
+            if (txni.getPosicionTramo()=='I')
+            {
+                //Agregamos a lista de posibles caminos
+                e.getOriginNode().agregarListaCuadra(e);
+            }
             listaEdge.add(e);
         }
        

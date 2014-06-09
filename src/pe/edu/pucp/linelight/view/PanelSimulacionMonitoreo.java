@@ -477,7 +477,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -499,17 +499,16 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private void iniciarMonitoreoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarMonitoreoButtonActionPerformed
         // TODO add your handling code here:
         
-        int numVehiculosDia=10000;
-        gr=new GeneradorRobot(numVehiculosDia,mapPanel,d.getIdDistrito());
+        gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),"Lunes","8:00");
 
     }//GEN-LAST:event_iniciarMonitoreoButtonActionPerformed
 
     private void iniciarSimulacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionButtonActionPerformed
         // TODO add your handling code here:
         
-//        int numVehiculos=10;
+        int numVehiculos=10;
 //        Usuario user = GeneralUtil.getUsuario_sesion();
-//        gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
+        gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
 //        List<Object> vehiculos = gr.getListaVehiculosRuta();       
         
 //        (List<Node>)(l.get(0));

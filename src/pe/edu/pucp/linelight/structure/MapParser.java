@@ -162,19 +162,19 @@ public class MapParser {
         
         if (l.size()>0) 
         {
-            boolean f=false;
+            boolean f;
             //COnfiguración de clase VIA
             for ( Iterator i = element.elementIterator("tag"); i.hasNext(); ) {
                     Element e = (Element) i.next();                
                     String k=e.attribute("k").getStringValue();
-
+                    f=false;
                     if (k.equalsIgnoreCase("highway"))
                     {
                         //Avenida
-                        if (e.attribute("v").getStringValue().equalsIgnoreCase("secondary"))
-                        {v.setTipovia(TipoViaController.obtenerTipoAvenida());
-                         f=true;
-                        }
+//                        if (e.attribute("v").getStringValue().equalsIgnoreCase("secondary"))
+//                        {v.setTipovia(TipoViaController.obtenerTipoAvenida());
+//                         f=true;
+//                        }
                         
                         //Calle
                         if (e.attribute("v").getStringValue().equalsIgnoreCase("residential"))

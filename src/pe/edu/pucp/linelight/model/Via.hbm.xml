@@ -12,14 +12,14 @@
                 <column name="idVia" />
             </key-property>
         </composite-id>
-        <many-to-one name="tipovia" class="pe.edu.pucp.linelight.model.Tipovia" fetch="select">
+        <many-to-one name="tipovia" class="pe.edu.pucp.linelight.model.Tipovia" lazy="false" fetch="select">
             <column name="idTipoVia" />
         </many-to-one>
         <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">
             <column name="idDistrito" not-null="true" />
         </many-to-one>
         <property name="nombre" type="string">
-            <column name="nombre" length="45" />
+            <column name="nombre" length="200" />
         </property>
         <property name="descripcion" type="string">
             <column name="descripcion" length="45" />
