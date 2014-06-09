@@ -513,14 +513,14 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         
 //        /*Impresion de vehiculos generado, para comprobar posiciones de Ruta correcta*/
 //        System.out.println("Numero de Vehiculos: " + vehiculos.size());
-//        for(int i=0; i<vehiculos.size(); i++) {
-//            List<Node> vehiculoI = ((List<Node>) vehiculos.get(i));
-//            System.out.println("Datos vehiculo " + i + " - longitud de ruta : " + vehiculoI.size());
-//            for(int j=0; j< vehiculoI.size(); j++) {
-//                Node nodoVehiculo = vehiculoI.get(j);
-//                System.out.println("Nodo "+ j +" (long,latit): " + nodoVehiculo.getLongitud() + "," + nodoVehiculo.getLatitud());
-//            }
-//        }
+        for(int i=0; i<vehiculos.size(); i++) {
+            List<Node> vehiculoI = ((List<Node>) vehiculos.get(i));
+            System.out.println("Datos vehiculo " + i + " - longitud de ruta : " + vehiculoI.size());
+            for(int j=0; j< vehiculoI.size(); j++) {
+                Node nodoVehiculo = vehiculoI.get(j);
+                System.out.println("Nodo "+ j +" (long,latit): " + nodoVehiculo.getLongitud() + "," + nodoVehiculo.getLatitud());
+            }
+        }
         
         EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
         EjecucionAlgoritmoController.iniciarSimulacion();

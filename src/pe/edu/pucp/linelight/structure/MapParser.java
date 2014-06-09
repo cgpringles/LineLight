@@ -160,6 +160,7 @@ public class MapParser {
                 l.add(r);
             }
         
+        Tipovia tt;
         if (l.size()>0) 
         {
             boolean f;
@@ -168,6 +169,7 @@ public class MapParser {
                     Element e = (Element) i.next();                
                     String k=e.attribute("k").getStringValue();
                     f=false;
+                    tt=TipoViaController.obtenerTipoAvenida();
                     if (k.equalsIgnoreCase("highway"))
                     {
                         //Avenida
@@ -183,14 +185,16 @@ public class MapParser {
                             f=true;
                         }
 
-                        //Avenida por dfault
+                        //Avenida por dfault}
                         if (!f)
-                            v.setTipovia(TipoViaController.obtenerTipoAvenida());
+                            v.setTipovia(tt);
                     }   
 
                     if (k.equalsIgnoreCase("name"))
                     {
                         String nombreVia=e.attribute("v").getStringValue();
+                        if (nombreVia.toString().contains("Av.") || nombreVia.toString().contains("Avenida"))
+                            v.setTipovia(tt);
                         v.setNombre(nombreVia);
                     }
                 }

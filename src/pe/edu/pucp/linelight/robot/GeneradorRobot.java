@@ -98,7 +98,7 @@ public class GeneradorRobot extends Thread{
                 {
                     e=listaEdge.get(rnd.nextInt(numTramos));
                 } while (!isAvenida(e));
-                System.out.println("Avenida");
+//                System.out.println("Avenida");
             }
             else
             {
@@ -106,7 +106,7 @@ public class GeneradorRobot extends Thread{
                 {
                     e=listaEdge.get(rnd.nextInt(numTramos));  
                 } while (!isCalle(e));
-                System.out.println("Calle");
+//                System.out.println("Calle");
             }
             
             c.setStartPoint(e);
@@ -164,9 +164,10 @@ public class GeneradorRobot extends Thread{
         listaNodosRuta.add(tramoInicial.getOriginNode());
         listaNodosRuta.add(tramoInicial.getEndNode());
         Edge tramoTemp=tramoInicial;
-        //Probabilidad de 20% de que el siguiente tramo sea el último
+        //Probabilidad de 10% de que el siguiente tramo sea el último
         int x=rnd.nextInt(100);
-        while ((x<=40)||(x>=50))
+        int cantGenerado=0;
+        while (((x<=40)||(x>=50)) && (cantGenerado<15))
         {
             Node n=tramoTemp.getEndNode();
             List<Edge> listaPosiblesTramos=n.getListaCuadras();
@@ -175,14 +176,18 @@ public class GeneradorRobot extends Thread{
             {
                 int tam=listaPosiblesTramos.size();
                 tramoTemp=listaPosiblesTramos.get(rnd.nextInt(tam));
-                listaNodosRuta.add(tramoTemp.getOriginNode());
+//                listaNodosRuta.add(tramoTemp.getOriginNode());
                 listaNodosRuta.add(tramoTemp.getEndNode());
+                cantGenerado++;
                 x=rnd.nextInt(100);
             }
             else
+            {
+                System.out.println("Fin ruta...");
                 break;
+            }
         }
-        
+        System.out.println("Cant generado: "+cantGenerado);
         return listaNodosRuta;
     }
     
@@ -197,13 +202,13 @@ public class GeneradorRobot extends Thread{
                
         for (Tramoxnodo tn : lt)
         {
-            Nodo nbd=tn.getNodo();
-            Node n=findNodeById(nbd.getIdNodo(),listaNodosLocal);
-            if (n==null)
-            {
-               n=new Node(nbd.getIdNodo(), nbd.getLatitud(), nbd.getLongitud(), z);
-               listaNodosLocal.add(n);
-            }
+                Nodo nbd=tn.getNodo();
+                Node n=findNodeById(nbd.getIdNodo(),listaNodosLocal);
+                if (n==null)
+                {
+                   n=new Node(nbd.getIdNodo(), nbd.getLatitud(), nbd.getLongitud(), z);
+                   listaNodosLocal.add(n);
+                }
         }
         
         for (int i=0;i<tam;i+=2)
@@ -212,8 +217,6 @@ public class GeneradorRobot extends Thread{
             Tramoxnodo txni=lt.get(i);
             //Nodo final
             Tramoxnodo txnf=lt.get(i+1);
-            
-//            System.out.println(txni.getId().getIdTramo()+"-"+txni.getPosicionTramo());
             
             Node nodeOrigin=null;
             Node nodeFinal=null;
@@ -233,19 +236,20 @@ public class GeneradorRobot extends Thread{
             if (tv!=null) tvia=tv.getDescripcion();
             
             Edge e=new Edge(txni.getTramo().getId().getIdTramo(),nodeOrigin,nodeFinal,50,tvia);
-            if (txni.getPosicionTramo()=='I')
-            {
+//            if (txni.getPosicionTramo()=='I')
+//            {
                 //Agregamos a lista de posibles caminos
-                e.getOriginNode().agregarListaCuadra(e);
-            }
+//                e.getOriginNode().agregarListaCuadra(e);
+                nodeOrigin.agregarListaCuadra(e);
+//            }
             listaEdge.add(e);
         }
-       
         map.setEdges(listaEdge);
     }
     
     public Node findNodeById(Long id,List<Node> listan)
     {
+        
         for (Node n:listan)
         {
             if (n.getId().equals(id))
