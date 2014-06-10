@@ -173,4 +173,29 @@ public class EjecucionAlgoritmoController {
         return ok;
     }
     
+    public static List<Ejecucionalgoritmo> obtenerConfiguraciónSimulación()
+    {
+        List<Ejecucionalgoritmo> ejecAlg=new ArrayList<>();
+        
+        Session s = null;         
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            ejecAlg=(List<Ejecucionalgoritmo>)s.createCriteria(Ejecucionalgoritmo.class)
+                    .addOrder(Order.asc("id.idEjecucionAlgoritmo")).list();
+            HibernateUtil.cierraOperacion(s);
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+        
+        return ejecAlg;
+    }
+    
+    
 }
