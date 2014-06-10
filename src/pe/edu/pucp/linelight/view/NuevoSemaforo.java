@@ -619,6 +619,15 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                   nuevoSemaforo1.setNodo(nodo);
                                   semaforoController.registrarSemaforo(nuevoSemaforo1);
                                   semaforoController.registrarSemaforo(nuevoSemaforo);
+                                  seleccion = JOptionPane.showOptionDialog(
+                                    NuevoSemaforo.this, 
+                                    "Se ha agregado correctamente el semáforo", 
+                                    "Acción",
+                                    JOptionPane.OK_OPTION,
+                                    JOptionPane.OK_OPTION,
+                                    null,
+                                    new Object[] { "Ok"},    
+                                    "Ok");
                                   NuevoSemaforo.this.dispose();
                                   }
                             }
