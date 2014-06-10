@@ -37,6 +37,7 @@ public class Individuo
         idNodoSemaforo = new long[Config.N_CROSS];
         id = numIndividuo;
         estado = 1;
+        establecerIdNodos();
         generarIndividuos(crearGenesRandom);        
         
 //        MethodConfig.setSizeAllGen(); //para calcular la cantidad de semaforos que habran y por lo tanto la longitud del cromosoma
@@ -65,6 +66,7 @@ public class Individuo
     
     private void crearGenes(boolean random)
     {
+        
         /*Para cada interseccion generas 2 tiempos aleatorios de semaforos*/
         for (int i=0; i<Config.N_CROSS; i++){
             
@@ -80,36 +82,24 @@ public class Individuo
                 tSemaforo1 = (byte) (Config.defaultTime);
                 tSemaforo2 = (byte) (Config.defaultTime);
             }         
-            
-            establecerIdNodos();
+                        
             representarTiempos(i,tSemaforo1,tSemaforo2);            
         }
     }
     
     private void establecerIdNodos()
-    {
-        idNodoSemaforo[0] = 1403201971;
-        idNodoSemaforo[1] = 1403201971;
-        idNodoSemaforo[2] = 1909464604;
-        idNodoSemaforo[3] = 1909464604;
-        idNodoSemaforo[4] = 1403202032;
-        idNodoSemaforo[5] = 1909464513;
-        idNodoSemaforo[6] = 1273975409;
+    {               
+        Vehiculo [] vehiculos = GA.trafico.getVehiculos();        
         
-        idNodoSemaforo[7] = 1409885149;
-        
-        idNodoSemaforo[8] = 499844763;
-        idNodoSemaforo[9] = 1836204802;       
-        idNodoSemaforo[10] = 316802238;
-        idNodoSemaforo[11] = 494413680;
-        idNodoSemaforo[12] = 1674944692;
-        idNodoSemaforo[13] = 1674944686;
-        idNodoSemaforo[14] = 316802240;
-        idNodoSemaforo[15] = 316802241;
-        idNodoSemaforo[16] = 1355562671;
-        idNodoSemaforo[17] = 316802242;
-        idNodoSemaforo[18] = 316802426;
-        idNodoSemaforo[19] = 1397487118;       
+        int j=0;
+        for (int i=0; i<idNodoSemaforo.length; ){
+            Ruta ruta = vehiculos[j].getRoute();
+            for (int k=0; k< ruta.getIdNodoRuta().size(); k++) {
+                idNodoSemaforo[i] = ruta.getIdNodoRuta().get(k);
+                i++;
+            }
+            j++;
+        }
     }
 
     public int getEstado()
@@ -202,7 +192,7 @@ public class Individuo
 //                    + (distancia/tiempo)/Config.kmAms );
             
             if (tiempo < 1) tiempo = 1;
-            velocidadPromedio += (float)((distancia/tiempo)/Config.kmAms);
+            velocidadPromedio += (float)((distancia/tiempo)/Config.kmAms)*10;
             
             //reset para el próximo gen
             ruta.setActualPosRoute(-1);
@@ -215,7 +205,7 @@ public class Individuo
 //            ruta.setLastdecision(-1);
         }
 
-        velocidadPromedio = velocidadPromedio/vehiculos.length;
+        velocidadPromedio = (velocidadPromedio/vehiculos.length)/2;
         return fitness;
     }
     

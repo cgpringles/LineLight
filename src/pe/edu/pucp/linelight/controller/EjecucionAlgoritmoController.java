@@ -10,7 +10,7 @@ import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
+import pe.edu.pucp.linelight.algorithm.Config;
 import pe.edu.pucp.linelight.algorithm.GA;
 import pe.edu.pucp.linelight.algorithm.Trafico;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
@@ -86,6 +86,7 @@ public class EjecucionAlgoritmoController {
         double tc = paramAlgoritmo.getTasaCasamiento();
         double tm = paramAlgoritmo.getTasaMutacion();
         
+        Config.N_CROSS = 0; // para setear en cada simulacion
         GA.trafico.ejecutarAlgoritmo(tpi, tmp, msc, tc, tm); // valores que jala (10, 10, 50, 0.85, 0.1)                
     }
     
@@ -97,7 +98,7 @@ public class EjecucionAlgoritmoController {
         GA.trafico.exportarSerializableTrafico();
         GA.trafico.exportarTextoTrafico();
         GA.trafico.imprimirTrafico();
-                
+                      
 //        GA.trafico = new Trafico(2000,true);
 //        GA.trafico.imprimirTrafico();
 //        /*Exportar Datos generados en un archivo*/        

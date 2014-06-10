@@ -34,14 +34,20 @@ public class Poblacion
             for (int i = 0; i < tamPoblacion; i++)
             {   
                 int auxFitness;
-                System.out.println("Individuo "+i);             
+//                System.out.println("Individuo "+i);             
                 Individuo newIndividual = new Individuo(i,true); //se coloca un indice a cada individuo para colocar los tiempos por defecto como un individuo inicial, individuo id=0                
                 individuos[i] = newIndividual;
                 auxFitness = newIndividual.getFitness(); // al momento de crearse los individuos aleatoriamente, se irá acmulando la totalFitness total
-                System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
-                System.out.println("Velocidad Promedio de Individuo "+i+": "+ newIndividual.getVelocidadPromedio());
+                if (i == 0) {
+                    float auxVelocidad = newIndividual.getVelocidadPromedio();
+                    GA.velocidadHistorica = auxVelocidad;
+                    System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
+                    System.out.println("Velocidad Promedio de Individuo "+i+": "+ auxVelocidad);
+                }
                 totalFitness += auxFitness;
-                newIndividual.imprimirAllGen();
+//                System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
+//                System.out.println("Velocidad Promedio de Individuo "+i+": "+ newIndividual.getVelocidadPromedio());                
+//                newIndividual.imprimirAllGen();
             }
         }
     }
@@ -83,9 +89,16 @@ public class Poblacion
         int size = size();
         for (int i = 0; i < size; i++) 
         {
+//            System.out.println("Individuo " + i);
             int valorMejor = elMejor.getFitness();
+            float velValorMejor = elMejor.getVelocidadPromedio();
+            
             Individuo posibleMejor = getIndividual(i);
             int valorPosibleMejor = posibleMejor.getFitness();
+            float velValorPosible = posibleMejor.getVelocidadPromedio();
+            
+//            System.out.println("Fitness : " + valorPosibleMejor + "   Velocidad : " + velValorPosible);
+            
             if (valorPosibleMejor <= valorMejor) /*un individuo es mejor si ofrece menor tiempo de demora*/
             {
                 elMejor = posibleMejor;

@@ -6,8 +6,11 @@
 
 package pe.edu.pucp.linelight.controller;
 
-import org.hibernate.HibernateException;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 import pe.edu.pucp.linelight.model.Distritoxhorario;
 import pe.edu.pucp.linelight.model.Horario;
@@ -70,6 +73,27 @@ public class HorarioController {
         return dh.getNumCarros();
         
         
+    }
+    
+    public static List<Horario> getAllHorarios() throws HibernateException {
+        List<Horario> listaHorarios = new ArrayList<>();
+        Session s = null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+            Query query = null;
+         
+                query = s.createQuery("FROM Horario h");
+
+            listaHorarios = query.list();
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return listaHorarios;
     }
     
     
