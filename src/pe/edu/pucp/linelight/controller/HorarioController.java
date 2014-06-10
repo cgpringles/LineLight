@@ -123,5 +123,31 @@ public class HorarioController {
         return horario;
     }
     
+    public static Horario obtenerHorarioPorID(int idDistrito, int idHorario)
+    {
+        Session s = null;
+        Horario h=null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+            h=(Horario)s.createCriteria(Horario.class).add(Restrictions.eq("id.idHorario", idHorario))
+                    .add(Restrictions.eq("id.idDistrito", idDistrito)).list().get(0);
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return h;
+        
+
+
+
+
+
+
+    }
+    
     
 }

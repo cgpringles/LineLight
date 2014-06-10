@@ -4,7 +4,9 @@
  */
 package pe.edu.pucp.linelight.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,6 +19,7 @@ import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.util.HibernateUtil;
+import org.hibernate.criterion.Order;
 
 /**
  *
@@ -135,6 +138,30 @@ public class EjecucionAlgoritmoController {
         }
         
         return 0;
+    }
+    
+    public static List<Ejecucionalgoritmo> obtenerConfiguraciónSimulación()
+    {
+        List<Ejecucionalgoritmo> ejecAlg=new ArrayList<>();
+        
+        Session s = null;         
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            ejecAlg=(List<Ejecucionalgoritmo>)s.createCriteria(Ejecucionalgoritmo.class)
+                    .addOrder(Order.asc("id.idEjecucionAlgoritmo")).list();
+            HibernateUtil.cierraOperacion(s);
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+        
+        return ejecAlg;
     }
             
 //            for (int j=)

@@ -22,6 +22,8 @@ public class Semaforo  implements java.io.Serializable {
      private String via2;
      private String distrito;
      private Set ejecucionalgoritmoxsemaforos = new HashSet(0);
+     public static boolean ROJO=false;
+     public static boolean VERDE=true;
 
     public Semaforo() {
     }
