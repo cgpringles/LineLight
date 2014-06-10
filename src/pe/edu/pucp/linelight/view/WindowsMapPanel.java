@@ -30,6 +30,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextPane;
+import pe.edu.pucp.linelight.model.Semaforo;
 import pe.edu.pucp.linelight.robot.Carro;
 import pe.edu.pucp.linelight.structure.Edge;
 import pe.edu.pucp.linelight.structure.Map;
@@ -122,20 +123,17 @@ public class WindowsMapPanel extends javax.swing.JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(bgImage, 0, 0,ConfigPanelMapa.width,ConfigPanelMapa.height,null);
         
-        g2d.setColor(Color.BLACK);
-        for (Node node : map.getNodes()) {
-            
-            if (node.getS()!=null)
-            {
-                System.out.println("Semaforo....");
-                g2d.fillOval((int) ((node.getX() + x_offset)*scale - 10/2 ),
-                            (int) ((node.getY() + y_offset)*scale - 10/2), 
-                            10, 
-                            10);
-            }
-	}
         g2d.setStroke(new BasicStroke(2f));
         for (Edge edge : map.getEdges()) {
+            
+            Semaforo s=edge.getOriginNode().getS();
+            if (s!=null)
+            {
+                if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.red);
+                else g2d.setColor(Color.green);
+                
+                g2d.fillOval((int)edge.getOriginNode().getX()+x_offset,(int)edge.getOriginNode().getY()+y_offset,7,7); 
+            }
             
             if (edge.getFlujoActual()==0) continue;
             //Mostrar detalle velocidad
@@ -144,9 +142,6 @@ public class WindowsMapPanel extends javax.swing.JPanel {
 //            int textY=Math.round((edge.getEndNode().getY()-edge.getOriginNode().getY())/2)+edge.getOriginNode().getY();
             
 //            g2d.drawString("Holaaaaaaaaaaa", 0, 0);
-            
-            
-            if (edge.getOriginNode().getS()!=null)
             
             g2d.setColor(getColorTraffic(edge.getVelocidad()));
 //            g2d.setColor(getColorTraffic(Math.random()*80));

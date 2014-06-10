@@ -17,6 +17,7 @@ import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.util.HibernateUtil;
+import org.hibernate.criterion.Order;
 
 /**
  *

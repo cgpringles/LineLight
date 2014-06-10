@@ -87,8 +87,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         configuracionComboBox.addItem("--Configuración por defecto--");
         for (Ejecucionalgoritmo e:lEjec)
         {
-            
             configuracionComboBox.addItem(e.getNombreSimulacion());
+            
         }
         
         mapPanel = new WindowsMapPanel(new Dimension(728,568));
@@ -341,46 +341,39 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         javax.swing.GroupLayout monitoreoPanelLayout = new javax.swing.GroupLayout(monitoreoPanel);
         monitoreoPanel.setLayout(monitoreoPanelLayout);
         monitoreoPanelLayout.setHorizontalGroup(
-            monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(monitoreoPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monitoreoPanelLayout.createSequentialGroup()
-                        .addContainerGap(264, Short.MAX_VALUE)
-                        .addComponent(iniciarMonitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(iniciarMonitoreoButton)
                     .addGroup(monitoreoPanelLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(configuracionLabel))
-                        .addGap(24, 24, 24)
+                            .addComponent(configuracionLabel)
+                            .addComponent(jLabel4))
+                        .addGap(34, 34, 34)
                         .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(configuracionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(monitoreoPanelLayout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)))
-                        .addGap(0, 47, Short.MAX_VALUE)))
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6))
+                            .addComponent(configuracionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         monitoreoPanelLayout.setVerticalGroup(
             monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monitoreoPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+            .addGroup(monitoreoPanelLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(configuracionLabel)
                     .addComponent(configuracionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addComponent(iniciarMonitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(17, 17, 17)
+                .addComponent(iniciarMonitoreoButton)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Monitoreo", monitoreoPanel);
@@ -549,8 +542,13 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void iniciarMonitoreoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarMonitoreoButtonActionPerformed
         // TODO add your handling code here:
-        
-        gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),"Lunes","8:00");
+        if (configuracionComboBox.getSelectedIndex()>0)
+        {
+//            Ejecucionalgoritmo ea= lEjec.get(configuracionComboBox.getSelectedIndex()-1);
+//            Horario h=HorarioController.obtenerHorarioPorID(d.getIdDistrito(), ea.getId().getIdHorario());
+            String[] c=configuracionComboBox.getSelectedItem().toString().split(" ");
+            gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),c[0],c[1]);
+        }
 
     }//GEN-LAST:event_iniciarMonitoreoButtonActionPerformed
 

@@ -145,7 +145,7 @@ public class semaforoController {
          return id + 1;
      }    
      
-          public static Semaforo obtenerSemaforo(int idSemaforo){
+     public static Semaforo obtenerSemaforo(int idSemaforo){
          Semaforo semaforo = new Semaforo();
          Session s = null;
          
@@ -635,6 +635,4 @@ public class semaforoController {
         }
          return true;
     }
-        
-   
 }
