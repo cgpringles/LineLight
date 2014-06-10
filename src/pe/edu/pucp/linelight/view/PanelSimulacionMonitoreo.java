@@ -603,17 +603,17 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                            /*Seccion donde se guardara la generacion de Autos*/
                            /*Luego recien despues de haber agregado la simulacion deberia ser posible agregar los vehiculos*/
                            ok = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
-                           if (ok == 0)
+                           if (ok == 0) {
                                JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
-                                                      
+                           }
+                           else {
+                               
                            /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
                             * los tiempos de cada semaforo resultantes de la simulacion actual*/
 //                           ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
-//                           if(ok == 1)                           
-//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Semaforos en Simulacion agregados","Acción",INFORMATION_MESSAGE,null);                           
-//                           else
-//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Semaforos en Simulacion","Acción",ERROR_MESSAGE,null);                                                   
-//                                                   
+//                           if(ok == 0)
+//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Semaforos en Simulacion","Acción",ERROR_MESSAGE,null);
+                           }                                                   
                        }
                        else
                        {

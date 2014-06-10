@@ -122,6 +122,7 @@ public class GeneradorRobot extends Thread{
     //Mode Simulación
     public GeneradorRobot(int cantRobots,int idDistrito,WindowsMapPanel wmp)
     {
+        listaSemaforos=semaforoController.obtenerSemaforosxdistrito(DistritoController.obtenerNombDistrito(idDistrito));
         if (cantRobots>0) 
         {
             this.wmp=wmp;

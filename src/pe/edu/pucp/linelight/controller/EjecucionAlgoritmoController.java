@@ -23,6 +23,7 @@ import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 import org.hibernate.criterion.Order;
+import pe.edu.pucp.linelight.model.Semaforo;
 
 /**
  *
@@ -155,19 +156,29 @@ public class EjecucionAlgoritmoController {
             
             /*Falta obtener la data real de idNodo y idSemaforo - PARTE DE LUIS*/
             long idNodo = nodos[i];
-            eaxsemaforoId.setIdNodo(idNodo);            
-            // falta agregar idSemaforo
-            // Deberia llamarse a un metodo de semaforo que le pases el idNodo y devuelva el idSemaforo
+            eaxsemaforoId.setIdNodo(idNodo);
+            ArrayList<Semaforo> semaforos = semaforoController.obtenerSemaforobyNodo(idNodo);
             
-            eaxsemaforo.setId(eaxsemaforoId);
-            
-            int tiempoIni = semafIni[i] ;
-            int tiempoFin = semafFin[i];
-            eaxsemaforo.setTverde(tiempoIni);
-            eaxsemaforo.setTrojo(tiempoFin);
-            
-            ok = agregarEjecucionXSemaforo(eaxsemaforo); //basta que no se pueda guardar un semaforo entonces saldra      
-            if (ok == 0) break;    
+            if (semaforos!=null) {                
+                
+                eaxsemaforoId.setIdSemaforo(semaforos.get(0).getId().getIdSemaforo());            
+                eaxsemaforo.setId(eaxsemaforoId);
+
+                int tiempoIni = semafIni[i];
+                int tiempoFin = semafFin[i];
+                eaxsemaforo.setTverde(tiempoIni);
+                eaxsemaforo.setTrojo(tiempoFin);
+
+                ok = agregarEjecucionXSemaforo(eaxsemaforo); //basta que no se pueda guardar un semaforo entonces saldra      
+                if (ok == 0)                
+                    System.out.println("No se agrego Semaforo en nodo: " + idNodo + "  seguro no existe semaforo en ese nodo");
+                else { 
+                    System.out.println("Se agrego Semaforo en nodo : " + idNodo);
+                    System.out.println("Tiempo Inicial : " + semafIni[i] + "   Tiempo Final : " + semafFin[i]);            
+                }
+                
+            }
+
         }
         
         return ok;

@@ -644,7 +644,7 @@ public class semaforoController {
         {
             s = HibernateUtil.iniciaOperacion();
             Criteria semaforoCriteria = s.createCriteria(Semaforo.class);
-            Criterion nodoIdCriteria =  (Restrictions.eq("via1", nodoId));       
+            Criterion nodoIdCriteria =  (Restrictions.eq("id.idNodo", nodoId));       
             semaforoCriteria.add(nodoIdCriteria);
             semaforoHermano = (ArrayList<Semaforo>)semaforoCriteria.list(); 
             HibernateUtil.cierraOperacion(s);
