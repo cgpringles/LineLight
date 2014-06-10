@@ -96,7 +96,10 @@ public class Via  implements java.io.Serializable {
         this.tramos = tramos;
     }
 
-
+@Override
+    public String toString() {
+        return nombre;
+    }
 
 
 }

@@ -173,7 +173,7 @@ public class semaforoController {
          return semaforo;
      } 
           
-     public static long obtenerIdNodo (String via1, String via2){
+     public static long obtenerIdNodo (Via via1, Via via2){
         Session s = null;
         
         try
@@ -181,12 +181,12 @@ public class semaforoController {
             s = HibernateUtil.iniciaOperacion();
             
             //Obtenemos lista de restriccion
-            Query query = s.createQuery("SELECT t.id.idNodo FROM Via v, Tramoxnodo t WHERE v.nombre = :via2 and v.id.idVia = t.id.idVia");
-            query.setParameter("via2", via2);
+            Query query = s.createQuery("SELECT t.id.idNodo FROM Via v, Tramoxnodo t WHERE v.id.idVia = :via2 and v.id.idVia = t.id.idVia");
+            query.setParameter("via2", via2.getId().getIdVia());
             List resList = query.list();
             //Obtenemos el idNodo
-            query = s.createQuery("SELECT t.id.idNodo FROM Via v, Tramoxnodo t WHERE v.nombre = :via1 and v.id.idVia = t.id.idVia and t.id.idNodo IN (:resList)");
-            query.setParameter("via1", via1);
+            query = s.createQuery("SELECT t.id.idNodo FROM Via v, Tramoxnodo t WHERE v.id.idVia = :via1 and v.id.idVia = t.id.idVia and t.id.idNodo IN (:resList)");
+            query.setParameter("via1", via1.getId().getIdVia());
             query.setParameterList("resList", resList);
             List nodoEncontrado = query.list();
             if (nodoEncontrado.isEmpty())
@@ -605,7 +605,7 @@ public class semaforoController {
         return lista;
     }
 
-    public static boolean verificarSemaforo(String via1, String via2) {
+    public static boolean verificarSemaforo(long nodoId) {
         Session s = null;
         
         try
@@ -613,9 +613,9 @@ public class semaforoController {
             s = HibernateUtil.iniciaOperacion();
             
             //Obtenemos lista de restriccion
-            Query query = s.createQuery("FROM Semaforo WHERE via1 like :viaN1 and via2 like :viaN2");
-            query.setParameter("viaN1", via1);
-            query.setParameter("viaN2", via2);
+            Query query = s.createQuery("FROM Semaforo WHERE id.idNodo = :nodoId");
+            query.setParameter("nodoId", nodoId);
+          
             
             List nodoEncontrado = query.list();
             HibernateUtil.cierraOperacion(s);
