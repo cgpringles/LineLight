@@ -20,6 +20,7 @@ import pe.edu.pucp.linelight.controller.ZonaController;
 import pe.edu.pucp.linelight.controller.semaforoController;
 import pe.edu.pucp.linelight.model.Distritoxhorario;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
+import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Nodo;
 import pe.edu.pucp.linelight.model.Semaforo;
@@ -73,11 +74,23 @@ public class GeneradorRobot extends Thread{
     }
     
     //
-    public GeneradorRobot(WindowsMapPanel wmp,int idDistrito,String dd, String hh)
+    public GeneradorRobot(WindowsMapPanel wmp,int idDistrito,String dd, String hh,List<Ejecucionalgoritmoxsemaforo> lAlgSem)
     {
         this.cantRobots=cantRobots;
         Horario h=HorarioController.obtenerHorario(dd, hh);
         listaSemaforos=semaforoController.obtenerSemaforosxdistrito(DistritoController.obtenerNombDistrito(idDistrito));
+        
+//        if ((lAlgSem!=null) && (lAlgSem.size()>0))
+//        {
+//            for (Ejecucionalgoritmoxsemaforo e:lAlgSem)
+//            {
+//                e.getSemaforo().getId().get
+//                
+//                
+//                
+//            }
+//        }
+        
         this.cantRobots=HorarioController.obtenerCarrosxHorarioxDistrito(h.getIdHorario(), idDistrito);
         this.listaCarros=new ArrayList<>();
         this.wmp=wmp;
@@ -287,6 +300,13 @@ public class GeneradorRobot extends Thread{
     @Override
     public void run()
     {   
+        List<Integer> listaTiempoSemaforos=new ArrayList<>();
+        System.out.println(listaSemaforos.size());
+        for (int i=0;i<listaSemaforos.size();i++)
+        {
+            listaTiempoSemaforos.add(0);
+        }
+        
         
         int cont=0;
         while (monitorear)
@@ -313,6 +333,31 @@ public class GeneradorRobot extends Thread{
             if (cont>=100)
             {
                 cont=0;
+                
+                for (int i=0;i<listaSemaforos.size();i++)
+                {
+                    listaTiempoSemaforos.set(i, listaTiempoSemaforos.get(i)+1);
+                    
+                    //Si está en rojo
+                    if (listaSemaforos.get(i).getEstado()==Semaforo.ROJO)
+                    {
+                        if (listaTiempoSemaforos.get(i)>=listaSemaforos.get(i).getTrojo())
+                        {
+                            listaSemaforos.get(i).setEstado(Semaforo.VERDE);
+                            listaTiempoSemaforos.set(i, 0);
+                        }
+                    }
+                    //Si está en verde
+                    else
+                    {
+                        if (listaTiempoSemaforos.get(i)>=listaSemaforos.get(i).getTverde())
+                        {
+                            listaSemaforos.get(i).setEstado(Semaforo.ROJO);
+                            listaTiempoSemaforos.set(i, 0);
+                        }
+                    }
+                }
+                
                 wmp.repaint();
             }
 //            wmp.drawCars(listaCarros);

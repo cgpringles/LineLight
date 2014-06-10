@@ -197,5 +197,28 @@ public class EjecucionAlgoritmoController {
         return ejecAlg;
     }
     
+    public static List<Ejecucionalgoritmoxsemaforo> obtenerAlgoritmoxSemaforo()
+    {
+        List<Ejecucionalgoritmoxsemaforo> ejecAlgSem=new ArrayList<>();
+        
+        Session s = null;         
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            ejecAlgSem=(List<Ejecucionalgoritmoxsemaforo>)s.createCriteria(Ejecucionalgoritmoxsemaforo.class)
+                    .addOrder(Order.asc("id.idEjecucionAlgoritmo")).list();
+            HibernateUtil.cierraOperacion(s);
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+        
+        return ejecAlgSem;        
+    }
     
 }

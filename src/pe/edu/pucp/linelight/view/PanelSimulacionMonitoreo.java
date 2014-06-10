@@ -30,6 +30,7 @@ import pe.edu.pucp.linelight.controller.ParamAlgoritmoController;
 import pe.edu.pucp.linelight.controller.VehiculoController;
 import pe.edu.pucp.linelight.model.Configuracionsistema;
 import pe.edu.pucp.linelight.model.EjecucionalgoritmoId;
+import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.model.Usuario;
@@ -494,7 +495,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 //            Ejecucionalgoritmo ea= lEjec.get(configuracionComboBox.getSelectedIndex()-1);
 //            Horario h=HorarioController.obtenerHorarioPorID(d.getIdDistrito(), ea.getId().getIdHorario());
             String[] c=configuracionComboBox.getSelectedItem().toString().split(" ");
-            gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),c[0],c[1]);
+            List<Ejecucionalgoritmoxsemaforo> listaAlgxSem=EjecucionAlgoritmoController.obtenerAlgoritmoxSemaforo();
+            gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),c[0],c[1],listaAlgxSem);
         }
 
     }//GEN-LAST:event_iniciarMonitoreoButtonActionPerformed
