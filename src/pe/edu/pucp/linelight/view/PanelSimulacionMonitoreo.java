@@ -92,7 +92,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 
         this.setBackground(new java.awt.Color(240, 240, 240));
         
-        mapPanel = new WindowsMapPanel(new Dimension(728,568));
+        mapPanel = new WindowsMapPanel(new Dimension(760,568));
         mapContainerPanel.setVisible(true);
         mapPanel.setVisible(true);        
         
@@ -133,7 +133,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        buscar_usuario_button = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -156,7 +155,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         mapContainerPanel = new javax.swing.JPanel();
         busquedaTextField = new javax.swing.JTextField();
-        buscarButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -164,11 +162,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         zoomInButton = new javax.swing.JButton();
         zoomOutButton = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
 
         iniciarSimulacionButton.setBackground(new java.awt.Color(0, 153, 204));
         iniciarSimulacionButton.setText("Iniciar Simulación");
@@ -194,13 +187,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         });
 
         jTextField4.setEditable(false);
-
-        buscar_usuario_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buscar_opt.png"))); // NOI18N
-        buscar_usuario_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscar_usuario_buttonActionPerformed(evt);
-            }
-        });
 
         jLabel11.setText("km/h");
 
@@ -251,9 +237,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(buscar_usuario_button, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(72, 72, 72)
                                 .addComponent(agregarSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(simulacionPanelLayout.createSequentialGroup()
                                 .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -287,7 +271,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, simulacionPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buscar_usuario_button)
                     .addComponent(agregarSimulacion)
                     .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
@@ -409,10 +392,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             .addGap(0, 566, Short.MAX_VALUE)
         );
 
-        buscarButton.setBackground(new java.awt.Color(0, 153, 204));
-        buscarButton.setText("Buscar");
-        buscarButton.setBorderPainted(false);
-
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Leyenda"));
 
         jLabel7.setForeground(new java.awt.Color(51, 204, 0));
@@ -450,7 +429,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         zoomInButton.setBackground(new java.awt.Color(0, 153, 204));
@@ -469,48 +448,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             }
         });
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones de visualizacion"));
-
-        jCheckBox1.setText("Satelite");
-
-        jCheckBox2.setText("Trafico");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox3.setText("Vehiculos");
-
-        jCheckBox4.setText("Semaforos");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox4))
-                .addContainerGap(361, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox4)
-                .addGap(40, 40, 40))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -520,20 +457,17 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 3, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(zoomInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(zoomOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(busquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buscarButton))
-                    .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11))
+                        .addComponent(busquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,15 +476,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(busquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buscarButton)
                             .addComponent(zoomInButton)
                             .addComponent(zoomOutButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -593,10 +524,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_iniciarSimulacionButtonActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
         // TODO add your handling code here:
@@ -673,10 +600,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                            /*Seccion donde se guardara la generacion de Autos*/
                            /*Luego recien despues de haber agregado la simulacion deberia ser posible agregar los vehiculos*/
                            ok = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
-                           if(ok == 1)                           
-                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Vehiculos agregados","Acción",INFORMATION_MESSAGE,null);                           
-                           else
-                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);                                                   
+                           if (ok == 0)
+                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
                                                       
                            /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
                             * los tiempos de cada semaforo resultantes de la simulacion actual*/
@@ -691,11 +616,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        {
                            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Simulación","Acción",ERROR_MESSAGE,null);
                        }
-                       
                 }
-            }
-            
-        }
+            }            
+        
+        }        
         else {
             JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Ingrese los campos para agregar Simulación", "Error", ERROR_MESSAGE, null);
         }
@@ -712,15 +636,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void buscar_usuario_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_usuario_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscar_usuario_buttonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarSimulacion;
-    private javax.swing.JButton buscarButton;
-    private javax.swing.JButton buscar_usuario_button;
     private javax.swing.JTextField busquedaTextField;
     private javax.swing.JComboBox configuracionComboBox;
     private javax.swing.JLabel configuracionLabel;
@@ -728,10 +646,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private javax.swing.JLabel fechaLabel1;
     private javax.swing.JButton iniciarMonitoreoButton;
     private javax.swing.JButton iniciarSimulacionButton;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -749,7 +663,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

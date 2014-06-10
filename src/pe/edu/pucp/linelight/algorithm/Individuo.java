@@ -92,10 +92,10 @@ public class Individuo
         Vehiculo [] vehiculos = GA.trafico.getVehiculos();        
         
         int j=0;
-        for (int i=0; i<idNodoSemaforo.length; ){
+        for (int i=0; i<getIdNodoSemaforo().length; ){
             Ruta ruta = vehiculos[j].getRoute();
             for (int k=0; k< ruta.getIdNodoRuta().size(); k++) {
-                idNodoSemaforo[i] = ruta.getIdNodoRuta().get(k);
+                getIdNodoSemaforo()[i] = ruta.getIdNodoRuta().get(k);
                 i++;
             }
             j++;
@@ -164,6 +164,14 @@ public class Individuo
         tSemaforoFin[i]=value;
     }
     
+    public long[] getIdNodoSemaforo() {
+        return idNodoSemaforo;
+    }
+
+    public void setIdNodoSemaforo(long[] idNodoSemaforo) {
+        this.idNodoSemaforo = idNodoSemaforo;
+    }
+        
     public int size() 
     {
         return cromosoma.length;
@@ -350,8 +358,8 @@ public class Individuo
     private int obtenerInterseccionEnCromosoma(long id)
     {
         /*Buscara si el nodo de la ruta posee un semaforo, un nodo Semaforo*/
-        for(int i=0; i<idNodoSemaforo.length; i++){
-            if (idNodoSemaforo[i] == id) return i;
+        for(int i=0; i<getIdNodoSemaforo().length; i++){
+            if (getIdNodoSemaforo()[i] == id) return i;
         }        
         return -1;        
     }
@@ -465,5 +473,7 @@ public class Individuo
         for (int i=0; i<Config.N_CROSS; i++)        
             System.out.println("Cruce " + i +": ["+tSemaforoInicio[i]+","+tSemaforoFin[i]+"]");        
     }
+
+
     
 }

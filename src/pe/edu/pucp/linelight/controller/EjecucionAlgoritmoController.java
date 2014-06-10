@@ -15,7 +15,10 @@ import pe.edu.pucp.linelight.algorithm.GA;
 import pe.edu.pucp.linelight.algorithm.Trafico;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
+import pe.edu.pucp.linelight.model.EjecucionalgoritmoxsemaforoId;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
+import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 
 /**
@@ -104,7 +107,7 @@ public class EjecucionAlgoritmoController {
        
     
     /************** CONTROLLER PARA TABLA EJECUCIONALGORITMOXSEMAFORO *************/
-    public static int agregarEjecucionAlgoritmo(Ejecucionalgoritmoxsemaforo ejecucionAlgoritmoxsemaforo) {
+    public static int agregarEjecucionXSemaforo(Ejecucionalgoritmoxsemaforo ejecucionAlgoritmoxsemaforo) {
         Session s = null;
         int ok = 0;
         try {
@@ -126,78 +129,45 @@ public class EjecucionAlgoritmoController {
     public static int agregarEjecucionAlgoritmoXSemaforo(int Ejecucionalgoritmoid, int horarioid) {
         
         int ok = 0;
-        Poblacion poblacion = GA.poblacion;
-        int tamPoblacion = GA.poblacion.size(); // longitud del arreglo Individuos o la cantidad de Individuos de la poblacion
+        Individuo individuo = GA.mejorIndividuo;
+        int numIdNodos = individuo.getIdNodoSemaforo().length;
+        byte[] semafIni = individuo.getSemaforoInicio();
+        byte[] semafFin = individuo.getSemaforoFin();
+        long[] nodos = individuo.getIdNodoSemaforo();
         
-        for (int i=0; i< tamPoblacion; i++){            
-            /*Para cada individuo de la poblacion*/
-            Individuo individuo = poblacion.getIndividual(i);
+        for (int i=0; i< numIdNodos; i++){
+            /*Para cada idNodo del Mejor Individuo*/
+
+            Ejecucionalgoritmoxsemaforo eaxsemaforo = new Ejecucionalgoritmoxsemaforo();
+            Usuario user = GeneralUtil.getUsuario_sesion();
+            
+            EjecucionalgoritmoxsemaforoId eaxsemaforoId = new EjecucionalgoritmoxsemaforoId();
+//            int idEaxsemaforo = getNextId(); //cambiar a otro nextId()
+            
+            eaxsemaforoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
+            eaxsemaforoId.setIdParamAlgoritmo(1);
+            eaxsemaforoId.setIdConfiguracionSistema(1);
+            eaxsemaforoId.setIdUsuario(user.getIdUsuario());
+            eaxsemaforoId.setIdHorario(horarioid);
+            
+            /*Falta obtener la data real de idNodo y idSemaforo - PARTE DE LUIS*/
+            long idNodo = nodos[i];
+            eaxsemaforoId.setIdNodo(idNodo);            
+            // falta agregar idSemaforo
+            // Deberia llamarse a un metodo de semaforo que le pases el idNodo y devuelva el idSemaforo
+            
+            eaxsemaforo.setId(eaxsemaforoId);
+            
+            int tiempoIni = semafIni[i] ;
+            int tiempoFin = semafFin[i];
+            eaxsemaforo.setTverde(tiempoIni);
+            eaxsemaforo.setTrojo(tiempoFin);
+            
+            ok = agregarEjecucionXSemaforo(eaxsemaforo); //basta que no se pueda guardar un semaforo entonces saldra      
+            if (ok == 0) break;    
         }
         
-        return 0;
+        return ok;
     }
-            
-//            for (int j=)
-//            
-//            Vehiculo vehiculo = new Vehiculo();
-//            Usuario user = GeneralUtil.getUsuario_sesion();
-//            
-//            VehiculoId vehiculoId = new VehiculoId();
-//            int idVehiculo= getNextId();
-//            
-//            vehiculoId.setIdVehiculo(idVehiculo);                        
-//            vehiculoId.setIdParamAlgoritmo(1);
-//            vehiculoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
-//            vehiculoId.setIdConfiguracionSistema(1);
-//            vehiculoId.setIdUsuario(user.getIdUsuario());
-//            vehiculoId.setIdHorario(horarioid);
-//            
-//            vehiculo.setId(vehiculoId);
-//            
-//            int posX = GA.trafico.getVehiculos()[i].getRoute().getPosIniX();
-//            int posY = GA.trafico.getVehiculos()[i].getRoute().getPosIniY();            
-//            vehiculo.setPosInit("" + posX + "," + posY);
-//            
-//            posX = GA.trafico.getVehiculos()[i].getRoute().getPosFinX();
-//            posY = GA.trafico.getVehiculos()[i].getRoute().getPosFinY();             
-//            vehiculo.setPosFin("" + posX + "," + posY);
-//            
-//            posX = GA.trafico.getVehiculos()[i].getRoute().getActualPosX();
-//            posY = GA.trafico.getVehiculos()[i].getRoute().getActualPosY();            
-//            vehiculo.setPosActual("" + posX + "," + posY);
-//            
-//            int vel = GA.trafico.getVehiculos()[i].getVelocidad();
-//            vehiculo.setVelocidad("" + vel);
-//            
-//            ok = agregarVehiculo(vehiculo); //basta que no se pueda guardar un vehiculo entonces saldra      
-//            if (ok == 0) break;            
-//        }
-//              
-//        
-//        /*Se necesita nombre de simulacion, tiempo de ejecucion*/
-//        Ejecucionalgoritmo ejecucionAlgoritmo = new Ejecucionalgoritmo();
-//        Usuario user = GeneralUtil.getUsuario_sesion();
-//
-//        //El id de la ejecucion
-//        EjecucionalgoritmoId idEjecucionalgoritmo = new EjecucionalgoritmoId();
-//        int Ejecucionalgoritmoid = EjecucionAlgoritmoController.getNextId();
-//        idEjecucionalgoritmo.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);                  
-//        idEjecucionalgoritmo.setIdParamAlgoritmo(1); // Tome el primer registro de parametros
-//        idEjecucionalgoritmo.setIdConfiguracionSistema(1); // Tome el rpimer registro de configuracion
-//        idEjecucionalgoritmo.setIdUsuario(user.getIdUsuario());
-//
-//        int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
-//        int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
-//        int horarioid = HorarioController.getHorarioId(seleccion_dia, seleccion_hora).getIdHorario();
-//        idEjecucionalgoritmo.setIdHorario(horarioid);
-//
-//        //Registramos la ejecucion
-//        ejecucionAlgoritmo.setId(idEjecucionalgoritmo);
-//
-//        ejecucionAlgoritmo.setFecha(new Date());
-//        ejecucionAlgoritmo.setVelocidadMaxima(Double.parseDouble(this.jTextField3.getText()));
-//        ejecucionAlgoritmo.setVelocidadHistoria(Double.parseDouble(this.jTextField7.getText()));
-//        ejecucionAlgoritmo.setNombreSimulacion(this.jTextField6.getText());
-//        ejecucionAlgoritmo.setTiempoEjecucion(Double.parseDouble(this.jTextField4.getText()));
-           
+    
 }
