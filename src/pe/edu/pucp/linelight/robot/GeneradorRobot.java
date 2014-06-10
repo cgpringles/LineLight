@@ -17,10 +17,12 @@ import pe.edu.pucp.linelight.controller.HorarioController;
 import pe.edu.pucp.linelight.controller.NodoController;
 import pe.edu.pucp.linelight.controller.TramoController;
 import pe.edu.pucp.linelight.controller.ZonaController;
+import pe.edu.pucp.linelight.controller.semaforoController;
 import pe.edu.pucp.linelight.model.Distritoxhorario;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
 import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Nodo;
+import pe.edu.pucp.linelight.model.Semaforo;
 import pe.edu.pucp.linelight.model.Tipovia;
 import pe.edu.pucp.linelight.model.Tramo;
 import pe.edu.pucp.linelight.model.Tramoxnodo;
@@ -52,6 +54,7 @@ public class GeneradorRobot extends Thread{
     static int ONLINE=1;
     static int SIMULACION=2;
     List<Object> listaVehiculosRuta;
+    List<Semaforo> listaSemaforos;
 
     public List<Object> getListaVehiculosRuta() {
         return listaVehiculosRuta;
@@ -69,11 +72,12 @@ public class GeneradorRobot extends Thread{
         this.listaCarros = listaCarros;
     }
     
-    
+    //
     public GeneradorRobot(WindowsMapPanel wmp,int idDistrito,String dd, String hh)
     {
         this.cantRobots=cantRobots;
         Horario h=HorarioController.obtenerHorario(dd, hh);
+        listaSemaforos=semaforoController.obtenerSemaforosxdistrito(DistritoController.obtenerNombDistrito(idDistrito));
         this.cantRobots=HorarioController.obtenerCarrosxHorarioxDistrito(h.getIdHorario(), idDistrito);
         this.listaCarros=new ArrayList<>();
         this.wmp=wmp;
@@ -118,6 +122,7 @@ public class GeneradorRobot extends Thread{
     //Mode Simulación
     public GeneradorRobot(int cantRobots,int idDistrito,WindowsMapPanel wmp)
     {
+        listaSemaforos=semaforoController.obtenerSemaforosxdistrito(DistritoController.obtenerNombDistrito(idDistrito));
         if (cantRobots>0) 
         {
             this.wmp=wmp;
@@ -222,13 +227,12 @@ public class GeneradorRobot extends Thread{
             Node nodeFinal=null;
 //            
             Nodo ni=txni.getNodo();
-//            nodeOrigin=new Node(ni.getIdNodo(),ni.getLatitud(),ni.getLongitud(),z);
             nodeOrigin=findNodeById(ni.getIdNodo(), listaNodosLocal);
+            validaNodoSemaforo(nodeOrigin);
             
             Nodo nf=txnf.getNodo();
-//            nodeFinal=new Node(nf.getIdNodo(),nf.getLatitud(),nf.getLongitud(),z);
             nodeFinal=findNodeById(nf.getIdNodo(), listaNodosLocal);
-//            String tvia=txni.getTramo().getVia().getDescripcion();
+            validaNodoSemaforo(nodeFinal);
             
             Tipovia tv=txni.getTramo().getVia().getTipovia();
             
@@ -236,15 +240,19 @@ public class GeneradorRobot extends Thread{
             if (tv!=null) tvia=tv.getDescripcion();
             
             Edge e=new Edge(txni.getTramo().getId().getIdTramo(),nodeOrigin,nodeFinal,50,tvia);
-//            if (txni.getPosicionTramo()=='I')
-//            {
-                //Agregamos a lista de posibles caminos
-//                e.getOriginNode().agregarListaCuadra(e);
-                nodeOrigin.agregarListaCuadra(e);
-//            }
+            nodeOrigin.agregarListaCuadra(e);
             listaEdge.add(e);
         }
         map.setEdges(listaEdge);
+    }
+    
+    public void validaNodoSemaforo(Node n)
+    {
+        for (Semaforo s: listaSemaforos)
+        {
+            if (n.getId().equals(s.getNodo().getIdNodo()))
+                n.setS(s);
+        }
     }
     
     public Node findNodeById(Long id,List<Node> listan)
@@ -301,6 +309,7 @@ public class GeneradorRobot extends Thread{
                 }
             }
             
+            //Cada 1 seg
             if (cont>=100)
             {
                 cont=0;

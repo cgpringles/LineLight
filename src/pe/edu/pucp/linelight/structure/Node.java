@@ -10,6 +10,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import pe.edu.pucp.linelight.model.Nodo;
+import pe.edu.pucp.linelight.model.Semaforo;
 import pe.edu.pucp.linelight.model.Zona;
 import pe.edu.pucp.linelight.util.ConvertUtil;
 
@@ -23,6 +24,7 @@ public class Node{
     private double longitud;
     private double x;
     private double y;
+    Semaforo s;
 
     public double getLatitud() {
         return latitud;
@@ -32,6 +34,14 @@ public class Node{
         this.latitud = latitud;
     }
 
+    public Semaforo getS() {
+        return s;
+    }
+
+    public void setS(Semaforo s) {
+        this.s = s;
+    }
+    
     public double getLongitud() {
         return longitud;
     }

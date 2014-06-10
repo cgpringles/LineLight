@@ -30,6 +30,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextPane;
+import pe.edu.pucp.linelight.model.Semaforo;
 import pe.edu.pucp.linelight.robot.Carro;
 import pe.edu.pucp.linelight.structure.Edge;
 import pe.edu.pucp.linelight.structure.Map;
@@ -96,10 +97,17 @@ public class WindowsMapPanel extends javax.swing.JPanel {
                 int dx = mousePt.x - e.getX();
                 int dy = mousePt.y - e.getY();
                 
-                if((x_offset+dx>=0)&&(x_offset +dx+ ConfigPanelMapa.width <= bgImage.getWidth(null))){
+//                if((x_offset+dx>=0)&&(x_offset +dx+ ConfigPanelMapa.width <= bgImage.getWidth(null))){
+//                    x_offset -= dx;
+//                }
+//                if((y_offset+dy>=0)&&(y_offset +dy+ ConfigPanelMapa.height <= bgImage.getHeight(null))){
+//                    y_offset -= dy;
+//                }
+                
+                if((x_offset +dx+ ConfigPanelMapa.width <= bgImage.getWidth(null))){
                     x_offset += dx;
                 }
-                if((y_offset+dy>=0)&&(y_offset +dy+ ConfigPanelMapa.height <= bgImage.getHeight(null))){
+                if((y_offset +dy+ ConfigPanelMapa.height <= bgImage.getHeight(null))){
                     y_offset += dy;
                 }
                 mousePt = e.getPoint();
@@ -128,16 +136,17 @@ public class WindowsMapPanel extends javax.swing.JPanel {
         g2d.drawImage(bgImage,  0, 0,ConfigPanelMapa.width,ConfigPanelMapa.height
                 , x_offset, y_offset, x_offset+ConfigPanelMapa.width, y_offset+ConfigPanelMapa.height, null);
         
-        
-        
-        /*for (Node node : map.getNodes()) {
-            g2d.fillOval((int) ((node.getX() + x_offset)*scale - NODE_SIZE/2 ),
-                        (int) ((node.getY() + y_offset)*scale - NODE_SIZE/2), 
-                        NODE_SIZE, 
-                        NODE_SIZE);
-	}*/
         g2d.setStroke(new BasicStroke(2f));
         for (Edge edge : map.getEdges()) {
+            
+            Semaforo s=edge.getOriginNode().getS();
+            if (s!=null)
+            {
+                if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.red);
+                else g2d.setColor(Color.green);
+                
+                g2d.fillOval((int)edge.getOriginNode().getX()+x_offset,(int)edge.getOriginNode().getY()+y_offset,7,7); 
+            }
             
             if (edge.getFlujoActual()==0) continue;
             //Mostrar detalle velocidad
@@ -156,65 +165,9 @@ public class WindowsMapPanel extends javax.swing.JPanel {
             
             //Cargamos la data de la estructura matriz
             
-            Node n1=edge.getOriginNode();
-            Node n2=edge.getEndNode();
-            
-            //Agregar nodos a matriz
-//            matriz.setValueXY(n1.getX(), n1.getY(),matriz.NODO);
-//            matriz.setValueXY(n2.getX(), n2.getY(),matriz.NODO);
-            
-            //Ruta vertical
-//            if (n1.getX()==n2.getX())
-//            {
-//                int x=n1.getX();
-//                for (int i=n1.getY()+1;i<n2.getY();i++)
-//                    matriz.setValueXY(x,i,matriz.PISTA);
-//            }
-//            else
-//            {
-//                //Ruta horizontal
-//                if (n1.getY()==n2.getY())
-//                {
-//                    int y=n1.getY();
-//                    for (int i=n1.getX()+1;i<n2.getX();i++)
-//                         matriz.setValueXY(i, y,matriz.PISTA);
-//                }
-//                //Ruta diagonal
-//                else
-//                {
-//                    int dx,dy,f,c;
-//                    dx=(n2.getX()-n1.getX())/(Math.abs(n2.getX()-n1.getX()));
-//                    dy=(n2.getY()-n1.getY())/(Math.abs(n2.getY()-n1.getY()));
-//                    
-//                    c=n1.getX(); //x
-//                    f=n1.getY();//y
-//                    
-//                    do
-//                    {
-//                       matriz.setValueXY(c, f, matriz.PISTA);
-//                       c+=dx;
-//                       f+=dy;
-//                    }
-//                    while ((c!=n2.getX())&&(f!=n2.getY()));
-//                }
-//            }
+//            Node n1=edge.getOriginNode();
+//            Node n2=edge.getEndNode();
 	}
-        
-        //Mostrar vehículos
-        
-//        if (listaCarros!=null)
-//        {
-//            for (Carro c: listaCarros)
-//            {
-//                g2d.setColor(Color.BLACK);
-//                g2d.drawOval (c.getPosX(), c.getPosY(), 5, 5);
-//            }
-//        }
-        
-        //Mostrar Velocidades por cuadra
-        
-        
-        
     }
     
     
