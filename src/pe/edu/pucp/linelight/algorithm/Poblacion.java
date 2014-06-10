@@ -38,10 +38,16 @@ public class Poblacion
                 Individuo newIndividual = new Individuo(i,true); //se coloca un indice a cada individuo para colocar los tiempos por defecto como un individuo inicial, individuo id=0                
                 individuos[i] = newIndividual;
                 auxFitness = newIndividual.getFitness(); // al momento de crearse los individuos aleatoriamente, se irá acmulando la totalFitness total
-//                System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
-//                System.out.println("Velocidad Promedio de Individuo "+i+": "+ newIndividual.getVelocidadPromedio());
+                if (i == 0) {
+                    float auxVelocidad = newIndividual.getVelocidadPromedio();
+                    GA.velocidadHistorica = auxVelocidad;
+                    System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
+                    System.out.println("Velocidad Promedio de Individuo "+i+": "+ auxVelocidad);
+                }
                 totalFitness += auxFitness;
-                //newIndividual.imprimirAllGen();
+//                System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
+//                System.out.println("Velocidad Promedio de Individuo "+i+": "+ newIndividual.getVelocidadPromedio());                
+//                newIndividual.imprimirAllGen();
             }
         }
     }

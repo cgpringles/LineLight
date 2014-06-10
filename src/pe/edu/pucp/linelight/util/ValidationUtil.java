@@ -86,15 +86,19 @@ public class ValidationUtil {
             }
     }
     
-    public static void validateCaracteres(String cadena, int tam, java.awt.event.KeyEvent evt) {
+    public static void validateCaracteresNumerosDosPuntos(String cadena, int tam, java.awt.event.KeyEvent evt) {
 
-        char car = evt.getKeyChar();
- 
-        if (cadena.length() > tam - 1) {
-            Toolkit.getDefaultToolkit().beep();
-            evt.consume();
+        char car = evt.getKeyChar();        
+        if((car<'0' || car>'9') && (car<'a' || car>'z') && (car<'A' || car>'Z') && cadena.contains(":"))  {
+            if (cadena.length() > tam - 1) {
+                evt.consume();
+            }
+            evt.consume();            
         }
-
+        else
+            if((car<'0' || car>'9') && (car<'a' || car>'z') && (car<'A' || car>'Z') && (car!=':')){
+                evt.consume();
+            }            
     }
 
 }

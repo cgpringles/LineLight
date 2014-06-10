@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import pe.edu.pucp.linelight.algorithm.GA;
 import pe.edu.pucp.linelight.algorithm.Trafico;
@@ -24,14 +25,17 @@ import pe.edu.pucp.linelight.model.Zona;
 import pe.edu.pucp.linelight.robot.GeneradorRobot;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import pe.edu.pucp.linelight.controller.HorarioController;
 import pe.edu.pucp.linelight.controller.ParamAlgoritmoController;
 import pe.edu.pucp.linelight.model.Configuracionsistema;
 import pe.edu.pucp.linelight.model.EjecucionalgoritmoId;
+import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.structure.Node;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
+
 
 /**
  *
@@ -39,6 +43,9 @@ import pe.edu.pucp.linelight.util.ValidationUtil;
  */
 public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
+    List<Integer> dias_id = new ArrayList<>();
+    List<Integer> horas_id = new ArrayList<>();
+    
     WindowsMapPanel mapPanel;
     GeneradorRobot gr;
     Distrito d;
@@ -47,9 +54,31 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
      */
     public PanelSimulacionMonitoreo() {
         initComponents();
-        Date fecha=new Date();
+//        Date fecha=new Date();
 //        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
 //        txtFecha.setText(sdf.format(fecha));
+        
+        List<Horario> horarios = new ArrayList<>();
+        horarios = HorarioController.getAllHorarios();
+        
+        /*Agregar dias en combobox*/
+        this.jComboBox1.removeAllItems();
+        this.dias_id.add(0);
+        jComboBox1.addItem("Seleccione");
+        for (Horario horario : horarios) {
+            jComboBox1.addItem(horario.getDia());
+            dias_id.add(horario.getIdHorario());
+        }
+        
+        /*Agregar horas en combobox*/
+        this.jComboBox2.removeAllItems();
+        this.horas_id.add(0);
+        jComboBox2.addItem("Seleccione");
+        for (Horario horario : horarios) {
+            jComboBox2.addItem(horario.getHora());
+            horas_id.add(horario.getIdHorario());
+        }
+                
         this.setBackground(new java.awt.Color(240, 240, 240));
         
         mapPanel = new WindowsMapPanel(new Dimension(728,568));
@@ -168,7 +197,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         jLabel13.setText("Nombre Siimulación:");
 
-        jTextField6.setText("simulation3042014_5pm");
+        jTextField6.setText("Simulacion8:00Lunes");
         jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField6KeyTyped(evt);
@@ -526,17 +555,23 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void iniciarSimulacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionButtonActionPerformed
         // TODO add your handling code here:
+        if (this.jComboBox1.getSelectedIndex() != 0 && this.jComboBox2.getSelectedIndex() != 0) {
         
-        int numVehiculos = 2000;
-        Usuario user = GeneralUtil.getUsuario_sesion();
-        gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
-        List<Object> vehiculos = gr.getListaVehiculosRuta();
-        
-        EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
-        EjecucionAlgoritmoController.iniciarSimulacion();
-        
-        this.jTextField3.setText("" + GA.velocidad);
-        this.jTextField4.setText("" + GA.tiempoEjecucion);
+            int numVehiculos = 200;
+            Usuario user = GeneralUtil.getUsuario_sesion();
+            gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
+            List<Object> vehiculos = gr.getListaVehiculosRuta();
+
+            EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
+            EjecucionAlgoritmoController.iniciarSimulacion();
+
+            this.jTextField3.setText("" + GA.velocidad);
+            this.jTextField4.setText("" + GA.tiempoEjecucion);
+            this.jTextField7.setText("" + GA.velocidadHistorica);
+        }
+        else {
+            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Seleccione el dia y la hora para la Simulación", "Error", ERROR_MESSAGE, null);
+        }
         
     }//GEN-LAST:event_iniciarSimulacionButtonActionPerformed
 
@@ -556,7 +591,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void agregarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSimulacionActionPerformed
         // TODO add your handling code here:
-        int seleccion = JOptionPane.showOptionDialog(
+        
+        if (this.jTextField6.getText().trim().length() != 0 ) {        
+            
+            int seleccion = JOptionPane.showOptionDialog(
                 PanelSimulacionMonitoreo.this, // Componente padre
                 "¿Esta seguro que desea guardar la simulacion?", //Mensaje
                 "Mensaje de confirmación", // Título
@@ -565,58 +603,61 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 null,    // null para icono por defecto.
                 new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
                 "Si");
-        
-        if (seleccion != -1)
-        {
-            if(seleccion == 0)
-               {                   
-                   
-                   /*Se necesita nombre de simulacion, tiempo de ejecucion*/
-                   Ejecucionalgoritmo ejecucionAlgoritmo = new Ejecucionalgoritmo();
-                   Usuario user = GeneralUtil.getUsuario_sesion();
-                   
-                  //El id de la ejecucion
-                  EjecucionalgoritmoId idEjecucionalgoritmo = new EjecucionalgoritmoId();
-                  int Ejecucionalgoritmoid = EjecucionAlgoritmoController.getNextId();
-                  idEjecucionalgoritmo.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);                  
-                  idEjecucionalgoritmo.setIdParamAlgoritmo(1); // Tome el primer registro de parametros
-                  idEjecucionalgoritmo.setIdConfiguracionSistema(1); // Tome el rpimer registro de configuracion
-                  idEjecucionalgoritmo.setIdUsuario(user.getIdUsuario());
-                  
-                  //Registramos la ejecucion
-                  ejecucionAlgoritmo.setId(idEjecucionalgoritmo);                                                     
+            
+            if (seleccion != -1)
+            {
+                if(seleccion == 0)
+                {           
+                       /*Se necesita nombre de simulacion, tiempo de ejecucion*/
+                       Ejecucionalgoritmo ejecucionAlgoritmo = new Ejecucionalgoritmo();
+                       Usuario user = GeneralUtil.getUsuario_sesion();
 
-                   ejecucionAlgoritmo.setFecha(null);
-                   ejecucionAlgoritmo.setVelocidadMaxima(Double.parseDouble(this.jTextField3.getText()));
-//                   ejecucionAlgoritmo.setUsuario(user);
-//                   ejecucionAlgoritmo.setParamalgoritmo(new Paramalgoritmo(10, 10, 0.85, 0.1)); //no debe existir 
-                   
-                   Set permisos = new HashSet();
-//                   ejecucionAlgoritmo.setConfiguracionsistema(new Configuracionsistema(1, 120, 120, 90, 20, 50, 10, 60, 0.2777777, permisos) ); //no debe existir                   
-                   
-//                   ejecucionAlgoritmo.setVehiculos(null);
-//                   ejecucionAlgoritmo.setEjecucionalgoritmoxcuadraxnodos(null);
-//                   ejecucionAlgoritmo.setEjecucionalgoritmoxsemaforos(null);
-                   
-                   int ok =EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
-                   if(ok == 1)
-                   
-                   {
-                       JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Item agregado","Acción",INFORMATION_MESSAGE,null);
-                       //PanelSimulacionMonitoreo.this.dispose();
-                   }
-                   else
-                   {
-                       JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar item","Acción",ERROR_MESSAGE,null);
-                   }
-               }
-        }            
+                       //El id de la ejecucion
+                       EjecucionalgoritmoId idEjecucionalgoritmo = new EjecucionalgoritmoId();
+                       int Ejecucionalgoritmoid = EjecucionAlgoritmoController.getNextId();
+                       idEjecucionalgoritmo.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);                  
+                       idEjecucionalgoritmo.setIdParamAlgoritmo(1); // Tome el primer registro de parametros
+                       idEjecucionalgoritmo.setIdConfiguracionSistema(1); // Tome el rpimer registro de configuracion
+                       idEjecucionalgoritmo.setIdUsuario(user.getIdUsuario());
+
+                       //Registramos la ejecucion
+                       ejecucionAlgoritmo.setId(idEjecucionalgoritmo);
+
+                       ejecucionAlgoritmo.setFecha(new Date());
+                       ejecucionAlgoritmo.setVelocidadMaxima(Double.parseDouble(this.jTextField3.getText()));
+                       ejecucionAlgoritmo.setVelocidadHistoria(Double.parseDouble(this.jTextField7.getText()));
+                       ejecucionAlgoritmo.setNombreSimulacion(this.jTextField6.getText());
+                       ejecucionAlgoritmo.setTiempoEjecucion(Double.parseDouble(this.jTextField4.getText()));
+
+                       // Falta arreglar el horario para agregar la simulacion
+                       int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
+                       int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
+                       ejecucionAlgoritmo.setHorario(HorarioController.obtenerHorario("Lunes","8:00"));                   
+
+                       int ok =EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
+                       if(ok == 1)
+
+                       {
+                           JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
+                           //PanelSimulacionMonitoreo.this.dispose();
+                       }
+                       else
+                       {
+                           JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Simulación","Acción",ERROR_MESSAGE,null);
+                       }
+                }
+            }
+            
+        }
+        else {
+            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Ingrese los campos para agregar Simulación", "Error", ERROR_MESSAGE, null);
+        }
         
     }//GEN-LAST:event_agregarSimulacionActionPerformed
 
     private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
         // TODO add your handling code here:
-        ValidationUtil.validateCaracteres(jTextField6.getText(), 12, evt);
+        ValidationUtil.validateCaracteresNumerosDosPuntos(jTextField6.getText(), 12, evt);
         
     }//GEN-LAST:event_jTextField6KeyTyped
 

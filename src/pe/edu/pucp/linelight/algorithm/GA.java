@@ -15,6 +15,7 @@ public class GA {
     public static Trafico trafico;
     public static float velocidad;
     public static int tiempoEjecucion;
+    public static float velocidadHistorica;
     
     public static void main(String[] args) {
 
