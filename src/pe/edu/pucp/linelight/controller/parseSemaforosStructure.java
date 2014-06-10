@@ -72,6 +72,7 @@ public class parseSemaforosStructure implements Runnable{
                semaf.setDistrito(DistritoController.obtenerNombDistrito(distritoId));
                semaf.setVia1(vias.get(0));
                semaf.setVia2(vias.get(1));
+               semaf.setTipo(0);
                 //Semaforo 2
                Semaforo semaf2 = new Semaforo();
                SemaforoId semaforoId2 = new SemaforoId();
@@ -85,6 +86,7 @@ public class parseSemaforosStructure implements Runnable{
                semaf2.setDistrito(DistritoController.obtenerNombDistrito(distritoId));
                semaf2.setVia1(vias.get(1));
                semaf2.setVia2(vias.get(0));
+               semaf2.setTipo(1);
                semaforoController.registrarSemaforo(semaf2);
                semaforoController.registrarSemaforo(semaf);
                numSem = numSem + 2;  

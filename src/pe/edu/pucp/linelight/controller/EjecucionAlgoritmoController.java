@@ -4,7 +4,9 @@
  */
 package pe.edu.pucp.linelight.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,6 +22,7 @@ import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.HibernateUtil;
+import org.hibernate.criterion.Order;
 
 /**
  *
