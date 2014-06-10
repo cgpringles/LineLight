@@ -55,7 +55,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     /**
      * Creates new form PanelSimulacionMonitoreo
      */
-    public PanelSimulacionMonitoreo() {
+    public PanelSimulacionMonitoreo() throws Exception {
         initComponents();
 //        Date fecha=new Date();
 //        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
@@ -110,6 +110,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         mapContainerPanel.add(mapPanel);
                 
         d = DistritoController.obtenerDistritoActivo();
+        
+        if (d == null){
+            throw new Exception();
+        }
         
         /*Se debe validar que haya un mapa activo*/
         byte[] imagen=null;
