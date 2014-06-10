@@ -53,7 +53,6 @@ public class parseSemaforosStructure implements Runnable{
         Element root = document.getRootElement();
             for ( Iterator i = root.elementIterator("semaforo"); i.hasNext(); ) {
                 Element element = (Element) i.next();                
-                int id = Integer.parseInt(element.attribute("id").getStringValue());
                 long idNodo = Long.parseLong(element.attribute("idNodo").getStringValue());
                 Nodo nodo = semaforoController.buscarNodo(idNodo);
                 //Obtener datos

@@ -429,7 +429,7 @@ public class semaforoController {
             //Obtenemos lista de restriccion
             Query query = s.createQuery("FROM Tramoxnodo WHERE id.idNodo =" + nodoId + "GROUP BY id.idVia");         
             List resList = query.list();
-            
+            System.out.print(nodoId);
             HibernateUtil.cierraOperacion(s);
             String via1 = semaforoController.obtenerNombreViaxId(((Tramoxnodo)resList.get(0)).getId().getIdVia());
             String via2 = semaforoController.obtenerNombreViaxId(((Tramoxnodo)resList.get(1)).getId().getIdVia());         
