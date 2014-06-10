@@ -45,8 +45,8 @@ public class ConvertUtil {
 //        double x=((lon-(-77.0708000))*pixelLon)-3;
 //        double y=(Math.abs(lat+12.0618000)*pixelLat)-5;
         
-        double pixelLat=ConfigPanelMapa.height/Math.abs(z.getIniLatitud()-z.getFinLatitud());
-        double pixelLon=ConfigPanelMapa.width/Math.abs(z.getIniLongitud()- z.getFinLongitud());
+        double pixelLat=ConfigPanelMapa.imageHeight/Math.abs(z.getIniLatitud()-z.getFinLatitud());
+        double pixelLon=ConfigPanelMapa.imageWidth/Math.abs(z.getIniLongitud()- z.getFinLongitud());
         
         double x=((lon-z.getIniLongitud())*pixelLon)-5;
         double y=(Math.abs(lat - z.getIniLatitud())*pixelLat)-5;

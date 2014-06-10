@@ -26,30 +26,30 @@
 	<title>
 		<band height="132" splitType="Stretch">
 			<frame>
-				<reportElement uuid="c3c1b2c7-aeda-407d-962e-14d0e322ad3c" mode="Opaque" x="0" y="0" width="555" height="95" backcolor="#A5D3E2"/>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="95" backcolor="#A5D3E2" uuid="c3c1b2c7-aeda-407d-962e-14d0e322ad3c"/>
 				<staticText>
-					<reportElement uuid="e1f62b47-61db-45d7-8ead-8896c096e3b0" style="Title" x="0" y="0" width="370" height="66"/>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="e1f62b47-61db-45d7-8ead-8896c096e3b0"/>
 					<textElement>
 						<font isBold="false"/>
 					</textElement>
 					<text><![CDATA[Reporte Prueba]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="6bb020ca-1ec8-4335-9c24-eeb116b62ca0" style="SubTitle" x="157" y="66" width="249" height="29" forecolor="#FFFFFF"/>
+					<reportElement style="SubTitle" x="157" y="66" width="249" height="29" forecolor="#FFFFFF" uuid="6bb020ca-1ec8-4335-9c24-eeb116b62ca0"/>
 					<textElement>
 						<font size="22" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Usuarios]]></text>
 				</staticText>
 				<image>
-					<reportElement uuid="91d6fdb5-0233-4075-becf-06311da9c216" x="425" y="0" width="130" height="95"/>
-					<imageExpression><![CDATA["/Users/Charito/NetBeansProjects/NuevaCarpeta/LineLight/src/images/lineLightLogo.png"]]></imageExpression>
+					<reportElement x="434" y="0" width="121" height="95" uuid="dd1d92fc-c633-4f03-b77d-c5db3d8683ee"/>
+					<imageExpression><![CDATA["lineLightLogo.png"]]></imageExpression>
 				</image>
 			</frame>
 			<frame>
-				<reportElement uuid="abf1ac9a-aaa6-4438-92bf-fc328c4d4f4b" mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000"/>
+				<reportElement mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000" uuid="abf1ac9a-aaa6-4438-92bf-fc328c4d4f4b"/>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement uuid="a8699d3d-2943-4197-bbc5-2ddb1aa729c6" x="307" y="12" width="144" height="20" forecolor="#FFFFFF"/>
+					<reportElement x="307" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="a8699d3d-2943-4197-bbc5-2ddb1aa729c6"/>
 					<textElement textAlignment="Right">
 						<font size="12"/>
 					</textElement>
@@ -62,9 +62,9 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="26" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89" style="Column header" x="0" y="7" width="101" height="18" forecolor="#000000"/>
+				<reportElement style="Column header" x="0" y="7" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
@@ -75,35 +75,35 @@
 	<detail>
 		<band height="156" splitType="Stretch">
 			<frame>
-				<reportElement uuid="39c30940-f5e5-47ce-9806-f7bef44f9742" style="Row" mode="Opaque" x="0" y="0" width="555" height="18"/>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="39c30940-f5e5-47ce-9806-f7bef44f9742"/>
 			</frame>
 			<subreport>
-				<reportElement uuid="4897b4b1-9eab-424a-835e-5e78d09204d8" x="0" y="0" width="553" height="99"/>
+				<reportElement x="0" y="0" width="553" height="99" uuid="4897b4b1-9eab-424a-835e-5e78d09204d8"/>
 				<dataSourceExpression><![CDATA[new  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{usuarios})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "usuariosReport_subreport.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["usuariosReport_subreport.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement uuid="91d2c281-ab12-49c8-a7c9-c2e055e1d10e" mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000"/>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="91d2c281-ab12-49c8-a7c9-c2e055e1d10e"/>
 				<textField evaluationTime="Report">
-					<reportElement uuid="791e4bab-e98b-45ec-9fdb-dfdf0ddf163f" style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF"/>
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="791e4bab-e98b-45ec-9fdb-dfdf0ddf163f"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="c0b56ef7-d240-468f-9bf5-4372b382becb" style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF"/>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="c0b56ef7-d240-468f-9bf5-4372b382becb"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement uuid="568d061c-d81e-4518-acee-44733ad07baa" style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF"/>
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="568d061c-d81e-4518-acee-44733ad07baa"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
