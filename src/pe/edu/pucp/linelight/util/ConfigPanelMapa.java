@@ -12,7 +12,9 @@ package pe.edu.pucp.linelight.util;
  */
 public class ConfigPanelMapa {
     
-    public static int height=568;
+    public static int height=544;
     public static int width=728;
+    public static int imageHeight=544;
+    public static int imageWidth=902;
     
 }
