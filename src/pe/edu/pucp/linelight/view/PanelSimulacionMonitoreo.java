@@ -27,6 +27,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import pe.edu.pucp.linelight.controller.HorarioController;
 import pe.edu.pucp.linelight.controller.ParamAlgoritmoController;
+import pe.edu.pucp.linelight.controller.VehiculoController;
 import pe.edu.pucp.linelight.model.Configuracionsistema;
 import pe.edu.pucp.linelight.model.EjecucionalgoritmoId;
 import pe.edu.pucp.linelight.model.Horario;
@@ -576,7 +577,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
             EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
             EjecucionAlgoritmoController.iniciarSimulacion();
-
+            
             this.jTextField3.setText("" + GA.velocidad);
             this.jTextField4.setText("" + GA.tiempoEjecucion);
             this.jTextField7.setText("" + GA.velocidadHistorica);
@@ -647,11 +648,11 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        idEjecucionalgoritmo.setIdParamAlgoritmo(1); // Tome el primer registro de parametros
                        idEjecucionalgoritmo.setIdConfiguracionSistema(1); // Tome el rpimer registro de configuracion
                        idEjecucionalgoritmo.setIdUsuario(user.getIdUsuario());
-                       
-                       
+                                              
                        int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
-                       int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox          
-                       idEjecucionalgoritmo.setIdHorario(HorarioController.getHorarioId(seleccion_dia, seleccion_hora).getIdHorario());
+                       int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
+                       int horarioid = HorarioController.getHorarioId(seleccion_dia, seleccion_hora).getIdHorario();
+                       idEjecucionalgoritmo.setIdHorario(horarioid);
           
                        //Registramos la ejecucion
                        ejecucionAlgoritmo.setId(idEjecucionalgoritmo);
@@ -662,17 +663,35 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        ejecucionAlgoritmo.setNombreSimulacion(this.jTextField6.getText());
                        ejecucionAlgoritmo.setTiempoEjecucion(Double.parseDouble(this.jTextField4.getText()));
 
-                       int ok =EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
+                       int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
                        if(ok == 1)
 
                        {
                            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
                            //PanelSimulacionMonitoreo.this.dispose();
+                           
+                           /*Seccion donde se guardara la generacion de Autos*/
+                           /*Luego recien despues de haber agregado la simulacion deberia ser posible agregar los vehiculos*/
+                           ok = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
+                           if(ok == 1)                           
+                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Vehiculos agregados","Acción",INFORMATION_MESSAGE,null);                           
+                           else
+                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);                                                   
+                                                      
+                           /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
+                            * los tiempos de cada semaforo resultantes de la simulacion actual*/
+//                           ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
+//                           if(ok == 1)                           
+//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Semaforos en Simulacion agregados","Acción",INFORMATION_MESSAGE,null);                           
+//                           else
+//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Semaforos en Simulacion","Acción",ERROR_MESSAGE,null);                                                   
+//                                                   
                        }
                        else
                        {
                            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Simulación","Acción",ERROR_MESSAGE,null);
                        }
+                       
                 }
             }
             

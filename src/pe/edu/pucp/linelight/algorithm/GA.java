@@ -16,6 +16,7 @@ public class GA {
     public static float velocidad;
     public static int tiempoEjecucion;
     public static float velocidadHistorica;
+    public static Poblacion poblacion;
     
     public static void main(String[] args) {
 
