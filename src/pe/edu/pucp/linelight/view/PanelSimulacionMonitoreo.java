@@ -51,6 +51,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     GeneradorRobot gr;
     Distrito d;
     int zona=0;
+    List<Ejecucionalgoritmo> lEjec;
     /**
      * Creates new form PanelSimulacionMonitoreo
      */
