@@ -42,7 +42,7 @@ public class VehiculoController {
         return ok;       
     }
     
-    public static int agregarGeneracionVehiculos(int Ejecucionalgoritmoid)
+    public static int agregarGeneracionVehiculos(int Ejecucionalgoritmoid, int horarioid)
     {
         int ok = 0;
         
@@ -60,6 +60,7 @@ public class VehiculoController {
             vehiculoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
             vehiculoId.setIdConfiguracionSistema(1);
             vehiculoId.setIdUsuario(user.getIdUsuario());
+            vehiculoId.setIdHorario(horarioid);
             
             vehiculo.setId(vehiculoId);
             
@@ -79,8 +80,7 @@ public class VehiculoController {
             vehiculo.setVelocidad("" + vel);
             
             ok = agregarVehiculo(vehiculo); //basta que no se pueda guardar un vehiculo entonces saldra      
-            if (ok == 0) break;
-            
+            if (ok == 0) break;            
         }
 
         return ok;       

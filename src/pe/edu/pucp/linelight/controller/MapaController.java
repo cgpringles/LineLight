@@ -116,4 +116,51 @@ public class MapaController {
         }
         DistritoController.eliminarDistrito(distrito);
     }
+    
+    public static void agregarMapaMasivoDistritoZonas(File sourceFile) {
+        
+        try {
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(sourceFile);
+            Element root = document.getRootElement();
+                        
+            for ( Iterator i = root.elementIterator("Distrito"); i.hasNext(); ) {
+                Element elementi = (Element) i.next();           
+                String nombre_distrito = elementi.attribute("nombre").getStringValue();
+                Distrito nuevoDistrito = DistritoController.agregarDistrito(nombre_distrito, false);
+                
+                for ( Iterator j = elementi.elementIterator("Zona"); j.hasNext(); ) {
+                
+                    Element element = (Element) j.next();
+                    int idZona=Integer.parseInt(element.attribute("id").getStringValue());
+                    String latIni=element.attribute("latitudIni").getStringValue();
+                    String lonIni=element.attribute("longitudIni").getStringValue();
+                    String latFin=element.attribute("latitudFin").getStringValue();
+                    String lonFin=element.attribute("longitudFin").getStringValue();
+                    String imgRef=element.attribute("img").getStringValue();
+                
+                    Zona z=new Zona();
+                    z.setId(new ZonaId(nuevoDistrito.getIdDistrito(),idZona)); // se cambio el orden de parametros
+                    z.setIniLatitud(Double.parseDouble(latIni));
+                    z.setIniLongitud(Double.parseDouble(lonIni));
+                    z.setFinLatitud(Double.parseDouble(latFin));
+                    z.setFinLongitud(Double.parseDouble(lonFin));
+                    File imagen = new File(imgRef);
+                    try {
+                        BufferedImage bi= ImageIO.read(imagen);
+                        z.setImagen(ConvertUtil.convertirImageToBytesArray(bi));
+                    } catch (IOException ex) {
+                        Logger.getLogger(MapParser.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+//                z.setImgReferencia(null);
+                    ZonaController.agregarZona(z);
+                }
+                        
+            }
+            
+        } catch (DocumentException ex) {
+            Logger.getLogger(MapaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

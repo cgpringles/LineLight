@@ -8,6 +8,7 @@ package pe.edu.pucp.linelight.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.HibernateException;
@@ -96,14 +97,21 @@ public class HorarioController {
         return listaHorarios;
     }
     
-    public static Horario obtenerHorarioPorID(int idDistrito, int idHorario)
-    {
+    public static Horario getHorarioId(int idDia, int idHora) throws HibernateException {
+        Horario horario = new Horario();
         Session s = null;
-        Horario h=null;
         try {
             s = HibernateUtil.iniciaOperacion();
-            h=(Horario)s.createCriteria(Horario.class).add(Restrictions.eq("id.idHorario", idHorario))
-                    .add(Restrictions.eq("id.idDistrito", idDistrito)).list().get(0);
+            
+            int idHorario = (idDia-1)*3 + idHora;
+            Query query = s.createQuery("FROM Horario h WHERE h.idHorario = ? ");
+            query.setParameter(0, idHorario);
+
+            if (!query.list().isEmpty()) {
+                horario = new Horario();
+                horario = (Horario) query.list().get(0);
+            }            
+
             HibernateUtil.cierraOperacion(s);
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -112,8 +120,7 @@ public class HorarioController {
             s.close();
         }
 
-        return h;
-        
+        return horario;
     }
     
     

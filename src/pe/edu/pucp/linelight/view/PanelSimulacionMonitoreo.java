@@ -27,6 +27,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import pe.edu.pucp.linelight.controller.HorarioController;
 import pe.edu.pucp.linelight.controller.ParamAlgoritmoController;
+import pe.edu.pucp.linelight.controller.VehiculoController;
 import pe.edu.pucp.linelight.model.Configuracionsistema;
 import pe.edu.pucp.linelight.model.EjecucionalgoritmoId;
 import pe.edu.pucp.linelight.model.Horario;
@@ -49,7 +50,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     WindowsMapPanel mapPanel;
     GeneradorRobot gr;
     Distrito d;
-    List<Ejecucionalgoritmo> lEjec;
+    int zona=0;
     /**
      * Creates new form PanelSimulacionMonitoreo
      */
@@ -66,18 +67,27 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         this.jComboBox1.removeAllItems();
         this.dias_id.add(0);
         jComboBox1.addItem("Seleccione");
-        for (Horario horario : horarios) {
-            jComboBox1.addItem(horario.getDia());
-            dias_id.add(horario.getIdHorario());
+        String diaAnt = null;
+        for (Horario horario : horarios) { 
+            String dia = horario.getDia();
+            if (!dia.equalsIgnoreCase(diaAnt)) {
+                jComboBox1.addItem(horario.getDia());
+                dias_id.add(horario.getIdHorario());
+                diaAnt = horario.getDia();
+            }
         }
         
         /*Agregar horas en combobox*/
         this.jComboBox2.removeAllItems();
         this.horas_id.add(0);
         jComboBox2.addItem("Seleccione");
+        int hora=0;        
         for (Horario horario : horarios) {
-            jComboBox2.addItem(horario.getHora());
-            horas_id.add(horario.getIdHorario());
+            if (hora < 3) {
+                jComboBox2.addItem(horario.getHora());
+                horas_id.add(horario.getIdHorario());
+                hora++;
+            }
         }
                 
         this.setBackground(new java.awt.Color(240, 240, 240));
@@ -205,7 +215,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         jLabel13.setText("Nombre Siimulación:");
 
-        jTextField6.setText("Simulacion8:00Lunes");
+        jTextField6.setEditable(false);
+        jTextField6.setText("Formato: Dia Hora Vel");
         jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField6KeyTyped(evt);
@@ -419,7 +430,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,14 +493,15 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCheckBox1)
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox2)
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBox4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox4)
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -524,8 +536,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 12, Short.MAX_VALUE)
@@ -563,10 +575,16 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
             EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
             EjecucionAlgoritmoController.iniciarSimulacion();
-
+            
             this.jTextField3.setText("" + GA.velocidad);
             this.jTextField4.setText("" + GA.tiempoEjecucion);
             this.jTextField7.setText("" + GA.velocidadHistorica);
+            
+            int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
+            int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
+            
+            Horario horario = HorarioController.getHorarioId(seleccion_dia, seleccion_hora);            
+            this.jTextField6.setText(horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h");
         }
         else {
             JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Seleccione el dia y la hora para la Simulación", "Error", ERROR_MESSAGE, null);
@@ -580,12 +598,22 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
         // TODO add your handling code here:
-        mapPanel.zoomIn();
+        Zona zona_obj = d.getZona(zona+1);
+        if(zona_obj!=null){
+            zona++;
+            mapPanel.changeMapFile(zona_obj.getImagen());
+            mapPanel.zoomIn();
+        }
     }//GEN-LAST:event_zoomInButtonActionPerformed
 
     private void zoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutButtonActionPerformed
         // TODO add your handling code here:
-        mapPanel.zoomOut();
+        Zona zona_obj = d.getZona(zona-1);
+        if(zona_obj!=null){
+            zona--;
+            mapPanel.changeMapFile(zona_obj.getImagen());
+            mapPanel.zoomOut();
+        }
     }//GEN-LAST:event_zoomOutButtonActionPerformed
 
     private void agregarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSimulacionActionPerformed
@@ -618,7 +646,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        idEjecucionalgoritmo.setIdParamAlgoritmo(1); // Tome el primer registro de parametros
                        idEjecucionalgoritmo.setIdConfiguracionSistema(1); // Tome el rpimer registro de configuracion
                        idEjecucionalgoritmo.setIdUsuario(user.getIdUsuario());
-
+                                              
+                       int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
+                       int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
+                       int horarioid = HorarioController.getHorarioId(seleccion_dia, seleccion_hora).getIdHorario();
+                       idEjecucionalgoritmo.setIdHorario(horarioid);
+          
                        //Registramos la ejecucion
                        ejecucionAlgoritmo.setId(idEjecucionalgoritmo);
 
@@ -628,22 +661,35 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        ejecucionAlgoritmo.setNombreSimulacion(this.jTextField6.getText());
                        ejecucionAlgoritmo.setTiempoEjecucion(Double.parseDouble(this.jTextField4.getText()));
 
-                       // Falta arreglar el horario para agregar la simulacion
-                       int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
-                       int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
-                       ejecucionAlgoritmo.setHorario(HorarioController.obtenerHorario("Lunes","8:00"));                   
-
-                       int ok =EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
+                       int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
                        if(ok == 1)
 
                        {
                            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
                            //PanelSimulacionMonitoreo.this.dispose();
+                           
+                           /*Seccion donde se guardara la generacion de Autos*/
+                           /*Luego recien despues de haber agregado la simulacion deberia ser posible agregar los vehiculos*/
+                           ok = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
+                           if(ok == 1)                           
+                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Vehiculos agregados","Acción",INFORMATION_MESSAGE,null);                           
+                           else
+                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);                                                   
+                                                      
+                           /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
+                            * los tiempos de cada semaforo resultantes de la simulacion actual*/
+//                           ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
+//                           if(ok == 1)                           
+//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Semaforos en Simulacion agregados","Acción",INFORMATION_MESSAGE,null);                           
+//                           else
+//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Semaforos en Simulacion","Acción",ERROR_MESSAGE,null);                                                   
+//                                                   
                        }
                        else
                        {
                            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Simulación","Acción",ERROR_MESSAGE,null);
                        }
+                       
                 }
             }
             

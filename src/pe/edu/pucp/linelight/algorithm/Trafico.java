@@ -345,6 +345,7 @@ public class Trafico implements Serializable
         
         GA.velocidad = iniPob.getFittest().getVelocidadPromedio();
         GA.tiempoEjecucion = iniPob.getFittest().getFitness();
+        GA.poblacion = iniPob;
         
 //        System.out.println(iniPob.getFittest());        
 //        mejoresResultados.add(iniPob.getFittest());
