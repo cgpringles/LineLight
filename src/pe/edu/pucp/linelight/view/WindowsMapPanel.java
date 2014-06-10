@@ -47,8 +47,8 @@ public class WindowsMapPanel extends javax.swing.JPanel {
     private Image bgImage;
 
     //private static final int NODE_SIZE = 5;
-    private int x_offset = 5;
-    private int y_offset = 5;
+    private int x_offset = 0;
+    private int y_offset = 0;
     private Point mousePt;
     private float scale = (float) 1.0;
     
@@ -93,10 +93,15 @@ public class WindowsMapPanel extends javax.swing.JPanel {
         this.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                int dx = e.getX() - mousePt.x;
-                int dy = e.getY() - mousePt.y;
-                x_offset += dx;
-                y_offset += dy;
+                int dx = mousePt.x - e.getX();
+                int dy = mousePt.y - e.getY();
+                
+                if((x_offset+dx>=0)&&(x_offset +dx+ ConfigPanelMapa.width <= bgImage.getWidth(null))){
+                    x_offset += dx;
+                }
+                if((y_offset+dy>=0)&&(y_offset +dy+ ConfigPanelMapa.height <= bgImage.getHeight(null))){
+                    y_offset += dy;
+                }
                 mousePt = e.getPoint();
                 repaint();
             }
@@ -120,7 +125,8 @@ public class WindowsMapPanel extends javax.swing.JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(bgImage, 0, 0,ConfigPanelMapa.width,ConfigPanelMapa.height,null);
+        g2d.drawImage(bgImage,  0, 0,ConfigPanelMapa.width,ConfigPanelMapa.height
+                , x_offset, y_offset, x_offset+ConfigPanelMapa.width, y_offset+ConfigPanelMapa.height, null);
         
         
         
@@ -373,8 +379,8 @@ public class WindowsMapPanel extends javax.swing.JPanel {
 //        map = new Map(sourceFile);
 //        this.bgImage=new ImageIcon("C:\\Users\\PC-HP\\Desktop\\Linelight2\\LineLight2\\test.png").getImage();
         this.bgImage=new ImageIcon(imagen).getImage();
-        x_offset = 5;
-        y_offset = 5;
+        x_offset = 0;
+        y_offset = 0;
         scale = (float) 1.0;
         repaint();
     }
