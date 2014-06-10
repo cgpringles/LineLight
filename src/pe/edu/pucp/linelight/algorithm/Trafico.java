@@ -343,14 +343,14 @@ public class Trafico implements Serializable
         System.out.println("Generation: " + generationCount);
         System.out.println("Genes:");
         
-        GA.velocidad = iniPob.getFittest().getVelocidadPromedio();
-        GA.tiempoEjecucion = iniPob.getFittest().getFitness();
-        GA.poblacion = iniPob;
+        Individuo individuo = iniPob.getFittest();
         
-//        System.out.println(iniPob.getFittest());        
-//        mejoresResultados.add(iniPob.getFittest());
-//        iniPob.getFittest().imprimirTiempoSemaforos();
-//        iniPob.getFittest().imprimirAllGen();
+        GA.velocidad = individuo.getVelocidadPromedio();
+        GA.tiempoEjecucion = individuo.getFitness();
+        GA.mejorIndividuo = individuo;
+
+        iniPob.getFittest().imprimirTiempoSemaforos();
+        iniPob.getFittest().imprimirAllGen();
     }
     
 }
