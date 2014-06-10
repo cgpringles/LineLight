@@ -34,6 +34,7 @@ import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.structure.Node;
+import pe.edu.pucp.linelight.util.ConfigPanelMapa;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
@@ -102,7 +103,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             
         }
         
-        mapPanel = new WindowsMapPanel(new Dimension(728,568));
+        mapPanel = new WindowsMapPanel(new Dimension(ConfigPanelMapa.width,ConfigPanelMapa.height));
         mapContainerPanel.setVisible(true);
         mapPanel.setVisible(true);        
         
@@ -330,8 +331,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         tabbedPane.addTab("Simulación", simulacionPanel);
 
-        monitoreoPanel.setBackground(new java.awt.Color(165, 211, 226));
-
         iniciarMonitoreoButton.setBackground(new java.awt.Color(0, 153, 204));
         iniciarMonitoreoButton.setText("Iniciar Monitoreo");
         iniciarMonitoreoButton.setBorderPainted(false);
@@ -400,7 +399,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         );
         mapContainerPanelLayout.setVerticalGroup(
             mapContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 566, Short.MAX_VALUE)
+            .addGap(0, 571, Short.MAX_VALUE)
         );
 
         buscarButton.setBackground(new java.awt.Color(0, 153, 204));
@@ -541,13 +540,13 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(busquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buscarButton)
                             .addComponent(zoomInButton)
                             .addComponent(zoomOutButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
         );
