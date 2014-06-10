@@ -613,7 +613,7 @@ public class semaforoController {
             s = HibernateUtil.iniciaOperacion();
             
             //Obtenemos lista de restriccion
-            Query query = s.createQuery("FROM Semaforo WHERE via1 like :viaN1 and via2 like :viaNN2");
+            Query query = s.createQuery("FROM Semaforo WHERE via1 like :viaN1 and via2 like :viaN2");
             query.setParameter("viaN1", via1);
             query.setParameter("viaN2", via2);
             
@@ -635,6 +635,32 @@ public class semaforoController {
         }
          return true;
     }
-        
+    
+    
+    public static ArrayList<Semaforo> obtenerSemaforobyNodo(long nodoId) {
+    ArrayList<Semaforo> semaforoHermano = new ArrayList<Semaforo>();
+    Session s = null;       
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            Criteria semaforoCriteria = s.createCriteria(Semaforo.class);
+            Criterion nodoIdCriteria =  (Restrictions.eq("via1", nodoId));       
+            semaforoCriteria.add(nodoIdCriteria);
+            semaforoHermano = (ArrayList<Semaforo>)semaforoCriteria.list(); 
+            HibernateUtil.cierraOperacion(s);
+            if (semaforoHermano.isEmpty())
+                return null;
+            return semaforoHermano;
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+    return semaforoHermano;
+    }    
    
 }

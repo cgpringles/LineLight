@@ -121,7 +121,7 @@ public class NuevoSemaforo extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Semáforo");
 
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -593,11 +593,12 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                   nuevoSemaforo.setDescripcion(txtDescripcion.getText());
                                   nuevoSemaforo.setVia1(via1);
                                   nuevoSemaforo.setVia2(via2);
+                                  nuevoSemaforo.setTipo(0);
                                   nuevoSemaforo.setDistrito(distrito);                     
                                   nuevoSemaforo1.setVia1(via2);
                                   nuevoSemaforo1.setVia2(via1);
                                   nuevoSemaforo1.setDistrito(distrito);
-                                  
+                                  nuevoSemaforo1.setTipo(1);
                                   String idSem1 = Long.toString(nodoId).substring(5) + "1";
                                   String idSem2 = Long.toString(nodoId).substring(5) + "2";
                                   
