@@ -72,7 +72,7 @@ public class GeneradorRobot extends Thread{
         this.listaCarros = listaCarros;
     }
     
-    
+    //
     public GeneradorRobot(WindowsMapPanel wmp,int idDistrito,String dd, String hh)
     {
         this.cantRobots=cantRobots;

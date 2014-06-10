@@ -101,28 +101,24 @@ public void init_usuarios() throws JRException, ParseException{
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            //        try {
+        try {       
             init_usuarios();
         } catch (JRException ex) {
             Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        } catch (JRException ex) {
-//            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//            JRExporter exporter = new JRPdfExporter();
-//        
-//        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
-//        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportePDF.pdf"));
-//        try {
-//            exporter.exportReport();
-//        } catch (JRException ex) {
-//            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+      
+     
+            JRExporter exporter = new JRPdfExporter();
+        
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportePDF.pdf"));
+        try {
+            exporter.exportReport();
+        } catch (JRException ex) {
+            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
            JasperViewer jviewer= new JasperViewer(jp,false);
            jviewer.setTitle("Reporte");
            jviewer.setVisible(true);

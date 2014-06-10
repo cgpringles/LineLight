@@ -96,6 +96,8 @@ public class buscarSemaforo extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Criterios de Búsqueda Detallada"));
+        jPanel3.setAlignmentX(0.0F);
+        jPanel3.setAlignmentY(0.0F);
 
         jLabel3.setText("Distrito:");
 
@@ -183,8 +185,6 @@ public class buscarSemaforo extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel15))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +227,10 @@ public class buscarSemaforo extends javax.swing.JPanel {
                                 .addComponent(cmbVia1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cmbVia2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(34, 34, 34)
-                            .addComponent(buscar_usuario_button))))
+                            .addComponent(buscar_usuario_button))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(98, 98, 98)
+                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -312,7 +315,9 @@ public class buscarSemaforo extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tablaSemaforo.setToolTipText("");
         jScrollPane2.setViewportView(tablaSemaforo);
+        tablaSemaforo.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -487,37 +492,119 @@ public class buscarSemaforo extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEstadoActionPerformed
+
+    private void txtIdentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificadorKeyTyped
+        // TODO add your handling code here:
+        ValidationUtil.validateNumTam(txtIdentificador.getText(), 5, evt);
+    }//GEN-LAST:event_txtIdentificadorKeyTyped
+
+    private void cmbTipoVia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoVia2ActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        cmbVia2.removeAllItems();
+        cmbVia2.addItem("Seleccione");
+        if (cmbTipoVia2.getSelectedIndex() == 0){
+            if (cmbDistrito.getSelectedIndex() != 0){
+                ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
+                for (int i = 0; i < viasDistrinto.size(); i++){
+                    cmbVia2.addItem(viasDistrinto.get(i).getNombre());
+                }
+            }else{
+                ArrayList<Via> vias = ViaController.obtenerVias();
+                for (int i = 0; i < vias.size(); i++)
+                cmbVia1.addItem(vias.get(i).getNombre());
+            }
+        }if (cmbTipoVia2.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() != 0){
+            //Cargo las vias con el distrito seleccionado y el tipo de via
+            int idDistrito = DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem());
+            int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia2.getSelectedItem());
+            ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
+            for (int i = 0; i < vias.size(); i++){
+                cmbVia2.addItem(vias.get(i).getNombre());
+            }
+        }if (cmbTipoVia2.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() == 0){
+            //Cargo las vias con el distrito seleccionado y el tipo de via
+            int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia2.getSelectedItem());
+            ArrayList<Via> vias =  ViaController.obtenerViasxId(idTipoVia);
+            for (int i = 0; i < vias.size(); i++){
+                cmbVia2.addItem(vias.get(i).getNombre());
+            }
+        }
+    }//GEN-LAST:event_cmbTipoVia2ActionPerformed
+
+    private void cmbVia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVia1ActionPerformed
+
+    }//GEN-LAST:event_cmbVia1ActionPerformed
+
+    private void cmbTipoVia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoVia1ActionPerformed
+        // TODO add your handling code here:
+        cmbVia1.removeAllItems();
+        cmbVia1.addItem("Seleccione");
+        if (cmbTipoVia1.getSelectedIndex() == 0){
+            if (cmbDistrito.getSelectedIndex() != 0){
+                ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
+                for (int i = 0; i < viasDistrinto.size(); i++){
+                    cmbVia1.addItem(viasDistrinto.get(i).getNombre());
+                }
+            }else{
+                ArrayList<Via> vias = ViaController.obtenerVias();
+                for (int i = 0; i < vias.size(); i++)
+                cmbVia1.addItem(vias.get(i).getNombre());
+
+            }
+
+        }if (cmbTipoVia1.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() != 0){
+            //Cargo las vias con el distrito seleccionado y el tipo de via
+            int idDistrito = DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem());
+            int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia1.getSelectedItem());
+            ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
+            for (int i = 0; i < vias.size(); i++){
+                cmbVia1.addItem(vias.get(i).getNombre());
+            }
+        }if (cmbTipoVia1.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() == 0){
+            //Cargo las vias con el distrito seleccionado y el tipo de via
+            int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia1.getSelectedItem());
+            ArrayList<Via> vias =  ViaController.obtenerViasxId(idTipoVia);
+            for (int i = 0; i < vias.size(); i++){
+                cmbVia1.addItem(vias.get(i).getNombre());
+            }
+        }
+    }//GEN-LAST:event_cmbTipoVia1ActionPerformed
+
     private void buscar_usuario_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_usuario_buttonActionPerformed
         // TODO add your handling code here:
-        
+
         String estado = (String)cmbEstado.getSelectedItem();
-            if (estado.equals("Seleccione")) estado = null;  
+        if (estado.equals("Seleccione")) estado = null;
         String identificador = txtIdentificador.getText();
-            if (identificador.isEmpty()) identificador = null;  
+        if (identificador.isEmpty()) identificador = null;
         String distrito = (String)cmbDistrito.getSelectedItem();
-            if (distrito.equals("Seleccione") ) distrito = null;
+        if (distrito.equals("Seleccione") ) distrito = null;
         String tipoVia1 = (String)cmbTipoVia1.getSelectedItem();
-            if (tipoVia1.equals("Seleccione") ) tipoVia1 = null;
-        String tipoVia2 = (String)cmbTipoVia2.getSelectedItem(); 
-            if (tipoVia2.equals("Seleccione") ) tipoVia2 = null;
+        if (tipoVia1.equals("Seleccione") ) tipoVia1 = null;
+        String tipoVia2 = (String)cmbTipoVia2.getSelectedItem();
+        if (tipoVia2.equals("Seleccione") ) tipoVia2 = null;
         String via1     = (String)cmbVia1.getSelectedItem();
-            if (via1.equals("Seleccione") ) via1 = null;
+        if (via1.equals("Seleccione") ) via1 = null;
         String via2     = (String)cmbVia2.getSelectedItem();
-            if (via2.equals("Seleccione") ) via2 = null;
+        if (via2.equals("Seleccione") ) via2 = null;
         ArrayList<Semaforo> semaforoCriteria = semaforoController.obtenerSemaforosCriteria(estado,identificador, distrito, tipoVia1, tipoVia2, via1, via2);
         DefaultTableModel tbm= new DefaultTableModel();
         String [] titulos={"Id Semaforo","Distrito","Via Principal","Via Secundaria","Tiempo Verde", "Tiempo Rojo", "Estado"};
         tbm.setColumnIdentifiers(titulos); tablaSemaforo.setModel(tbm);
-        for (int i=0;i<semaforoCriteria.size();i++){ 
-            
+        for (int i=0;i<semaforoCriteria.size();i++){
+
             String datos[]=new String[7];
-            datos[0] = Integer.toString(semaforoCriteria.get(i).getId().getIdSemaforo());            
-            datos[1] = semaforoController.obtenerDistritoxNombreVia(semaforoCriteria.get(i).getVia1());            
+            datos[0] = Integer.toString(semaforoCriteria.get(i).getId().getIdSemaforo());
+            datos[1] = semaforoController.obtenerDistritoxNombreVia(semaforoCriteria.get(i).getVia1());
             datos[2] = (semaforoCriteria.get(i).getVia1());
             datos[3] = (semaforoCriteria.get(i).getVia2());
             datos[4] = Integer.toString(semaforoCriteria.get(i).getTverde());
             datos[5] = Integer.toString(semaforoCriteria.get(i).getTrojo());
-            datos[6] = (semaforoCriteria.get(i).getEstado() == true ? "Habilitado" : "Deshabilitado");            
+            datos[6] = (semaforoCriteria.get(i).getEstado() == true ? "Habilitado" : "Deshabilitado");
             tbm.addRow(datos);
 
         }
@@ -526,19 +613,19 @@ public class buscarSemaforo extends javax.swing.JPanel {
 
     private void cmbDistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDistritoActionPerformed
         // TODO add your handling code here:
-            cmbVia1.removeAllItems();
-            cmbVia2.removeAllItems();
-            cmbVia1.addItem("Seleccione");
-            cmbVia2.addItem("Seleccione");
+        cmbVia1.removeAllItems();
+        cmbVia2.removeAllItems();
+        cmbVia1.addItem("Seleccione");
+        cmbVia2.addItem("Seleccione");
         if (cmbDistrito.getSelectedIndex() == 0){
-            
+
             cmbVia1.setSelectedIndex(0);
             cmbVia2.setSelectedIndex(0);
             ArrayList<Via> vias = ViaController.obtenerVias();
-                for (int i = 0; i < vias.size(); i++){
-                    cmbVia1.addItem(vias.get(i).getNombre());
-                    cmbVia2.addItem(vias.get(i).getNombre());            
-                }
+            for (int i = 0; i < vias.size(); i++){
+                cmbVia1.addItem(vias.get(i).getNombre());
+                cmbVia2.addItem(vias.get(i).getNombre());
+            }
         }
         if (cmbDistrito.getSelectedIndex() != 0 && cmbTipoVia1.getSelectedIndex() == 0 && cmbTipoVia2.getSelectedIndex() == 0){
 
@@ -589,88 +676,6 @@ public class buscarSemaforo extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_cmbDistritoActionPerformed
-
-    private void cmbTipoVia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoVia1ActionPerformed
-                // TODO add your handling code here:
-        cmbVia1.removeAllItems();
-        cmbVia1.addItem("Seleccione");
-        if (cmbTipoVia1.getSelectedIndex() == 0){
-            if (cmbDistrito.getSelectedIndex() != 0){
-            ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
-                for (int i = 0; i < viasDistrinto.size(); i++){
-                    cmbVia1.addItem(viasDistrinto.get(i).getNombre());
-                }
-            }else{
-                ArrayList<Via> vias = ViaController.obtenerVias();
-                    for (int i = 0; i < vias.size(); i++)
-                        cmbVia1.addItem(vias.get(i).getNombre());        
-                    
-            }
-                
-        }if (cmbTipoVia1.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() != 0){
-            //Cargo las vias con el distrito seleccionado y el tipo de via
-            int idDistrito = DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem());
-            int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia1.getSelectedItem());
-            ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
-            for (int i = 0; i < vias.size(); i++){
-                cmbVia1.addItem(vias.get(i).getNombre());
-            }
-        }if (cmbTipoVia1.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() == 0){
-            //Cargo las vias con el distrito seleccionado y el tipo de via
-            int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia1.getSelectedItem());
-            ArrayList<Via> vias =  ViaController.obtenerViasxId(idTipoVia);
-            for (int i = 0; i < vias.size(); i++){
-                cmbVia1.addItem(vias.get(i).getNombre());
-            }
-        }
-    }//GEN-LAST:event_cmbTipoVia1ActionPerformed
-
-    private void cmbTipoVia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoVia2ActionPerformed
-               // TODO add your handling code here:
-        // TODO add your handling code here:
-        cmbVia2.removeAllItems();
-        cmbVia2.addItem("Seleccione");
-        if (cmbTipoVia2.getSelectedIndex() == 0){
-            if (cmbDistrito.getSelectedIndex() != 0){
-            ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
-                for (int i = 0; i < viasDistrinto.size(); i++){
-                    cmbVia2.addItem(viasDistrinto.get(i).getNombre());
-                }
-            }else{
-                ArrayList<Via> vias = ViaController.obtenerVias();
-                    for (int i = 0; i < vias.size(); i++)
-                        cmbVia1.addItem(vias.get(i).getNombre());  
-            }
-        }if (cmbTipoVia2.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() != 0){
-            //Cargo las vias con el distrito seleccionado y el tipo de via
-            int idDistrito = DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem());
-            int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia2.getSelectedItem());
-            ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
-            for (int i = 0; i < vias.size(); i++){
-                cmbVia2.addItem(vias.get(i).getNombre());
-            }
-        }if (cmbTipoVia2.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() == 0){
-            //Cargo las vias con el distrito seleccionado y el tipo de via
-            int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia2.getSelectedItem());
-            ArrayList<Via> vias =  ViaController.obtenerViasxId(idTipoVia);
-            for (int i = 0; i < vias.size(); i++){
-                cmbVia2.addItem(vias.get(i).getNombre());
-            }
-        }
-    }//GEN-LAST:event_cmbTipoVia2ActionPerformed
-
-    private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbEstadoActionPerformed
-
-    private void cmbVia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVia1ActionPerformed
-
-    }//GEN-LAST:event_cmbVia1ActionPerformed
-
-    private void txtIdentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificadorKeyTyped
-        // TODO add your handling code here:
-        ValidationUtil.validateNumTam(txtIdentificador.getText(), 5, evt);
-    }//GEN-LAST:event_txtIdentificadorKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
