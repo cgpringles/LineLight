@@ -17,7 +17,10 @@ import pe.edu.pucp.linelight.algorithm.GA;
 import pe.edu.pucp.linelight.algorithm.Trafico;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
+import pe.edu.pucp.linelight.model.EjecucionalgoritmoxsemaforoId;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
+import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 import org.hibernate.criterion.Order;
 
@@ -107,7 +110,7 @@ public class EjecucionAlgoritmoController {
        
     
     /************** CONTROLLER PARA TABLA EJECUCIONALGORITMOXSEMAFORO *************/
-    public static int agregarEjecucionAlgoritmo(Ejecucionalgoritmoxsemaforo ejecucionAlgoritmoxsemaforo) {
+    public static int agregarEjecucionXSemaforo(Ejecucionalgoritmoxsemaforo ejecucionAlgoritmoxsemaforo) {
         Session s = null;
         int ok = 0;
         try {
@@ -129,15 +132,45 @@ public class EjecucionAlgoritmoController {
     public static int agregarEjecucionAlgoritmoXSemaforo(int Ejecucionalgoritmoid, int horarioid) {
         
         int ok = 0;
-        Poblacion poblacion = GA.poblacion;
-        int tamPoblacion = GA.poblacion.size(); // longitud del arreglo Individuos o la cantidad de Individuos de la poblacion
+        Individuo individuo = GA.mejorIndividuo;
+        int numIdNodos = individuo.getIdNodoSemaforo().length;
+        byte[] semafIni = individuo.getSemaforoInicio();
+        byte[] semafFin = individuo.getSemaforoFin();
+        long[] nodos = individuo.getIdNodoSemaforo();
         
-        for (int i=0; i< tamPoblacion; i++){            
-            /*Para cada individuo de la poblacion*/
-            Individuo individuo = poblacion.getIndividual(i);
+        for (int i=0; i< numIdNodos; i++){
+            /*Para cada idNodo del Mejor Individuo*/
+
+            Ejecucionalgoritmoxsemaforo eaxsemaforo = new Ejecucionalgoritmoxsemaforo();
+            Usuario user = GeneralUtil.getUsuario_sesion();
+            
+            EjecucionalgoritmoxsemaforoId eaxsemaforoId = new EjecucionalgoritmoxsemaforoId();
+//            int idEaxsemaforo = getNextId(); //cambiar a otro nextId()
+            
+            eaxsemaforoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
+            eaxsemaforoId.setIdParamAlgoritmo(1);
+            eaxsemaforoId.setIdConfiguracionSistema(1);
+            eaxsemaforoId.setIdUsuario(user.getIdUsuario());
+            eaxsemaforoId.setIdHorario(horarioid);
+            
+            /*Falta obtener la data real de idNodo y idSemaforo - PARTE DE LUIS*/
+            long idNodo = nodos[i];
+            eaxsemaforoId.setIdNodo(idNodo);            
+            // falta agregar idSemaforo
+            // Deberia llamarse a un metodo de semaforo que le pases el idNodo y devuelva el idSemaforo
+            
+            eaxsemaforo.setId(eaxsemaforoId);
+            
+            int tiempoIni = semafIni[i] ;
+            int tiempoFin = semafFin[i];
+            eaxsemaforo.setTverde(tiempoIni);
+            eaxsemaforo.setTrojo(tiempoFin);
+            
+            ok = agregarEjecucionXSemaforo(eaxsemaforo); //basta que no se pueda guardar un semaforo entonces saldra      
+            if (ok == 0) break;    
         }
         
-        return 0;
+        return ok;
     }
     
     public static List<Ejecucionalgoritmo> obtenerConfiguraciónSimulación()
@@ -163,4 +196,6 @@ public class EjecucionAlgoritmoController {
         
         return ejecAlg;
     }
+    
+    
 }

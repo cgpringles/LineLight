@@ -121,7 +121,7 @@ public class NuevoSemaforo extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Semáforo");
 
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -542,8 +542,8 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                             
                         }else{
                       //Agregar Semaforo      
-                      String via1 = (String) cmbVia1.getSelectedItem();
-                      String via2 = (String) cmbVia2.getSelectedItem();
+                      Via via1 = (Via)cmbVia1.getSelectedItem();
+                      Via via2 = (Via) cmbVia2.getSelectedItem();
                       String distrito = (String) cmbDistrito.getSelectedItem();
                       int numvia1 = cmbVia1.getSelectedIndex();
                       int numvia2 = cmbVia2.getSelectedIndex();
@@ -563,7 +563,7 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                       }else{
                       
                             long nodoId = semaforoController.obtenerIdNodo(via1, via2);
-                            boolean existeSemaforo = semaforoController.verificarSemaforo(via1, via2);
+                            boolean existeSemaforo = semaforoController.verificarSemaforo(nodoId);
                             
                             //depende lo que devuelve verificamos o no si existe interseccion....
                             if (nodoId == 0  || existeSemaforo == true){
@@ -591,15 +591,16 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                   nuevoSemaforo.setTrojo( Integer.parseInt(txtTiempoRojo.getText()) );
                                   nuevoSemaforo.setTverde( Integer.parseInt(txtTiempoVerde.getText()) );
                                   nuevoSemaforo.setDescripcion(txtDescripcion.getText());
-                                  nuevoSemaforo.setVia1(via1);
-                                  nuevoSemaforo.setVia2(via2);
+                                  nuevoSemaforo.setVia1(via1.getNombre());
+                                  nuevoSemaforo.setVia2(via2.getNombre());
+                                  nuevoSemaforo.setTipo(0);
                                   nuevoSemaforo.setDistrito(distrito);                     
-                                  nuevoSemaforo1.setVia1(via2);
-                                  nuevoSemaforo1.setVia2(via1);
+                                  nuevoSemaforo1.setVia1(via2.getNombre());
+                                  nuevoSemaforo1.setVia2(via1.getNombre());
                                   nuevoSemaforo1.setDistrito(distrito);
-                                  
-                                  String idSem1 = Long.toString(nodoId).substring(5) + "1";
-                                  String idSem2 = Long.toString(nodoId).substring(5) + "2";
+                                  nuevoSemaforo1.setTipo(1);
+                                  String idSem1 = Long.toString(nodoId).substring(3) + "1";
+                                  String idSem2 = Long.toString(nodoId).substring(3) + "2";
                                   
                                   //El id del semaforo
                                   SemaforoId idSemaforo = new SemaforoId();
@@ -618,6 +619,15 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                   nuevoSemaforo1.setNodo(nodo);
                                   semaforoController.registrarSemaforo(nuevoSemaforo1);
                                   semaforoController.registrarSemaforo(nuevoSemaforo);
+                                  seleccion = JOptionPane.showOptionDialog(
+                                    NuevoSemaforo.this, 
+                                    "Se ha agregado correctamente el semáforo", 
+                                    "Acción",
+                                    JOptionPane.OK_OPTION,
+                                    JOptionPane.OK_OPTION,
+                                    null,
+                                    new Object[] { "Ok"},    
+                                    "Ok");
                                   NuevoSemaforo.this.dispose();
                                   }
                             }
@@ -768,7 +778,7 @@ public class NuevoSemaforo extends javax.swing.JFrame {
         if (cmbTipoVia2.getSelectedIndex() == 0){
             ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
             for (int i = 0; i < viasDistrinto.size(); i++){
-                cmbVia2.addItem(viasDistrinto.get(i).getNombre());
+                cmbVia2.addItem(viasDistrinto.get(i));
             }
         }if (cmbTipoVia2.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() != 0){
             //Cargo las vias con el distrito seleccionado y el tipo de via
@@ -776,7 +786,7 @@ public class NuevoSemaforo extends javax.swing.JFrame {
             int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia2.getSelectedItem());
             ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
             for (int i = 0; i < vias.size(); i++){
-                cmbVia2.addItem(vias.get(i).getNombre());
+                cmbVia2.addItem(vias.get(i));
             }
         }
     }//GEN-LAST:event_cmbTipoVia2ActionPerformed
@@ -789,7 +799,7 @@ public class NuevoSemaforo extends javax.swing.JFrame {
         if (cmbTipoVia1.getSelectedIndex() == 0){
             ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
             for (int i = 0; i < viasDistrinto.size(); i++){
-                cmbVia1.addItem(viasDistrinto.get(i).getNombre());
+                cmbVia1.addItem(viasDistrinto.get(i));
             }
         }if (cmbTipoVia1.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() != 0){
             //Cargo las vias con el distrito seleccionado y el tipo de via
@@ -797,7 +807,7 @@ public class NuevoSemaforo extends javax.swing.JFrame {
             int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia1.getSelectedItem());
             ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
             for (int i = 0; i < vias.size(); i++){
-                cmbVia1.addItem(vias.get(i).getNombre());
+                cmbVia1.addItem(vias.get(i));
             }
         }
 
@@ -819,8 +829,8 @@ public class NuevoSemaforo extends javax.swing.JFrame {
             cmbVia2.addItem("Seleccione Vía");
             ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
             for (int i = 0; i < viasDistrinto.size(); i++){
-                cmbVia1.addItem(viasDistrinto.get(i).getNombre());
-                cmbVia2.addItem(viasDistrinto.get(i).getNombre());
+                cmbVia1.addItem(viasDistrinto.get(i));
+                cmbVia2.addItem(viasDistrinto.get(i));
             }
         }
         if (cmbTipoVia1.getSelectedIndex() != 0 && cmbDistrito.getSelectedIndex() != 0 && cmbTipoVia2.getSelectedIndex() == 0){
@@ -830,11 +840,11 @@ public class NuevoSemaforo extends javax.swing.JFrame {
             int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia1.getSelectedItem());
             ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
             for (int i = 0; i < vias.size(); i++){
-                cmbVia1.addItem(vias.get(i).getNombre());
+                cmbVia1.addItem(vias.get(i));
             }
             ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
             for (int i = 0; i < viasDistrinto.size(); i++){
-                cmbVia2.addItem(viasDistrinto.get(i).getNombre());
+                cmbVia2.addItem(viasDistrinto.get(i));
             }
         }
 
@@ -845,11 +855,11 @@ public class NuevoSemaforo extends javax.swing.JFrame {
             int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia2.getSelectedItem());
             ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
             for (int i = 0; i < vias.size(); i++){
-                cmbVia2.addItem(vias.get(i).getNombre());
+                cmbVia2.addItem(vias.get(i));
             }
             ArrayList<Via> viasDistrinto = ViaController.obtenerVias(DistritoController.obteneridDistrito((String)cmbDistrito.getSelectedItem()));
             for (int i = 0; i < viasDistrinto.size(); i++){
-                cmbVia1.addItem(viasDistrinto.get(i).getNombre());
+                cmbVia1.addItem(viasDistrinto.get(i));
             }
         }
 
@@ -860,12 +870,12 @@ public class NuevoSemaforo extends javax.swing.JFrame {
             int idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia1.getSelectedItem());
             ArrayList<Via> vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
             for (int i = 0; i < vias.size(); i++){
-                cmbVia1.addItem(vias.get(i).getNombre());
+                cmbVia1.addItem(vias.get(i));
             }
             idTipoVia = TipoViaController.obteneridTipo((String)cmbTipoVia2.getSelectedItem());
             vias =  ViaController.obtenerViasxIdxDistrito(idTipoVia, idDistrito);
             for (int i = 0; i < vias.size(); i++){
-                cmbVia2.addItem(vias.get(i).getNombre());
+                cmbVia2.addItem(vias.get(i));
             }
 
         }
