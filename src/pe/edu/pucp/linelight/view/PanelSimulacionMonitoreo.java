@@ -42,6 +42,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     WindowsMapPanel mapPanel;
     GeneradorRobot gr;
     Distrito d;
+    List<Ejecucionalgoritmo> lEjec;
     /**
      * Creates new form PanelSimulacionMonitoreo
      */
@@ -51,6 +52,15 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
         txtFecha.setText(sdf.format(fecha));
         this.setBackground(new java.awt.Color(240, 240, 240));
+        
+        lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
+        
+        configuracionComboBox.addItem("--Configuración por defecto--");
+        for (Ejecucionalgoritmo e:lEjec)
+        {
+            
+            configuracionComboBox.addItem(e.getNombreSimulacion());
+        }
         
         mapPanel = new WindowsMapPanel(new Dimension(728,568));
         mapContainerPanel.setVisible(true);
@@ -107,8 +117,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         configuracionLabel = new javax.swing.JLabel();
         configuracionComboBox = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         mapContainerPanel = new javax.swing.JPanel();
@@ -274,11 +282,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         configuracionLabel.setText("Configuracion a usar:");
 
-        configuracionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30/04/14 5 pm (Veloc: 30 km/h)", "05/05/14 2 pm (Veloc: 40 km/h)", "10/05/14 7 pm (Veloc: 25 km/h)" }));
-
         jLabel4.setText("Velocidad promedio:");
-
-        jLabel5.setText("Cantidad de vehiculos:");
 
         jTextField2.setText("30.00");
 
@@ -296,16 +300,13 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addGroup(monitoreoPanelLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(configuracionLabel))
-                        .addGap(18, 18, 18)
+                        .addGap(24, 24, 24)
                         .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(configuracionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(monitoreoPanelLayout.createSequentialGroup()
-                                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)))
                         .addGap(0, 47, Short.MAX_VALUE)))
@@ -323,11 +324,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addComponent(iniciarMonitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -637,14 +634,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;

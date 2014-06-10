@@ -4,13 +4,17 @@
  */
 package pe.edu.pucp.linelight.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import pe.edu.pucp.linelight.algorithm.GA;
 import pe.edu.pucp.linelight.algorithm.Trafico;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
+import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 
@@ -103,6 +107,30 @@ public class EjecucionAlgoritmoController {
 //        GA.trafico = new Trafico(numVehiculos);
 //        GA.trafico.importarSerializableTrafico();
 //        GA.trafico.imprimirTrafico();                
+    }
+    
+    public static List<Ejecucionalgoritmo> obtenerConfiguraciónSimulación()
+    {
+        List<Ejecucionalgoritmo> ejecAlg=new ArrayList<>();
+        
+        Session s = null;         
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            ejecAlg=(List<Ejecucionalgoritmo>)s.createCriteria(Ejecucionalgoritmo.class)
+                    .addOrder(Order.asc("id.idEjecucionAlgoritmo")).list();
+            HibernateUtil.cierraOperacion(s);
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+        
+        return ejecAlg;
     }
     
 }
