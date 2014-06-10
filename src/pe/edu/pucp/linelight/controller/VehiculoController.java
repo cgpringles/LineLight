@@ -97,8 +97,8 @@ public class VehiculoController {
                 /*si ok = 1 que significa que si guardo el vehiculo i-esimo, debera ahora guardar
                  su ruta en la tabla VehiculoXNodo*/                
                 ok = agregarGeneracionVehiculosRuta(ruta, Ejecucionalgoritmoid, idVehiculo, horarioid);
-                if (ok == 0)
-                    System.out.println("ERROR AL INTENTAR GUARDAR LA RUTA DE VEHICULO " + i );
+//                if (ok == 0)
+//                    System.out.println("ERROR AL INTENTAR GUARDAR LA RUTA DE VEHICULO " + i );
 //                    JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
             }
         }

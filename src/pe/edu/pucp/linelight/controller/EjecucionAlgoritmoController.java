@@ -10,6 +10,7 @@ import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import pe.edu.pucp.linelight.algorithm.Poblacion;
 import pe.edu.pucp.linelight.algorithm.Individuo;
 import pe.edu.pucp.linelight.algorithm.Config;
@@ -39,8 +40,10 @@ public class EjecucionAlgoritmoController {
         int ok = 0;
         try {
             s = HibernateUtil.iniciaOperacion();
+            Transaction nuevaEjecucion = s.beginTransaction();
             s.save(ejecucionAlgoritmo);
-            HibernateUtil.cierraOperacion(s);
+            nuevaEjecucion.commit();
+            //HibernateUtil.cierraOperacion(s);
             ok = 1;
         } catch (HibernateException e) {
             ok = 0;
@@ -49,7 +52,6 @@ public class EjecucionAlgoritmoController {
         } finally {
             s.close();
         }
-
         return ok;
     }
     
