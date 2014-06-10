@@ -12,6 +12,8 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import linelight.ImagenFondo;
 import org.dom4j.DocumentException;
@@ -340,19 +342,26 @@ public class WindowPrincipal extends javax.swing.JFrame {
 
     private void optim_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optim_menuMouseClicked
         // TODO add your handling code here:
-        this.setSize(bigsize);
-        this.setTitle("Optimización");
-        panel_principal.setSize(bigsize.width, bigsize.height-75);
-        panel_principal.revalidate();
-        PanelSimulacionMonitoreo panelSimulacionMonitoreo = new PanelSimulacionMonitoreo();
-        panelSimulacionMonitoreo.setSize(panel_principal.getSize());
-        System.out.println(panel_principal.getSize());
-        System.out.println(panel_principal.getBounds());
         
-        panel_principal.removeAll();
-        panel_principal.add(panelSimulacionMonitoreo);
-        
-        panel_principal.revalidate();
+        try{
+            this.setSize(bigsize);
+            this.setTitle("Optimización");
+            panel_principal.setSize(bigsize.width, bigsize.height-75);
+            panel_principal.revalidate();
+            PanelSimulacionMonitoreo panelSimulacionMonitoreo = new PanelSimulacionMonitoreo();
+            panelSimulacionMonitoreo.setSize(panel_principal.getSize());
+            System.out.println(panel_principal.getSize());
+            System.out.println(panel_principal.getBounds());
+
+            panel_principal.removeAll();
+            panel_principal.add(panelSimulacionMonitoreo);
+
+            panel_principal.revalidate();
+        }
+        catch(Exception e){
+            this.setSize(smallsize);
+            JOptionPane.showMessageDialog(WindowPrincipal.this, "No hay ningun mapa activo.", "Error", INFORMATION_MESSAGE, null);
+        }
     }//GEN-LAST:event_optim_menuMouseClicked
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
