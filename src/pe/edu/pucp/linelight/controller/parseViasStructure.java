@@ -90,10 +90,10 @@ public class parseViasStructure implements Runnable{
                     Random ran= new Random ();
                     if (tipo!=null){
                         if (tipo.getIdTipoVia()==1){
-                        nuevo.setNumCarros(ran.nextInt(5)+20);
+                        nuevo.setNumCarros(ran.nextInt(30)+20);
                         }
                         if (tipo.getIdTipoVia()==2){
-                        nuevo.setNumCarros(ran.nextInt(50)+200);
+                        nuevo.setNumCarros(ran.nextInt(150)+50);
                         }                   
                     }
                     else{
