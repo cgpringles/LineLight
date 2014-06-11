@@ -60,8 +60,8 @@ public class parseSemaforosStructure implements Runnable{
                 int distritoId = semaforoController.buscarDistritoNodo(idNodo);
                 ArrayList<String> vias = semaforoController.buscarViasNodo(idNodo);               
                 //Semaforo 1
-               String idSem1 = Long.toString(idNodo).substring(3) + "1";
-               String idSem2 = Long.toString(idNodo).substring(3) + "2";
+               String idSem1 = Long.toString(idNodo) + "1";
+               String idSem2 = Long.toString(idNodo) + "2";
                Semaforo semaf = new Semaforo();
                SemaforoId semaforoId = new SemaforoId();
                semaforoId.setIdSemaforo(Integer.parseInt(idSem1));
