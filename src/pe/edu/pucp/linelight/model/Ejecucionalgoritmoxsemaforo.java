@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 11/06/2014 07:24:50 PM by Hibernate Tools 3.2.1.GA
 
 
 
@@ -10,7 +10,6 @@ public class Ejecucionalgoritmoxsemaforo  implements java.io.Serializable {
 
 
      private EjecucionalgoritmoxsemaforoId id;
-     private Semaforo semaforo;
      private Ejecucionalgoritmo ejecucionalgoritmo;
      private Integer tverde;
      private Integer trojo;
@@ -19,14 +18,12 @@ public class Ejecucionalgoritmoxsemaforo  implements java.io.Serializable {
     }
 
 	
-    public Ejecucionalgoritmoxsemaforo(EjecucionalgoritmoxsemaforoId id, Semaforo semaforo, Ejecucionalgoritmo ejecucionalgoritmo) {
+    public Ejecucionalgoritmoxsemaforo(EjecucionalgoritmoxsemaforoId id, Ejecucionalgoritmo ejecucionalgoritmo) {
         this.id = id;
-        this.semaforo = semaforo;
         this.ejecucionalgoritmo = ejecucionalgoritmo;
     }
-    public Ejecucionalgoritmoxsemaforo(EjecucionalgoritmoxsemaforoId id, Semaforo semaforo, Ejecucionalgoritmo ejecucionalgoritmo, Integer tverde, Integer trojo) {
+    public Ejecucionalgoritmoxsemaforo(EjecucionalgoritmoxsemaforoId id, Ejecucionalgoritmo ejecucionalgoritmo, Integer tverde, Integer trojo) {
        this.id = id;
-       this.semaforo = semaforo;
        this.ejecucionalgoritmo = ejecucionalgoritmo;
        this.tverde = tverde;
        this.trojo = trojo;
@@ -38,13 +35,6 @@ public class Ejecucionalgoritmoxsemaforo  implements java.io.Serializable {
     
     public void setId(EjecucionalgoritmoxsemaforoId id) {
         this.id = id;
-    }
-    public Semaforo getSemaforo() {
-        return this.semaforo;
-    }
-    
-    public void setSemaforo(Semaforo semaforo) {
-        this.semaforo = semaforo;
     }
     public Ejecucionalgoritmo getEjecucionalgoritmo() {
         return this.ejecucionalgoritmo;

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2014 07:24:52 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo" table="ejecucionalgoritmoxsemaforo" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.EjecucionalgoritmoxsemaforoId">
@@ -17,7 +17,7 @@
             <key-property name="idConfiguracionSistema" type="int">
                 <column name="idConfiguracionSistema" />
             </key-property>
-            <key-property name="idSemaforo" type="int">
+            <key-property name="idSemaforo" type="long">
                 <column name="idSemaforo" />
             </key-property>
             <key-property name="idNodo" type="long">
@@ -27,10 +27,6 @@
                 <column name="idHorario" />
             </key-property>
         </composite-id>
-        <many-to-one name="semaforo" class="pe.edu.pucp.linelight.model.Semaforo" update="false" insert="false" fetch="select">
-            <column name="idSemaforo" not-null="true" />
-            <column name="idNodo" not-null="true" />
-        </many-to-one>
         <many-to-one name="ejecucionalgoritmo" class="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" update="false" insert="false" fetch="select">
             <column name="idParamAlgoritmo" not-null="true" />
             <column name="idEjecucionAlgoritmo" not-null="true" />

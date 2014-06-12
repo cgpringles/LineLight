@@ -592,22 +592,23 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
         // TODO add your handling code here:
-        Zona zona_obj = d.getZona(zona+1);
-        if(zona_obj!=null){
-            zona++;
-            mapPanel.changeMapFile(zona_obj.getImagen());
-            mapPanel.zoomIn();
-        }
+        
+//        Zona zona_obj = d.getZonas(zona+1);
+//        if(zona_obj!=null){
+//            zona++;
+//            mapPanel.changeMapFile(zona_obj.getImagen());
+//            mapPanel.zoomIn();
+//        }
     }//GEN-LAST:event_zoomInButtonActionPerformed
 
     private void zoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutButtonActionPerformed
         // TODO add your handling code here:
-        Zona zona_obj = d.getZona(zona-1);
-        if(zona_obj!=null){
-            zona--;
-            mapPanel.changeMapFile(zona_obj.getImagen());
-            mapPanel.zoomOut();
-        }
+//        Zona zona_obj = d.getZonas(zona-1);
+//        if(zona_obj!=null){
+//            zona--;
+//            mapPanel.changeMapFile(zona_obj.getImagen());
+//            mapPanel.zoomOut();
+//        }
     }//GEN-LAST:event_zoomOutButtonActionPerformed
 
     private void agregarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSimulacionActionPerformed

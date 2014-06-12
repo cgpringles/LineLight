@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2014 07:24:52 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Nodo" table="nodo" catalog="linelight">
         <id name="idNodo" type="long">
@@ -14,19 +14,19 @@
         <property name="longitud" type="java.lang.Double">
             <column name="longitud" precision="22" scale="0" />
         </property>
-        <set name="vehiculoxnodos" table="vehiculoxnodo" inverse="true" lazy="true" fetch="select">
+        <set name="vehiculoxnodos" inverse="true">
             <key>
                 <column name="idNodo" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Vehiculoxnodo" />
         </set>
-        <set name="tramoxnodos" table="tramoxnodo" inverse="true" lazy="true" fetch="select">
+        <set name="tramoxnodos" inverse="true">
             <key>
                 <column name="idNodo" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Tramoxnodo" />
         </set>
-        <set name="semaforos" table="semaforo" inverse="true" lazy="false" fetch="select">
+        <set name="semaforos" inverse="true">
             <key>
                 <column name="idNodo" not-null="true" />
             </key>

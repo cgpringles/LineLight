@@ -454,7 +454,7 @@ public class buscarSemaforo extends javax.swing.JPanel {
         for (int i=0;i<semaforoCriteria.size();i++){ 
             
             String datos[]=new String[7];
-            datos[0] = Integer.toString(semaforoCriteria.get(i).getId().getIdSemaforo());            
+            datos[0] = Long.toString(semaforoCriteria.get(i).getId().getIdSemaforo());            
             datos[1] = semaforoController.obtenerDistritoxNombreVia(semaforoCriteria.get(i).getVia1());            
             datos[2] = (semaforoCriteria.get(i).getVia1());
             datos[3] = (semaforoCriteria.get(i).getVia2());
@@ -601,7 +601,7 @@ public class buscarSemaforo extends javax.swing.JPanel {
         for (int i=0;i<semaforoCriteria.size();i++){
 
             String datos[]=new String[7];
-            datos[0] = Integer.toString(semaforoCriteria.get(i).getId().getIdSemaforo());
+            datos[0] = Long.toString(semaforoCriteria.get(i).getId().getIdSemaforo());
             datos[1] = semaforoController.obtenerDistritoxNombreVia(semaforoCriteria.get(i).getVia1());
             datos[2] = (semaforoCriteria.get(i).getVia1());
             datos[3] = (semaforoCriteria.get(i).getVia2());

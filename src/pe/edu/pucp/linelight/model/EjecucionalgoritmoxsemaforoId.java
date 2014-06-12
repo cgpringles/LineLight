@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 11/06/2014 07:24:50 PM by Hibernate Tools 3.2.1.GA
 
 
 
@@ -13,14 +13,14 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
      private int idEjecucionAlgoritmo;
      private String idUsuario;
      private int idConfiguracionSistema;
-     private int idSemaforo;
+     private long idSemaforo;
      private long idNodo;
      private int idHorario;
 
     public EjecucionalgoritmoxsemaforoId() {
     }
 
-    public EjecucionalgoritmoxsemaforoId(int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idSemaforo, long idNodo, int idHorario) {
+    public EjecucionalgoritmoxsemaforoId(int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, long idSemaforo, long idNodo, int idHorario) {
        this.idParamAlgoritmo = idParamAlgoritmo;
        this.idEjecucionAlgoritmo = idEjecucionAlgoritmo;
        this.idUsuario = idUsuario;
@@ -58,11 +58,11 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
     public void setIdConfiguracionSistema(int idConfiguracionSistema) {
         this.idConfiguracionSistema = idConfiguracionSistema;
     }
-    public int getIdSemaforo() {
+    public long getIdSemaforo() {
         return this.idSemaforo;
     }
     
-    public void setIdSemaforo(int idSemaforo) {
+    public void setIdSemaforo(long idSemaforo) {
         this.idSemaforo = idSemaforo;
     }
     public long getIdNodo() {
@@ -103,7 +103,7 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
          result = 37 * result + this.getIdEjecucionAlgoritmo();
          result = 37 * result + ( getIdUsuario() == null ? 0 : this.getIdUsuario().hashCode() );
          result = 37 * result + this.getIdConfiguracionSistema();
-         result = 37 * result + this.getIdSemaforo();
+         result = 37 * result + (int) this.getIdSemaforo();
          result = 37 * result + (int) this.getIdNodo();
          result = 37 * result + this.getIdHorario();
          return result;

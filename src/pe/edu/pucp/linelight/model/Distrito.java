@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 11/06/2014 07:24:50 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -85,10 +85,10 @@ public class Distrito  implements java.io.Serializable {
     public void setZonas(Set zonas) {
         this.zonas = zonas;
     }
-    public Zona getZona(int i) {
+    
+    public Zona getZona (int i){
         for (Object z:this.getZonas())
         {
-            //Validamos que sea zona 0 = mapa general
             if (((Zona)z).getId().getIdZona()==i)
             {
                 return (Zona)z;
@@ -96,7 +96,6 @@ public class Distrito  implements java.io.Serializable {
         }
         return null;
     }
-
 
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2014 07:24:52 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Tramo" table="tramo" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.TramoId">
@@ -15,14 +15,14 @@
                 <column name="idVia" />
             </key-property>
         </composite-id>
-        <many-to-one name="via" class="pe.edu.pucp.linelight.model.Via" lazy="false" update="false" insert="false" fetch="select">
+        <many-to-one name="via" class="pe.edu.pucp.linelight.model.Via" update="false" insert="false" fetch="select">
             <column name="idDistrito" not-null="true" />
             <column name="idVia" not-null="true" />
         </many-to-one>
         <property name="estado" type="java.lang.Boolean">
             <column name="estado" />
         </property>
-        <set name="tramoxnodos" table="tramoxnodo" inverse="true" lazy="true" fetch="select">
+        <set name="tramoxnodos" inverse="true">
             <key>
                 <column name="idTramo" not-null="true" />
                 <column name="idDistrito" not-null="true" />
@@ -30,7 +30,7 @@
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Tramoxnodo" />
         </set>
-        <set name="tramoxincidencias" table="tramoxincidencia" inverse="true" lazy="true" fetch="select">
+        <set name="tramoxincidencias" inverse="true">
             <key>
                 <column name="idTramo" not-null="true" />
                 <column name="idDistrito" not-null="true" />

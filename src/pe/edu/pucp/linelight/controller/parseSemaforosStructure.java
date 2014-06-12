@@ -53,7 +53,7 @@ public class parseSemaforosStructure implements Runnable{
         Element root = document.getRootElement();
             for ( Iterator i = root.elementIterator("semaforo"); i.hasNext(); ) {
                 Element element = (Element) i.next();                
-                int id = Integer.parseInt(element.attribute("id").getStringValue());
+                //int id = Long.parseInt(element.attribute("id").getStringValue());
                 long idNodo = Long.parseLong(element.attribute("idNodo").getStringValue());
                 Nodo nodo = semaforoController.buscarNodo(idNodo);
                 //Obtener datos
@@ -64,7 +64,7 @@ public class parseSemaforosStructure implements Runnable{
                String idSem2 = Long.toString(idNodo) + "2";
                Semaforo semaf = new Semaforo();
                SemaforoId semaforoId = new SemaforoId();
-               semaforoId.setIdSemaforo(Integer.parseInt(idSem1));
+               semaforoId.setIdSemaforo(Long.parseLong(idSem1));
                semaforoId.setIdNodo(idNodo);
                semaf.setId(semaforoId);
                semaf.setEstado(true);
@@ -78,7 +78,7 @@ public class parseSemaforosStructure implements Runnable{
                 //Semaforo 2
                Semaforo semaf2 = new Semaforo();
                SemaforoId semaforoId2 = new SemaforoId();
-               semaforoId2.setIdSemaforo(Integer.parseInt(idSem2));
+               semaforoId2.setIdSemaforo(Long.parseLong(idSem2));
                semaforoId2.setIdNodo(idNodo);
                semaf2.setId(semaforoId2);
                semaf2.setEstado(true);

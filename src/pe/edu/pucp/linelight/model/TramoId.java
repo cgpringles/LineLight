@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 11/06/2014 07:24:50 PM by Hibernate Tools 3.2.1.GA
 
 
 

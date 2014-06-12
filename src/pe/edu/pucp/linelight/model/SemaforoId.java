@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 11/06/2014 07:24:50 PM by Hibernate Tools 3.2.1.GA
 
 
 
@@ -9,22 +9,22 @@ package pe.edu.pucp.linelight.model;
 public class SemaforoId  implements java.io.Serializable {
 
 
-     private int idSemaforo;
+     private long idSemaforo;
      private long idNodo;
 
     public SemaforoId() {
     }
 
-    public SemaforoId(int idSemaforo, long idNodo) {
+    public SemaforoId(long idSemaforo, long idNodo) {
        this.idSemaforo = idSemaforo;
        this.idNodo = idNodo;
     }
    
-    public int getIdSemaforo() {
+    public long getIdSemaforo() {
         return this.idSemaforo;
     }
     
-    public void setIdSemaforo(int idSemaforo) {
+    public void setIdSemaforo(long idSemaforo) {
         this.idSemaforo = idSemaforo;
     }
     public long getIdNodo() {
@@ -49,7 +49,7 @@ public class SemaforoId  implements java.io.Serializable {
    public int hashCode() {
          int result = 17;
          
-         result = 37 * result + this.getIdSemaforo();
+         result = 37 * result + (int) this.getIdSemaforo();
          result = 37 * result + (int) this.getIdNodo();
          return result;
    }   

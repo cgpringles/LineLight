@@ -115,8 +115,8 @@ public class semaforoController {
          return nodo;
      }
          
-     public static int obtenerIdSemaforo(){
-         int id = 0;
+     public static long obtenerIdSemaforo(){
+         long id = 0;
          Session s = null;
          
         try

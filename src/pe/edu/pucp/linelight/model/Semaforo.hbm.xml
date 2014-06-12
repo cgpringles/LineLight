@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/06/2014 07:24:52 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Semaforo" table="semaforo" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.SemaforoId">
-            <key-property name="idSemaforo" type="int">
+            <key-property name="idSemaforo" type="long">
                 <column name="idSemaforo" />
             </key-property>
             <key-property name="idNodo" type="long">
@@ -39,12 +39,5 @@
         <property name="distrito" type="string">
             <column name="distrito" length="45" />
         </property>
-        <set name="ejecucionalgoritmoxsemaforos" table="ejecucionalgoritmoxsemaforo" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idSemaforo" not-null="true" />
-                <column name="idNodo" not-null="true" />
-            </key>
-            <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo" />
-        </set>
     </class>
 </hibernate-mapping>
