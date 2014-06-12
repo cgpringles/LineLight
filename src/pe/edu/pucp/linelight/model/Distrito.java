@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -17,6 +17,7 @@ public class Distrito  implements java.io.Serializable {
      private Date fecRegistro;
      private byte[] activo;
      private Set vias = new HashSet(0);
+     private Set semaforos = new HashSet(0);
      private Set distritoxhorarios = new HashSet(0);
      private Set zonas = new HashSet(0);
 
@@ -27,11 +28,12 @@ public class Distrito  implements java.io.Serializable {
     public Distrito(byte[] activo) {
         this.activo = activo;
     }
-    public Distrito(String nombre, Date fecRegistro, byte[] activo, Set vias, Set distritoxhorarios, Set zonas) {
+    public Distrito(String nombre, Date fecRegistro, byte[] activo, Set vias, Set semaforos, Set distritoxhorarios, Set zonas) {
        this.nombre = nombre;
        this.fecRegistro = fecRegistro;
        this.activo = activo;
        this.vias = vias;
+       this.semaforos = semaforos;
        this.distritoxhorarios = distritoxhorarios;
        this.zonas = zonas;
     }
@@ -71,6 +73,13 @@ public class Distrito  implements java.io.Serializable {
     public void setVias(Set vias) {
         this.vias = vias;
     }
+    public Set getSemaforos() {
+        return this.semaforos;
+    }
+    
+    public void setSemaforos(Set semaforos) {
+        this.semaforos = semaforos;
+    }
     public Set getDistritoxhorarios() {
         return this.distritoxhorarios;
     }
@@ -85,18 +94,6 @@ public class Distrito  implements java.io.Serializable {
     public void setZonas(Set zonas) {
         this.zonas = zonas;
     }
-    public Zona getZona(int i) {
-        for (Object z:this.getZonas())
-        {
-            //Validamos que sea zona 0 = mapa general
-            if (((Zona)z).getId().getIdZona()==i)
-            {
-                return (Zona)z;
-            }
-        }
-        return null;
-    }
-
 
 
 

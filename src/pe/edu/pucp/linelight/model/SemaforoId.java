@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 
@@ -9,22 +9,24 @@ package pe.edu.pucp.linelight.model;
 public class SemaforoId  implements java.io.Serializable {
 
 
-     private int idSemaforo;
+     private long idSemaforo;
      private long idNodo;
+     private int idDistrito;
 
     public SemaforoId() {
     }
 
-    public SemaforoId(int idSemaforo, long idNodo) {
+    public SemaforoId(long idSemaforo, long idNodo, int idDistrito) {
        this.idSemaforo = idSemaforo;
        this.idNodo = idNodo;
+       this.idDistrito = idDistrito;
     }
    
-    public int getIdSemaforo() {
+    public long getIdSemaforo() {
         return this.idSemaforo;
     }
     
-    public void setIdSemaforo(int idSemaforo) {
+    public void setIdSemaforo(long idSemaforo) {
         this.idSemaforo = idSemaforo;
     }
     public long getIdNodo() {
@@ -33,6 +35,13 @@ public class SemaforoId  implements java.io.Serializable {
     
     public void setIdNodo(long idNodo) {
         this.idNodo = idNodo;
+    }
+    public int getIdDistrito() {
+        return this.idDistrito;
+    }
+    
+    public void setIdDistrito(int idDistrito) {
+        this.idDistrito = idDistrito;
     }
 
 
@@ -43,14 +52,16 @@ public class SemaforoId  implements java.io.Serializable {
 		 SemaforoId castOther = ( SemaforoId ) other; 
          
 		 return (this.getIdSemaforo()==castOther.getIdSemaforo())
- && (this.getIdNodo()==castOther.getIdNodo());
+ && (this.getIdNodo()==castOther.getIdNodo())
+ && (this.getIdDistrito()==castOther.getIdDistrito());
    }
    
    public int hashCode() {
          int result = 17;
          
-         result = 37 * result + this.getIdSemaforo();
+         result = 37 * result + (int) this.getIdSemaforo();
          result = 37 * result + (int) this.getIdNodo();
+         result = 37 * result + this.getIdDistrito();
          return result;
    }   
 

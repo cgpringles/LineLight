@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -12,6 +12,7 @@ public class Semaforo  implements java.io.Serializable {
 
 
      private SemaforoId id;
+     private Distrito distrito;
      private Nodo nodo;
      private Integer tverde;
      private Boolean estado;
@@ -20,21 +21,24 @@ public class Semaforo  implements java.io.Serializable {
      private Integer tipo;
      private String via1;
      private String via2;
-     private String distrito;
+     private String distrito_1;
      private Set ejecucionalgoritmoxsemaforos = new HashSet(0);
      public static boolean ROJO=false;
      public static boolean VERDE=true;
+     
 
     public Semaforo() {
     }
 
 	
-    public Semaforo(SemaforoId id, Nodo nodo) {
+    public Semaforo(SemaforoId id, Distrito distrito, Nodo nodo) {
         this.id = id;
+        this.distrito = distrito;
         this.nodo = nodo;
     }
-    public Semaforo(SemaforoId id, Nodo nodo, Integer tverde, Boolean estado, Integer trojo, String descripcion, Integer tipo, String via1, String via2, String distrito, Set ejecucionalgoritmoxsemaforos) {
+    public Semaforo(SemaforoId id, Distrito distrito, Nodo nodo, Integer tverde, Boolean estado, Integer trojo, String descripcion, Integer tipo, String via1, String via2, String distrito_1, Set ejecucionalgoritmoxsemaforos) {
        this.id = id;
+       this.distrito = distrito;
        this.nodo = nodo;
        this.tverde = tverde;
        this.estado = estado;
@@ -43,7 +47,7 @@ public class Semaforo  implements java.io.Serializable {
        this.tipo = tipo;
        this.via1 = via1;
        this.via2 = via2;
-       this.distrito = distrito;
+       this.distrito_1 = distrito_1;
        this.ejecucionalgoritmoxsemaforos = ejecucionalgoritmoxsemaforos;
     }
    
@@ -53,6 +57,13 @@ public class Semaforo  implements java.io.Serializable {
     
     public void setId(SemaforoId id) {
         this.id = id;
+    }
+    public Distrito getDistrito() {
+        return this.distrito;
+    }
+    
+    public void setDistrito(Distrito distrito) {
+        this.distrito = distrito;
     }
     public Nodo getNodo() {
         return this.nodo;
@@ -110,12 +121,12 @@ public class Semaforo  implements java.io.Serializable {
     public void setVia2(String via2) {
         this.via2 = via2;
     }
-    public String getDistrito() {
-        return this.distrito;
+    public String getDistrito_1() {
+        return this.distrito_1;
     }
     
-    public void setDistrito(String distrito) {
-        this.distrito = distrito;
+    public void setDistrito_1(String distrito_1) {
+        this.distrito_1 = distrito_1;
     }
     public Set getEjecucionalgoritmoxsemaforos() {
         return this.ejecucionalgoritmoxsemaforos;

@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -26,7 +26,7 @@ public class Usuario  implements java.io.Serializable {
      private String direccion;
      private Integer estado;
      private Integer estadobd;
-     private Integer primerAcceso;
+     private int primerAcceso;
      private Set usuarioxaccions = new HashSet(0);
      private Set ejecucionalgoritmos = new HashSet(0);
 
@@ -34,15 +34,17 @@ public class Usuario  implements java.io.Serializable {
     }
 
 	
-    public Usuario(String idUsuario, Perfil perfil, String nombre, String app, String apm, String password) {
+    public Usuario(String idUsuario, Perfil perfil, String nombre, String app, String apm, String password, Date fechaNac, int primerAcceso) {
         this.idUsuario = idUsuario;
         this.perfil = perfil;
         this.nombre = nombre;
         this.app = app;
         this.apm = apm;
         this.password = password;
+        this.fechaNac = fechaNac;
+        this.primerAcceso = primerAcceso;
     }
-    public Usuario(String idUsuario, Perfil perfil, String nombre, String app, String apm, String password, String correo, String dni, Date fechaNac, String telefono, String celular, String direccion, Integer estado, Integer estadobd, Integer primerAcceso, Set usuarioxaccions, Set ejecucionalgoritmos) {
+    public Usuario(String idUsuario, Perfil perfil, String nombre, String app, String apm, String password, String correo, String dni, Date fechaNac, String telefono, String celular, String direccion, Integer estado, Integer estadobd, int primerAcceso, Set usuarioxaccions, Set ejecucionalgoritmos) {
        this.idUsuario = idUsuario;
        this.perfil = perfil;
        this.nombre = nombre;
@@ -160,11 +162,11 @@ public class Usuario  implements java.io.Serializable {
     public void setEstadobd(Integer estadobd) {
         this.estadobd = estadobd;
     }
-    public Integer getPrimerAcceso() {
+    public int getPrimerAcceso() {
         return this.primerAcceso;
     }
     
-    public void setPrimerAcceso(Integer primerAcceso) {
+    public void setPrimerAcceso(int primerAcceso) {
         this.primerAcceso = primerAcceso;
     }
     public Set getUsuarioxaccions() {

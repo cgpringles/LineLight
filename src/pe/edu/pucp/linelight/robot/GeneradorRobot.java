@@ -252,7 +252,7 @@ public class GeneradorRobot extends Thread{
             String tvia="";
             if (tv!=null) tvia=tv.getDescripcion();
             
-            Edge e=new Edge(txni.getTramo().getId().getIdTramo(),nodeOrigin,nodeFinal,50,tvia);
+            Edge e=new Edge(txni.getTramo().getId().getIdTramo(),nodeOrigin,nodeFinal,20,tvia);
             nodeOrigin.agregarListaCuadra(e);
             listaEdge.add(e);
         }
@@ -314,8 +314,18 @@ public class GeneradorRobot extends Thread{
             for (Carro c: listaCarros)
             {
                 //Vehiculo fuera del mapa
-                if (c.status!=Carro.OUTMAP)
-                    c.moveCar(T_PAUSA);
+                if ((c.status!=Carro.OUTMAP))
+                {
+                    if ((c.getCuadra().getEndNode().getS()!=null) &&
+                       (c.getCuadra().getEndNode().getS().getEstado()!=Semaforo.ROJO))
+                        c.moveCar(T_PAUSA);
+                    else
+                        c.moveCar(T_PAUSA);
+                    
+                        
+                    
+                }
+                    
             }
             
             //Removemos los vehículos fuera del mapa

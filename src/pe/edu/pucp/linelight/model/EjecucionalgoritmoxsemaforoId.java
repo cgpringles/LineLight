@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 
@@ -13,21 +13,23 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
      private int idEjecucionAlgoritmo;
      private String idUsuario;
      private int idConfiguracionSistema;
-     private int idSemaforo;
-     private long idNodo;
      private int idHorario;
+     private long idSemaforo;
+     private long idNodo;
+     private int idDistrito;
 
     public EjecucionalgoritmoxsemaforoId() {
     }
 
-    public EjecucionalgoritmoxsemaforoId(int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idSemaforo, long idNodo, int idHorario) {
+    public EjecucionalgoritmoxsemaforoId(int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idHorario, long idSemaforo, long idNodo, int idDistrito) {
        this.idParamAlgoritmo = idParamAlgoritmo;
        this.idEjecucionAlgoritmo = idEjecucionAlgoritmo;
        this.idUsuario = idUsuario;
        this.idConfiguracionSistema = idConfiguracionSistema;
+       this.idHorario = idHorario;
        this.idSemaforo = idSemaforo;
        this.idNodo = idNodo;
-       this.idHorario = idHorario;
+       this.idDistrito = idDistrito;
     }
    
     public int getIdParamAlgoritmo() {
@@ -58,11 +60,18 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
     public void setIdConfiguracionSistema(int idConfiguracionSistema) {
         this.idConfiguracionSistema = idConfiguracionSistema;
     }
-    public int getIdSemaforo() {
+    public int getIdHorario() {
+        return this.idHorario;
+    }
+    
+    public void setIdHorario(int idHorario) {
+        this.idHorario = idHorario;
+    }
+    public long getIdSemaforo() {
         return this.idSemaforo;
     }
     
-    public void setIdSemaforo(int idSemaforo) {
+    public void setIdSemaforo(long idSemaforo) {
         this.idSemaforo = idSemaforo;
     }
     public long getIdNodo() {
@@ -72,12 +81,12 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
     public void setIdNodo(long idNodo) {
         this.idNodo = idNodo;
     }
-    public int getIdHorario() {
-        return this.idHorario;
+    public int getIdDistrito() {
+        return this.idDistrito;
     }
     
-    public void setIdHorario(int idHorario) {
-        this.idHorario = idHorario;
+    public void setIdDistrito(int idDistrito) {
+        this.idDistrito = idDistrito;
     }
 
 
@@ -91,9 +100,10 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
  && (this.getIdEjecucionAlgoritmo()==castOther.getIdEjecucionAlgoritmo())
  && ( (this.getIdUsuario()==castOther.getIdUsuario()) || ( this.getIdUsuario()!=null && castOther.getIdUsuario()!=null && this.getIdUsuario().equals(castOther.getIdUsuario()) ) )
  && (this.getIdConfiguracionSistema()==castOther.getIdConfiguracionSistema())
+ && (this.getIdHorario()==castOther.getIdHorario())
  && (this.getIdSemaforo()==castOther.getIdSemaforo())
  && (this.getIdNodo()==castOther.getIdNodo())
- && (this.getIdHorario()==castOther.getIdHorario());
+ && (this.getIdDistrito()==castOther.getIdDistrito());
    }
    
    public int hashCode() {
@@ -103,9 +113,10 @@ public class EjecucionalgoritmoxsemaforoId  implements java.io.Serializable {
          result = 37 * result + this.getIdEjecucionAlgoritmo();
          result = 37 * result + ( getIdUsuario() == null ? 0 : this.getIdUsuario().hashCode() );
          result = 37 * result + this.getIdConfiguracionSistema();
-         result = 37 * result + this.getIdSemaforo();
-         result = 37 * result + (int) this.getIdNodo();
          result = 37 * result + this.getIdHorario();
+         result = 37 * result + (int) this.getIdSemaforo();
+         result = 37 * result + (int) this.getIdNodo();
+         result = 37 * result + this.getIdDistrito();
          return result;
    }   
 

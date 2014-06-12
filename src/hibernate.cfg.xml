@@ -19,8 +19,8 @@
     <mapping resource="pe/edu/pucp/linelight/model/Tipovia.hbm.xml"/>
     <mapping resource="pe/edu/pucp/linelight/model/Zona.hbm.xml"/>
     <mapping resource="pe/edu/pucp/linelight/model/Incidencia.hbm.xml"/>
-    <mapping resource="pe/edu/pucp/linelight/model/Distritoxhorario.hbm.xml"/>
     <mapping resource="pe/edu/pucp/linelight/model/Tramoxincidencia.hbm.xml"/>
+    <mapping resource="pe/edu/pucp/linelight/model/Distritoxhorario.hbm.xml"/>
     <mapping resource="pe/edu/pucp/linelight/model/Usuario.hbm.xml"/>
     <mapping resource="pe/edu/pucp/linelight/model/Semaforo.hbm.xml"/>
     <mapping resource="pe/edu/pucp/linelight/model/Menu.hbm.xml"/>

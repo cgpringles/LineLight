@@ -103,7 +103,7 @@ public class ViaController {
         }
     }
         
-     public static ArrayList<Via> obtenerViasxId(int idTipo){
+    public static ArrayList<Via> obtenerViasxId(int idTipo){
         
     Session s=null;
         ArrayList<Via> lista= new ArrayList<Via>();

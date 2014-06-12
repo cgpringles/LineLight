@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 
@@ -12,7 +12,7 @@ public class Distritoxhorario  implements java.io.Serializable {
      private DistritoxhorarioId id;
      private Horario horario;
      private Distrito distrito;
-     private int numCarros;
+     private Integer numCarros;
 
     public Distritoxhorario() {
     }
@@ -23,7 +23,7 @@ public class Distritoxhorario  implements java.io.Serializable {
         this.horario = horario;
         this.distrito = distrito;
     }
-    public Distritoxhorario(DistritoxhorarioId id, Horario horario, Distrito distrito, int numCarros) {
+    public Distritoxhorario(DistritoxhorarioId id, Horario horario, Distrito distrito, Integer numCarros) {
        this.id = id;
        this.horario = horario;
        this.distrito = distrito;
@@ -51,11 +51,11 @@ public class Distritoxhorario  implements java.io.Serializable {
     public void setDistrito(Distrito distrito) {
         this.distrito = distrito;
     }
-    public int getNumCarros() {
+    public Integer getNumCarros() {
         return this.numCarros;
     }
     
-    public void setNumCarros(int numCarros) {
+    public void setNumCarros(Integer numCarros) {
         this.numCarros = numCarros;
     }
 

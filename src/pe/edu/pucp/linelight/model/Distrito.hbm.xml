@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 12/06/2014 12:06:24 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Distrito" table="distrito" catalog="linelight">
         <id name="idDistrito" type="java.lang.Integer">
@@ -23,13 +23,19 @@
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Via" />
         </set>
+        <set name="semaforos" table="semaforo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idDistrito" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Semaforo" />
+        </set>
         <set name="distritoxhorarios" table="distritoxhorario" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="idDistrito" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Distritoxhorario" />
         </set>
-        <set name="zonas" table="zona" inverse="true" lazy="false" fetch="select">
+        <set name="zonas" table="zona" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="idDistrito" not-null="true" />
             </key>

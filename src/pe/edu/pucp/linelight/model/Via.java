@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -96,10 +96,7 @@ public class Via  implements java.io.Serializable {
         this.tramos = tramos;
     }
 
-@Override
-    public String toString() {
-        return nombre;
-    }
+
 
 
 }

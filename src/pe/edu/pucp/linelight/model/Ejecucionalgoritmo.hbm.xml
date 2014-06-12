@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 12/06/2014 12:06:24 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Ejecucionalgoritmo" table="ejecucionalgoritmo" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.EjecucionalgoritmoId">
@@ -48,16 +48,6 @@
         <property name="tiempoEjecucion" type="java.lang.Double">
             <column name="tiempoEjecucion" precision="22" scale="0" />
         </property>
-        <set name="vehiculos" table="vehiculo" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idParamAlgoritmo" not-null="true" />
-                <column name="idEjecucionAlgoritmo" not-null="true" />
-                <column name="idUsuario" length="10" not-null="true" />
-                <column name="idConfiguracionSistema" not-null="true" />
-                <column name="idHorario" not-null="true" />
-            </key>
-            <one-to-many class="pe.edu.pucp.linelight.model.Vehiculo" />
-        </set>
         <set name="ejecucionalgoritmoxsemaforos" table="ejecucionalgoritmoxsemaforo" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="idParamAlgoritmo" not-null="true" />
@@ -67,6 +57,16 @@
                 <column name="idHorario" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo" />
+        </set>
+        <set name="vehiculos" table="vehiculo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idParamAlgoritmo" not-null="true" />
+                <column name="idEjecucionAlgoritmo" not-null="true" />
+                <column name="idUsuario" length="10" not-null="true" />
+                <column name="idConfiguracionSistema" not-null="true" />
+                <column name="idHorario" not-null="true" />
+            </key>
+            <one-to-many class="pe.edu.pucp.linelight.model.Vehiculo" />
         </set>
         <set name="ejecucionalgoritmoxcuadraxnodos" table="ejecucionalgoritmoxcuadraxnodo" inverse="true" lazy="true" fetch="select">
             <key>

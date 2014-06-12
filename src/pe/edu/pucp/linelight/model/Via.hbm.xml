@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 12/06/2014 12:06:24 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Via" table="via" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.ViaId">
@@ -12,14 +12,14 @@
                 <column name="idVia" />
             </key-property>
         </composite-id>
-        <many-to-one name="tipovia" class="pe.edu.pucp.linelight.model.Tipovia" lazy="false" fetch="select">
+        <many-to-one name="tipovia" class="pe.edu.pucp.linelight.model.Tipovia" fetch="select">
             <column name="idTipoVia" />
         </many-to-one>
         <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">
             <column name="idDistrito" not-null="true" />
         </many-to-one>
         <property name="nombre" type="string">
-            <column name="nombre" length="200" />
+            <column name="nombre" length="45" />
         </property>
         <property name="descripcion" type="string">
             <column name="descripcion" length="45" />

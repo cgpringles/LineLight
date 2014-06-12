@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 
@@ -9,27 +9,34 @@ package pe.edu.pucp.linelight.model;
 public class VehiculoxnodoId  implements java.io.Serializable {
 
 
+     private long idNodo;
      private int idVehiculo;
      private int idParamAlgoritmo;
      private int idEjecucionAlgoritmo;
      private String idUsuario;
      private int idConfiguracionSistema;
-     private long idNodo;
      private int idHorario;
 
     public VehiculoxnodoId() {
     }
 
-    public VehiculoxnodoId(int idVehiculo, int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, long idNodo, int idHorario) {
+    public VehiculoxnodoId(long idNodo, int idVehiculo, int idParamAlgoritmo, int idEjecucionAlgoritmo, String idUsuario, int idConfiguracionSistema, int idHorario) {
+       this.idNodo = idNodo;
        this.idVehiculo = idVehiculo;
        this.idParamAlgoritmo = idParamAlgoritmo;
        this.idEjecucionAlgoritmo = idEjecucionAlgoritmo;
        this.idUsuario = idUsuario;
        this.idConfiguracionSistema = idConfiguracionSistema;
-       this.idNodo = idNodo;
        this.idHorario = idHorario;
     }
    
+    public long getIdNodo() {
+        return this.idNodo;
+    }
+    
+    public void setIdNodo(long idNodo) {
+        this.idNodo = idNodo;
+    }
     public int getIdVehiculo() {
         return this.idVehiculo;
     }
@@ -65,13 +72,6 @@ public class VehiculoxnodoId  implements java.io.Serializable {
     public void setIdConfiguracionSistema(int idConfiguracionSistema) {
         this.idConfiguracionSistema = idConfiguracionSistema;
     }
-    public long getIdNodo() {
-        return this.idNodo;
-    }
-    
-    public void setIdNodo(long idNodo) {
-        this.idNodo = idNodo;
-    }
     public int getIdHorario() {
         return this.idHorario;
     }
@@ -87,24 +87,24 @@ public class VehiculoxnodoId  implements java.io.Serializable {
 		 if ( !(other instanceof VehiculoxnodoId) ) return false;
 		 VehiculoxnodoId castOther = ( VehiculoxnodoId ) other; 
          
-		 return (this.getIdVehiculo()==castOther.getIdVehiculo())
+		 return (this.getIdNodo()==castOther.getIdNodo())
+ && (this.getIdVehiculo()==castOther.getIdVehiculo())
  && (this.getIdParamAlgoritmo()==castOther.getIdParamAlgoritmo())
  && (this.getIdEjecucionAlgoritmo()==castOther.getIdEjecucionAlgoritmo())
  && ( (this.getIdUsuario()==castOther.getIdUsuario()) || ( this.getIdUsuario()!=null && castOther.getIdUsuario()!=null && this.getIdUsuario().equals(castOther.getIdUsuario()) ) )
  && (this.getIdConfiguracionSistema()==castOther.getIdConfiguracionSistema())
- && (this.getIdNodo()==castOther.getIdNodo())
  && (this.getIdHorario()==castOther.getIdHorario());
    }
    
    public int hashCode() {
          int result = 17;
          
+         result = 37 * result + (int) this.getIdNodo();
          result = 37 * result + this.getIdVehiculo();
          result = 37 * result + this.getIdParamAlgoritmo();
          result = 37 * result + this.getIdEjecucionAlgoritmo();
          result = 37 * result + ( getIdUsuario() == null ? 0 : this.getIdUsuario().hashCode() );
          result = 37 * result + this.getIdConfiguracionSistema();
-         result = 37 * result + (int) this.getIdNodo();
          result = 37 * result + this.getIdHorario();
          return result;
    }   

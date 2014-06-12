@@ -1,5 +1,5 @@
 package pe.edu.pucp.linelight.model;
-// Generated 04/06/2014 09:38:07 PM by Hibernate Tools 3.6.0
+// Generated 12/06/2014 12:06:23 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -22,8 +22,8 @@ public class Ejecucionalgoritmo  implements java.io.Serializable {
      private Double velocidadHistoria;
      private String nombreSimulacion;
      private Double tiempoEjecucion;
-     private Set vehiculos = new HashSet(0);
      private Set ejecucionalgoritmoxsemaforos = new HashSet(0);
+     private Set vehiculos = new HashSet(0);
      private Set ejecucionalgoritmoxcuadraxnodos = new HashSet(0);
 
     public Ejecucionalgoritmo() {
@@ -37,7 +37,7 @@ public class Ejecucionalgoritmo  implements java.io.Serializable {
         this.usuario = usuario;
         this.configuracionsistema = configuracionsistema;
     }
-    public Ejecucionalgoritmo(EjecucionalgoritmoId id, Paramalgoritmo paramalgoritmo, Horario horario, Usuario usuario, Configuracionsistema configuracionsistema, Date fecha, Double velocidadMaxima, Double velocidadHistoria, String nombreSimulacion, Double tiempoEjecucion, Set vehiculos, Set ejecucionalgoritmoxsemaforos, Set ejecucionalgoritmoxcuadraxnodos) {
+    public Ejecucionalgoritmo(EjecucionalgoritmoId id, Paramalgoritmo paramalgoritmo, Horario horario, Usuario usuario, Configuracionsistema configuracionsistema, Date fecha, Double velocidadMaxima, Double velocidadHistoria, String nombreSimulacion, Double tiempoEjecucion, Set ejecucionalgoritmoxsemaforos, Set vehiculos, Set ejecucionalgoritmoxcuadraxnodos) {
        this.id = id;
        this.paramalgoritmo = paramalgoritmo;
        this.horario = horario;
@@ -48,8 +48,8 @@ public class Ejecucionalgoritmo  implements java.io.Serializable {
        this.velocidadHistoria = velocidadHistoria;
        this.nombreSimulacion = nombreSimulacion;
        this.tiempoEjecucion = tiempoEjecucion;
-       this.vehiculos = vehiculos;
        this.ejecucionalgoritmoxsemaforos = ejecucionalgoritmoxsemaforos;
+       this.vehiculos = vehiculos;
        this.ejecucionalgoritmoxcuadraxnodos = ejecucionalgoritmoxcuadraxnodos;
     }
    
@@ -123,19 +123,19 @@ public class Ejecucionalgoritmo  implements java.io.Serializable {
     public void setTiempoEjecucion(Double tiempoEjecucion) {
         this.tiempoEjecucion = tiempoEjecucion;
     }
-    public Set getVehiculos() {
-        return this.vehiculos;
-    }
-    
-    public void setVehiculos(Set vehiculos) {
-        this.vehiculos = vehiculos;
-    }
     public Set getEjecucionalgoritmoxsemaforos() {
         return this.ejecucionalgoritmoxsemaforos;
     }
     
     public void setEjecucionalgoritmoxsemaforos(Set ejecucionalgoritmoxsemaforos) {
         this.ejecucionalgoritmoxsemaforos = ejecucionalgoritmoxsemaforos;
+    }
+    public Set getVehiculos() {
+        return this.vehiculos;
+    }
+    
+    public void setVehiculos(Set vehiculos) {
+        this.vehiculos = vehiculos;
     }
     public Set getEjecucionalgoritmoxcuadraxnodos() {
         return this.ejecucionalgoritmoxcuadraxnodos;

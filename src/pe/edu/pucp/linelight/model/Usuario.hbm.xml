@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04/06/2014 09:38:08 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 12/06/2014 12:06:24 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Usuario" table="usuario" catalog="linelight">
         <id name="idUsuario" type="string">
@@ -30,7 +30,7 @@
             <column name="dni" length="8" />
         </property>
         <property name="fechaNac" type="date">
-            <column name="fechaNac" length="10" />
+            <column name="fechaNac" length="10" not-null="true" />
         </property>
         <property name="telefono" type="string">
             <column name="telefono" length="10" />
@@ -47,8 +47,8 @@
         <property name="estadobd" type="java.lang.Integer">
             <column name="estadobd" />
         </property>
-        <property name="primerAcceso" type="java.lang.Integer">
-            <column name="primerAcceso" />
+        <property name="primerAcceso" type="int">
+            <column name="primerAcceso" not-null="true" />
         </property>
         <set name="usuarioxaccions" table="usuarioxaccion" inverse="true" lazy="true" fetch="select">
             <key>
