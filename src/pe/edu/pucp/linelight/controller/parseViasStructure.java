@@ -19,13 +19,17 @@ import pe.edu.pucp.linelight.controller.TipoViaController;
 import pe.edu.pucp.linelight.controller.TramoController;
 import pe.edu.pucp.linelight.controller.ViaController;
 import pe.edu.pucp.linelight.model.Distrito;
+import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Nodo;
+import pe.edu.pucp.linelight.model.Tipovia;
 import pe.edu.pucp.linelight.model.Tramo;
 import pe.edu.pucp.linelight.model.TramoId;
 import pe.edu.pucp.linelight.model.Tramoxnodo;
 import pe.edu.pucp.linelight.model.TramoxnodoId;
 import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.model.ViaId;
+import pe.edu.pucp.linelight.model.Viaxhorario;
+import pe.edu.pucp.linelight.model.ViaxhorarioId;
 import pe.edu.pucp.linelight.structure.MapParser;
 import pe.edu.pucp.linelight.view.DetalleVias;
 import pe.edu.pucp.linelight.view.NuevaVia;
@@ -64,6 +68,46 @@ public class parseViasStructure implements Runnable{
                 parseEdge(element, dRef,listaVias,listaTramos,listaTramoxNodo);
             }           
             ViaController.agregarVia(listaVias);
+            //
+            //Obtener todos los id de los horarios que estan en base de datos.
+            ArrayList <Horario> listaHor= new ArrayList <Horario>();
+            listaHor=ViaController.ObtenerHorarios();
+            //por cada via agrego 21 registrosl
+         
+            for (int i=0;i<listaVias.size();i++){
+            Tipovia tipo=new Tipovia();
+            tipo=listaVias.get(i).getTipovia();
+            ArrayList <Viaxhorario> nuevaListaHorarios= new ArrayList <Viaxhorario>();
+                for (int j=0; j<listaHor.size();j++){
+                    Viaxhorario nuevo=new Viaxhorario();
+                    ViaxhorarioId nuevoId= new ViaxhorarioId();
+                    nuevoId.setIdDistrito(listaVias.get(i).getId().getIdDistrito());
+                    nuevoId.setIdHorario(listaHor.get(j).getIdHorario());
+                    nuevoId.setIdVia(listaVias.get(i).getId().getIdVia());
+                    nuevo.setVia(listaVias.get(i));
+                    nuevo.setHorario(listaHor.get(j));
+                    nuevo.setId(nuevoId);
+                    Random ran= new Random ();
+                    if (tipo!=null){
+                        if (tipo.getIdTipoVia()==1){
+                        nuevo.setNumCarros(ran.nextInt(5)+20);
+                        }
+                        if (tipo.getIdTipoVia()==2){
+                        nuevo.setNumCarros(ran.nextInt(50)+200);
+                        }                   
+                    }
+                    else{
+                        nuevo.setNumCarros(30);
+                    }
+                    nuevaListaHorarios.add(nuevo);
+                }
+                
+               //Metodo para insertar
+                ViaController.InsertarHorariosxvia(nuevaListaHorarios);
+                
+            }
+
+            //
             TramoController.agregarTramo(listaTramos);
             TramoController.agregarTramoxNodo(listaTramoxNodo);
             band=true;
@@ -137,6 +181,7 @@ public class parseViasStructure implements Runnable{
             //agregar velocidad maxima (aleatorio)
             Random ran = new Random();
             if (v.getTipovia()!=null){
+                
                 if (v.getTipovia().getIdTipoVia() == 1)
                     v.setVelocidad(ran.nextInt(10) + 30);
                 if (v.getTipovia().getIdTipoVia() == 2)
@@ -146,6 +191,9 @@ public class parseViasStructure implements Runnable{
             }
             
             listaVias.add(v);
+            
+            
+            
             for (int i=0;i<l.size()-1;i++)
             { 
                 Long origin_node_id = l.get(i);

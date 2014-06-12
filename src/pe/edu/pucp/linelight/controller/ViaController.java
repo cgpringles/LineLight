@@ -10,6 +10,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import pe.edu.pucp.linelight.model.Horario;
@@ -400,19 +401,17 @@ public class ViaController {
          return id;
     }
     
-    public static void modificarNumerodeCarros(int horario,long via, int numCarros){
+    public static void modificarNumerodeCarros(Viaxhorario viaxHorario){
       Session s=null;
         try
         {
-        s=HibernateUtil.iniciaOperacion();
-        String hql="update Viaxhorario set numCarros= :num where idVia= :id AND idHorario= :hor";
-        Query q= s.createQuery(hql);
-        q.setParameter("num", numCarros);
-        q.setParameter("id", via);
-        q.setParameter("hor", horario);
-        int result = q.executeUpdate();
-        //s.getTransaction().commit();
-        HibernateUtil.cierraOperacion(s);
+            
+             s = HibernateUtil.iniciaOperacion();
+            Transaction nuevoViaxHorario = s.beginTransaction();
+            s.update(viaxHorario);
+            System.out.println("Se inserto correctamente");
+            nuevoViaxHorario.commit();
+  
         }
         catch (HibernateException e)
              {
