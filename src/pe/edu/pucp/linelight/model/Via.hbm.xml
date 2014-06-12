@@ -12,7 +12,7 @@
                 <column name="idVia" />
             </key-property>
         </composite-id>
-        <many-to-one name="tipovia" class="pe.edu.pucp.linelight.model.Tipovia" fetch="select">
+        <many-to-one name="tipovia" class="pe.edu.pucp.linelight.model.Tipovia" fetch="select" lazy="false">
             <column name="idTipoVia" />
         </many-to-one>
         <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">

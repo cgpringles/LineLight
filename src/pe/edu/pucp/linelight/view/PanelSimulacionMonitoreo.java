@@ -703,7 +703,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                                       
                            /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
                             * los tiempos de cada semaforo resultantes de la simulacion actual*/
-                           ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
+//                           ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
 //                           if(ok == 1)                           
 //                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Semaforos en Simulacion agregados","Acción",INFORMATION_MESSAGE,null);                           
 //                           else
