@@ -66,12 +66,13 @@ public class parseSemaforosStructure implements Runnable{
                SemaforoId semaforoId = new SemaforoId();
                semaforoId.setIdSemaforo(Long.parseLong(idSem1));
                semaforoId.setIdNodo(idNodo);
+               semaforoId.setIdDistrito(dRef.getIdDistrito());
                semaf.setId(semaforoId);
                semaf.setEstado(true);
                semaf.setTrojo(60);
                semaf.setTverde(60);
                semaf.setNodo(nodo);
-               semaf.setDistrito(dRef.getNombre());
+               semaf.setDistrito_1(dRef.getNombre());
                semaf.setVia1(vias.get(0));
                semaf.setVia2(vias.get(1));
                semaf.setTipo(0);
@@ -80,15 +81,17 @@ public class parseSemaforosStructure implements Runnable{
                SemaforoId semaforoId2 = new SemaforoId();
                semaforoId2.setIdSemaforo(Long.parseLong(idSem2));
                semaforoId2.setIdNodo(idNodo);
+               semaforoId2.setIdDistrito(dRef.getIdDistrito());
                semaf2.setId(semaforoId2);
                semaf2.setEstado(true);
                semaf2.setTrojo(60);
                semaf2.setTverde(60);
                semaf2.setNodo(nodo);
-               semaf2.setDistrito(dRef.getNombre());
+               semaf2.setDistrito_1(dRef.getNombre());
                semaf2.setVia1(vias.get(1));
                semaf2.setVia2(vias.get(0));
                semaf2.setTipo(1);
+              
                semaforoController.registrarSemaforo(semaf2);
                semaforoController.registrarSemaforo(semaf);
                System.out.print(dRef.getIdDistrito());

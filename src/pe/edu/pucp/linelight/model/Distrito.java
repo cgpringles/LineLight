@@ -96,6 +96,17 @@ public class Distrito  implements java.io.Serializable {
     }
 
 
+    public Zona getZona (int i){
+        for (Object z:this.getZonas())
+        {
+            if (((Zona)z).getId().getIdZona()==i)
+            {
+                return (Zona)z;
+            }
+        }
+        return null;
+    }
+
 
 
 }

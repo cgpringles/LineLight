@@ -471,12 +471,13 @@ public class semaforoController {
                SemaforoId semaforoId = new SemaforoId();
                semaforoId.setIdSemaforo(id);
                semaforoId.setIdNodo(idNodo);
+               semaforoId.setIdDistrito(distritoId);
                semaf.setId(semaforoId);
                semaf.setEstado(true);
                semaf.setTrojo(60);
                semaf.setTverde(60);
                semaf.setNodo(nodo);
-               semaf.setDistrito(DistritoController.obtenerNombDistrito(distritoId));
+               semaf.setDistrito_1(DistritoController.obtenerNombDistrito(distritoId));
                semaf.setVia1(vias.get(0));
                semaf.setVia2(vias.get(1));
                 //Semaforo 2
@@ -484,12 +485,13 @@ public class semaforoController {
                SemaforoId semaforoId2 = new SemaforoId();
                semaforoId2.setIdSemaforo(id + 1);
                semaforoId2.setIdNodo(idNodo);
+               semaforoId2.setIdDistrito(distritoId);
                semaf2.setId(semaforoId2);
                semaf2.setEstado(true);
                semaf2.setTrojo(60);
                semaf2.setTverde(60);
                semaf2.setNodo(nodo);
-               semaf2.setDistrito(DistritoController.obtenerNombDistrito(distritoId));
+               semaf2.setDistrito_1(DistritoController.obtenerNombDistrito(distritoId));
                semaf2.setVia1(vias.get(1));
                semaf2.setVia2(vias.get(0));
                semaforoController.registrarSemaforo(semaf2);

@@ -599,10 +599,10 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                   nuevoSemaforo.setVia1(via1.getNombre());
                                   nuevoSemaforo.setVia2(via2.getNombre());
                                   nuevoSemaforo.setTipo(0);
-                                  nuevoSemaforo.setDistrito(distrito);                     
+                                  nuevoSemaforo.setDistrito_1(distrito);                     
                                   nuevoSemaforo1.setVia1(via2.getNombre());
                                   nuevoSemaforo1.setVia2(via1.getNombre());
-                                  nuevoSemaforo1.setDistrito(distrito);
+                                  nuevoSemaforo1.setDistrito_1(distrito);
                                   nuevoSemaforo1.setTipo(1);
                                   String idSem1 = Long.toString(nodoId)+ "1";
                                   String idSem2 = Long.toString(nodoId) + "2";
@@ -611,11 +611,13 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                   SemaforoId idSemaforo = new SemaforoId();
                                   idSemaforo.setIdSemaforo(Long.parseLong(idSem1));
                                   idSemaforo.setIdNodo(nodoId);
+                                  idSemaforo.setIdDistrito(DistritoController.obteneridDistrito(distrito));
                                   nuevoSemaforo.setId(idSemaforo);
 
                                   SemaforoId idSemaforo1 = new SemaforoId();
                                   idSemaforo1.setIdSemaforo(Long.parseLong(idSem2));
                                   idSemaforo1.setIdNodo(nodoId);
+                                  idSemaforo1.setIdDistrito(DistritoController.obteneridDistrito(distrito));
                                   nuevoSemaforo1.setId(idSemaforo1);
 
 
