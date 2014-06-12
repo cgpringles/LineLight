@@ -193,7 +193,7 @@ public class NuevaVia extends javax.swing.JFrame {
          //Fin carga Masiva 
         int seleccion = JOptionPane.showOptionDialog(
                     NuevaVia.this, // Componente padre
-                    "¿Esta seguro que desea guardar los cambios?", //Mensaje
+                    "¿Esta seguro que desea registrar las vias?", //Mensaje
                     "Mensaje de confirmación", // Título
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -241,7 +241,7 @@ public class NuevaVia extends javax.swing.JFrame {
                                                       jButton4.setEnabled(false);
                                                       jButton5.setEnabled(false);
                                                       cmbDistrito.setEnabled(false);
-                                                      new Thread(new jcThread( this.jProgressBar1 , 250 ) ).start();
+                                                      new Thread(new jcThread( this.jProgressBar1 , 250) ).start();
                                                       new Thread(new parseViasStructure(sourceFile,d,this)).start();
                                                   } catch (DocumentException ex) {
                                                       Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);

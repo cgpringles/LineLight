@@ -181,9 +181,17 @@ public class BuscarVias extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Distrito", "Tipo Via", "Nombre", "Veloc. Maxima", "Descripcion"
+                "Identificador", "Distrito", "Tipo Via", "Nombre", "Veloc. Maxima", "Descripcion"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaVia);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -264,11 +272,11 @@ public class BuscarVias extends javax.swing.JPanel {
             if (via.equals("Seleccione") ) via = null;
     
         ArrayList<Via> viaCriteria = ViaController.obtenerViaCriteria(identificador,distrito,tipoVia, via);
-        String [] titulos={"Distrito","Tipo de Via","Nombre","Veloc.Máxima","Descripción"};
+        String [] titulos={"Identificador","Distrito","Tipo de Via","Nombre","Veloc.Máxima","Descripción"};
         tbm.setColumnIdentifiers(titulos);
         tablaVia.setModel(tbm);
         for (int i=0;i<viaCriteria.size();i++){
-        String datos[]=new String[5];
+        String datos[]=new String[6];
         String tipo;
         int veloc;
         if(viaCriteria.get(i).getTipovia() != null)
@@ -277,11 +285,12 @@ public class BuscarVias extends javax.swing.JPanel {
             tipo = "Via no clasificada";
         veloc=(viaCriteria.get(i).getVelocidad());
         distrito=DistritoController.obtenerNombDistrito(((Via)(viaCriteria.get(i))).getDistrito().getIdDistrito());
-        datos[0]=distrito;
-        datos[1]=tipo;
-        datos[2]=viaCriteria.get(i).getNombre();
-        datos[3]=Integer.toString(veloc);
-        datos[4]=viaCriteria.get(i).getDescripcion();;
+        datos[0]=Long.toString(viaCriteria.get(i).getId().getIdVia());
+        datos[1]=distrito;
+        datos[2]=tipo;
+        datos[3]=viaCriteria.get(i).getNombre();
+        datos[4]=Integer.toString(veloc);
+        datos[5]=viaCriteria.get(i).getDescripcion();;
         tbm.addRow(datos);
         }
         tablaVia.setModel(tbm);
@@ -298,12 +307,13 @@ public class BuscarVias extends javax.swing.JPanel {
         int numFila =tablaVia.getSelectedRow();
         //System.out.println(numFila);
         if (numFila>=0){
-        String dist=(String) tablaVia.getValueAt(numFila,0);
-        String tipoVia=(String) tablaVia.getValueAt(numFila,1);
-        String nombVia=(String) tablaVia.getValueAt(numFila,2);
-        String veloc= (String) tablaVia.getValueAt(numFila, 3);
-        String desc=(String) tablaVia.getValueAt(numFila,4);
-        EditarVia editar=new EditarVia(dist,tipoVia,nombVia,veloc,desc);
+        String dist=(String) tablaVia.getValueAt(numFila,1);
+        String tipoVia=(String) tablaVia.getValueAt(numFila,2);
+        String nombVia=(String) tablaVia.getValueAt(numFila,3);
+        String veloc= (String) tablaVia.getValueAt(numFila, 4);
+        String desc=(String) tablaVia.getValueAt(numFila,5);
+        String idVia=(String)tablaVia.getValueAt(numFila, 0);
+        EditarVia editar=new EditarVia(idVia,dist,tipoVia,nombVia,veloc,desc);
         editar.setVisible(true);
         }
         else{
