@@ -589,7 +589,7 @@ public class semaforoController {
         try
         {
         s=HibernateUtil.iniciaOperacion();
-        Query query = s.createQuery("FROM Semaforo WHERE distrito like (:nombreVia)");
+        Query query = s.createQuery("FROM Semaforo WHERE distrito_1 like (:nombreVia)");
         query.setParameter("nombreVia", nombreDist);
         lista = (ArrayList<Semaforo>)query.list();
         

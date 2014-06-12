@@ -19,7 +19,7 @@
             <column name="idDistrito" not-null="true" />
         </many-to-one>
         <property name="nombre" type="string">
-            <column name="nombre" length="45" />
+            <column name="nombre" length="200" />
         </property>
         <property name="descripcion" type="string">
             <column name="descripcion" length="45" />
