@@ -473,6 +473,17 @@ public class EditarVia extends javax.swing.JFrame {
         System.out.println(idHorario);
         //con el id de via y el id horario puedo actualizar la tabla viaxhorario
         String n=txtNumVehic.getText();
+        if (n.equals("")){
+            int seleccion = JOptionPane.showOptionDialog(
+                    EditarVia.this, // Componente padre
+                    "Debe ingresar un número de vehiculos", //Mensaje
+                    "Mensaje de error", // Título
+                    JOptionPane.ERROR_MESSAGE,
+                    JOptionPane.ERROR_MESSAGE,
+                    null,    // null para icono por defecto.
+                    new Object[] { "Aceptar"},    // null para YES, NO y CANCEL
+                    "Aceptar");
+        }else{
         int numCarros=Integer.parseInt(n);
         int seleccion = JOptionPane.showOptionDialog(
                     EditarVia.this, // Componente padre
@@ -504,6 +515,7 @@ public class EditarVia extends javax.swing.JFrame {
                        
                    }
                 }    
+        }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
