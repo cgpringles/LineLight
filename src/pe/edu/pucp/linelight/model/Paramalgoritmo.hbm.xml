@@ -26,7 +26,7 @@
         <property name="elitismo" type="java.lang.Boolean">
             <column name="elitismo" />
         </property>
-        <set name="ejecucionalgoritmos" table="ejecucionalgoritmo" inverse="true" lazy="true" fetch="select">
+        <set name="ejecucionalgoritmos" inverse="true">
             <key>
                 <column name="idParamAlgoritmo" not-null="true" />
             </key>

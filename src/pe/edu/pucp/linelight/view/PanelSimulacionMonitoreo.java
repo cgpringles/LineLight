@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import pe.edu.pucp.linelight.algorithm.GA;
 import pe.edu.pucp.linelight.algorithm.Trafico;
@@ -25,6 +26,8 @@ import pe.edu.pucp.linelight.model.Zona;
 import pe.edu.pucp.linelight.robot.GeneradorRobot;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import javax.swing.table.DefaultTableModel;
+import pe.edu.pucp.linelight.algorithm.Individuo;
 import pe.edu.pucp.linelight.controller.HorarioController;
 import pe.edu.pucp.linelight.controller.ParamAlgoritmoController;
 import pe.edu.pucp.linelight.controller.VehiculoController;
@@ -34,6 +37,7 @@ import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.model.Vehiculo;
 import pe.edu.pucp.linelight.structure.Node;
 import pe.edu.pucp.linelight.util.ConfigPanelMapa;
 import pe.edu.pucp.linelight.util.GeneralUtil;
@@ -176,6 +180,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         zoomInButton = new javax.swing.JButton();
         zoomOutButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaSemaforo = new javax.swing.JTable();
 
         iniciarSimulacionButton.setBackground(new java.awt.Color(0, 153, 204));
         iniciarSimulacionButton.setText("Iniciar Simulación");
@@ -302,7 +308,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
@@ -414,20 +420,19 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addContainerGap(354, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addComponent(jLabel10))
         );
 
         zoomInButton.setBackground(new java.awt.Color(0, 153, 204));
@@ -446,16 +451,61 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             }
         });
 
+        tablaSemaforo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID Semaforo", "ID Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaSemaforo.setToolTipText("");
+        jScrollPane2.setViewportView(tablaSemaforo);
+        tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 3, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 9, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -474,7 +524,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -504,24 +556,58 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private void iniciarSimulacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionButtonActionPerformed
         // TODO add your handling code here:
         if (this.jComboBox1.getSelectedIndex() != 0 && this.jComboBox2.getSelectedIndex() != 0) {
-        
-            int numVehiculos = 200;
-            Usuario user = GeneralUtil.getUsuario_sesion();
-            gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
-            List<Object> vehiculos = gr.getListaVehiculosRuta();
+            
 
-            EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
-            EjecucionAlgoritmoController.iniciarSimulacion();
-            
-            this.jTextField3.setText("" + GA.velocidad);
-            this.jTextField4.setText("" + GA.tiempoEjecucion);
-            this.jTextField7.setText("" + GA.velocidadHistorica);
-            
-            int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
-            int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
-            
-            Horario horario = HorarioController.getHorarioId(seleccion_dia, seleccion_hora);            
-            this.jTextField6.setText(horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h");
+            new Thread (new Runnable() {
+
+                @Override
+                public void run() {
+                    
+                    /*Limpiar campos*/
+                    jTextField3.setText(" ");
+                    jTextField4.setText(" ");
+                    jTextField7.setText(" ");
+                    DefaultTableModel tbm= new DefaultTableModel();
+                    tablaSemaforo.setModel(tbm);
+                    /**/
+                    
+                    
+                    int numVehiculos = 200;
+                    Usuario user = GeneralUtil.getUsuario_sesion();
+                    gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
+                    List<Object> vehiculos = gr.getListaVehiculosRuta();
+
+                    EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
+                    EjecucionAlgoritmoController.iniciarSimulacion();
+
+                    jTextField3.setText("" + GA.velocidad);
+                    jTextField4.setText("" + GA.tiempoEjecucion);
+                    jTextField7.setText("" + GA.velocidadHistorica);
+
+                    int seleccion_dia = jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
+                    int seleccion_hora = jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
+
+                    Horario horario = HorarioController.getHorarioId(seleccion_dia, seleccion_hora);            
+                    jTextField6.setText(horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h");
+                                        
+                    Individuo individuo = GA.mejorIndividuo;
+                    int tamano = individuo.getIdNodoSemaforo().length;
+
+                    String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+                    tbm.setColumnIdentifiers(titulos); tablaSemaforo.setModel(tbm);
+                    for (int i=0; i< tamano; i++){
+                        String datos[] = new String[5];
+                        datos[0] = " " + i;
+                        datos[1] = "" + individuo.getNodoSemaforo(i);
+                        datos[2] = "" + individuo.getTiempoSemaforoInicio(i);
+                        datos[3] = "" + individuo.getTiempoSemaforoFin(i);
+                        datos[4] = " " + 1;
+                        tbm.addRow(datos);
+                    }
+                    tablaSemaforo.setModel(tbm);
+                }               
+            }) .start();
+                               
         }
         else {
             JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Seleccione el dia y la hora para la Simulación", "Error", ERROR_MESSAGE, null);
@@ -531,6 +617,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
         // TODO add your handling code here:
+        
         Zona zona_obj = d.getZona(zona+1);
         if(zona_obj!=null){
             zona++;
@@ -596,20 +683,27 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
                        int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
                        if(ok == 1)
-
                        {
                            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
                            //PanelSimulacionMonitoreo.this.dispose();
                            
                            /*Seccion donde se guardara la generacion de Autos*/
                            /*Luego recien despues de haber agregado la simulacion deberia ser posible agregar los vehiculos*/
-                           ok = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
-                           if (ok == 0)
-                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
+                           int idInicio = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
+                           ok = VehiculoController.agregarGeneracionVehiculosXNodo(idInicio, Ejecucionalgoritmoid, horarioid); // esto es para la tabla VehiculoXNodo
+//                           List<Vehiculo> listaVehiculos = new ArrayList<>();
+                           
+//                           listaVehiculos = VehiculoController.getVehiculos(Ejecucionalgoritmoid);
+                           
+//                           if (ok == 0){
+//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
+//                           } else {                               
+//                               
+//                           }
                                                       
                            /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
                             * los tiempos de cada semaforo resultantes de la simulacion actual*/
-//                           ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
+                           ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
 //                           if(ok == 1)                           
 //                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Semaforos en Simulacion agregados","Acción",INFORMATION_MESSAGE,null);                           
 //                           else
@@ -666,7 +760,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -676,6 +770,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private javax.swing.JPanel monitoreoPanel;
     private javax.swing.JPanel simulacionPanel;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTable tablaSemaforo;
     private javax.swing.JButton zoomInButton;
     private javax.swing.JButton zoomOutButton;
     // End of variables declaration//GEN-END:variables

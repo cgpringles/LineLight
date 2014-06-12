@@ -20,19 +20,19 @@
         <property name="probCalle" type="java.lang.Integer">
             <column name="probCalle" />
         </property>
-        <set name="viaxhorarios" table="viaxhorario" inverse="true" lazy="true" fetch="select">
+        <set name="viaxhorarios" inverse="true">
             <key>
                 <column name="idHorario" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Viaxhorario" />
         </set>
-        <set name="distritoxhorarios" table="distritoxhorario" inverse="true" lazy="true" fetch="select">
+        <set name="distritoxhorarios" inverse="true">
             <key>
                 <column name="idHorario" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Distritoxhorario" />
         </set>
-        <set name="ejecucionalgoritmos" table="ejecucionalgoritmo" inverse="true" lazy="true" fetch="select">
+        <set name="ejecucionalgoritmos" inverse="true">
             <key>
                 <column name="idHorario" not-null="true" />
             </key>

@@ -50,13 +50,13 @@
         <property name="primerAcceso" type="int">
             <column name="primerAcceso" not-null="true" />
         </property>
-        <set name="usuarioxaccions" table="usuarioxaccion" inverse="true" lazy="true" fetch="select">
+        <set name="usuarioxaccions" inverse="true">
             <key>
                 <column name="idUsuario" length="10" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Usuarioxaccion" />
         </set>
-        <set name="ejecucionalgoritmos" table="ejecucionalgoritmo" inverse="true" lazy="true" fetch="select">
+        <set name="ejecucionalgoritmos" inverse="true">
             <key>
                 <column name="idUsuario" length="10" not-null="true" />
             </key>

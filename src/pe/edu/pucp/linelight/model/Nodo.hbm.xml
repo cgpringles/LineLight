@@ -14,13 +14,13 @@
         <property name="longitud" type="java.lang.Double">
             <column name="longitud" precision="22" scale="0" />
         </property>
-        <set name="vehiculoxnodos" table="vehiculoxnodo" inverse="true" lazy="true" fetch="select">
+        <set name="vehiculoxnodos" inverse="true">
             <key>
                 <column name="idNodo" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Vehiculoxnodo" />
         </set>
-        <set name="tramoxnodos" table="tramoxnodo" inverse="true" lazy="true" fetch="select">
+        <set name="tramoxnodos" inverse="true">
             <key>
                 <column name="idNodo" not-null="true" />
             </key>

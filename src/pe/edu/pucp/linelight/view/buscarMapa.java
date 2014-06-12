@@ -51,7 +51,6 @@ public class buscarMapa extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar_opt.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -167,13 +166,6 @@ public class buscarMapa extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar_opt.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,9 +179,7 @@ public class buscarMapa extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3))
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -201,7 +191,6 @@ public class buscarMapa extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
@@ -257,41 +246,11 @@ public class buscarMapa extends javax.swing.JPanel {
         nuevo.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int seleccion = JOptionPane.showOptionDialog(
-            buscarMapa.this, // Componente padre
-            "¿Esta seguro que desea borrar el item seleccionado?", //Mensaje
-            "Mensaje de confirmación", // Título
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,    // null para icono por defecto.
-            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
-            "Si");
-
-        if (seleccion != -1)
-        {
-            if(seleccion == 0)
-            {
-                
-                int idDistrito=(int)jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
-                Distrito d = DistritoController.obtenerDistritoById(idDistrito);
-                MapaController.eliminarMapa(d);
-                JOptionPane.showMessageDialog(buscarMapa.this, "Item borrado","Acción",INFORMATION_MESSAGE,null);
-                buscar();
-            }
-            else
-            {
-
-            }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarMapaButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

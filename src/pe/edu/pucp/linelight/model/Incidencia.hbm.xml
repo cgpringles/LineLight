@@ -11,7 +11,7 @@
         <property name="descripcion" type="string">
             <column name="descripcion" length="45" />
         </property>
-        <set name="tramoxincidencias" table="tramoxincidencia" inverse="true" lazy="true" fetch="select">
+        <set name="tramoxincidencias" inverse="true">
             <key>
                 <column name="idIncidencia" not-null="true" />
             </key>

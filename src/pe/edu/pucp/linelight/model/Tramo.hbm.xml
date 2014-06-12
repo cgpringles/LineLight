@@ -22,7 +22,7 @@
         <property name="estado" type="java.lang.Boolean">
             <column name="estado" />
         </property>
-        <set name="tramoxnodos" table="tramoxnodo" inverse="true" lazy="true" fetch="select">
+        <set name="tramoxnodos" inverse="true">
             <key>
                 <column name="idTramo" not-null="true" />
                 <column name="idDistrito" not-null="true" />
@@ -30,7 +30,7 @@
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Tramoxnodo" />
         </set>
-        <set name="tramoxincidencias" table="tramoxincidencia" inverse="true" lazy="true" fetch="select">
+        <set name="tramoxincidencias" inverse="true">
             <key>
                 <column name="idTramo" not-null="true" />
                 <column name="idDistrito" not-null="true" />

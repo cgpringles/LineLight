@@ -29,7 +29,7 @@
         <property name="posicionTramo" type="char">
             <column name="posicionTramo" length="1" not-null="true" />
         </property>
-        <set name="ejecucionalgoritmoxcuadraxnodos" table="ejecucionalgoritmoxcuadraxnodo" inverse="true" lazy="true" fetch="select">
+        <set name="ejecucionalgoritmoxcuadraxnodos" inverse="true">
             <key>
                 <column name="idTramo" not-null="true" />
                 <column name="idDistrito" not-null="true" />

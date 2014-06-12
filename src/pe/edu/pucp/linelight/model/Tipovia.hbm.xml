@@ -14,7 +14,7 @@
         <property name="velocidadMaxima" type="java.lang.Integer">
             <column name="velocidadMaxima" />
         </property>
-        <set name="vias" table="via" inverse="true" lazy="true" fetch="select">
+        <set name="vias" inverse="true">
             <key>
                 <column name="idTipoVia" />
             </key>

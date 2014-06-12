@@ -14,7 +14,7 @@
         <property name="estado" type="java.lang.Boolean">
             <column name="estado" />
         </property>
-        <set name="perfils" table="perfilxmenu" inverse="true" lazy="true" fetch="select">
+        <set name="perfils" inverse="true" table="perfilxmenu">
             <key>
                 <column name="idMenu" not-null="true" />
             </key>

@@ -54,7 +54,7 @@ public class DetalleSemaforo extends javax.swing.JFrame {
         listaSemaforos = semaforoController.obtenerSemaforosxdistrito(nombreDist);
         for (int i=0; i<listaSemaforos.size();i++){
         String datos[]=new String[3];
-        datos[0]= Integer.toString(listaSemaforos.get(i).getId().getIdSemaforo());       
+        datos[0]= Long.toString(listaSemaforos.get(i).getId().getIdSemaforo());       
         datos[1]=listaSemaforos.get(i).getVia1();
         datos[2]=listaSemaforos.get(i).getVia2();        
         tbm.addRow(datos);

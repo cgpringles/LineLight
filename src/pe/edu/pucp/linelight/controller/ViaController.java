@@ -10,6 +10,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import pe.edu.pucp.linelight.model.Horario;
@@ -59,6 +60,10 @@ public class ViaController {
             q.setParameter("id", DistritoController.obteneridDistrito(nombDistrito));            
             idNodos = (ArrayList<Long>)q.list();
 
+            hql= "DELETE FROM Viaxhorario WHERE id.idDistrito = :id";
+            q = s.createQuery(hql);
+            q.setParameter("id", DistritoController.obteneridDistrito(nombDistrito));            
+            q.executeUpdate();
             
             hql= "DELETE FROM Tramoxnodo WHERE id.idDistrito = :id";
             q = s.createQuery(hql);
@@ -396,19 +401,17 @@ public class ViaController {
          return id;
     }
     
-    public static void modificarNumerodeCarros(int horario,long via, int numCarros){
+    public static void modificarNumerodeCarros(Viaxhorario viaxHorario){
       Session s=null;
         try
         {
-        s=HibernateUtil.iniciaOperacion();
-        String hql="update Viaxhorario set numCarros= :num where idVia= :id AND idHorario= :hor";
-        Query q= s.createQuery(hql);
-        q.setParameter("num", numCarros);
-        q.setParameter("id", via);
-        q.setParameter("hor", horario);
-        int result = q.executeUpdate();
-        //s.getTransaction().commit();
-        HibernateUtil.cierraOperacion(s);
+            
+             s = HibernateUtil.iniciaOperacion();
+            Transaction nuevoViaxHorario = s.beginTransaction();
+            s.update(viaxHorario);
+            System.out.println("Se inserto correctamente");
+            nuevoViaxHorario.commit();
+  
         }
         catch (HibernateException e)
              {
@@ -469,6 +472,54 @@ public class ViaController {
             s.close();  
         }
         return lista;
-     }
+     } 
+    public static ArrayList<Horario> ObtenerHorarios(){
+        Session s=null;
+        ArrayList<Horario> lista= new ArrayList<Horario>();
+        try
+        {
+        s=HibernateUtil.iniciaOperacion();
+            String hql= "FROM Horario";
+            lista=(ArrayList<Horario>) s.createQuery(hql).list();
+        HibernateUtil.cierraOperacion(s);   
+        }
+        catch (HibernateException e)
+        {
+        HibernateUtil.manejaExcepcion(s);
+        }
+        finally
+        {
+            s.close();  
+        }
+        return lista;
+        
+    
+    } 
+  public static void InsertarHorariosxvia(ArrayList<Viaxhorario> lista){
+          Session s=null;
+         //ArrayList<Via> lista= new ArrayList<Via>();
+         try
+            {
+            s=HibernateUtil.iniciaOperacion();
+            
+            for (Viaxhorario v: lista)
+                s.save(v);
+            
+            HibernateUtil.cierraOperacion(s);   
+            }
+         catch (HibernateException e)
+             {
+                 e.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+            }
+        finally
+             {
+             s.close();  
+             }
+  
+  
+  }
+  
+    
     
 }

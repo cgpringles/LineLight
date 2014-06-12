@@ -27,14 +27,14 @@
         <property name="velocidad" type="java.lang.Integer">
             <column name="velocidad" />
         </property>
-        <set name="viaxhorarios" table="viaxhorario" inverse="true" lazy="true" fetch="select">
+        <set name="viaxhorarios" inverse="true">
             <key>
                 <column name="idDistrito" not-null="true" />
                 <column name="idVia" not-null="true" />
             </key>
             <one-to-many class="pe.edu.pucp.linelight.model.Viaxhorario" />
         </set>
-        <set name="tramos" table="tramo" inverse="true" lazy="true" fetch="select">
+        <set name="tramos" inverse="true">
             <key>
                 <column name="idDistrito" not-null="true" />
                 <column name="idVia" not-null="true" />

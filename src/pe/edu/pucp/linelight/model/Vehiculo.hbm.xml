@@ -43,7 +43,7 @@
         <property name="velocidad" type="string">
             <column name="velocidad" length="45" />
         </property>
-        <set name="vehiculoxnodos" table="vehiculoxnodo" inverse="true" lazy="true" fetch="select">
+        <set name="vehiculoxnodos" inverse="true">
             <key>
                 <column name="idVehiculo" not-null="true" />
                 <column name="idParamAlgoritmo" not-null="true" />

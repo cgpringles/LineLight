@@ -35,7 +35,7 @@
         <property name="conversionKmM" type="java.lang.Double">
             <column name="conversion_km_m" precision="22" scale="0" />
         </property>
-        <set name="ejecucionalgoritmos" table="ejecucionalgoritmo" inverse="true" lazy="true" fetch="select">
+        <set name="ejecucionalgoritmos" inverse="true">
             <key>
                 <column name="idConfiguracionSistema" not-null="true" />
             </key>
