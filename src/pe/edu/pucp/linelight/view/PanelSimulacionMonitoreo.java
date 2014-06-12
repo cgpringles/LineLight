@@ -569,9 +569,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     jTextField7.setText(" ");
                     DefaultTableModel tbm= new DefaultTableModel();
                     tablaSemaforo.setModel(tbm);
+                    String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
                     /**/
-                    
-                    
+                                        
                     int numVehiculos = 200;
                     Usuario user = GeneralUtil.getUsuario_sesion();
                     gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
@@ -592,9 +592,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                         
                     Individuo individuo = GA.mejorIndividuo;
                     int tamano = individuo.getIdNodoSemaforo().length;
-
-                    String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
-                    tbm.setColumnIdentifiers(titulos); tablaSemaforo.setModel(tbm);
+                    
+                    tbm.setColumnIdentifiers(titulos); 
+                    tablaSemaforo.setModel(tbm);
                     for (int i=0; i< tamano; i++){
                         String datos[] = new String[5];
                         datos[0] = " " + i;
