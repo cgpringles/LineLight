@@ -167,7 +167,10 @@ public class EjecucionAlgoritmoController {
             eaxsemaforo.setTrojo(tiempoFin);
             
             ok = agregarEjecucionXSemaforo(eaxsemaforo); //basta que no se pueda guardar un semaforo entonces saldra      
-            if (ok == 0) break;    
+            if (ok == 0)  {
+                System.out.println("EJECUCIOALGORITMOXSEMAFORO RAZON EN NODO: " + idNodo);
+                //break;
+            }
         }
         
         return ok;
