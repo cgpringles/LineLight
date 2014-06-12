@@ -104,10 +104,10 @@ public class WindowsMapPanel extends javax.swing.JPanel {
 //                    y_offset -= dy;
 //                }
                 
-                if((x_offset +dx+ ConfigPanelMapa.width <= bgImage.getWidth(null))){
+                if((x_offset+dx>=0)&&(x_offset +dx+ ConfigPanelMapa.width <= bgImage.getWidth(null))){
                     x_offset += dx;
                 }
-                if((y_offset +dy+ ConfigPanelMapa.height <= bgImage.getHeight(null))){
+                if((y_offset+dy>=0)&&(y_offset +dy+ ConfigPanelMapa.height <= bgImage.getHeight(null))){
                     y_offset += dy;
                 }
                 mousePt = e.getPoint();
