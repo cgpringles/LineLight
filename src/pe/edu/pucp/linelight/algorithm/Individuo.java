@@ -167,6 +167,11 @@ public class Individuo
     public long[] getIdNodoSemaforo() {
         return idNodoSemaforo;
     }
+    
+    public long getNodoSemaforo(int i)
+    {
+        return idNodoSemaforo[i];
+    }
 
     public void setIdNodoSemaforo(long[] idNodoSemaforo) {
         this.idNodoSemaforo = idNodoSemaforo;

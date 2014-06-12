@@ -55,6 +55,7 @@ public class VehiculoController {
         int ok = 0;
         pe.edu.pucp.linelight.algorithm.Vehiculo [] vehiculos = GA.trafico.getVehiculos();
         int numVehiculos = vehiculos.length;
+        int idInicio = 0;
         
         for (int i=0; i< numVehiculos; i++){
             /*Para cada vehiculo*/
@@ -64,6 +65,7 @@ public class VehiculoController {
             
             VehiculoId vehiculoId = new VehiculoId();
             int idVehiculo= getNextId();
+            if (i==0) idInicio = idVehiculo;
             
             vehiculoId.setIdVehiculo(idVehiculo);                        
             vehiculoId.setIdParamAlgoritmo(1);
@@ -91,20 +93,66 @@ public class VehiculoController {
             int vel = vehiculos[i].getVelocidad();
             vehiculo.setVelocidad("" + vel);
             
-            ok = agregarVehiculo(vehiculo); //basta que no se pueda guardar un vehiculo entonces saldra      
-            if (ok == 0) break;
-            else {
-                /*si ok = 1 que significa que si guardo el vehiculo i-esimo, debera ahora guardar
-                 su ruta en la tabla VehiculoXNodo*/                
-                ok = agregarGeneracionVehiculosRuta(ruta, Ejecucionalgoritmoid, idVehiculo, horarioid);
-                if (ok == 0)
-                    System.out.println("ERROR AL INTENTAR GUARDAR LA RUTA DE VEHICULO " + i );
-//                    JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
+            ok = agregarVehiculo(vehiculo); //basta que no se pueda guardar un vehiculo entonces saldra
+            if (ok == 0){
+                System.out.println("ERROR AL INTENTAR GUARDAR VEHICULO " + i );
             }
+                
+//            if (ok == 0) break;
+//            else {
+//                /*si ok = 1 que significa que si guardo el vehiculo i-esimo, debera ahora guardar
+//                 su ruta en la tabla VehiculoXNodo*/                
+//                ok = agregarGeneracionVehiculosRuta(ruta, Ejecucionalgoritmoid, idVehiculo, horarioid);
+//                if (ok == 0)
+//                    System.out.println("ERROR AL INTENTAR GUARDAR LA RUTA DE VEHICULO " + i );
+////                    JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
+//            }
         }
 
-        return ok;       
+        return idInicio;       
     }
+    
+//        public static List<Vehiculo> getVehiculos(int Ejecucionalgoritmoid) throws HibernateException {
+//            List<Usuario> listaVehiculos = null;
+//            Session s = null;
+//            
+//            try {
+//                s = HibernateUtil.iniciaOperacion();
+//                Query query=null;
+//                if(perfil==0){
+//                     query = s.createQuery("FROM Usuario u WHERE u.idUsuario LIKE ?"
+//                        + " AND u.nombre LIKE ? AND u.app LIKE ? AND u.apm LIKE ? AND u.correo LIKE ?"
+//                        + " AND u.estadobd=1");
+//                     query.setParameter(0, "%" + usuario + "%");
+//                query.setParameter(1, "%" + nombre + "%");
+//                query.setParameter(2, "%" + app + "%");
+//                query.setParameter(3, "%" + apm + "%");
+//                query.setParameter(4, "%" + correo + "%");
+//                }else{
+//                    query = s.createQuery("FROM Usuario u WHERE u.idUsuario LIKE ?"
+//                        + " AND u.nombre LIKE ? AND u.app LIKE ? AND u.apm LIKE ? AND u.correo LIKE ?"
+//                        + " AND u.estadobd=1 AND u.perfil.idPerfil=?");
+//                    query.setParameter(0, "%" + usuario + "%");
+//                query.setParameter(1, "%" + nombre + "%");
+//                query.setParameter(2, "%" + app + "%");
+//                query.setParameter(3, "%" + apm + "%");
+//                query.setParameter(4, "%" + correo + "%");
+//                    query.setParameter(5, perfil);
+//                }
+//
+//                listaUsuarios = query.list();
+//                HibernateUtil.cierraOperacion(s);
+//            } catch (HibernateException he) {
+//                he.printStackTrace();
+//                HibernateUtil.manejaExcepcion(s);
+//            } finally {
+//                s.close();
+//            }
+//
+//        return listaVehiculos;
+//    }
+    
+    
     
     public static int getNextId() {
         int id = 0;
@@ -138,9 +186,9 @@ public class VehiculoController {
     }
      
      
-     /**************** CONTROLLER PARA TABLA VEHICULOXNODO *****************/
+    /**************** CONTROLLER PARA TABLA VEHICULOXNODO *****************/
     public static int agregarVehiculoXNodo(Vehiculoxnodo vehiculoxnodo)
-    {        
+    {                
         Session s = null;
         int ok = 0;
         try {
@@ -158,40 +206,53 @@ public class VehiculoController {
         return ok;       
     }    
      
-     public static int agregarGeneracionVehiculosRuta(Ruta ruta, int Ejecucionalgoritmoid, int idVehiculo, int horarioid)
+     public static int agregarGeneracionVehiculosXNodo(int idInicio, int Ejecucionalgoritmoid, int horarioid) 
      {
-         int ok = 0;         
-         ArrayList<Long> Nodos = ruta.getIdNodoRuta();
-         int numNodos = Nodos.size();
+         int ok = 0;
+         pe.edu.pucp.linelight.algorithm.Vehiculo [] vehiculos = GA.trafico.getVehiculos();
+         int numVehiculos = vehiculos.length;
          
-         for (int i=0; i< numNodos; i++){
-             /*Para cada Nodo de la Ruta*/
+         for (int i=0; i< numVehiculos; i++){
+             
+             Ruta ruta = vehiculos[i].getRoute();
+             ArrayList<Long> Nodos = ruta.getIdNodoRuta();
+             int numNodos = Nodos.size();       
+             
+             for (int j=0; j< numNodos; j++){
+                 /*Para cada Nodo de la Ruta*/
+
+                Vehiculoxnodo vehiculoxnodo = new Vehiculoxnodo();
+                Usuario user = GeneralUtil.getUsuario_sesion();
+
+                VehiculoxnodoId vehiculoxnodoId = new VehiculoxnodoId();            
+
+                vehiculoxnodoId.setIdVehiculo(idInicio);                        
+                vehiculoxnodoId.setIdParamAlgoritmo(1);
+                vehiculoxnodoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
+                vehiculoxnodoId.setIdConfiguracionSistema(1);
+                vehiculoxnodoId.setIdUsuario(user.getIdUsuario());
+                vehiculoxnodoId.setIdHorario(horarioid);
+
+                long valor = Nodos.get(j);
+                vehiculoxnodoId.setIdNodo(valor);
+
+                vehiculoxnodo.setId(vehiculoxnodoId);       
+                vehiculoxnodo.setTest("Punto " + j);
+
+                ok = agregarVehiculoXNodo(vehiculoxnodo); //basta que no se pueda guardar un vehiculo entonces saldra      
+                if (ok == 0)  {
+                    System.out.println("VEHICULOXNODO RAZON EN NODO: " + valor);
+                    //break;
+                }
+            }
+            idInicio++;
             
-            Vehiculoxnodo vehiculoxnodo = new Vehiculoxnodo();
-            Usuario user = GeneralUtil.getUsuario_sesion();
-            
-            VehiculoxnodoId vehiculoxnodoId = new VehiculoxnodoId();            
-            
-            vehiculoxnodoId.setIdVehiculo(idVehiculo);                        
-            vehiculoxnodoId.setIdParamAlgoritmo(1);
-            vehiculoxnodoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
-            vehiculoxnodoId.setIdConfiguracionSistema(1);
-            vehiculoxnodoId.setIdUsuario(user.getIdUsuario());
-            vehiculoxnodoId.setIdHorario(horarioid);
-            vehiculoxnodoId.setIdNodo(Nodos.get(i));
-                        
-            vehiculoxnodo.setId(vehiculoxnodoId);       
-            vehiculoxnodo.setTest("Valor por Defecto");
-            
-            ok = agregarVehiculoXNodo(vehiculoxnodo); //basta que no se pueda guardar un vehiculo entonces saldra      
-            if (ok == 0)  {
-                System.out.println("RAZON EN NODO: " + Nodos.get(i));
-                break;
-            }                
-        }
+         }
          
          return ok;        
      }
+     
+//   
      
      
     
