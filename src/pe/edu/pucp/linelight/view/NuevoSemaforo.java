@@ -609,12 +609,12 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                   
                                   //El id del semaforo
                                   SemaforoId idSemaforo = new SemaforoId();
-                                  idSemaforo.setIdSemaforo(Integer.parseInt(idSem1));
+                                  idSemaforo.setIdSemaforo(Long.parseLong(idSem1));
                                   idSemaforo.setIdNodo(nodoId);
                                   nuevoSemaforo.setId(idSemaforo);
 
                                   SemaforoId idSemaforo1 = new SemaforoId();
-                                  idSemaforo1.setIdSemaforo(Integer.parseInt(idSem2));
+                                  idSemaforo1.setIdSemaforo(Long.parseLong(idSem2));
                                   idSemaforo1.setIdNodo(nodoId);
                                   nuevoSemaforo1.setId(idSemaforo1);
 

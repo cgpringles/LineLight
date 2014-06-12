@@ -150,6 +150,11 @@ public class buscarSemaforo extends javax.swing.JPanel {
 
         jLabel1.setText("Identificador:");
 
+        txtIdentificador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdentificadorActionPerformed(evt);
+            }
+        });
         txtIdentificador.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdentificadorKeyTyped(evt);
@@ -501,7 +506,7 @@ public class buscarSemaforo extends javax.swing.JPanel {
 
     private void txtIdentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificadorKeyTyped
         // TODO add your handling code here:
-        ValidationUtil.validateNumTam(txtIdentificador.getText(), 5, evt);
+        ValidationUtil.validateNumTam(txtIdentificador.getText(), 15, evt);
     }//GEN-LAST:event_txtIdentificadorKeyTyped
 
     private void cmbTipoVia2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoVia2ActionPerformed
@@ -679,6 +684,10 @@ public class buscarSemaforo extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_cmbDistritoActionPerformed
+
+    private void txtIdentificadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificadorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

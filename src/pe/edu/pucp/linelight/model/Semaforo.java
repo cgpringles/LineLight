@@ -114,6 +114,7 @@ public class Semaforo  implements java.io.Serializable {
         this.distrito = distrito;
     }
 
+    
 
 
 

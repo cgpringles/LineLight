@@ -145,7 +145,7 @@ public class semaforoController {
          return id + 1;
      }    
      
-     public static Semaforo obtenerSemaforo(int idSemaforo){
+     public static Semaforo obtenerSemaforo(long idSemaforo){
          Semaforo semaforo = new Semaforo();
          Session s = null;
          
@@ -285,7 +285,7 @@ public class semaforoController {
          if (estado != null && estado.equals("Habilitado")) {estadoSem = true; estadoSemaforo = 1;}
          if (estado != null && estado.equals("Deshabilitado")) {estadoSem = false; estadoSemaforo = 1;}
          
-         Criterion idSemaforoCriteria = (identificador == null ? Restrictions.isNotNull("id.idSemaforo") : Restrictions.eq("id.idSemaforo", Integer.parseInt(identificador)));
+         Criterion idSemaforoCriteria = (identificador == null ? Restrictions.isNotNull("id.idSemaforo") : Restrictions.eq("id.idSemaforo", Long.parseLong(identificador)));
          
          Criterion distritoCriteria = Restrictions.or(distrito == null ? Restrictions.isNotNull("via1") : Property.forName("via1").in(nombreVias), 
                  distrito == null ? Restrictions.isNotNull("via2") : Property.forName("via2").in(nombreVias));
