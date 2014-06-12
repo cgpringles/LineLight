@@ -9,11 +9,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import pe.edu.pucp.linelight.model.Distrito;
+import pe.edu.pucp.linelight.model.Distritoxhorario;
+import pe.edu.pucp.linelight.model.DistritoxhorarioId;
+import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.util.HibernateUtil;
@@ -48,6 +52,30 @@ public class DistritoController {
             }
             
             idDistrito=(int)(s.save(d));
+            
+            List<Horario> horarios = s.createCriteria(Horario.class).list();
+            
+            for(Horario horario : horarios){
+                Distritoxhorario dxh = new Distritoxhorario();
+                dxh.setId(new DistritoxhorarioId(d.getIdDistrito(), horario.getIdHorario()));
+                
+                Random rand = new Random();
+                
+                int numCarros = 100;
+                numCarros += rand.nextInt(40);
+                if (horario.getIdHorario()%3==2){
+                    numCarros -= rand.nextInt(50);
+                }
+                if (horario.getIdHorario()> 15){
+                    numCarros -= rand.nextInt(30);
+                }
+                
+                dxh.setNumCarros(numCarros);
+                
+                s.save(dxh);
+                
+            }
+            
             HibernateUtil.cierraOperacion(s);
              
         }
