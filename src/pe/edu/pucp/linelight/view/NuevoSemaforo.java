@@ -728,7 +728,7 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                                  jButton3.setEnabled(false);
                                                  jButton5.setEnabled(false);
                                                  cmbDistritoMasivo.setEnabled(false);
-                                                 new Thread(new jcThread(this.jProgressBar1 , 50) ).start();
+                                                 new Thread(new jcThread(this.jProgressBar1 , 50, 1) ).start();
                                                  new Thread(new parseSemaforosStructure(sourceFile,d,this)).start();
                                                  
                                                  //numSemCargados = semaforoController.parseSemaforos(sourceFile, d);
