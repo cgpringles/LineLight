@@ -12,7 +12,7 @@
                 <column name="idZona" />
             </key-property>
         </composite-id>
-        <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">
+        <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select" >
             <column name="idDistrito" not-null="true" />
         </many-to-one>
         <property name="descripcion" type="string">

@@ -18,12 +18,12 @@
                 <column name="idNodo" />
             </key-property>
         </composite-id>
-        <many-to-one name="tramo" class="pe.edu.pucp.linelight.model.Tramo" update="false" insert="false" fetch="select">
+        <many-to-one name="tramo" class="pe.edu.pucp.linelight.model.Tramo" update="false" lazy="false" insert="false" fetch="select">
             <column name="idTramo" not-null="true" />
             <column name="idDistrito" not-null="true" />
             <column name="idVia" not-null="true" />
         </many-to-one>
-        <many-to-one name="nodo" class="pe.edu.pucp.linelight.model.Nodo" update="false" insert="false" fetch="select">
+        <many-to-one name="nodo" class="pe.edu.pucp.linelight.model.Nodo" update="false" lazy="false" insert="false" fetch="select">
             <column name="idNodo" not-null="true" />
         </many-to-one>
         <property name="posicionTramo" type="char">
