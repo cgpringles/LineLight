@@ -8,10 +8,13 @@ package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -19,6 +22,7 @@ import org.hibernate.HibernateException;
 import pe.edu.pucp.linelight.controller.PerfilController;
 import pe.edu.pucp.linelight.model.Menu;
 import pe.edu.pucp.linelight.model.Perfil;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 
 /**
  *
@@ -247,8 +251,13 @@ public class nuevoPerfil extends javax.swing.JFrame {
                       if(ok == 1)
                    {
                       JOptionPane.showMessageDialog(nuevoPerfil.this, "Perfil agregado","Acción",INFORMATION_MESSAGE,null);
+                      
                       nuevoPerfil.this.dispose();
-
+                          try {
+                              GeneralUtil.insertaLog(1, "perfil");
+                          } catch (UnknownHostException ex) {
+                              Logger.getLogger(nuevoPerfil.class.getName()).log(Level.SEVERE, null, ex);
+                          }
                    }
                    else
                    {

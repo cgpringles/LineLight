@@ -30,7 +30,7 @@
                 <column name="idDistrito" />
             </key-property>
         </composite-id>
-        <many-to-one name="semaforo" class="pe.edu.pucp.linelight.model.Semaforo" update="false" insert="false" fetch="select">
+        <many-to-one name="semaforo" class="pe.edu.pucp.linelight.model.Semaforo" update="false" insert="false" fetch="select" lazy="false">
             <column name="idSemaforo" not-null="true" />
             <column name="idNodo" not-null="true" />
             <column name="idDistrito" not-null="true" />

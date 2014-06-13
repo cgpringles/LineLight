@@ -15,7 +15,7 @@
         <many-to-one name="usuario" class="pe.edu.pucp.linelight.model.Usuario" update="false" insert="false" fetch="select">
             <column name="idUsuario" length="10" not-null="true" />
         </many-to-one>
-        <many-to-one name="accion" class="pe.edu.pucp.linelight.model.Accion" update="false" insert="false" fetch="select">
+        <many-to-one name="accion" class="pe.edu.pucp.linelight.model.Accion" update="false" insert="false" fetch="select" lazy="false">
             <column name="idAccion" not-null="true" />
         </many-to-one>
         <property name="fecha" type="date">
@@ -23,6 +23,9 @@
         </property>
         <property name="ip" type="string">
             <column name="IP" length="20" />
+        </property>
+        <property name="tabla" type="string">
+            <column name="tabla" length="45" />
         </property>
     </class>
 </hibernate-mapping>
