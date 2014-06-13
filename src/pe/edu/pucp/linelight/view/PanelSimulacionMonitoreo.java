@@ -197,6 +197,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1206, 700));
         setRequestFocusEnabled(false);
 
+        tabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabbedPaneMousePressed(evt);
+            }
+        });
+
         iniciarSimulacionButton.setBackground(new java.awt.Color(0, 153, 204));
         iniciarSimulacionButton.setText("Iniciar Simulación");
         iniciarSimulacionButton.setBorderPainted(false);
@@ -498,8 +504,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(44, 44, 44)))
         );
-
-        jLabel8.getAccessibleContext().setAccessibleName("Trafico Intermedio");
 
         zoomInButton.setBackground(new java.awt.Color(0, 153, 204));
         zoomInButton.setText("+");
@@ -820,8 +824,27 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void configuracionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionComboBoxActionPerformed
-        // TODO add your handling code here:
+        
+//        Ejecucionalgoritmo ejecAlg=lEjec.get(configuracionComboBox.getSelectedIndex());
+//        List<Ejecucionalgoritmoxsemaforo> ejecAlgSem=((List<Ejecucionalgoritmoxsemaforo>)
+//                                                        ejecAlg.getEjecucionalgoritmoxsemaforos());
+//        
+        
+        
+        
+        
     }//GEN-LAST:event_configuracionComboBoxActionPerformed
+
+    private void tabbedPaneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMousePressed
+        lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
+        configuracionComboBox.removeAllItems();
+        configuracionComboBox.addItem("--Configuración por defecto--");
+        for (Ejecucionalgoritmo e:lEjec)
+        {
+            configuracionComboBox.addItem(e.getNombreSimulacion());
+            
+        }
+    }//GEN-LAST:event_tabbedPaneMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

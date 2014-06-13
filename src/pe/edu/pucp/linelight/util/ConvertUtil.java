@@ -78,4 +78,10 @@ public class ConvertUtil {
         return imageInByte;
     }
     
+    public static String convertirNombreSimulacion(String nombreSimulacionBD)
+    {
+        String[] c=nombreSimulacionBD.split("/");
+        return c[0];
+    }
+    
 }
