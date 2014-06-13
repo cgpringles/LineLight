@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pe.edu.pucp.linelight.view;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,14 +25,18 @@ import pe.edu.pucp.linelight.util.ValidationUtil;
  *
  * @author USER
  */
-
 public class BuscarPerfil extends javax.swing.JPanel {
 
     /**
      * Creates new form BuscarUsuario
      */
-    
-    Perfil perfil_seleccionado=new Perfil();
+    Perfil perfil_seleccionado = new Perfil();
+    int seguridad=1;
+    int configuracion=2;
+    int optimizacion=3;
+    int mantenimiento=4;
+    int reportes=5;
+
     public BuscarPerfil() {
         initComponents();
         this.setBackground(new java.awt.Color(240, 240, 240));
@@ -60,6 +65,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
         jCheckBox_Mant = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
+        jCheckBox_rep = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -131,6 +137,8 @@ public class BuscarPerfil extends javax.swing.JPanel {
             }
         });
 
+        jCheckBox_rep.setText("Reportes");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,22 +160,22 @@ public class BuscarPerfil extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jCheckBox_seguridad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                                .addComponent(jCheckBox_conf))
+                                .addGap(18, 18, 18)
+                                .addComponent(jCheckBox_conf)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCheckBox_Opt))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nombre)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel1)))
+                                .addComponent(jLabel1)
+                                .addGap(68, 68, 68)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(descrip, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(descrip, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(jCheckBox_Opt)
-                                .addGap(31, 31, 31)
-                                .addComponent(jCheckBox_Mant)))
-                        .addContainerGap(52, Short.MAX_VALUE))))
+                                .addComponent(jCheckBox_Mant)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCheckBox_rep)))
+                        .addContainerGap(32, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +195,8 @@ public class BuscarPerfil extends javax.swing.JPanel {
                             .addComponent(jCheckBox_seguridad)
                             .addComponent(jCheckBox_conf)
                             .addComponent(jCheckBox_Opt)
-                            .addComponent(jCheckBox_Mant))
+                            .addComponent(jCheckBox_Mant)
+                            .addComponent(jCheckBox_rep))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -289,7 +298,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(41, Short.MAX_VALUE))
+                        .addContainerGap(40, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(40, 40, 40))))
@@ -316,21 +325,39 @@ public class BuscarPerfil extends javax.swing.JPanel {
     }//GEN-LAST:event_descripActionPerformed
 
     private void buscar_perfil_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_perfil_buttonActionPerformed
-       List<Perfil> perfiles_b= new ArrayList<>();
-        perfiles_b=PerfilController.getPerfiles(this.nombre.getText(),this.descrip.getText(), this.jComboBoxEstado.getSelectedIndex());
-        DefaultTableModel modelo=new DefaultTableModel();
-        String[] colName = { "Identificador", "Nombre", "Descripción", "Estado"};
+        List<Perfil> perfiles_b = new ArrayList<>();
+        Set permisos = new HashSet();
+        if (this.jCheckBox_conf.isSelected()) {
+            permisos.add(PerfilController.getMenuById(configuracion));
+        }
+        if (this.jCheckBox_Mant.isSelected()) {
+            permisos.add(PerfilController.getMenuById(mantenimiento));
+        }
+        if (this.jCheckBox_Opt.isSelected()) {
+            permisos.add(PerfilController.getMenuById(optimizacion));
+        }
+        if (this.jCheckBox_seguridad.isSelected()) {
+            permisos.add(PerfilController.getMenuById(seguridad));
+        }
+        if (this.jCheckBox_rep.isSelected()) {
+            permisos.add(PerfilController.getMenuById(reportes));
+        }
+
+        perfiles_b = PerfilController.getPerfiles(this.nombre.getText(), this.descrip.getText(), this.jComboBoxEstado.getSelectedIndex(),permisos);
+        DefaultTableModel modelo = new DefaultTableModel();
+        String[] colName = {"Identificador", "Nombre", "Descripción", "Estado"};
         modelo.setColumnIdentifiers(colName);
-      
+
         for (Perfil perfil : perfiles_b) {
-            Object fila[]=new Object [6];
+            Object fila[] = new Object[6];
             fila[0] = perfil.getIdPerfil();
             fila[1] = perfil.getNombre();
             fila[2] = perfil.getDescripcion();
-            if(perfil.getEstado()==1)
+            if (perfil.getEstado() == 1) {
                 fila[3] = "Activo";
-            else
+            } else {
                 fila[3] = "Inactivo";
+            }
 
             modelo.addRow(fila);
         }
@@ -339,45 +366,43 @@ public class BuscarPerfil extends javax.swing.JPanel {
     }//GEN-LAST:event_buscar_perfil_buttonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        nuevoPerfil nuevo= new nuevoPerfil();
+        nuevoPerfil nuevo = new nuevoPerfil();
         nuevo.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-               
+
         if (jTable2.getSelectedRow() != -1) {
-        int seleccion = JOptionPane.showOptionDialog(
+            int seleccion = JOptionPane.showOptionDialog(
                     BuscarPerfil.this, // Componente padre
                     "¿Esta seguro que desea borrar el perfil seleccionado?", //Mensaje
                     "Mensaje de confirmación", // Título
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
-                    null,    // null para icono por defecto.
-                    new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+                    null, // null para icono por defecto.
+                    new Object[]{"Si", "No"}, // null para YES, NO y CANCEL
                     "Si");
-                
-                if (seleccion != -1)
-                {
-                   if(seleccion == 0)
-                   {
-                       perfil_seleccionado= PerfilController.getPerfilId((int)jTable2.getModel().getValueAt(jTable2.getSelectedRow(), 0));
-                      if(perfil_seleccionado.getUsuarios().isEmpty()){
-                           PerfilController.eliminarPerfil(perfil_seleccionado);
-                          JOptionPane.showMessageDialog(BuscarPerfil.this, "Perfil borrado","Acción",INFORMATION_MESSAGE,null);
-                           try {
-                               GeneralUtil.insertaLog(3, "perfil");
-                           } catch (UnknownHostException ex) {
-                               Logger.getLogger(BuscarPerfil.class.getName()).log(Level.SEVERE, null, ex);
-                           }
-                      } 
-                      else
-                          JOptionPane.showMessageDialog(BuscarPerfil.this, "Imposible borrar Perfil","Error",ERROR_MESSAGE,null);
-                      
-                      buscar_perfil_buttonActionPerformed(evt);
 
-                   }
+            if (seleccion != -1) {
+                if (seleccion == 0) {
+                    perfil_seleccionado = PerfilController.getPerfilId((int) jTable2.getModel().getValueAt(jTable2.getSelectedRow(), 0));
+                    if (perfil_seleccionado.getUsuarios().isEmpty()) {
+                        PerfilController.eliminarPerfil(perfil_seleccionado);
+                        JOptionPane.showMessageDialog(BuscarPerfil.this, "Perfil borrado", "Acción", INFORMATION_MESSAGE, null);
+                        try {
+                            GeneralUtil.insertaLog(3, "perfil");
+                        } catch (UnknownHostException ex) {
+                            Logger.getLogger(BuscarPerfil.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(BuscarPerfil.this, "Imposible borrar Perfil", "Error", ERROR_MESSAGE, null);
+                    }
+
+                    buscar_perfil_buttonActionPerformed(evt);
+
                 }
-                } else {
+            }
+        } else {
             JOptionPane.showMessageDialog(BuscarPerfil.this, "Debe seleccionar un perfil", "Error", ERROR_MESSAGE, null);
 
         }
@@ -386,11 +411,11 @@ public class BuscarPerfil extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Perfil perfil = new Perfil();
         if (jTable2.getSelectedRow() != -1) {
-        int idPerfil=(int)jTable2.getModel().getValueAt(jTable2.getSelectedRow(), 0);
-        perfil=PerfilController.getPerfilId(idPerfil);
-        editarPerfil editar=new editarPerfil();
-        editar.setPerfil(perfil);
-        editar.setVisible(true);
+            int idPerfil = (int) jTable2.getModel().getValueAt(jTable2.getSelectedRow(), 0);
+            perfil = PerfilController.getPerfilId(idPerfil);
+            editarPerfil editar = new editarPerfil();
+            editar.setPerfil(perfil);
+            editar.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(BuscarPerfil.this, "Debe seleccionar un perfil", "Error", ERROR_MESSAGE, null);
 
@@ -427,6 +452,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBox_Mant;
     private javax.swing.JCheckBox jCheckBox_Opt;
     private javax.swing.JCheckBox jCheckBox_conf;
+    private javax.swing.JCheckBox jCheckBox_rep;
     private javax.swing.JCheckBox jCheckBox_seguridad;
     private javax.swing.JComboBox jComboBoxEstado;
     private javax.swing.JLabel jLabel1;

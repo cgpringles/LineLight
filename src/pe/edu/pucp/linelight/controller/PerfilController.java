@@ -7,6 +7,7 @@ package pe.edu.pucp.linelight.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -71,9 +72,10 @@ public class PerfilController {
         return ok;
     }
 
-    public static List<Perfil> getPerfiles(String nombre, String descripcion, int estado) throws HibernateException {
+    public static List<Perfil> getPerfiles(String nombre, String descripcion, int estado,Set permisos) throws HibernateException {
         List<Perfil> listaPerfiles = new ArrayList<>();
         Session s = null;
+        
         try {
             s = HibernateUtil.iniciaOperacion();
             Query query = null;
