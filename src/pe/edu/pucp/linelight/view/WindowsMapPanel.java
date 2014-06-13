@@ -230,7 +230,7 @@ public class WindowsMapPanel extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        System.out.println("ksdjnsd");
+        /*System.out.println("ksdjnsd");
         JPopupMenu menu = new JPopupMenu();
         
         JMenuItem menuItem = new JMenuItem("Agregar...");
@@ -321,7 +321,7 @@ public class WindowsMapPanel extends javax.swing.JPanel {
         
         
         menu.show(evt.getComponent(), evt.getX(), evt.getY());
-        
+        */
     }//GEN-LAST:event_formMouseClicked
 
 
