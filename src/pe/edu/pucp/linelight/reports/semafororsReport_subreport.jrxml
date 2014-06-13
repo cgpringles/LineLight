@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuariosReport_subreport" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0ab0fc12-961b-43a9-a331-f1815b1da854">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="id_semaforo" class="java.lang.String"/>
+	<field name="id_nodo" class="java.lang.String"/>
+	<field name="t_verde" class="java.lang.String"/>
+	<field name="t_rojo" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b28917df-6c5a-4bee-ab84-5a6c9ce14429" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id_semaforo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d63db66c-72e0-44eb-ad1b-e8277f5842fa" x="100" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id_nodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3888ab38-eb77-4de1-b816-1501021365d0" x="216" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{t_verde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="65dd1a5c-444a-4203-9f01-700fe4b6db71" x="329" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{t_rojo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c2aa4595-1b25-4213-9dce-70e04a353a25" x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

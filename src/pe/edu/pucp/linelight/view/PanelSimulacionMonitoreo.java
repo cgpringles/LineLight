@@ -338,6 +338,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         configuracionLabel.setText("Configuracion a usar:");
 
+        configuracionComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configuracionComboBoxActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Velocidad promedio:");
 
         jTextField2.setText("30.00");
@@ -489,11 +495,13 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         });
         tablaSemaforo.setToolTipText("");
         jScrollPane2.setViewportView(tablaSemaforo);
-        tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+        if (tablaSemaforo.getColumnModel().getColumnCount() > 0) {
+            tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -737,6 +745,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void configuracionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_configuracionComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

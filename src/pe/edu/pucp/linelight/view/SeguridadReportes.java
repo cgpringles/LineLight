@@ -24,7 +24,12 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.view.JasperViewer;
+import pe.edu.pucp.linelight.controller.EjecucionAlgoritmoController;
 import pe.edu.pucp.linelight.controller.UsuarioController;
+import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
+import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
+import pe.edu.pucp.linelight.reportClasses.Semaforo_aux;
+import pe.edu.pucp.linelight.reportClasses.SemaforosReport;
 import pe.edu.pucp.linelight.reportClasses.UsuariosReport;
 
 /**
@@ -33,11 +38,22 @@ import pe.edu.pucp.linelight.reportClasses.UsuariosReport;
  */
 public class SeguridadReportes extends javax.swing.JPanel {
 
+    
+    JasperPrint jp;
+    List<Ejecucionalgoritmo> lEjec;
     /**
      * Creates new form SeguridadReportes
      */
     public SeguridadReportes() {
         initComponents();
+        lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
+        simulaciones.removeAllItems();
+         simulaciones.addItem("--Configuración por defecto--");
+        for (Ejecucionalgoritmo e:lEjec)
+        {
+            simulaciones.addItem(e.getNombreSimulacion());
+            
+        }
     }
 
     /**
@@ -51,15 +67,23 @@ public class SeguridadReportes extends javax.swing.JPanel {
 
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        simulaciones = new javax.swing.JComboBox();
+        Imprimir = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 647));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Tiempos de semáforos por optimización"));
 
-        jLabel10.setText("Nombre:");
+        jLabel10.setText("Nombre de la simualción:");
 
-        jLabel11.setText("Archivo:");
+        simulaciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        Imprimir.setText("Imprimir");
+        Imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -67,19 +91,22 @@ public class SeguridadReportes extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10))
-                .addContainerGap(650, Short.MAX_VALUE))
+                .addComponent(jLabel10)
+                .addGap(36, 36, 36)
+                .addComponent(simulaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Imprimir)
+                .addContainerGap(403, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(simulaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Imprimir))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -89,18 +116,72 @@ public class SeguridadReportes extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(486, Short.MAX_VALUE))
+                .addContainerGap(508, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    JasperPrint jp;
+    private void ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirActionPerformed
+        try {
+            init_semaforos();
+
+            JRExporter exporter = new JRPdfExporter();
+            
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportePDF.pdf"));
+            
+            exporter.exportReport();
+            
+            JasperViewer jviewer= new JasperViewer(jp,false);
+            jviewer.setTitle("Reporte");
+            jviewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
+               }  
+    }//GEN-LAST:event_ImprimirActionPerformed
+
+    
+    
+public void init_semaforos() {
+URL in = null;
+      try{
+          in = this.getClass().getResource("/pe/edu/pucp/linelight/reports/semaforosReport.jasper");
+          List<SemaforosReport> lista = new ArrayList<>();
+          SemaforosReport raut=new SemaforosReport();
+          
+          raut.setSimulacion(lEjec.get(simulaciones.getSelectedIndex()-1).getNombreSimulacion());
+
+          
+          List<Ejecucionalgoritmoxsemaforo> lista_sem=EjecucionAlgoritmoController.getEjecucionxSemaforoById(lEjec.get(simulaciones.getSelectedIndex()-1).getId().getIdEjecucionAlgoritmo());
+          List<Semaforo_aux> semaforos= new ArrayList<>();
+          for(int i=0; i< lista_sem.size(); i++){
+              Semaforo_aux sem= new Semaforo_aux();
+              if(lista_sem.get(i).getSemaforo().getEstado())
+                sem.setEstado("activo");
+              else
+                sem.setEstado("inactivo");
+              sem.setId_nodo(String.valueOf(lista_sem.get(i).getId().getIdNodo()));
+              sem.setId_semaforo(String.valueOf(lista_sem.get(i).getSemaforo().getId().getIdSemaforo()));
+              sem.setT_rojo(lista_sem.get(i).getTrojo().toString());
+              sem.setT_verde(lista_sem.get(i).getTverde().toString());
+              semaforos.add(sem);
+          }
+          raut.setSemaforos(semaforos);
+         lista.add(raut);
+          JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(lista);
+          jp=JasperFillManager.fillReport(in.getPath(), new HashMap(),beanCollectionDataSource);    
+        } catch(JRException e){
+           e.printStackTrace();
+      }
+
+
+}    
     
 public void init_usuarios() throws JRException, ParseException{
         URL in = null;
@@ -124,8 +205,9 @@ public void init_usuarios() throws JRException, ParseException{
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Imprimir;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JComboBox simulaciones;
     // End of variables declaration//GEN-END:variables
 }

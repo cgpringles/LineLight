@@ -30,7 +30,7 @@
             <column name="dni" length="8" />
         </property>
         <property name="fechaNac" type="date">
-            <column name="fechaNac" length="10" not-null="true" />
+            <column name="fechaNac" length="10" not-null="false" />
         </property>
         <property name="telefono" type="string">
             <column name="telefono" length="10" />

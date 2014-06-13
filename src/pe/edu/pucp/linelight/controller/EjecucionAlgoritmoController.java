@@ -263,4 +263,25 @@ public class EjecucionAlgoritmoController {
         return ejecAlgSem;        
     }
     
+        public static List<Ejecucionalgoritmoxsemaforo> getEjecucionxSemaforoById(int idEjecucion) throws HibernateException {
+        List<Ejecucionalgoritmoxsemaforo> lista = new ArrayList<>();
+        Session s = null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+
+            Query query = s.createQuery("FROM EjecucionalgoritmoxSemaforo u WHERE u.idEjecucionAlgoritmo = ?");
+            query.setParameter(0, idEjecucion);
+
+            lista= query.list();
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return lista;
+    }
+    
 }
