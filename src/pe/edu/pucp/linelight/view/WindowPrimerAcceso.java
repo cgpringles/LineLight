@@ -7,7 +7,9 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -29,6 +31,8 @@ public class WindowPrimerAcceso extends javax.swing.JFrame {
      */
     public WindowPrimerAcceso() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         this.jLabel1.setText("Bienvenid@ "+GeneralUtil.getUsuario_sesion().getIdUsuario()+ ":");
         this.jPassword_new.setText("");
         this.jPassword_new2.setText("");

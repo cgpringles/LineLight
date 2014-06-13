@@ -35,7 +35,7 @@
             <column name="idConfiguracionSistema" not-null="true" />
             <column name="idHorario" not-null="true" />
         </many-to-one>
-        <many-to-one name="nodo" class="pe.edu.pucp.linelight.model.Nodo" update="false" insert="false" fetch="select">
+        <many-to-one name="nodo" class="pe.edu.pucp.linelight.model.Nodo" update="false" insert="false" fetch="select" lazy="false">
             <column name="idNodo" not-null="true" />
         </many-to-one>
         <property name="test" type="string">

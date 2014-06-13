@@ -7,9 +7,11 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,6 +24,8 @@ public class ViasCargadas extends javax.swing.JFrame {
      */
     public ViasCargadas() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         Date fecha=new Date();
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
         txtFecha.setText(sdf.format(fecha));

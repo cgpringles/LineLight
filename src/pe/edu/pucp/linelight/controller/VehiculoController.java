@@ -29,10 +29,11 @@ import pe.edu.pucp.linelight.view.PanelSimulacionMonitoreo;
  * @author Angel
  */
 public class VehiculoController {
-    
-    /**************** CONTROLLER PARA TABLA VEHICULO *****************/
-    public static int agregarVehiculo(Vehiculo vehiculo)
-    {        
+
+    /**
+     * ************** CONTROLLER PARA TABLA VEHICULO ****************
+     */
+    public static int agregarVehiculo(Vehiculo vehiculo) {
         Session s = null;
         int ok = 0;
         try {
@@ -47,97 +48,92 @@ public class VehiculoController {
             s.close();
         }
 
-        return ok;       
+        return ok;
     }
-    
-    public static int agregarGeneracionVehiculos(int Ejecucionalgoritmoid, int horarioid)
-    {
+
+    public static int agregarGeneracionVehiculos(int Ejecucionalgoritmoid, int horarioid) {
         int ok = 0;
-        pe.edu.pucp.linelight.algorithm.Vehiculo [] vehiculos = GA.trafico.getVehiculos();
+        pe.edu.pucp.linelight.algorithm.Vehiculo[] vehiculos = GA.trafico.getVehiculos();
         int numVehiculos = vehiculos.length;
         int idInicio = 0;
-        
-        for (int i=0; i< numVehiculos; i++){
+
+        for (int i = 0; i < numVehiculos; i++) {
             /*Para cada vehiculo*/
-            
+
             Vehiculo vehiculo = new Vehiculo();
             Usuario user = GeneralUtil.getUsuario_sesion();
-            
+
             VehiculoId vehiculoId = new VehiculoId();
-            int idVehiculo= getNextId();
-            if (i==0) idInicio = idVehiculo;
-            
-            vehiculoId.setIdVehiculo(idVehiculo);                        
+            int idVehiculo = getNextId();
+            if (i == 0) {
+                idInicio = idVehiculo;
+            }
+
+            vehiculoId.setIdVehiculo(idVehiculo);
             vehiculoId.setIdParamAlgoritmo(1);
             vehiculoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
             vehiculoId.setIdConfiguracionSistema(1);
             vehiculoId.setIdUsuario(user.getIdUsuario());
             vehiculoId.setIdHorario(horarioid);
-            
+
             vehiculo.setId(vehiculoId);
-            
+
             Ruta ruta = vehiculos[i].getRoute();
-            
+
             int posX = ruta.getPosIniX();
-            int posY = ruta.getPosIniY();            
+            int posY = ruta.getPosIniY();
             vehiculo.setPosInit("" + posX + "," + posY);
-            
+
             posX = ruta.getPosFinX();
-            posY = ruta.getPosFinY();             
+            posY = ruta.getPosFinY();
             vehiculo.setPosFin("" + posX + "," + posY);
-            
+
             posX = ruta.getActualPosX();
             posY = ruta.getActualPosY();
             vehiculo.setPosActual("" + posX + "," + posY);
-            
+
             int vel = vehiculos[i].getVelocidad();
             vehiculo.setVelocidad("" + vel);
-            
+
             ok = agregarVehiculo(vehiculo); //basta que no se pueda guardar un vehiculo entonces saldra
-            if (ok == 0){
-                System.out.println("ERROR AL INTENTAR GUARDAR VEHICULO " + i );
+            if (ok == 0) {
+                System.out.println("ERROR AL INTENTAR GUARDAR VEHICULO " + i);
             }
 
         }
 
-        return idInicio;       
+        return idInicio;
     }
-    
+
     public static int getNextId() {
         int id = 0;
-        Session s = null;         
-        try
-        {
+        Session s = null;
+        try {
             s = HibernateUtil.iniciaOperacion();
-                        
+
             String sequel = "Select max(id.idVehiculo) from Vehiculo";
             Query q = s.createQuery(sequel);
             List currentSeq = q.list();
-            HibernateUtil.cierraOperacion(s);            
-            if  (currentSeq.get(0) == null) {
-                id = 0;               
-            }
-            else {                
+            HibernateUtil.cierraOperacion(s);
+            if (currentSeq.get(0) == null) {
+                id = 0;
+            } else {
                 id = (int) currentSeq.get(0);
             }
-            
-        }
-        catch (HibernateException e)
-        {
+
+        } catch (HibernateException e) {
             HibernateUtil.manejaExcepcion(s);
-        }
-        finally 
-        {
+        } finally {
             s.close();
         }
-         
-         return id + 1;
+
+        return id + 1;
     }
-     
-     
-    /**************** CONTROLLER PARA TABLA VEHICULOXNODO *****************/
-    public static int agregarVehiculoXNodo(Vehiculoxnodo vehiculoxnodo)
-    {                
+
+    /**
+     * ************** CONTROLLER PARA TABLA VEHICULOXNODO ****************
+     */
+    public static int agregarVehiculoXNodo(Vehiculoxnodo vehiculoxnodo) {
         Session s = null;
         int ok = 0;
         try {
@@ -152,30 +148,29 @@ public class VehiculoController {
             s.close();
         }
 
-        return ok;       
-    }    
-     
-     public static int agregarGeneracionVehiculosXNodo(int idInicio, int Ejecucionalgoritmoid, int horarioid) 
-     {
-         int ok = 0;
-         pe.edu.pucp.linelight.algorithm.Vehiculo [] vehiculos = GA.trafico.getVehiculos();
-         int numVehiculos = vehiculos.length;
-         
-         for (int i=0; i< numVehiculos; i++){
-             
-             Ruta ruta = vehiculos[i].getRoute();
-             ArrayList<Long> Nodos = ruta.getIdNodoRuta();
-             int numNodos = Nodos.size();       
-             
-             for (int j=0; j< numNodos; j++){
-                 /*Para cada Nodo de la Ruta*/
+        return ok;
+    }
+
+    public static int agregarGeneracionVehiculosXNodo(int idInicio, int Ejecucionalgoritmoid, int horarioid) {
+        int ok = 0;
+        pe.edu.pucp.linelight.algorithm.Vehiculo[] vehiculos = GA.trafico.getVehiculos();
+        int numVehiculos = vehiculos.length;
+
+        for (int i = 0; i < numVehiculos; i++) {
+
+            Ruta ruta = vehiculos[i].getRoute();
+            ArrayList<Long> Nodos = ruta.getIdNodoRuta();
+            int numNodos = Nodos.size();
+
+            for (int j = 0; j < numNodos; j++) {
+                /*Para cada Nodo de la Ruta*/
 
                 Vehiculoxnodo vehiculoxnodo = new Vehiculoxnodo();
                 Usuario user = GeneralUtil.getUsuario_sesion();
 
-                VehiculoxnodoId vehiculoxnodoId = new VehiculoxnodoId();            
+                VehiculoxnodoId vehiculoxnodoId = new VehiculoxnodoId();
 
-                vehiculoxnodoId.setIdVehiculo(idInicio);                        
+                vehiculoxnodoId.setIdVehiculo(idInicio);
                 vehiculoxnodoId.setIdParamAlgoritmo(1);
                 vehiculoxnodoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
                 vehiculoxnodoId.setIdConfiguracionSistema(1);
@@ -185,25 +180,43 @@ public class VehiculoController {
                 long valor = Nodos.get(j);
                 vehiculoxnodoId.setIdNodo(valor);
 
-                vehiculoxnodo.setId(vehiculoxnodoId);       
+                vehiculoxnodo.setId(vehiculoxnodoId);
                 vehiculoxnodo.setTest("Punto " + j);
 
                 ok = agregarVehiculoXNodo(vehiculoxnodo); //basta que no se pueda guardar un vehiculo entonces saldra      
-                if (ok == 0)  {
+                if (ok == 0) {
                     System.out.println("VEHICULOXNODO RAZON EN NODO: " + valor);
                     //break;
                 }
             }
             idInicio++;
-            
-         }
-         
-         return ok;        
-     }
-     
+
+        }
+
+        return ok;
+    }
+
+    public static List<Vehiculo> getVehiculosByIdEjecucion(int idEjecucion) {
+        List<Vehiculo> lista = new ArrayList<>();
+        Session s = null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+
+            Query query = s.createQuery("FROM Vehiculo WHERE idEjecucionAlgoritmo = :id ");
+            query.setParameter("id", idEjecucion);
+
+            lista = query.list();
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return lista;
+
+    }
+
 //   
-     
-     
-    
-    
 }

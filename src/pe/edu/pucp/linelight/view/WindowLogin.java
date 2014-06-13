@@ -7,10 +7,12 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import org.hibernate.Hibernate;
@@ -37,7 +39,8 @@ public class WindowLogin extends javax.swing.JFrame {
      */
     public WindowLogin() {
         initComponents();
-        
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         getContentPane().setBackground(new java.awt.Color(165, 211, 226));
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

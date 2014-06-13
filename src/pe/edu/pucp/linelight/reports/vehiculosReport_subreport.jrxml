@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuariosReport_subreport" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0ab0fc12-961b-43a9-a331-f1815b1da854">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\rzuniga\\Documents\\NetBeansProjects\\13062014\\LineLight\\src\\pe\\edu\\pucp\\linelight\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="id" class="java.lang.String"/>
+	<field name="posini" class="java.lang.String"/>
+	<field name="posfin" class="java.lang.String"/>
+	<field name="posactual" class="java.lang.String"/>
+	<field name="velocidad" class="java.lang.String"/>
+	<field name="nodos" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="108" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="b28917df-6c5a-4bee-ab84-5a6c9ce14429"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="0" width="99" height="20" uuid="d63db66c-72e0-44eb-ad1b-e8277f5842fa"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{posactual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="0" width="100" height="20" uuid="3888ab38-eb77-4de1-b816-1501021365d0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{posini}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="0" width="100" height="20" uuid="65dd1a5c-444a-4203-9f01-700fe4b6db71"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{posfin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="0" width="88" height="20" uuid="c2aa4595-1b25-4213-9dce-70e04a353a25"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{velocidad}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="26" y="36" width="495" height="72" uuid="79db90eb-3314-4d68-af2f-c5919b547bc8"/>
+				<dataSourceExpression><![CDATA[new  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{nodos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["nodosReport_subreport.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="26" y="20" width="451" height="17" forecolor="#FF0000" uuid="313d725b-d391-4392-b266-494a0ba5f5f1"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Ruta (indicando los nodos que recorre) :]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

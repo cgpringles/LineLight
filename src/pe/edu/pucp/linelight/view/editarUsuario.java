@@ -7,10 +7,12 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -54,7 +56,8 @@ public class editarUsuario extends javax.swing.JFrame {
     
     public editarUsuario() {
         initComponents();
-        
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         List<Perfil>perfiles=new ArrayList<>();
         perfiles=PerfilController.getAllPerfiles();
         this.perfilCmb.removeAllItems();

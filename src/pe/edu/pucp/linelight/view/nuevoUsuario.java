@@ -6,6 +6,7 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.awt.Toolkit;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 import pe.edu.pucp.linelight.util.MailUtil;
@@ -44,6 +46,8 @@ public class nuevoUsuario extends javax.swing.JFrame {
     public nuevoUsuario() {
         initComponents();
         //cargar perfiles
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         List<Perfil> perfiles = new ArrayList<>();
         perfiles = PerfilController.getAllPerfiles();
         this.perfilCmb.removeAllItems();

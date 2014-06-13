@@ -31,6 +31,8 @@ public class TramosxVias extends javax.swing.JFrame {
      */
     public TramosxVias() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
     }
      public TramosxVias(long idvia,String distrito,String via, String tipo) {
         initComponents();

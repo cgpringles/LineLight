@@ -7,10 +7,12 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -37,6 +39,8 @@ public class WindowPrincipal extends javax.swing.JFrame {
     
     public WindowPrincipal() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         panel_principal .setBorder(new ImagenFondo());
         getContentPane().setBackground(new java.awt.Color(165, 211, 226));
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="nodosReport_subreport" language="groovy" pageWidth="495" pageHeight="802" columnWidth="495" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0349a954-9f6b-4278-a445-54fac4a65245">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nodo.idNodo" class="java.lang.String"/>
+	<field name="nodo.latitud" class="java.lang.String"/>
+	<field name="nodo.longitud" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="14" y="0" width="100" height="20" uuid="d19e942f-13cd-4e67-baef-dc91f7d118b5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Nodo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="0" width="100" height="20" uuid="07eb9f49-f9c7-47bc-a54c-8303afaf67d9"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Latitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="0" width="100" height="20" uuid="7936d731-1381-424a-9ad4-edfcafe805c3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Longitud]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="0" width="100" height="20" uuid="3efac947-1211-4e06-acee-65bb1e0ad2f4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nodo.idNodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="0" width="100" height="20" uuid="f125d071-2688-4870-ae37-78f583ae2341"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nodo.latitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="0" width="100" height="20" uuid="dde4853f-e160-4f25-861d-3c39cb8dec47"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nodo.longitud}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
