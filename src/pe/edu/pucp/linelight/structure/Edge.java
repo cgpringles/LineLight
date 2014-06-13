@@ -58,8 +58,14 @@ public class Edge{
         this.distancia=ConvertUtil.getDistanceLatLong(originNode.getLatitud(), endNode.getLatitud(),
                                         originNode.getLongitud(), endNode.getLongitud());
         this.status=HABILITADO;
-        this.capacidad=50;
-//        this.matrizCuadra=new int[100];
+        this.capacidad=20;
+        if (tipovia.equalsIgnoreCase("Avenida"))
+        {
+            this.capacidad=40;
+            
+        }
+        
+//        this.matrizCuadra=new iad,nt[100];
     }
     
     public int getDirX()
