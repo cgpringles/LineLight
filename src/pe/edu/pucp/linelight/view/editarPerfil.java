@@ -7,9 +7,11 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -38,6 +40,8 @@ public class editarPerfil extends javax.swing.JFrame {
      */
     public editarPerfil() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         getContentPane().setBackground(new java.awt.Color(240, 240, 240));
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);

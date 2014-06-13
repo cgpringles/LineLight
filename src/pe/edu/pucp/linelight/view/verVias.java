@@ -7,7 +7,9 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +23,8 @@ public class verVias extends javax.swing.JFrame {
      */
     public verVias() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         getContentPane().setBackground(new java.awt.Color(165, 211, 226));
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);

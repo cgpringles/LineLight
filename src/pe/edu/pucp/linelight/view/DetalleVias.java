@@ -7,10 +7,12 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import pe.edu.pucp.linelight.controller.DistritoController;
 import pe.edu.pucp.linelight.controller.TipoViaController;
@@ -28,6 +30,8 @@ public class DetalleVias extends javax.swing.JFrame {
      */
     public DetalleVias() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         Date fecha=new Date();
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
         txtFecha.setText(sdf.format(fecha));

@@ -7,7 +7,9 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import pe.edu.pucp.linelight.controller.DistritoController;
 import pe.edu.pucp.linelight.controller.TipoViaController;
@@ -29,6 +31,8 @@ public class EditarVia extends javax.swing.JFrame {
    
     public EditarVia() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }

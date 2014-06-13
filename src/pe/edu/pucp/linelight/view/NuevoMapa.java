@@ -6,7 +6,9 @@
 
 package pe.edu.pucp.linelight.view;
 
+import java.awt.Image;
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -28,6 +30,8 @@ public class NuevoMapa extends javax.swing.JFrame {
      */
     public NuevoMapa() {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         getContentPane().setBackground(new java.awt.Color(240, 240, 240));
     }
 

@@ -7,7 +7,9 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -29,7 +31,8 @@ public class WindowOlvidasteContrasena extends javax.swing.JFrame {
      */
     public WindowOlvidasteContrasena() {
         initComponents();
-        
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         getContentPane().setBackground(new java.awt.Color(165, 211, 226));
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
