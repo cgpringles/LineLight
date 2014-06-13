@@ -71,13 +71,14 @@ public class MapaController {
                 String imgRef=element.attribute("img").getStringValue();
                 
                 Zona z=new Zona();
-                System.out.println("kdfmskd "+ idZona + " " + distrito.getIdDistrito());
                 z.setId(new ZonaId(distrito.getIdDistrito(),idZona)); // se cambio el orden de parametros
                 z.setIniLatitud(Double.parseDouble(latIni));
                 z.setIniLongitud(Double.parseDouble(lonIni));
                 z.setFinLatitud(Double.parseDouble(latFin));
                 z.setFinLongitud(Double.parseDouble(lonFin));
-                File imagen = new File(imgRef);
+                
+                File carpeta = f.getParentFile();
+                File imagen = new File(carpeta, imgRef);
                 try {
                     BufferedImage bi= ImageIO.read(imagen);
                     z.setImagen(ConvertUtil.convertirImageToBytesArray(bi));
@@ -145,7 +146,9 @@ public class MapaController {
                     z.setIniLongitud(Double.parseDouble(lonIni));
                     z.setFinLatitud(Double.parseDouble(latFin));
                     z.setFinLongitud(Double.parseDouble(lonFin));
-                    File imagen = new File(imgRef);
+                    
+                    File carpeta = sourceFile.getParentFile();
+                    File imagen = new File(carpeta, imgRef);
                     try {
                         BufferedImage bi= ImageIO.read(imagen);
                         z.setImagen(ConvertUtil.convertirImageToBytesArray(bi));
