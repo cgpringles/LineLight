@@ -4,8 +4,11 @@
  */
 package pe.edu.pucp.linelight.controller;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -98,6 +101,12 @@ public class VehiculoController {
                 System.out.println("ERROR AL INTENTAR GUARDAR VEHICULO " + i );
             }
 
+        }
+        
+        try {
+            GeneralUtil.insertaLog(1, "vehiculo"); // 1 por la accion de insertar y 
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return idInicio;       
@@ -196,6 +205,12 @@ public class VehiculoController {
             }
             idInicio++;
             
+         }
+         
+         try {
+             GeneralUtil.insertaLog(1, "vehiculoXNodo"); // 1 por la accion de insertar y 
+         } catch (UnknownHostException ex) {
+             Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
          }
          
          return ok;        
