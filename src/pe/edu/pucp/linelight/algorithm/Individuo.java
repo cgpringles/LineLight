@@ -7,6 +7,7 @@
 package pe.edu.pucp.linelight.algorithm;
 
 import java.util.Random;
+import pe.edu.pucp.linelight.controller.EjecucionAlgoritmoController;
 
 /**
  *
@@ -89,17 +90,24 @@ public class Individuo
     
     private void establecerIdNodos()
     {               
-        Vehiculo [] vehiculos = GA.trafico.getVehiculos();        
-        
         int j=0;
-        for (int i=0; i<getIdNodoSemaforo().length; ){
-            Ruta ruta = vehiculos[j].getRoute();
-            for (int k=0; k< ruta.getIdNodoRuta().size(); k++) {
-                getIdNodoSemaforo()[i] = ruta.getIdNodoRuta().get(k);
-                i++;
-            }
-            j++;
-        }
+        int tamano = idNodoSemaforo.length;
+        for (int i=0; i<tamano; i++){
+            idNodoSemaforo[i] = EjecucionAlgoritmoController.semaforosMapa.get(j).getId().getIdNodo();
+            j+=2; // se suma 2 debido a que cada 2 semaforos del mismo idNodo se cuenta como una misma interseccion.
+        }        
+        
+//        Vehiculo [] vehiculos = GA.trafico.getVehiculos();        
+//        
+//        int j=0;
+//        for (int i=0; i<getIdNodoSemaforo().length; ){
+//            Ruta ruta = vehiculos[j].getRoute();
+//            for (int k=0; k< ruta.getIdNodoRuta().size(); k++) {
+//                getIdNodoSemaforo()[i] = ruta.getIdNodoRuta().get(k);
+//                i++;
+//            }
+//            j++;
+//        }
     }
 
     public int getEstado()
@@ -205,7 +213,7 @@ public class Individuo
 //                    + (distancia/tiempo)/Config.kmAms );
             
             if (tiempo < 1) tiempo = 1;
-            velocidadPromedio += (float)((distancia/tiempo)/Config.kmAms)*10;
+            velocidadPromedio += (float)((distancia/tiempo)/Config.kmAms); // cuando habia semaforos en todas las rutas  *10
             
             //reset para el próximo gen
             ruta.setActualPosRoute(-1);

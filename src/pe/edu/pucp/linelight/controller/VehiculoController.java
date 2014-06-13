@@ -97,62 +97,11 @@ public class VehiculoController {
             if (ok == 0){
                 System.out.println("ERROR AL INTENTAR GUARDAR VEHICULO " + i );
             }
-                
-//            if (ok == 0) break;
-//            else {
-//                /*si ok = 1 que significa que si guardo el vehiculo i-esimo, debera ahora guardar
-//                 su ruta en la tabla VehiculoXNodo*/                
-//                ok = agregarGeneracionVehiculosRuta(ruta, Ejecucionalgoritmoid, idVehiculo, horarioid);
-//                if (ok == 0)
-//                    System.out.println("ERROR AL INTENTAR GUARDAR LA RUTA DE VEHICULO " + i );
-////                    JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
-//            }
+
         }
 
         return idInicio;       
     }
-    
-//        public static List<Vehiculo> getVehiculos(int Ejecucionalgoritmoid) throws HibernateException {
-//            List<Usuario> listaVehiculos = null;
-//            Session s = null;
-//            
-//            try {
-//                s = HibernateUtil.iniciaOperacion();
-//                Query query=null;
-//                if(perfil==0){
-//                     query = s.createQuery("FROM Usuario u WHERE u.idUsuario LIKE ?"
-//                        + " AND u.nombre LIKE ? AND u.app LIKE ? AND u.apm LIKE ? AND u.correo LIKE ?"
-//                        + " AND u.estadobd=1");
-//                     query.setParameter(0, "%" + usuario + "%");
-//                query.setParameter(1, "%" + nombre + "%");
-//                query.setParameter(2, "%" + app + "%");
-//                query.setParameter(3, "%" + apm + "%");
-//                query.setParameter(4, "%" + correo + "%");
-//                }else{
-//                    query = s.createQuery("FROM Usuario u WHERE u.idUsuario LIKE ?"
-//                        + " AND u.nombre LIKE ? AND u.app LIKE ? AND u.apm LIKE ? AND u.correo LIKE ?"
-//                        + " AND u.estadobd=1 AND u.perfil.idPerfil=?");
-//                    query.setParameter(0, "%" + usuario + "%");
-//                query.setParameter(1, "%" + nombre + "%");
-//                query.setParameter(2, "%" + app + "%");
-//                query.setParameter(3, "%" + apm + "%");
-//                query.setParameter(4, "%" + correo + "%");
-//                    query.setParameter(5, perfil);
-//                }
-//
-//                listaUsuarios = query.list();
-//                HibernateUtil.cierraOperacion(s);
-//            } catch (HibernateException he) {
-//                he.printStackTrace();
-//                HibernateUtil.manejaExcepcion(s);
-//            } finally {
-//                s.close();
-//            }
-//
-//        return listaVehiculos;
-//    }
-    
-    
     
     public static int getNextId() {
         int id = 0;

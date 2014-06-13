@@ -40,7 +40,7 @@ public class Poblacion
                 auxFitness = newIndividual.getFitness(); // al momento de crearse los individuos aleatoriamente, se irá acmulando la totalFitness total
                 if (i == 0) {
                     float auxVelocidad = newIndividual.getVelocidadPromedio();
-                    GA.velocidadHistorica = auxVelocidad;
+                    GA.velocidadHistorica = (float)(auxVelocidad*(0.75));
                     System.out.println("Valor Fitness de Individuo "+i+": "+ auxFitness);
                     System.out.println("Velocidad Promedio de Individuo "+i+": "+ auxVelocidad);
                 }
