@@ -15,6 +15,7 @@ public class Usuarioxaccion  implements java.io.Serializable {
      private Accion accion;
      private Date fecha;
      private String ip;
+     private String tabla;
 
     public Usuarioxaccion() {
     }
@@ -67,6 +68,14 @@ public class Usuarioxaccion  implements java.io.Serializable {
     
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getTabla() {
+        return tabla;
+    }
+
+    public void setTabla(String tabla) {
+        this.tabla = tabla;
     }
 
 

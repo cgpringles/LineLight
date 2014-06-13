@@ -23,6 +23,7 @@ import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 import org.hibernate.criterion.Order;
+import pe.edu.pucp.linelight.model.Semaforo;
 
 /**
  *
@@ -30,7 +31,8 @@ import org.hibernate.criterion.Order;
  */
 public class EjecucionAlgoritmoController {
     
-    public static List<Object> vehiculosRobot;    
+    public static List<Object> vehiculosRobot;
+    public static ArrayList<Semaforo> semaforosMapa;
     
     /**************** CONTROLLER PARA TABLA EJECUCIONALGORITMO *****************/
     public static int agregarEjecucionAlgoritmo(Ejecucionalgoritmo ejecucionAlgoritmo) {
@@ -83,7 +85,9 @@ public class EjecucionAlgoritmoController {
          return id + 1;
     }
     
-    public static void iniciarSimulacion(){
+    public static void iniciarSimulacion(int numSemaforos, ArrayList<Semaforo> listaS){
+        
+        semaforosMapa = listaS;        
         
         Paramalgoritmo paramAlgoritmo = ParamAlgoritmoController.getParamAlgoritmoById(1); // podemos usar siempre el primero
         
@@ -101,11 +105,10 @@ public class EjecucionAlgoritmoController {
         
         vehiculosRobot = listaV;
         
-        GA.trafico = new Trafico(numVehiculos,false); // true vehiculos aleatorio, false vehiculos ya generados        
+        GA.trafico = new Trafico(numVehiculos,false); // true vehiculos aleatorio, false vehiculos ya generados 
         GA.trafico.exportarSerializableTrafico();
         GA.trafico.exportarTextoTrafico();
-        GA.trafico.imprimirTrafico();              
-               
+        GA.trafico.imprimirTrafico();
     }
        
     
@@ -141,35 +144,71 @@ public class EjecucionAlgoritmoController {
         for (int i=0; i< numIdNodos; i++){
             /*Para cada idNodo del Mejor Individuo*/
 
-            Ejecucionalgoritmoxsemaforo eaxsemaforo = new Ejecucionalgoritmoxsemaforo();
-            Usuario user = GeneralUtil.getUsuario_sesion();
+            long idNodo = nodos[i];           
+            ArrayList<Semaforo> listaSemaforos = semaforoController.obtenerSemaforobyNodo(idNodo);
+            if (listaSemaforos != null) {
             
-            EjecucionalgoritmoxsemaforoId eaxsemaforoId = new EjecucionalgoritmoxsemaforoId();
-//            int idEaxsemaforo = getNextId(); //cambiar a otro nextId()
-            
-            eaxsemaforoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
-            eaxsemaforoId.setIdParamAlgoritmo(1);
-            eaxsemaforoId.setIdConfiguracionSistema(1);
-            eaxsemaforoId.setIdUsuario(user.getIdUsuario());
-            eaxsemaforoId.setIdHorario(horarioid);
-            
-            /*Falta obtener la data real de idNodo y idSemaforo - PARTE DE LUIS*/
-            long idNodo = nodos[i];
-            eaxsemaforoId.setIdNodo(idNodo);            
-            // falta agregar idSemaforo
-            // Deberia llamarse a un metodo de semaforo que le pases el idNodo y devuelva el idSemaforo
-            
-            eaxsemaforo.setId(eaxsemaforoId);
-            
-            int tiempoIni = semafIni[i] ;
-            int tiempoFin = semafFin[i];
-            eaxsemaforo.setTverde(tiempoIni);
-            eaxsemaforo.setTrojo(tiempoFin);
-            
-            ok = agregarEjecucionXSemaforo(eaxsemaforo); //basta que no se pueda guardar un semaforo entonces saldra      
-            if (ok == 0)  {
-                System.out.println("EJECUCIOALGORITMOXSEMAFORO RAZON EN NODO: " + idNodo);
-                //break;
+                /* Primer Semaforo de Interseccion*/
+                Ejecucionalgoritmoxsemaforo eaxsemaforo = new Ejecucionalgoritmoxsemaforo();
+                Usuario user = GeneralUtil.getUsuario_sesion();
+
+                EjecucionalgoritmoxsemaforoId eaxsemaforoId = new EjecucionalgoritmoxsemaforoId();
+
+                eaxsemaforoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
+                eaxsemaforoId.setIdParamAlgoritmo(1);
+                eaxsemaforoId.setIdConfiguracionSistema(1);
+                eaxsemaforoId.setIdUsuario(user.getIdUsuario());
+                eaxsemaforoId.setIdHorario(horarioid);            
+
+                /*Falta obtener la data real de idNodo y idSemaforo - PARTE DE LUIS*/
+                eaxsemaforoId.setIdNodo(idNodo);
+                
+                System.out.println("Valor de IdSemaforo 1: " + listaSemaforos.get(0).getId().getIdSemaforo());                
+                eaxsemaforoId.setIdSemaforo(listaSemaforos.get(0).getId().getIdSemaforo());
+                eaxsemaforoId.setIdDistrito(listaSemaforos.get(0).getId().getIdDistrito());
+                eaxsemaforo.setId(eaxsemaforoId);
+
+                int tiempoIni = semafIni[i] ;
+                int tiempoFin = semafFin[i];
+                eaxsemaforo.setTverde(tiempoIni);
+                eaxsemaforo.setTrojo(tiempoFin);
+
+                ok = agregarEjecucionXSemaforo(eaxsemaforo); //basta que no se pueda guardar un semaforo entonces saldra      
+                if (ok == 0)  {
+                    System.out.println("EJECUCIOALGORITMOXSEMAFORO RAZON EN NODO: " + idNodo);
+                    //break;
+                }
+                
+                /* Segundo Semaforo de Interseccion*/
+                Ejecucionalgoritmoxsemaforo eaxsemaforo2 = new Ejecucionalgoritmoxsemaforo();                
+
+                EjecucionalgoritmoxsemaforoId eaxsemaforoId2 = new EjecucionalgoritmoxsemaforoId();
+
+                eaxsemaforoId2.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
+                eaxsemaforoId2.setIdParamAlgoritmo(1);
+                eaxsemaforoId2.setIdConfiguracionSistema(1);
+                eaxsemaforoId2.setIdUsuario(user.getIdUsuario());
+                eaxsemaforoId2.setIdHorario(horarioid);            
+
+                /*Falta obtener la data real de idNodo y idSemaforo - PARTE DE LUIS*/
+                eaxsemaforoId2.setIdNodo(idNodo);
+                                
+                System.out.println("Valor de IdSemaforo 2: " + listaSemaforos.get(1).getId().getIdSemaforo());
+                eaxsemaforoId2.setIdSemaforo(listaSemaforos.get(1).getId().getIdSemaforo());
+                eaxsemaforoId2.setIdDistrito(listaSemaforos.get(1).getId().getIdDistrito());
+                eaxsemaforo2.setId(eaxsemaforoId2);
+
+                tiempoIni = semafFin[i] ;
+                tiempoFin = semafIni[i];
+                eaxsemaforo2.setTverde(tiempoIni);
+                eaxsemaforo2.setTrojo(tiempoFin);
+
+                ok = agregarEjecucionXSemaforo(eaxsemaforo2); //basta que no se pueda guardar un semaforo entonces saldra      
+                if (ok == 0)  {
+                    System.out.println("EJECUCIOALGORITMOXSEMAFORO RAZON EN NODO: " + idNodo);
+                    //break;
+                }
+
             }
         }
         
@@ -222,6 +261,27 @@ public class EjecucionAlgoritmoController {
         }
         
         return ejecAlgSem;        
+    }
+    
+        public static List<Ejecucionalgoritmoxsemaforo> getEjecucionxSemaforoById(int idEjecucion) throws HibernateException {
+        List<Ejecucionalgoritmoxsemaforo> lista = new ArrayList<>();
+        Session s = null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+
+            Query query = s.createQuery("FROM Ejecucionalgoritmoxsemaforo WHERE idEjecucionAlgoritmo = :id ");
+            query.setParameter("id", idEjecucion);
+
+            lista= query.list();
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return lista;
     }
     
 }

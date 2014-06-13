@@ -65,7 +65,7 @@ message.setFrom(new InternetAddress("linelight2014@gmail.com"));
 // A quien va dirigido
 message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
 
-message.setSubject("Hola");
+message.setSubject("Sistema de Optimización del Tráfico - LineLight");
 
 
 

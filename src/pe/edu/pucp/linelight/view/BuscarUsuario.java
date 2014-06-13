@@ -7,8 +7,11 @@ package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -17,6 +20,7 @@ import pe.edu.pucp.linelight.controller.PerfilController;
 import pe.edu.pucp.linelight.controller.UsuarioController;
 import pe.edu.pucp.linelight.model.Perfil;
 import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
@@ -393,7 +397,11 @@ public class BuscarUsuario extends javax.swing.JPanel {
                     usuario_seleccionado = UsuarioController.getUsuarioById((String) jTable2.getModel().getValueAt(jTable2.getSelectedRow(), 0));
                     UsuarioController.eliminarUsuario(usuario_seleccionado);
                     JOptionPane.showMessageDialog(BuscarUsuario.this, "Item borrado", "Acción", INFORMATION_MESSAGE, null);
-
+                    try {
+                        GeneralUtil.insertaLog(3, "Usuario");
+                    } catch (UnknownHostException ex) {
+                        Logger.getLogger(BuscarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         } else {

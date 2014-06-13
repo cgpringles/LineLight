@@ -6,13 +6,17 @@
 
 package pe.edu.pucp.linelight.controller;
 
+import com.toedter.calendar.JDateChooser;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import pe.edu.pucp.linelight.model.Accion;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.model.Usuarioxaccion;
 
 /**
  *
@@ -199,4 +203,77 @@ public class UsuarioController {
         return usuario;
     }
 
+    public static List<Usuarioxaccion> getByUserDate(String idUsuario, Date desde, Date hasta) {
+        List<Usuarioxaccion> lista = null;
+        Session s = null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+            Query query=null;
+            if(idUsuario==null || "".equals(idUsuario) ){
+                 query = s.createQuery("FROM Usuarioxaccion u WHERE u.fecha <= ?"
+                    + " AND u.fecha >= ? ");
+                 query.setParameter(0, hasta);
+            query.setParameter(1, desde);
+
+            }else{
+                query = s.createQuery("FROM Usuarioxaccion WHERE fecha <= :desde"
+                    + " AND fecha >= :hasta AND idUsuario = :id");
+                query.setParameter("desde", hasta  );
+            query.setParameter("hasta",  desde  );
+            query.setParameter("id",  idUsuario  );
+     
+            }
+            
+            lista = query.list();
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return lista;
+    }
+
+    public static Accion getAccionByid(int id){
+    Accion a = new Accion();
+        Session s = null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+
+            Query query = s.createQuery("FROM Accion u WHERE u.idAccion = ?");
+            query.setParameter(0, id);
+
+            if (!query.list().isEmpty()) {
+                a = (Accion) query.list().get(0);
+            }
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return a;
+    
+    }
+
+    public static void agregarAccionxUsuario(Usuarioxaccion item) {
+        Session s = null;
+
+        try {
+            s = HibernateUtil.iniciaOperacion();
+            s.save(item);
+            HibernateUtil.cierraOperacion(s);
+
+        } catch (HibernateException e) {
+
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+       }
 }

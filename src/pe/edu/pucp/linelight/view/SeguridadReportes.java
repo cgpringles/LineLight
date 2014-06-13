@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -24,8 +27,17 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.view.JasperViewer;
+import pe.edu.pucp.linelight.controller.EjecucionAlgoritmoController;
 import pe.edu.pucp.linelight.controller.UsuarioController;
+import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
+import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
+import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.model.Usuarioxaccion;
+import pe.edu.pucp.linelight.reportClasses.LogsReports;
+import pe.edu.pucp.linelight.reportClasses.Semaforo_aux;
+import pe.edu.pucp.linelight.reportClasses.SemaforosReport;
 import pe.edu.pucp.linelight.reportClasses.UsuariosReport;
+import pe.edu.pucp.linelight.reportClasses.logs;
 
 /**
  *
@@ -33,11 +45,29 @@ import pe.edu.pucp.linelight.reportClasses.UsuariosReport;
  */
 public class SeguridadReportes extends javax.swing.JPanel {
 
+    
+    JasperPrint jp=new JasperPrint();
+    List<Ejecucionalgoritmo> lEjec;
+    List<Usuario> users;
     /**
      * Creates new form SeguridadReportes
      */
     public SeguridadReportes() {
         initComponents();
+        lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
+        simulaciones.removeAllItems();
+         simulaciones.addItem("Seleccione");
+        for (Ejecucionalgoritmo e:lEjec)
+        {
+            simulaciones.addItem(e.getNombreSimulacion());
+        }
+        users=UsuarioController.getAllUsuarios();
+        usuarios.removeAllItems();
+        usuarios.addItem("Seleccione");
+        for (Usuario e:users)
+        {
+            usuarios.addItem(e.getIdUsuario());
+        }
     }
 
     /**
@@ -49,36 +79,239 @@ public class SeguridadReportes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        simulaciones = new javax.swing.JComboBox();
+        Imprimir = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        usuarios = new javax.swing.JComboBox();
+        Imprimir1 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        desde = new com.toedter.calendar.JDateChooser();
+        hasta = new com.toedter.calendar.JDateChooser();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(800, 647));
 
-        jButton1.setText("Reporte");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuración de semáforos por optimización"));
+
+        jLabel10.setText("Nombre de la simualción:");
+
+        simulaciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        Imprimir.setText("Imprimir");
+        Imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ImprimirActionPerformed(evt);
             }
         });
+
+        jLabel26.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel26.setText("(*)");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel10)
+                .addGap(36, 36, 36)
+                .addComponent(simulaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Imprimir)
+                .addGap(73, 73, 73))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(simulaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Imprimir)
+                    .addComponent(jLabel26))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Logs del Sistema"));
+
+        jLabel11.setText("Usuario:");
+
+        usuarios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        Imprimir1.setText("Imprimir");
+        Imprimir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Imprimir1ActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Hasta");
+
+        jLabel13.setText("Desde:");
+
+        jLabel27.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel27.setText("(*)");
+
+        jLabel28.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel28.setText("(*)");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel11)
+                .addGap(10, 10, 10)
+                .addComponent(usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel27)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel12)
+                .addGap(10, 10, 10)
+                .addComponent(hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addGap(41, 41, 41)
+                .addComponent(Imprimir1)
+                .addGap(67, 67, 67))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Imprimir1)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel12)
+                        .addComponent(jLabel27)
+                        .addComponent(jLabel28)))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jButton1)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(jButton1)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(381, 381, 381))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    JasperPrint jp;
+    private void ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirActionPerformed
+        if(simulaciones.getSelectedIndex()!=0){
+        try {
+            init_semaforos();
+
+            JRExporter exporter = new JRPdfExporter();
+            
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Reporte_conf_semaforos.pdf"));
+            
+            exporter.exportReport();
+            
+            JasperViewer jviewer= new JasperViewer(jp,false);
+            jviewer.setTitle("Reporte_conf_semaforos");
+            jviewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
+               }  
+        }else{
+             JOptionPane.showMessageDialog(SeguridadReportes.this, "Seleccione una simulación", "Error", ERROR_MESSAGE, null);
+        }
+        
+        
+    }//GEN-LAST:event_ImprimirActionPerformed
+
+    private void Imprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Imprimir1ActionPerformed
+       if(desde.getDate()!=null && hasta.getDate()!=null){
+        try {
+            init_logs();
+
+            JRExporter exporter = new JRPdfExporter();
+            
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Reporte_logs.pdf"));
+            
+            exporter.exportReport();
+            
+            JasperViewer jviewer= new JasperViewer(jp,false);
+            jviewer.setTitle("Reporte_logs");
+            jviewer.setVisible(true);
+        } catch (   JRException | ParseException ex) {
+            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
+               }  
+        }else{
+             JOptionPane.showMessageDialog(SeguridadReportes.this, "Seleccione un rango de fechas", "Error", ERROR_MESSAGE, null);
+        }
+    }//GEN-LAST:event_Imprimir1ActionPerformed
+
+    
+    
+public void init_semaforos() {
+URL in = null;
+      try{
+          in = this.getClass().getResource("/pe/edu/pucp/linelight/reports/semaforosReport.jasper");
+          List<SemaforosReport> lista = new ArrayList<>();
+          SemaforosReport raut=new SemaforosReport();
+
+          raut.setSimulacion(lEjec.get(simulaciones.getSelectedIndex()-1).getNombreSimulacion());
+
+          
+          List<Ejecucionalgoritmoxsemaforo> lista_sem=EjecucionAlgoritmoController.getEjecucionxSemaforoById(lEjec.get(simulaciones.getSelectedIndex()-1).getId().getIdEjecucionAlgoritmo());
+          List<Semaforo_aux> semaforos= new ArrayList<>();
+          for(int i=0; i< lista_sem.size(); i++){
+              Semaforo_aux sem= new Semaforo_aux();
+              if(lista_sem.get(i).getSemaforo().getEstado())
+                sem.setEstado("activo");
+              else
+                sem.setEstado("inactivo");
+              sem.setId_nodo(String.valueOf(lista_sem.get(i).getId().getIdNodo()));
+              sem.setId_semaforo(String.valueOf(lista_sem.get(i).getSemaforo().getId().getIdSemaforo()));
+              sem.setT_rojo(lista_sem.get(i).getTrojo().toString());
+              sem.setT_verde(lista_sem.get(i).getTverde().toString());
+              semaforos.add(sem);
+          }
+          raut.setSemaforos(semaforos);
+         lista.add(raut);
+          JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(lista);
+          jp=JasperFillManager.fillReport(in.getPath(), new HashMap(),beanCollectionDataSource);    
+        } catch(JRException e){
+           e.printStackTrace();
+      }
+
+
+}    
     
 public void init_usuarios() throws JRException, ParseException{
         URL in = null;
@@ -97,40 +330,62 @@ public void init_usuarios() throws JRException, ParseException{
       }
   }
 
+public void init_logs() throws JRException, ParseException{
+        URL in = null;
+      try{
+          in = this.getClass().getResource("/pe/edu/pucp/linelight/reports/logsReport.jasper");
+          List<LogsReports> lista = new ArrayList<>();
+          String idUsuario;
+          LogsReports raut=new LogsReports();
+          SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+          raut.setDesde(dt1.format(desde.getDate()));
+          raut.setHasta(dt1.format(hasta.getDate()));
+          if(usuarios.getSelectedIndex()==0) 
+              idUsuario=null;
+          else
+              idUsuario=users.get(usuarios.getSelectedIndex()-1).getIdUsuario();
+          List<Usuarioxaccion> lista_acciones=UsuarioController.getByUserDate(idUsuario,desde.getDate(),hasta.getDate());
+          List<logs> logs= new ArrayList<>();
+          SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+          for(int i=0;i<lista_acciones.size();i++){
+              logs log=new logs();
+              log.setAccion(lista_acciones.get(i).getAccion().getDescripcion());
+              log.setFecha(dt.format(lista_acciones.get(i).getFecha()));
+              log.setTabla(lista_acciones.get(i).getTabla());
+              log.setUsuario(lista_acciones.get(i).getUsuario().getIdUsuario());
+              log.setIp(lista_acciones.get(i).getIp());
+              logs.add(log);
+          }
+          raut.setLogs(logs);
+        
+         
+         lista.add(raut);
+          JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(lista);
+          jp=JasperFillManager.fillReport(in.getPath(), new HashMap(),beanCollectionDataSource);    
+        } catch(JRException e){
+           e.printStackTrace();
+      }
+  }
+
 
     
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            //        try {
-            init_usuarios();
-        } catch (JRException ex) {
-            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//        } catch (JRException ex) {
-//            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//            JRExporter exporter = new JRPdfExporter();
-//        
-//        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
-//        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportePDF.pdf"));
-//        try {
-//            exporter.exportReport();
-//        } catch (JRException ex) {
-//            Logger.getLogger(SeguridadReportes.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-           JasperViewer jviewer= new JasperViewer(jp,false);
-           jviewer.setTitle("Reporte");
-           jviewer.setVisible(true);
-       
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Imprimir;
+    private javax.swing.JButton Imprimir1;
+    private com.toedter.calendar.JDateChooser desde;
+    private com.toedter.calendar.JDateChooser hasta;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JComboBox simulaciones;
+    private javax.swing.JComboBox usuarios;
     // End of variables declaration//GEN-END:variables
 }
