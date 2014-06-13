@@ -18,6 +18,7 @@ import pe.edu.pucp.linelight.controller.PerfilController;
 import pe.edu.pucp.linelight.controller.UsuarioController;
 import pe.edu.pucp.linelight.model.Perfil;
 import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
@@ -482,6 +483,7 @@ public class editarUsuario extends javax.swing.JFrame {
                       editar_usuario.setTelefono(this.telf_e.getText());
                       UsuarioController.editarUsuario(editar_usuario);
                       JOptionPane.showMessageDialog(editarUsuario.this, "Item editado","Acción",INFORMATION_MESSAGE,null);
+                      GeneralUtil.insertaLog(2, "usuario");
                       editarUsuario.this.dispose();
                       } catch(Exception e){
                           e.printStackTrace();

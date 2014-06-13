@@ -6,14 +6,18 @@
 
 package pe.edu.pucp.linelight.view;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
 import pe.edu.pucp.linelight.controller.PerfilController;
 import pe.edu.pucp.linelight.model.Perfil;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
@@ -148,7 +152,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jCheckBox_seguridad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                                 .addComponent(jCheckBox_conf))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(nombre)
@@ -163,7 +167,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
                                 .addComponent(jCheckBox_Opt)
                                 .addGap(31, 31, 31)
                                 .addComponent(jCheckBox_Mant)))
-                        .addContainerGap(51, Short.MAX_VALUE))))
+                        .addContainerGap(52, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +277,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(596, Short.MAX_VALUE)
+                .addContainerGap(545, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
@@ -285,7 +289,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(40, Short.MAX_VALUE))
+                        .addContainerGap(41, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(40, 40, 40))))
@@ -303,7 +307,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -360,6 +364,11 @@ public class BuscarPerfil extends javax.swing.JPanel {
                       if(perfil_seleccionado.getUsuarios().isEmpty()){
                            PerfilController.eliminarPerfil(perfil_seleccionado);
                           JOptionPane.showMessageDialog(BuscarPerfil.this, "Perfil borrado","Acción",INFORMATION_MESSAGE,null);
+                           try {
+                               GeneralUtil.insertaLog(3, "perfil");
+                           } catch (UnknownHostException ex) {
+                               Logger.getLogger(BuscarPerfil.class.getName()).log(Level.SEVERE, null, ex);
+                           }
                       } 
                       else
                           JOptionPane.showMessageDialog(BuscarPerfil.this, "Imposible borrar Perfil","Error",ERROR_MESSAGE,null);

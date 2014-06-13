@@ -6,7 +6,13 @@
 
 package pe.edu.pucp.linelight.util;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import pe.edu.pucp.linelight.controller.UsuarioController;
+import pe.edu.pucp.linelight.model.Accion;
 import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.model.Usuarioxaccion;
+import pe.edu.pucp.linelight.model.UsuarioxaccionId;
 
 /**
  *
@@ -34,4 +40,20 @@ public class GeneralUtil {
         return pswd;
     }
     
+ public static void insertaLog(int idAccion, String tabla) throws UnknownHostException{
+        
+         InetAddress IP=InetAddress.getLocalHost();
+         UsuarioxaccionId id= new UsuarioxaccionId();
+         id.setIdAccion(idAccion);
+         id.setIdUsuario(usuario_sesion.getIdUsuario());
+         Accion accion=UsuarioController.getAccionByid(idAccion);
+         Usuarioxaccion item=new Usuarioxaccion();
+         item.setId(id);
+         item.setFecha(new java.util.Date());
+         item.setUsuario(usuario_sesion);
+         item.setAccion(accion);
+         item.setIp(IP.getHostAddress());
+         item.setTabla(tabla);
+         UsuarioController.agregarAccionxUsuario(item);
+ }
 }

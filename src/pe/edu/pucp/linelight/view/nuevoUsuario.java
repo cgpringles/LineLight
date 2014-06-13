@@ -17,6 +17,10 @@ import pe.edu.pucp.linelight.controller.UsuarioController;
 import pe.edu.pucp.linelight.model.Perfil;
 import pe.edu.pucp.linelight.model.Usuario;
 import java.awt.Toolkit;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 import pe.edu.pucp.linelight.util.MailUtil;
 
@@ -490,6 +494,11 @@ public class nuevoUsuario extends javax.swing.JFrame {
                     }
                     if (ok == 1) {
                         JOptionPane.showMessageDialog(nuevoUsuario.this, "Usuario agregado", "Acción", INFORMATION_MESSAGE, null);
+                        try {
+                            GeneralUtil.insertaLog(1, "usuario");
+                        } catch (UnknownHostException ex) {
+                            Logger.getLogger(nuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         nuevoUsuario.this.dispose();
                         
                     } else {

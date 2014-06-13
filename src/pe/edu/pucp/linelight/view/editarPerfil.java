@@ -17,6 +17,7 @@ import pe.edu.pucp.linelight.controller.PerfilController;
 import pe.edu.pucp.linelight.model.Menu;
 import pe.edu.pucp.linelight.model.Perfil;
 import pe.edu.pucp.linelight.model.Usuario;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
@@ -290,6 +291,7 @@ public class editarPerfil extends javax.swing.JFrame {
                       PerfilController.editarPerfil(editar_perfil);
                       JOptionPane.showMessageDialog(editarPerfil.this, "Perfil editado","Acción",INFORMATION_MESSAGE,null);
                       editarPerfil.this.dispose();
+                      GeneralUtil.insertaLog(2, "perfil");
                       } catch(Exception e){
                           e.printStackTrace();
                            JOptionPane.showMessageDialog(editarPerfil.this, "Imposible editar perfil","Error",ERROR_MESSAGE,null);

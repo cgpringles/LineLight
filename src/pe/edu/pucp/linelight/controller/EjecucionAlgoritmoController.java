@@ -269,8 +269,8 @@ public class EjecucionAlgoritmoController {
         try {
             s = HibernateUtil.iniciaOperacion();
 
-            Query query = s.createQuery("FROM EjecucionalgoritmoxSemaforo u WHERE u.idEjecucionAlgoritmo = ?");
-            query.setParameter(0, idEjecucion);
+            Query query = s.createQuery("FROM Ejecucionalgoritmoxsemaforo WHERE idEjecucionAlgoritmo = :id ");
+            query.setParameter("id", idEjecucion);
 
             lista= query.list();
             HibernateUtil.cierraOperacion(s);
