@@ -31,11 +31,13 @@ import pe.edu.pucp.linelight.algorithm.Individuo;
 import pe.edu.pucp.linelight.controller.HorarioController;
 import pe.edu.pucp.linelight.controller.ParamAlgoritmoController;
 import pe.edu.pucp.linelight.controller.VehiculoController;
+import pe.edu.pucp.linelight.controller.semaforoController;
 import pe.edu.pucp.linelight.model.Configuracionsistema;
 import pe.edu.pucp.linelight.model.EjecucionalgoritmoId;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
+import pe.edu.pucp.linelight.model.Semaforo;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.model.Vehiculo;
 import pe.edu.pucp.linelight.structure.Node;
@@ -214,8 +216,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         jLabel13.setText("Nombre Siimulación:");
 
-        jTextField6.setEditable(false);
-        jTextField6.setText("Formato: Dia Hora Vel");
+        jTextField6.setText("Mi simulacion DP1");
         jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField6KeyTyped(evt);
@@ -557,7 +558,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (this.jComboBox1.getSelectedIndex() != 0 && this.jComboBox2.getSelectedIndex() != 0) {
             
-
             new Thread (new Runnable() {
 
                 @Override
@@ -568,41 +568,57 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     jTextField4.setText(" ");
                     jTextField7.setText(" ");
                     DefaultTableModel tbm= new DefaultTableModel();
-                    tablaSemaforo.setModel(tbm);
                     String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+                    tbm.setColumnIdentifiers(titulos);
+                    tablaSemaforo.setModel(tbm);                    
                     /**/
-                                        
-                    int numVehiculos = 200;
-                    Usuario user = GeneralUtil.getUsuario_sesion();
+                    
+                    int seleccion_dia = jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
+                    int seleccion_hora = jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
+
+                    Horario horario = HorarioController.getHorarioId(seleccion_dia, seleccion_hora);
+                    Distrito distrito = DistritoController.obtenerDistritoActivo();
+                    int numVehiculos = HorarioController.obtenerCarrosxHorarioxDistrito(horario.getIdHorario(),distrito.getIdDistrito());
+                    
                     gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
                     List<Object> vehiculos = gr.getListaVehiculosRuta();
-
+                                       
+                    ArrayList<Semaforo> semaforos = semaforoController.obtenerSemaforosxdistrito(distrito.getNombre());
+                    int numSemaforos = semaforos.size();
+                    
                     EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
-                    EjecucionAlgoritmoController.iniciarSimulacion();
+                    EjecucionAlgoritmoController.iniciarSimulacion(numSemaforos, semaforos);
 
                     jTextField3.setText("" + GA.velocidad);
                     jTextField4.setText("" + GA.tiempoEjecucion);
                     jTextField7.setText("" + GA.velocidadHistorica);
-
-                    int seleccion_dia = jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
-                    int seleccion_hora = jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
-
-                    Horario horario = HorarioController.getHorarioId(seleccion_dia, seleccion_hora);            
-                    jTextField6.setText(horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h");
                                         
                     Individuo individuo = GA.mejorIndividuo;
                     int tamano = individuo.getIdNodoSemaforo().length;
-                    
+                                        
                     tbm.setColumnIdentifiers(titulos); 
                     tablaSemaforo.setModel(tbm);
+                    int j=0;
                     for (int i=0; i< tamano; i++){
-                        String datos[] = new String[5];
-                        datos[0] = " " + i;
-                        datos[1] = "" + individuo.getNodoSemaforo(i);
-                        datos[2] = "" + individuo.getTiempoSemaforoInicio(i);
-                        datos[3] = "" + individuo.getTiempoSemaforoFin(i);
-                        datos[4] = " " + 1;
-                        tbm.addRow(datos);
+                        String datosSemaforoInicio[] = new String[5];
+                        datosSemaforoInicio[0] = "" + semaforos.get(j).getId().getIdSemaforo();
+                        datosSemaforoInicio[1] = "" + individuo.getNodoSemaforo(i);
+                        datosSemaforoInicio[2] = "" + individuo.getTiempoSemaforoInicio(i);
+                        datosSemaforoInicio[3] = "" + individuo.getTiempoSemaforoFin(i);
+                        if (semaforos.get(j).getEstado()) datosSemaforoInicio[4] = "" + 1;
+                        else datosSemaforoInicio[4] = "" + 0;
+                        tbm.addRow(datosSemaforoInicio);
+                        
+                        String datosSemaforoFin[] = new String[5];                                                
+                        datosSemaforoFin[0] = " " + semaforos.get(j+1).getId().getIdSemaforo();
+                        datosSemaforoFin[1] = "" + individuo.getNodoSemaforo(i);
+                        datosSemaforoFin[2] = "" + individuo.getTiempoSemaforoFin(i);
+                        datosSemaforoFin[3] = "" + individuo.getTiempoSemaforoInicio(i);
+                        if (semaforos.get(j+1).getEstado()) datosSemaforoFin[4] = "" + 1;
+                        else datosSemaforoFin[4] = "" + 0;
+                        tbm.addRow(datosSemaforoFin);
+                        
+                        j+=2;
                     }
                     tablaSemaforo.setModel(tbm);
                 }               
@@ -669,7 +685,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                               
                        int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
                        int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
-                       int horarioid = HorarioController.getHorarioId(seleccion_dia, seleccion_hora).getIdHorario();
+                       Horario horario = HorarioController.getHorarioId(seleccion_dia, seleccion_hora);
+                       int horarioid = horario.getIdHorario();
                        idEjecucionalgoritmo.setIdHorario(horarioid);
           
                        //Registramos la ejecucion
@@ -678,37 +695,24 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        ejecucionAlgoritmo.setFecha(new Date());
                        ejecucionAlgoritmo.setVelocidadMaxima(Double.parseDouble(this.jTextField3.getText()));
                        ejecucionAlgoritmo.setVelocidadHistoria(Double.parseDouble(this.jTextField7.getText()));
-                       ejecucionAlgoritmo.setNombreSimulacion(this.jTextField6.getText());
+   
+                       String nombre = horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h , " + this.jTextField6.getText();                       
+                       ejecucionAlgoritmo.setNombreSimulacion(nombre);
                        ejecucionAlgoritmo.setTiempoEjecucion(Double.parseDouble(this.jTextField4.getText()));
 
                        int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
                        if(ok == 1)
                        {
-                           JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
-                           //PanelSimulacionMonitoreo.this.dispose();
+                           JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);                           
                            
                            /*Seccion donde se guardara la generacion de Autos*/
                            /*Luego recien despues de haber agregado la simulacion deberia ser posible agregar los vehiculos*/
-                           int idInicio = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
-                           ok = VehiculoController.agregarGeneracionVehiculosXNodo(idInicio, Ejecucionalgoritmoid, horarioid); // esto es para la tabla VehiculoXNodo
-//                           List<Vehiculo> listaVehiculos = new ArrayList<>();
-                           
-//                           listaVehiculos = VehiculoController.getVehiculos(Ejecucionalgoritmoid);
-                           
-//                           if (ok == 0){
-//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Vehiculos","Acción",ERROR_MESSAGE,null);
-//                           } else {                               
-//                               
-//                           }
-                                                      
-                           /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
+                             /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
                             * los tiempos de cada semaforo resultantes de la simulacion actual*/
-//                           ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
-//                           if(ok == 1)                           
-//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Semaforos en Simulacion agregados","Acción",INFORMATION_MESSAGE,null);                           
-//                           else
-//                               JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Imposible agregar Semaforos en Simulacion","Acción",ERROR_MESSAGE,null);                                                   
-//                                                   
+                           int idInicio = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
+                           VehiculoController.agregarGeneracionVehiculosXNodo(idInicio, Ejecucionalgoritmoid, horarioid); // esto es para la tabla VehiculoXNodo
+                           EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
+                           
                        }
                        else
                        {
