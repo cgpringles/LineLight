@@ -4,8 +4,11 @@
  */
 package pe.edu.pucp.linelight.controller;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -24,6 +27,7 @@ import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 import org.hibernate.criterion.Order;
 import pe.edu.pucp.linelight.model.Semaforo;
+import pe.edu.pucp.linelight.view.PanelSimulacionMonitoreo;
 
 /**
  *
@@ -210,6 +214,12 @@ public class EjecucionAlgoritmoController {
                 }
 
             }
+        }
+        
+        try {
+            GeneralUtil.insertaLog(1, "ejecucionAlgoritmoXSemaforo"); // 1 por la accion de insertar y 
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return ok;

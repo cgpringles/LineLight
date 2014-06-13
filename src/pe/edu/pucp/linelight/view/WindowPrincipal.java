@@ -347,7 +347,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
         try{
             this.setSize(bigsize);
             this.setTitle("Optimización");
-            panel_principal.setSize(bigsize.width, bigsize.height-75);
+            panel_principal.setSize(bigsize.width-20, bigsize.height-111);
             panel_principal.revalidate();
             PanelSimulacionMonitoreo panelSimulacionMonitoreo = new PanelSimulacionMonitoreo();
             panelSimulacionMonitoreo.setSize(panel_principal.getSize());

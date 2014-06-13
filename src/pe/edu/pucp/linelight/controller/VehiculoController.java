@@ -4,8 +4,11 @@
  */
 package pe.edu.pucp.linelight.controller;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -101,6 +104,12 @@ public class VehiculoController {
             }
 
         }
+        
+        try {
+            GeneralUtil.insertaLog(1, "vehiculo"); // 1 por la accion de insertar y 
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return idInicio;
     }
@@ -190,33 +199,17 @@ public class VehiculoController {
                 }
             }
             idInicio++;
-
-        }
-
-        return ok;
-    }
-
-    public static List<Vehiculo> getVehiculosByIdEjecucion(int idEjecucion) {
-        List<Vehiculo> lista = new ArrayList<>();
-        Session s = null;
-        try {
-            s = HibernateUtil.iniciaOperacion();
-
-            Query query = s.createQuery("FROM Vehiculo WHERE idEjecucionAlgoritmo = :id ");
-            query.setParameter("id", idEjecucion);
-
-            lista = query.list();
-            HibernateUtil.cierraOperacion(s);
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            HibernateUtil.manejaExcepcion(s);
-        } finally {
-            s.close();
-        }
-
-        return lista;
-
-    }
-
+            
+         }
+         
+         try {
+             GeneralUtil.insertaLog(1, "vehiculoXNodo"); // 1 por la accion de insertar y 
+         } catch (UnknownHostException ex) {
+             Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         
+         return ok;        
+     }
+     
 //   
 }

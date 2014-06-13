@@ -8,6 +8,7 @@ package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -27,10 +28,14 @@ import pe.edu.pucp.linelight.robot.GeneradorRobot;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
+import org.dom4j.DocumentException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pe.edu.pucp.linelight.algorithm.Individuo;
 import pe.edu.pucp.linelight.controller.HorarioController;
 import pe.edu.pucp.linelight.controller.ParamAlgoritmoController;
 import pe.edu.pucp.linelight.controller.VehiculoController;
+import pe.edu.pucp.linelight.controller.jcThread;
 import pe.edu.pucp.linelight.controller.semaforoController;
 import pe.edu.pucp.linelight.model.Configuracionsistema;
 import pe.edu.pucp.linelight.model.EjecucionalgoritmoId;
@@ -174,16 +179,24 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jTextField2 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         mapContainerPanel = new javax.swing.JPanel();
-        busquedaTextField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         zoomInButton = new javax.swing.JButton();
         zoomOutButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaSemaforo = new javax.swing.JTable();
+        jProgressBar1 = new javax.swing.JProgressBar();
+
+        setPreferredSize(new java.awt.Dimension(1206, 700));
+        setRequestFocusEnabled(false);
 
         iniciarSimulacionButton.setBackground(new java.awt.Color(0, 153, 204));
         iniciarSimulacionButton.setText("Iniciar Simulación");
@@ -391,6 +404,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         tabbedPane.addTab("Monitoreo", monitoreoPanel);
 
         mapContainerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        mapContainerPanel.setName("svdv"); // NOI18N
 
         javax.swing.GroupLayout mapContainerPanelLayout = new javax.swing.GroupLayout(mapContainerPanel);
         mapContainerPanel.setLayout(mapContainerPanelLayout);
@@ -409,12 +423,31 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jLabel7.setText("Trafico Ligero");
 
         jLabel8.setForeground(new java.awt.Color(255, 204, 0));
-        jLabel8.setText("Trafico intermedio");
+        jLabel8.setText("Trafico Intermedio");
 
         jLabel9.setForeground(new java.awt.Color(204, 0, 0));
         jLabel9.setText("Trafico Lento");
 
-        jLabel10.setText("Trafico muerto");
+        jLabel10.setText("Trafico Muerto");
+
+        jLabel3.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel3.setText("-----------");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel18.setForeground(new java.awt.Color(255, 204, 0));
+        jLabel18.setText("-----------");
+        jLabel18.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel19.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel19.setText("-----------------");
+        jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel20.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel20.setText("-----------");
+        jLabel20.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel21.setText("----------");
+        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -424,22 +457,47 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
+                    .addComponent(jLabel8))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel3))
+                .addGap(66, 66, 66)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel10))
-                .addContainerGap(354, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(134, 134, 134)
+                    .addComponent(jLabel19)
+                    .addContainerGap(248, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel21))
+                .addGap(40, 40, 40))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap(41, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(44, 44, 44)))
         );
 
         zoomInButton.setBackground(new java.awt.Color(0, 153, 204));
@@ -495,13 +553,14 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         });
         tablaSemaforo.setToolTipText("");
         jScrollPane2.setViewportView(tablaSemaforo);
-        if (tablaSemaforo.getColumnModel().getColumnCount() > 0) {
-            tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
-        }
+        tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+
+        jProgressBar1.setToolTipText("");
+        jProgressBar1.setName(""); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -514,7 +573,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 9, Short.MAX_VALUE)))
+                        .addGap(0, 8, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -522,8 +581,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         .addComponent(zoomInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(zoomOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(busquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -538,11 +597,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(busquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(zoomInButton)
-                            .addComponent(zoomOutButton))
+                        .addGap(0, 71, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(zoomInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(zoomOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
@@ -572,6 +632,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 public void run() {
                     
                     /*Limpiar campos*/
+                    jProgressBar1.setValue(0);
+                    jProgressBar1.setStringPainted(true);
+                    jProgressBar1.setString("Executing Simulation ...");
                     jTextField3.setText(" ");
                     jTextField4.setText(" ");
                     jTextField7.setText(" ");
@@ -594,12 +657,19 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     ArrayList<Semaforo> semaforos = semaforoController.obtenerSemaforosxdistrito(distrito.getNombre());
                     int numSemaforos = semaforos.size();
                     
+                    jProgressBar1.setVisible(true);                       
+                    Thread t =  new Thread(new jcThread(jProgressBar1 , 100, 1) );
+                    t.start();
                     EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
                     EjecucionAlgoritmoController.iniciarSimulacion(numSemaforos, semaforos);
+                    jProgressBar1.setValue(100);
+                    t.stop();
 
                     jTextField3.setText("" + GA.velocidad);
                     jTextField4.setText("" + GA.tiempoEjecucion);
                     jTextField7.setText("" + GA.velocidadHistorica);
+                    
+                    jProgressBar1.setStringPainted(false);
                                         
                     Individuo individuo = GA.mejorIndividuo;
                     int tamano = individuo.getIdNodoSemaforo().length;
@@ -704,14 +774,21 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        ejecucionAlgoritmo.setVelocidadMaxima(Double.parseDouble(this.jTextField3.getText()));
                        ejecucionAlgoritmo.setVelocidadHistoria(Double.parseDouble(this.jTextField7.getText()));
    
-                       String nombre = horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h , " + this.jTextField6.getText();                       
+                       String nombre = this.jTextField6.getText() + "/" + horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h" ;
                        ejecucionAlgoritmo.setNombreSimulacion(nombre);
                        ejecucionAlgoritmo.setTiempoEjecucion(Double.parseDouble(this.jTextField4.getText()));
 
                        int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
                        if(ok == 1)
                        {
-                           JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);                           
+                           JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
+                           
+                           /*Es para agregar la accion de insertar*/
+                           try {
+                               GeneralUtil.insertaLog(1, "ejecucionAlgoritmo"); // 1 por la accion de insertar y 
+                           } catch (UnknownHostException ex) {
+                               Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+                           }
                            
                            /*Seccion donde se guardara la generacion de Autos*/
                            /*Luego recien despues de haber agregado la simulacion deberia ser posible agregar los vehiculos*/
@@ -753,7 +830,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarSimulacion;
-    private javax.swing.JTextField busquedaTextField;
     private javax.swing.JComboBox configuracionComboBox;
     private javax.swing.JLabel configuracionLabel;
     private javax.swing.JLabel fechaLabel;
@@ -769,13 +845,19 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
