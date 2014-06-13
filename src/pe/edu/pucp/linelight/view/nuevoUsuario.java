@@ -470,12 +470,14 @@ public class nuevoUsuario extends javax.swing.JFrame {
                     //creamos el objeto correo 
                     MailUtil mail = new MailUtil();
                     //llamamos al metodo send() para enviar el mensaje
-                    String mensaje = "<head>\n"
+                    String mensaje =
+                            "<head>\n"
                             + "	<title> --LineLight--</title>\n"
                             + "	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n"
                             + "</head>\n"
                             + "<body>\n"
-                            + "	Se le ha registrado en el sistema con las siguientes credenciales:\n"
+                            + "<p>Bienvenid@ al Sistema de Optimización de Tráfico. </p>\n"
+                            + "<p>Se le ha registrado en el sistema con las siguientes credenciales:</p>\n"
                             + "	<p>Usuario: " + nuevo_usuario.getIdUsuario() + "</p>\n"
                             + "	<p>Contraseña: " + nuevo_usuario.getPassword() + " </p>\n"
                             + "</body>";
@@ -487,11 +489,11 @@ public class nuevoUsuario extends javax.swing.JFrame {
                          JOptionPane.showMessageDialog(nuevoUsuario.this, "No se pudo enviar el correo","Error",ERROR_MESSAGE,null);
                     }
                     if (ok == 1) {
-                        JOptionPane.showMessageDialog(nuevoUsuario.this, "Item agregado", "Acción", INFORMATION_MESSAGE, null);
+                        JOptionPane.showMessageDialog(nuevoUsuario.this, "Usuario agregado", "Acción", INFORMATION_MESSAGE, null);
                         nuevoUsuario.this.dispose();
                         
                     } else {
-                        JOptionPane.showMessageDialog(nuevoUsuario.this, "Imposible agregar item", "Error", ERROR_MESSAGE, null);
+                        JOptionPane.showMessageDialog(nuevoUsuario.this, "Imposible agregar usuario", "Error", ERROR_MESSAGE, null);
                     }
                     
                 }
