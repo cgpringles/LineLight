@@ -63,6 +63,7 @@ public class nuevoPerfil extends javax.swing.JFrame {
         desc = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        jCheckBox_rep = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -107,6 +108,8 @@ public class nuevoPerfil extends javax.swing.JFrame {
         jLabel27.setForeground(new java.awt.Color(255, 0, 0));
         jLabel27.setText("(*)");
 
+        jCheckBox_rep.setText("Reportes");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -119,6 +122,7 @@ public class nuevoPerfil extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox_rep)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -156,7 +160,9 @@ public class nuevoPerfil extends javax.swing.JFrame {
                 .addComponent(jCheckBox_opt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox_conf)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox_rep)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jButton1.setText("Registrar");
@@ -183,7 +189,7 @@ public class nuevoPerfil extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                        .addGap(84, 84, 84)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(jButton2)))
@@ -193,12 +199,12 @@ public class nuevoPerfil extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -207,7 +213,7 @@ public class nuevoPerfil extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         if(this.jCheckBox_seguridad.isSelected() || this.jCheckBox_conf.isSelected() 
-                || this.jCheckBox_mant.isSelected() || this.jCheckBox_opt.isSelected()){
+                || this.jCheckBox_mant.isSelected() || this.jCheckBox_opt.isSelected() || this.jCheckBox_rep.isSelected()){
         
         int seleccion = JOptionPane.showOptionDialog(
                     nuevoPerfil.this, // Componente padre
@@ -235,17 +241,18 @@ public class nuevoPerfil extends javax.swing.JFrame {
                       if(this.jCheckBox_mant.isSelected()) permisos.add(PerfilController.getMenuById(mantenimiento));
                       if(this.jCheckBox_opt.isSelected()) permisos.add(PerfilController.getMenuById(optimizacion));
                       if(this.jCheckBox_seguridad.isSelected()) permisos.add(PerfilController.getMenuById(seguridad));
+                      if(this.jCheckBox_rep.isSelected()) permisos.add(PerfilController.getMenuById(reportes));
                       perfil.setMenus(permisos);
                       int ok =PerfilController.agregarPerfil(perfil);
                       if(ok == 1)
                    {
-                      JOptionPane.showMessageDialog(nuevoPerfil.this, "Item agregado","Acción",INFORMATION_MESSAGE,null);
+                      JOptionPane.showMessageDialog(nuevoPerfil.this, "Perfil agregado","Acción",INFORMATION_MESSAGE,null);
                       nuevoPerfil.this.dispose();
 
                    }
                    else
                    {
-                      JOptionPane.showMessageDialog(nuevoPerfil.this, "Imposible agregar item","Error",ERROR_MESSAGE,null);
+                      JOptionPane.showMessageDialog(nuevoPerfil.this, "Imposible agregar perfil","Error",ERROR_MESSAGE,null);
                    }
                       
                       
@@ -331,6 +338,7 @@ public class nuevoPerfil extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox_conf;
     private javax.swing.JCheckBox jCheckBox_mant;
     private javax.swing.JCheckBox jCheckBox_opt;
+    private javax.swing.JCheckBox jCheckBox_rep;
     private javax.swing.JCheckBox jCheckBox_seguridad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

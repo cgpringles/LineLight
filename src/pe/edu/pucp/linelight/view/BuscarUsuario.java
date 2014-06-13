@@ -344,9 +344,6 @@ public class BuscarUsuario extends javax.swing.JPanel {
     private void buscar_usuario_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_usuario_buttonActionPerformed
         List<Usuario> usuarios_b = new ArrayList<>();
 
-        if (this.usuario.getText().trim().length() != 0 || this.perfilCmb.getSelectedIndex() != 0
-                || this.correo.getText().trim().length() != 0 || this.nombres.getText().trim().length() != 0
-                || this.app.getText().trim().length() != 0 || this.apm.getText().trim().length() != 0) {
 
             usuarios_b = UsuarioController.getUsuarios(this.usuario.getText(), this.nombres.getText(), this.app.getText(), this.apm.getText(), this.correo.getText(), perfiles_id.get(this.perfilCmb.getSelectedIndex()));
             DefaultTableModel modelo = new DefaultTableModel();
@@ -361,17 +358,14 @@ public class BuscarUsuario extends javax.swing.JPanel {
                 fila[2] = usuarios_b1.getApp();
                 fila[3] = usuarios_b1.getApm();
                 fila[4] = usuarios_b1.getCorreo();
-                fila[5] = usuarios_b1.getPerfil().getIdPerfil();
+                Perfil perfil= PerfilController.getPerfilId(usuarios_b1.getPerfil().getIdPerfil());
+                fila[5] = perfil.getNombre();
                 modelo.addRow(fila);
             }
             jTable2.setModel(modelo);
             jTable2.repaint();
 
-        } else {
-
-            JOptionPane.showMessageDialog(BuscarUsuario.this, "Ingrese al menos un campo para la búsqueda", "Error", ERROR_MESSAGE, null);
-
-        }
+         
 
 
     }//GEN-LAST:event_buscar_usuario_buttonActionPerformed

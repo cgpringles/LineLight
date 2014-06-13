@@ -6,8 +6,6 @@
 
 package pe.edu.pucp.linelight.view;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -15,9 +13,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
 import pe.edu.pucp.linelight.controller.PerfilController;
-import pe.edu.pucp.linelight.controller.UsuarioController;
 import pe.edu.pucp.linelight.model.Perfil;
-import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
@@ -327,7 +323,10 @@ public class BuscarPerfil extends javax.swing.JPanel {
             fila[0] = perfil.getIdPerfil();
             fila[1] = perfil.getNombre();
             fila[2] = perfil.getDescripcion();
-            fila[3] = perfil.getEstado();
+            if(perfil.getEstado()==1)
+                fila[3] = "Activo";
+            else
+                fila[3] = "Inactivo";
 
             modelo.addRow(fila);
         }
@@ -345,7 +344,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
         if (jTable2.getSelectedRow() != -1) {
         int seleccion = JOptionPane.showOptionDialog(
                     BuscarPerfil.this, // Componente padre
-                    "¿Esta seguro que desea borrar el item seleccionado?", //Mensaje
+                    "¿Esta seguro que desea borrar el perfil seleccionado?", //Mensaje
                     "Mensaje de confirmación", // Título
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -358,13 +357,19 @@ public class BuscarPerfil extends javax.swing.JPanel {
                    if(seleccion == 0)
                    {
                        perfil_seleccionado= PerfilController.getPerfilId((int)jTable2.getModel().getValueAt(jTable2.getSelectedRow(), 0));
-                      PerfilController.eliminarPerfil(perfil_seleccionado);
-                      JOptionPane.showMessageDialog(BuscarPerfil.this, "Item borrado","Acción",INFORMATION_MESSAGE,null);
+                      if(perfil_seleccionado.getUsuarios().isEmpty()){
+                           PerfilController.eliminarPerfil(perfil_seleccionado);
+                          JOptionPane.showMessageDialog(BuscarPerfil.this, "Perfil borrado","Acción",INFORMATION_MESSAGE,null);
+                      } 
+                      else
+                          JOptionPane.showMessageDialog(BuscarPerfil.this, "Imposible borrar Perfil","Error",ERROR_MESSAGE,null);
+                      
+                      buscar_perfil_buttonActionPerformed(evt);
 
                    }
                 }
                 } else {
-            JOptionPane.showMessageDialog(BuscarPerfil.this, "Debe seleccionar un item", "Error", ERROR_MESSAGE, null);
+            JOptionPane.showMessageDialog(BuscarPerfil.this, "Debe seleccionar un perfil", "Error", ERROR_MESSAGE, null);
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -378,7 +383,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
         editar.setPerfil(perfil);
         editar.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(BuscarPerfil.this, "Debe seleccionar un item", "Error", ERROR_MESSAGE, null);
+            JOptionPane.showMessageDialog(BuscarPerfil.this, "Debe seleccionar un perfil", "Error", ERROR_MESSAGE, null);
 
         }
     }//GEN-LAST:event_jButton2ActionPerformed

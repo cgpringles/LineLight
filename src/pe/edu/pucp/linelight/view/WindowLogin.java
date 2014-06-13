@@ -156,7 +156,7 @@ public class WindowLogin extends javax.swing.JFrame {
             if(menu.getIdMenu()==4)mant=1;
             if (menu.getIdMenu()==5)rep=1;
         }
-        
+       
         
         if(usuario.getPrimerAcceso()==1){//es el primer acceso, pide cambiar clave
             WindowPrimerAcceso wpm= new WindowPrimerAcceso();
@@ -165,6 +165,7 @@ public class WindowLogin extends javax.swing.JFrame {
         
         }else{
             WindowPrincipal wm = new WindowPrincipal();
+            wm.setMenus(seg, mant, conf, opt,rep);// alguien habia borrado esto u.u
             wm.setVisible(true);
             this.setVisible(false);
         }

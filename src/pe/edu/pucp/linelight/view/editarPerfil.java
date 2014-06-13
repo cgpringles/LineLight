@@ -80,6 +80,7 @@ public class editarPerfil extends javax.swing.JFrame {
         jCheckBox_conf = new javax.swing.JCheckBox();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        jCheckBox_rep = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -134,6 +135,8 @@ public class editarPerfil extends javax.swing.JFrame {
         jLabel27.setForeground(new java.awt.Color(255, 0, 0));
         jLabel27.setText("(*)");
 
+        jCheckBox_rep.setText("Reportes");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -167,7 +170,8 @@ public class editarPerfil extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jCheckBox_seguridad)
                                 .addGap(75, 75, 75)
-                                .addComponent(jLabel27)))
+                                .addComponent(jLabel27))
+                            .addComponent(jCheckBox_rep))
                         .addGap(85, 85, 85))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -197,7 +201,9 @@ public class editarPerfil extends javax.swing.JFrame {
                 .addComponent(jCheckBox_opt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox_conf)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox_rep)
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         jButton1.setText("Guardar");
@@ -236,12 +242,12 @@ public class editarPerfil extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -250,7 +256,7 @@ public class editarPerfil extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                
         if(this.jCheckBox_seguridad.isSelected() || this.jCheckBox_conf.isSelected() 
-                || this.jCheckBox_mant.isSelected() || this.jCheckBox_opt.isSelected()){
+                || this.jCheckBox_mant.isSelected() || this.jCheckBox_opt.isSelected() || this.jCheckBox_rep.isSelected() ){
         
         int seleccion = JOptionPane.showOptionDialog(
                     editarPerfil.this, // Componente padre
@@ -277,14 +283,16 @@ public class editarPerfil extends javax.swing.JFrame {
                       if(this.jCheckBox_mant.isSelected()) permisos.add(PerfilController.getMenuById(mantenimiento));
                       if(this.jCheckBox_opt.isSelected()) permisos.add(PerfilController.getMenuById(optimizacion));
                       if(this.jCheckBox_seguridad.isSelected()) permisos.add(PerfilController.getMenuById(seguridad));
+                      if(this.jCheckBox_rep.isSelected()) permisos.add(PerfilController.getMenuById(reportes));
+                      
                       editar_perfil.setMenus(permisos);
                      
                       PerfilController.editarPerfil(editar_perfil);
-                      JOptionPane.showMessageDialog(editarPerfil.this, "Item editado","Acción",INFORMATION_MESSAGE,null);
+                      JOptionPane.showMessageDialog(editarPerfil.this, "Perfil editado","Acción",INFORMATION_MESSAGE,null);
                       editarPerfil.this.dispose();
                       } catch(Exception e){
                           e.printStackTrace();
-                           JOptionPane.showMessageDialog(editarPerfil.this, "Imposible editar item","Error",ERROR_MESSAGE,null);
+                           JOptionPane.showMessageDialog(editarPerfil.this, "Imposible editar perfil","Error",ERROR_MESSAGE,null);
                 
                       
                       }
@@ -378,6 +386,7 @@ public class editarPerfil extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox_conf;
     private javax.swing.JCheckBox jCheckBox_mant;
     private javax.swing.JCheckBox jCheckBox_opt;
+    private javax.swing.JCheckBox jCheckBox_rep;
     private javax.swing.JCheckBox jCheckBox_seguridad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

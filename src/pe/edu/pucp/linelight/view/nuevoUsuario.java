@@ -465,6 +465,7 @@ public class nuevoUsuario extends javax.swing.JFrame {
                     nuevo_usuario.setIdUsuario(this.usuario.getText());
                     nuevo_usuario.setEstado(1);
                     nuevo_usuario.setEstadobd(1);
+                    nuevo_usuario.setPrimerAcceso(1);
                     ok = UsuarioController.agregarUsuario(nuevo_usuario);
                     //creamos el objeto correo 
                     MailUtil mail = new MailUtil();

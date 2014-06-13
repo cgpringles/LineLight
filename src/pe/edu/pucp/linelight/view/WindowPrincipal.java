@@ -45,12 +45,23 @@ public class WindowPrincipal extends javax.swing.JFrame {
     }
     
     
-    public void setMenus(int seg, int mant, int conf, int opt){
-            if(seg==0) this.seguridad_menu.setVisible(false);
-            if(mant==0) this.mantenimiento_menu.setVisible(false);
-            if(conf==0) this.config_menu.setVisible(false);
-            if(opt==0) this.optim_menu.setVisible(false);
-                
+        public void setMenus(int seg, int mant, int conf, int opt, int rep) {
+        if (seg == 0) {
+            this.seguridad_menu.setVisible(false);
+        }
+        if (mant == 0) {
+            this.mantenimiento_menu.setVisible(false);
+        }
+        if (conf == 0) {
+            this.config_menu.setVisible(false);
+        }
+        if (opt == 0) {
+            this.optim_menu.setVisible(false);
+        }
+        if (rep == 0) {
+            this.rep_menu.setVisible(false);
+        }
+
     }
 
     /**
@@ -81,7 +92,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
         sesion_menu = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        rep_menu = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
 
@@ -231,9 +242,9 @@ public class WindowPrincipal extends javax.swing.JFrame {
 
         menu_principal.add(sesion_menu);
 
-        jMenu2.setBackground(new java.awt.Color(204, 204, 204));
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reportes.png"))); // NOI18N
-        jMenu2.setText("Reportes");
+        rep_menu.setBackground(new java.awt.Color(204, 204, 204));
+        rep_menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reportes.png"))); // NOI18N
+        rep_menu.setText("Reportes");
 
         jMenuItem9.setText("Vías");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -241,7 +252,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
                 jMenuItem9ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem9);
+        rep_menu.add(jMenuItem9);
 
         jMenuItem10.setText("Seguridad");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
@@ -249,9 +260,9 @@ public class WindowPrincipal extends javax.swing.JFrame {
                 jMenuItem10ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem10);
+        rep_menu.add(jMenuItem10);
 
-        menu_principal.add(jMenu2);
+        menu_principal.add(rep_menu);
 
         setJMenuBar(menu_principal);
 
@@ -490,7 +501,6 @@ public class WindowPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
@@ -505,6 +515,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar menu_principal;
     private javax.swing.JMenu optim_menu;
     private javax.swing.JPanel panel_principal;
+    private javax.swing.JMenu rep_menu;
     private javax.swing.JMenu seguridad_menu;
     private javax.swing.JMenu sesion_menu;
     private javax.swing.JMenuItem usuarios_menu;
