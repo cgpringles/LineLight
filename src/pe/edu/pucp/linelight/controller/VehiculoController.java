@@ -212,4 +212,26 @@ public class VehiculoController {
      }
      
 //   
-}
+
+    public static List<Vehiculo> getVehiculosByIdEjecucion(int idEjecucionAlgoritmo) {
+             List<Vehiculo> lista = new ArrayList<>();
+        Session s = null;
+        try {
+            s = HibernateUtil.iniciaOperacion();
+
+            Query query = s.createQuery("FROM Vehiculo WHERE idEjecucionAlgoritmo = :id ");
+            query.setParameter("id", idEjecucionAlgoritmo);
+
+            lista= query.list();
+            HibernateUtil.cierraOperacion(s);
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        } finally {
+            s.close();
+        }
+
+        return lista;
+    }
+    
+    }
