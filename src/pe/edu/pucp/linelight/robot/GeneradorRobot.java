@@ -316,14 +316,11 @@ public class GeneradorRobot extends Thread{
                 //Vehiculo fuera del mapa
                 if ((c.status!=Carro.OUTMAP))
                 {
-                    if ((c.getCuadra().getEndNode().getS()!=null) &&
-                       (c.getCuadra().getEndNode().getS().getEstado()!=Semaforo.ROJO))
+                    if ((c.getCuadra().getEndNode().getS()==null) || ((c.getCuadra().getEndNode().getS()!=null) &&
+                       (c.getCuadra().getEndNode().getS().getEstado()!=Semaforo.ROJO)))
                         c.moveCar(T_PAUSA);
                     else
-                        c.moveCar(T_PAUSA);
-                    
-                        
-                    
+                        System.out.println("Stop");
                 }
                     
             }

@@ -99,14 +99,14 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 
         this.setBackground(new java.awt.Color(240, 240, 240));
         
-        lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
-        
-        configuracionComboBox.addItem("--Configuración por defecto--");
-        for (Ejecucionalgoritmo e:lEjec)
-        {
-            configuracionComboBox.addItem(e.getNombreSimulacion());
-            
-        }
+//        lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
+//        
+//        configuracionComboBox.addItem("--Configuración por defecto--");
+//        for (Ejecucionalgoritmo e:lEjec)
+//        {
+//            configuracionComboBox.addItem(e.getNombreSimulacion());
+//            
+//        }
         
         mapPanel = new WindowsMapPanel(new Dimension(ConfigPanelMapa.width,ConfigPanelMapa.height));
         mapContainerPanel.setVisible(true);
@@ -182,6 +182,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         zoomOutButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaSemaforo = new javax.swing.JTable();
+
+        tabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabbedPaneMouseClicked(evt);
+            }
+        });
 
         iniciarSimulacionButton.setBackground(new java.awt.Color(0, 153, 204));
         iniciarSimulacionButton.setText("Iniciar Simulación");
@@ -337,6 +343,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         configuracionLabel.setText("Configuracion a usar:");
 
+        configuracionComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                configuracionComboBoxItemStateChanged(evt);
+            }
+        });
+
         jLabel4.setText("Velocidad promedio:");
 
         jTextField2.setText("30.00");
@@ -488,11 +500,13 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         });
         tablaSemaforo.setToolTipText("");
         jScrollPane2.setViewportView(tablaSemaforo);
-        tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+        if (tablaSemaforo.getColumnModel().getColumnCount() > 0) {
+            tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -733,6 +747,22 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void tabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMouseClicked
+        
+        lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
+        configuracionComboBox.removeAllItems();
+        configuracionComboBox.addItem("--Configuración por defecto--");
+        for (Ejecucionalgoritmo e:lEjec)
+        {
+            configuracionComboBox.addItem(e.getNombreSimulacion());
+            
+        }
+    }//GEN-LAST:event_tabbedPaneMouseClicked
+
+    private void configuracionComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_configuracionComboBoxItemStateChanged
+        
+    }//GEN-LAST:event_configuracionComboBoxItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
