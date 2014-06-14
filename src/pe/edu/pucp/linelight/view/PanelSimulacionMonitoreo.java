@@ -639,19 +639,24 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 @Override
                 public void run() {
                     
-                    /*Limpiar campos*/
+                    /*Inicializar y bloquear campos y botones*/
                     jProgressBar1.setValue(0);
                     jProgressBar1.setStringPainted(true);
                     jProgressBar1.setString("Executing Simulation ...");
                     jTextField3.setText(" ");
                     jTextField4.setText(" ");
                     jTextField7.setText(" ");
+                    iniciarSimulacionButton.setEnabled(false);
+                    agregarSimulacion.setEnabled(false);
+                    jComboBox1.setEnabled(false);
+                    jComboBox2.setEnabled(false);
+                    /**/
+                    
                     DefaultTableModel tbm= new DefaultTableModel();
                     String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
                     tbm.setColumnIdentifiers(titulos);
                     tablaSemaforo.setModel(tbm);                    
-                    /**/
-                    
+                          
                     int seleccion_dia = jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
                     int seleccion_hora = jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
 
@@ -664,8 +669,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                        
                     ArrayList<Semaforo> semaforos = semaforoController.obtenerSemaforosxdistrito(distrito.getNombre());
                     int numSemaforos = semaforos.size();
-                    
-                    jProgressBar1.setVisible(true);                       
+                                        
+                    jProgressBar1.setVisible(true);
                     Thread t =  new Thread(new jcThread(jProgressBar1 , 100, 1) );
                     t.start();
                     EjecucionAlgoritmoController.migrarVehiculos(numVehiculos , vehiculos);
@@ -673,11 +678,18 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     jProgressBar1.setValue(100);
                     t.stop();
 
+                    
+                    /*Hablitar bbotones y campos de ventana y actualziar valores*/
                     jTextField3.setText("" + GA.velocidad);
                     jTextField4.setText("" + GA.tiempoEjecucion);
-                    jTextField7.setText("" + GA.velocidadHistorica);
+                    jTextField7.setText("" + GA.velocidadHistorica);                    
                     
                     jProgressBar1.setStringPainted(false);
+                    iniciarSimulacionButton.setEnabled(true);
+                    agregarSimulacion.setEnabled(true);
+                    jComboBox1.setEnabled(true);
+                    jComboBox2.setEnabled(true);
+                    /**/
                                         
                     Individuo individuo = GA.mejorIndividuo;
                     int tamano = individuo.getIdNodoSemaforo().length;
@@ -756,7 +768,18 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             if (seleccion != -1)
             {
                 if(seleccion == 0)
-                {           
+                {
+                    
+                    /*Inicializar y bloquear campos y botones*/
+                    jProgressBar1.setValue(0);
+                    jProgressBar1.setStringPainted(true);
+                    jProgressBar1.setString("Saving Simulation ...");
+                    iniciarSimulacionButton.setEnabled(false);
+                    agregarSimulacion.setEnabled(false);
+                    jComboBox1.setEnabled(false);
+                    jComboBox2.setEnabled(false);
+                    /**/       
+                                        
                        /*Se necesita nombre de simulacion, tiempo de ejecucion*/
                        Ejecucionalgoritmo ejecucionAlgoritmo = new Ejecucionalgoritmo();
                        Usuario user = GeneralUtil.getUsuario_sesion();
@@ -789,22 +812,27 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
                        if(ok == 1)
                        {
-                           JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
                            
-                           /*Es para agregar la accion de insertar*/
-                           try {
-                               GeneralUtil.insertaLog(1, "ejecucionAlgoritmo"); // 1 por la accion de insertar y 
-                           } catch (UnknownHostException ex) {
-                               Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-                           }
-                           
-                           /*Seccion donde se guardara la generacion de Autos*/
-                           /*Luego recien despues de haber agregado la simulacion deberia ser posible agregar los vehiculos*/
-                             /*Por ultimo, agregamos La ejecucion del algoritmo por semaforo donde se encontrara 
-                            * los tiempos de cada semaforo resultantes de la simulacion actual*/
                            int idInicio = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
                            VehiculoController.agregarGeneracionVehiculosXNodo(idInicio, Ejecucionalgoritmoid, horarioid); // esto es para la tabla VehiculoXNodo
                            EjecucionAlgoritmoController.agregarEjecucionAlgoritmoXSemaforo(Ejecucionalgoritmoid, horarioid);
+                           
+                           JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
+                           
+                           /*Hablitar bbotones y campos de ventana y actualziar valores*/                                                      
+                           jProgressBar1.setStringPainted(false);
+                           iniciarSimulacionButton.setEnabled(true);
+                           agregarSimulacion.setEnabled(true);
+                           jComboBox1.setEnabled(true);
+                           jComboBox2.setEnabled(true);
+                           /**/                        
+                           
+                           /*Es para agregar la accion de insertar*/
+//                           try {
+//                               GeneralUtil.insertaLog(1, "ejecucionAlgoritmo"); // 1 por la accion de insertar y 
+//                           } catch (UnknownHostException ex) {
+//                               Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+//                           }                          
                            
                        }
                        else

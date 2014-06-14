@@ -216,11 +216,11 @@ public class EjecucionAlgoritmoController {
             }
         }
         
-        try {
-            GeneralUtil.insertaLog(1, "ejecucionAlgoritmoXSemaforo"); // 1 por la accion de insertar y 
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            GeneralUtil.insertaLog(1, "ejecucionAlgoritmoXSemaforo"); // 1 por la accion de insertar y 
+//        } catch (UnknownHostException ex) {
+//            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
         return ok;
     }

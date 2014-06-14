@@ -53,13 +53,38 @@ public class VehiculoController {
 
         return ok;
     }
+    
+    public static void agregarVehiculoLista(List<Vehiculo> listaVehiculo)
+    {
+        Session s=null;
+        try
+        {
+            s=HibernateUtil.iniciaOperacion();
+            for (Vehiculo v : listaVehiculo)
+            {
+                s.save(v);
+            }
+            HibernateUtil.cierraOperacion(s);
+             
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+    }   
 
     public static int agregarGeneracionVehiculos(int Ejecucionalgoritmoid, int horarioid) {
         int ok = 0;
         pe.edu.pucp.linelight.algorithm.Vehiculo[] vehiculos = GA.trafico.getVehiculos();
         int numVehiculos = vehiculos.length;
         int idInicio = 0;
-
+        int idVehiculo = getNextId();
+        
+        List<Vehiculo> listaVehiculos = new ArrayList<>();
         for (int i = 0; i < numVehiculos; i++) {
             /*Para cada vehiculo*/
 
@@ -67,12 +92,8 @@ public class VehiculoController {
             Usuario user = GeneralUtil.getUsuario_sesion();
 
             VehiculoId vehiculoId = new VehiculoId();
-            int idVehiculo = getNextId();
-            if (i == 0) {
-                idInicio = idVehiculo;
-            }
 
-            vehiculoId.setIdVehiculo(idVehiculo);
+            vehiculoId.setIdVehiculo(idVehiculo + i);
             vehiculoId.setIdParamAlgoritmo(1);
             vehiculoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
             vehiculoId.setIdConfiguracionSistema(1);
@@ -98,20 +119,19 @@ public class VehiculoController {
             int vel = vehiculos[i].getVelocidad();
             vehiculo.setVelocidad("" + vel);
 
-            ok = agregarVehiculo(vehiculo); //basta que no se pueda guardar un vehiculo entonces saldra
-            if (ok == 0) {
-                System.out.println("ERROR AL INTENTAR GUARDAR VEHICULO " + i);
-            }
-
+            listaVehiculos.add(vehiculo);
         }
         
-        try {
-            GeneralUtil.insertaLog(1, "vehiculo"); // 1 por la accion de insertar y 
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        System.out.println("Cantidad de Vehiculos : " +  listaVehiculos.size());
+        VehiculoController.agregarVehiculoLista(listaVehiculos);
+             
+//        try {
+//            GeneralUtil.insertaLog(1, "vehiculo"); // 1 por la accion de insertar y 
+//        } catch (UnknownHostException ex) {
+//            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
-        return idInicio;
+        return idVehiculo;
     }
 
     public static int getNextId() {
@@ -159,16 +179,44 @@ public class VehiculoController {
 
         return ok;
     }
+    
+    
+    
+    
+    public static void agregarVehiculoXNdodoLista(List<Vehiculoxnodo> listaVehiculosXNodo)
+    {
+        Session s=null;
+        try
+        {
+            s=HibernateUtil.iniciaOperacion();
+            for (Vehiculoxnodo vxn : listaVehiculosXNodo)
+            {
+                s.save(vxn);
+            }
+            HibernateUtil.cierraOperacion(s);
+             
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+    }  
+    
 
     public static int agregarGeneracionVehiculosXNodo(int idInicio, int Ejecucionalgoritmoid, int horarioid) {
         int ok = 0;
         pe.edu.pucp.linelight.algorithm.Vehiculo[] vehiculos = GA.trafico.getVehiculos();
         int numVehiculos = vehiculos.length;
-
+        
         for (int i = 0; i < numVehiculos; i++) {
 
             Ruta ruta = vehiculos[i].getRoute();
             ArrayList<Long> Nodos = ruta.getIdNodoRuta();
+            List<Vehiculoxnodo> listaVehiculosXNodo = new ArrayList<>();
             int numNodos = Nodos.size();
 
             for (int j = 0; j < numNodos; j++) {
@@ -192,22 +240,21 @@ public class VehiculoController {
                 vehiculoxnodo.setId(vehiculoxnodoId);
                 vehiculoxnodo.setTest("Punto " + j);
 
-                ok = agregarVehiculoXNodo(vehiculoxnodo); //basta que no se pueda guardar un vehiculo entonces saldra      
-                if (ok == 0) {
-                    System.out.println("VEHICULOXNODO RAZON EN NODO: " + valor);
-                    //break;
-                }
-            }
-            idInicio++;
+                listaVehiculosXNodo.add(vehiculoxnodo);
+            }            
+  
+            System.out.println("Cantidad de VehiculosXNodo : " +  listaVehiculosXNodo.size());
+            VehiculoController.agregarVehiculoXNdodoLista(listaVehiculosXNodo);
             
-         }
-         
-         try {
-             GeneralUtil.insertaLog(1, "vehiculoXNodo"); // 1 por la accion de insertar y 
-         } catch (UnknownHostException ex) {
-             Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         
+            idInicio++;
+        }
+                
+//         try {
+//             GeneralUtil.insertaLog(1, "vehiculoXNodo"); // 1 por la accion de insertar y 
+//         } catch (UnknownHostException ex) {
+//             Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+//         }
+                 
          return ok;        
      }
      
