@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
@@ -14,7 +13,10 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import org.jdesktop.xswingx.PromptSupport;
+import pe.edu.pucp.linelight.controller.PerfilController;
 import pe.edu.pucp.linelight.controller.UsuarioController;
+import pe.edu.pucp.linelight.model.Menu;
+import pe.edu.pucp.linelight.model.Perfil;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
@@ -33,15 +35,14 @@ public class WindowPrimerAcceso extends javax.swing.JFrame {
         initComponents();
         Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
         setIconImage(icon);
-        this.jLabel1.setText("Bienvenid@ "+GeneralUtil.getUsuario_sesion().getIdUsuario()+ ":");
+        this.jLabel1.setText("Bienvenid@ " + GeneralUtil.getUsuario_sesion().getIdUsuario() + ":");
         this.jPassword_new.setText("");
         this.jPassword_new2.setText("");
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        
-        
-         PromptSupport.setPrompt("Contraseña Nueva", this.jPassword_new);
-          PromptSupport.setPrompt("Confirmar Contraseña Nueva", this.jPassword_new2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+
+        PromptSupport.setPrompt("Contraseña Nueva", this.jPassword_new);
+        PromptSupport.setPrompt("Confirmar Contraseña Nueva", this.jPassword_new2);
     }
 
     /**
@@ -158,40 +159,60 @@ public class WindowPrimerAcceso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendPasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendPasswordButtonActionPerformed
-                if(this.jPassword_new.getText().equals(this.jPassword_new2.getText())){
-                   GeneralUtil.getUsuario_sesion().setPassword(this.jPassword_new.getText());
-                   GeneralUtil.getUsuario_sesion().setPrimerAcceso(0);
-                   try{
-                   UsuarioController.editarUsuario(GeneralUtil.getUsuario_sesion());
-                   JOptionPane.showMessageDialog(WindowPrimerAcceso.this, "Contraseña Cambiada","Acción",INFORMATION_MESSAGE,null);
-                   
-                    }catch(Exception e){
-                        e.printStackTrace();
-                         JOptionPane.showMessageDialog(WindowPrimerAcceso.this, "No se pudo cambiar la contraseña. Por favor intente cambiarla más tarde.","Error",ERROR_MESSAGE,null);
-                    }finally{
-                       WindowPrincipal wm = new WindowPrincipal();
-            wm.setVisible(true);
-            this.setVisible(false);
-                   }
-                   
-               }else{
-               
-               JOptionPane.showMessageDialog(WindowPrimerAcceso.this, "Error al validar la nueva contraseña","Error",ERROR_MESSAGE,null);
-                  
-               }
-                
-                
-                
-           
- 
+        if (this.jPassword_new.getText().equals(this.jPassword_new2.getText())) {
+            GeneralUtil.getUsuario_sesion().setPassword(this.jPassword_new.getText());
+            GeneralUtil.getUsuario_sesion().setPrimerAcceso(0);
+            try {
+                UsuarioController.editarUsuario(GeneralUtil.getUsuario_sesion());
+                JOptionPane.showMessageDialog(WindowPrimerAcceso.this, "Contraseña Cambiada", "Acción", INFORMATION_MESSAGE, null);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(WindowPrimerAcceso.this, "No se pudo cambiar la contraseña. Por favor intente cambiarla más tarde.", "Error", ERROR_MESSAGE, null);
+            } finally {
+                Perfil perfil = new Perfil();
+                perfil = PerfilController.getPerfilId(GeneralUtil.getUsuario_sesion().getPerfil().getIdPerfil());
+                int seg = 0, mant = 0, opt = 0, conf = 0, rep = 0;
+                for (Object m : perfil.getMenus()) {
+                    Menu menu = (Menu) m;
+                    if (menu.getIdMenu() == 1) {
+                        seg = 1;
+                    }
+                    if (menu.getIdMenu() == 2) {
+                        conf = 1;
+                    }
+                    if (menu.getIdMenu() == 3) {
+                        opt = 1;
+                    }
+                    if (menu.getIdMenu() == 4) {
+                        mant = 1;
+                    }
+                    if (menu.getIdMenu() == 5) {
+                        rep = 1;
+                    }
+                }
+                WindowPrincipal wm = new WindowPrincipal();
+                wm.setMenus(seg, mant, conf, opt,rep);// alguien habia borrado esto u.u
+                wm.setVisible(true);
+                this.setVisible(false);
+
+            }
+
+        } else {
+
+            JOptionPane.showMessageDialog(WindowPrimerAcceso.this, "Error al validar la nueva contraseña", "Error", ERROR_MESSAGE, null);
+
+        }
+
+
     }//GEN-LAST:event_sendPasswordButtonActionPerformed
 
     private void jPassword_newKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassword_newKeyTyped
-         ValidationUtil.validateLenght(this.jPassword_new.getText(),20, evt);
+        ValidationUtil.validateLenght(this.jPassword_new.getText(), 20, evt);
     }//GEN-LAST:event_jPassword_newKeyTyped
 
     private void jPassword_new2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassword_new2KeyTyped
-         ValidationUtil.validateLenght(this.jPassword_new2.getText(),20, evt);
+        ValidationUtil.validateLenght(this.jPassword_new2.getText(), 20, evt);
     }//GEN-LAST:event_jPassword_new2KeyTyped
 
     private void jPassword_new2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPassword_new2ActionPerformed

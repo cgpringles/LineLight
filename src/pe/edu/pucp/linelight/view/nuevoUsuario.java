@@ -545,7 +545,7 @@ public class nuevoUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_usuarioActionPerformed
 
     private void usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyTyped
-        ValidationUtil.validateLenght(this.usuario.getText(), 10, evt);
+        ValidationUtil.validateLenght2(this.usuario.getText(), 10, evt);
     }//GEN-LAST:event_usuarioKeyTyped
 
     private void dniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dniKeyTyped
@@ -573,7 +573,7 @@ public class nuevoUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_celKeyTyped
 
     private void direccKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccKeyTyped
-        ValidationUtil.validateLenght(this.direcc.getText(), 45, evt);
+        ValidationUtil.validateLenght2(this.direcc.getText(), 45, evt);
     }//GEN-LAST:event_direccKeyTyped
 
     private void correoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoKeyTyped
