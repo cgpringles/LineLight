@@ -540,7 +540,7 @@ public class editarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_combo_estadoActionPerformed
 
     private void usuario_eKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuario_eKeyTyped
-         ValidationUtil.validateLenght(this.usuario_e.getText(), 10, evt);
+         ValidationUtil.validateLenght2(this.usuario_e.getText(), 10, evt);
     }//GEN-LAST:event_usuario_eKeyTyped
 
     private void correo_eKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correo_eKeyTyped
@@ -576,7 +576,7 @@ public class editarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_cel_eKeyTyped
 
     private void direc_eKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direc_eKeyTyped
-         ValidationUtil.validateLenght(this.direc_e.getText(), 45, evt);
+         ValidationUtil.validateLenght2(this.direc_e.getText(), 45, evt);
     }//GEN-LAST:event_direc_eKeyTyped
 
     

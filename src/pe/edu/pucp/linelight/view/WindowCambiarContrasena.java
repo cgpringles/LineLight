@@ -215,15 +215,15 @@ public class WindowCambiarContrasena extends javax.swing.JFrame {
     }//GEN-LAST:event_sendPasswordButton1ActionPerformed
 
     private void jPassword_antKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassword_antKeyPressed
-       
+         ValidationUtil.validateLenght2(this.jPassword_ant.getText(),20, evt);
     }//GEN-LAST:event_jPassword_antKeyPressed
 
     private void jPassword_newKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassword_newKeyTyped
-       
+         ValidationUtil.validateLenght2(this.jPassword_new.getText(),20, evt);
     }//GEN-LAST:event_jPassword_newKeyTyped
 
     private void jPassword_new2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassword_new2KeyTyped
-         
+         ValidationUtil.validateLenght2(this.jPassword_new2.getText(),20, evt);
     }//GEN-LAST:event_jPassword_new2KeyTyped
 
     private void jPassword_new2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPassword_new2ActionPerformed

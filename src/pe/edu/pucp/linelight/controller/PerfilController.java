@@ -115,7 +115,7 @@ public class PerfilController {
             s = HibernateUtil.iniciaOperacion();
             Query query = null;
          
-                query = s.createQuery("FROM Perfil p");
+                query = s.createQuery("FROM Perfil p WHERE p.estadobd = 1");
 
             listaPerfiles = query.list();
             HibernateUtil.cierraOperacion(s);
