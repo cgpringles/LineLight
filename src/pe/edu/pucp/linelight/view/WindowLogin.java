@@ -160,7 +160,6 @@ public class WindowLogin extends javax.swing.JFrame {
             if (menu.getIdMenu()==5)rep=1;
         }
        
-        
         if(usuario.getPrimerAcceso()==1){//es el primer acceso, pide cambiar clave
             WindowPrimerAcceso wpm= new WindowPrimerAcceso();
             wpm.setVisible(true);

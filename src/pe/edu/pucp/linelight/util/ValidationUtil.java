@@ -57,6 +57,14 @@ public class ValidationUtil {
         }
 
     }
+    
+    public static void validateLenght2(String cadena, int tam, java.awt.event.KeyEvent evt){
+    if (cadena.length() > tam - 1 || ((evt.getKeyChar()<'a' || evt.getKeyChar()>'z') && (evt.getKeyChar()<'A' || evt.getKeyChar()>'Z'))) {
+            Toolkit.getDefaultToolkit().beep();
+            evt.consume();
+        }
+    }
+    
 
     public static void validateNumTam(String cadena, int tam, java.awt.event.KeyEvent evt) {
 
