@@ -18,7 +18,7 @@
         <many-to-one name="accion" class="pe.edu.pucp.linelight.model.Accion" update="false" insert="false" fetch="select" lazy="false">
             <column name="idAccion" not-null="true" />
         </many-to-one>
-        <property name="fecha" type="timestamp">
+        <property name="fecha" type="date">
             <column name="fecha" length="10" />
         </property>
         <property name="ip" type="string">

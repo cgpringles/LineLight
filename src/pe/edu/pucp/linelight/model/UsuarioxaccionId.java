@@ -8,12 +8,13 @@ package pe.edu.pucp.linelight.model;
  */
 public class UsuarioxaccionId  implements java.io.Serializable {
 
-
      private int idAccion;
      private String idUsuario;
 
     public UsuarioxaccionId() {
     }
+
+    
 
     public UsuarioxaccionId(int idAccion, String idUsuario) {
        this.idAccion = idAccion;
