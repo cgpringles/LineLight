@@ -49,7 +49,7 @@ public class GeneralUtil {
          Accion accion=UsuarioController.getAccionByid(idAccion);
          Usuarioxaccion item=new Usuarioxaccion();
          item.setId(id);
-         item.setFecha(new java.util.Date());
+         item.setFecha(new java.sql.Timestamp(new java.util.Date().getTime()));
          item.setUsuario(usuario_sesion);
          item.setAccion(accion);
          item.setIp(IP.getHostAddress());
