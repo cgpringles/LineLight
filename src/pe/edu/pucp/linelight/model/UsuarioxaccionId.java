@@ -11,6 +11,7 @@ public class UsuarioxaccionId  implements java.io.Serializable {
 
      private int idAccion;
      private String idUsuario;
+     private int id;
 
     public UsuarioxaccionId() {
     }
@@ -33,6 +34,14 @@ public class UsuarioxaccionId  implements java.io.Serializable {
     
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 

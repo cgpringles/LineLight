@@ -11,6 +11,9 @@
             <key-property name="idUsuario" type="string">
                 <column name="idUsuario" length="10" />
             </key-property>
+            <key-property name="id" type="int">
+                <column name="id"/>
+            </key-property>
         </composite-id>
         <many-to-one name="usuario" class="pe.edu.pucp.linelight.model.Usuario" update="false" insert="false" fetch="select">
             <column name="idUsuario" length="10" not-null="true" />
