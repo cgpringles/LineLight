@@ -347,7 +347,7 @@ public class editarPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreTxtKeyTyped
 
     private void descripcionTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripcionTxtKeyTyped
-       ValidationUtil.validateLenght(this.descripcionTxt.getText(), 20, evt);
+       ValidationUtil.validateLenght2(this.descripcionTxt.getText(), 20, evt);
     }//GEN-LAST:event_descripcionTxtKeyTyped
 
     /**

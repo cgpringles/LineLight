@@ -267,6 +267,12 @@ public class editarSemáforo extends javax.swing.JFrame {
 
         jLabel18.setText("Descripción:");
 
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -459,6 +465,12 @@ public class editarSemáforo extends javax.swing.JFrame {
         // TODO add your handling code here:
         ValidationUtil.validateNumTam(txtTiempoVerde.getText(), 3, evt);
     }//GEN-LAST:event_txtTiempoVerdeKeyTyped
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+
+        // TODO add your handling code here:
+        ValidationUtil.validateLenght2(txtDescripcion.getText(),40, evt);
+    }//GEN-LAST:event_txtDescripcionKeyTyped
 
     /**
      * @param args the command line arguments
