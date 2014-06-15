@@ -95,6 +95,10 @@ public class Via  implements java.io.Serializable {
     public void setTramos(Set tramos) {
         this.tramos = tramos;
     }
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
 
 
 
