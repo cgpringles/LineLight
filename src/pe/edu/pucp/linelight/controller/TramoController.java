@@ -87,10 +87,13 @@ public class TramoController {
 //                                 + "order by txn.TramoxnodoId.idTramo, txn.posicionTramo");
 //            q.setParameter(0, idDistrito);
             
-            List t=s.createCriteria(Tramoxnodo.class).add(Restrictions.eq("id.idDistrito", idDistrito)).
-                    addOrder(Order.asc("id.idVia")).
-                    addOrder(Order.asc("id.idTramo")).
-                    addOrder(Order.desc("posicionTramo")).list();
+            List t=s.createCriteria(Tramoxnodo.class,"txn").
+                    createAlias("txn.tramo", "tramo").
+                    add(Restrictions.eq("txn.id.idDistrito", idDistrito)).
+                    add(Restrictions.eq("tramo.estado",true )).
+                    addOrder(Order.asc("txn.id.idVia")).
+                    addOrder(Order.asc("txn.id.idTramo")).
+                    addOrder(Order.desc("txn.posicionTramo")).list();
             
             listaTramosxNodo=(List<Tramoxnodo>)t;
             

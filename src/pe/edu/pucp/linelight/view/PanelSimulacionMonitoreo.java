@@ -865,7 +865,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         System.out.println(configuracionComboBox.getSelectedIndex());
         if (configuracionComboBox.getSelectedIndex()>0)
         {
-            Ejecucionalgoritmo ejecAlg=lEjec.get(configuracionComboBox.getSelectedIndex());
+            Ejecucionalgoritmo ejecAlg=lEjec.get(configuracionComboBox.getSelectedIndex()-1);
 
             List<Ejecucionalgoritmoxsemaforo> lEjecAlgSem=EjecucionAlgoritmoController.
                                                             getEjecucionxSemaforoById(ejecAlg.getId().getIdEjecucionAlgoritmo());
