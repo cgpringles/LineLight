@@ -59,6 +59,7 @@ public class editarPerfil extends javax.swing.JFrame {
             if(menu.getIdMenu()==2)this.jCheckBox_conf.doClick();
             if(menu.getIdMenu()==3)this.jCheckBox_opt.doClick();
             if(menu.getIdMenu()==4)this.jCheckBox_mant.doClick();
+            if(menu.getIdMenu()==5)this.jCheckBox_rep.doClick();
         }
     }
 
