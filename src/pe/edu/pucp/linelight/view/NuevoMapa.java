@@ -10,6 +10,9 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -18,6 +21,7 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import pe.edu.pucp.linelight.controller.MapaController;
 import pe.edu.pucp.linelight.model.Distrito;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 
 /**
  *
@@ -207,7 +211,7 @@ public class NuevoMapa extends javax.swing.JFrame {
                 .addComponent(archivoMasivoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jButton5)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,11 +277,21 @@ public class NuevoMapa extends javax.swing.JFrame {
                         }
                         MapaController.agregarMapaDistritoZonas(nombreTextField.getText(), activo, sourceFile);
                         JOptionPane.showMessageDialog(NuevoMapa.this, "Item agregado", "Acción", INFORMATION_MESSAGE, null);
+                        try {
+                            GeneralUtil.insertaLog(1,"Distrito");
+                        } catch (UnknownHostException ex) {
+                            Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         NuevoMapa.this.dispose();
                     }
                     else{
                         MapaController.agregarMapaMasivoDistritoZonas(sourceFileMasivo);
                         JOptionPane.showMessageDialog(NuevoMapa.this, "Items agregados", "Acción", INFORMATION_MESSAGE, null);
+                        try {
+                            GeneralUtil.insertaLog(1,"Distrito");
+                        } catch (UnknownHostException ex) {
+                            Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         NuevoMapa.this.dispose();
                     }
                 }
