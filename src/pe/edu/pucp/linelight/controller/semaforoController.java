@@ -687,15 +687,16 @@ public class semaforoController {
     
     public static void actualizarSemaforosMonitoreo(List<Semaforo> ls)
     {
+        System.out.println("Actualizando semaforos...");
         Session s = null; 
         try
         {
             s = HibernateUtil.iniciaOperacion();
             for (Semaforo sem:ls)
             {
-                Semaforo semMod=(Semaforo)s.get(Semaforo.class, sem);
+                Semaforo semMod=(Semaforo)s.get(Semaforo.class, sem.getId());
                 semMod.setTverde(sem.getTverde());
-                semMod.setTverde(sem.getTrojo());
+                semMod.setTrojo(sem.getTrojo());
                 s.update(semMod);
             }
             
@@ -704,6 +705,7 @@ public class semaforoController {
         }
         catch (HibernateException e)
         {
+            e.printStackTrace();
             HibernateUtil.manejaExcepcion(s);
         }
         finally 
