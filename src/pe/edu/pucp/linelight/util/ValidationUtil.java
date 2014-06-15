@@ -16,8 +16,7 @@ import java.util.regex.Pattern;
  */
 public class ValidationUtil {
 
-    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@gmail.com";
     
     private static boolean emailvalido;
 
@@ -52,7 +51,7 @@ public class ValidationUtil {
     
 
     public static void validateLenght(String cadena, int tam, java.awt.event.KeyEvent evt) {
-        if (cadena.length() > tam - 1) {
+        if (cadena.length() > tam - 1 || ((evt.getKeyChar()<'a' || evt.getKeyChar()>'z') && (evt.getKeyChar()<'A' || evt.getKeyChar()>'Z'))) {
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
         }
