@@ -210,10 +210,10 @@ public class UsuarioController {
             s = HibernateUtil.iniciaOperacion();
             Query query=null;
             if(idUsuario==null || "".equals(idUsuario) ){
-                 query = s.createQuery("FROM Usuarioxaccion u WHERE u.fecha <= ?"
-                    + " AND u.fecha >= ? ");
-                 query.setParameter(0, hasta);
-            query.setParameter(1, desde);
+                 query = s.createQuery("FROM Usuarioxaccion WHERE fecha <= :desde"
+                    + " AND fecha >= :hasta ");
+                 query.setParameter("desde", hasta);
+            query.setParameter("hasta", desde);
 
             }else{
                 query = s.createQuery("FROM Usuarioxaccion WHERE fecha <= :desde"

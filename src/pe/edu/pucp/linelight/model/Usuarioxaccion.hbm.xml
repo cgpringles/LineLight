@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 12/06/2014 12:06:24 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 14-jun-2014 23:39:46 by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="pe.edu.pucp.linelight.model.Usuarioxaccion" table="usuarioxaccion" catalog="linelight">
         <composite-id name="id" class="pe.edu.pucp.linelight.model.UsuarioxaccionId">
@@ -11,19 +11,19 @@
             <key-property name="idUsuario" type="string">
                 <column name="idUsuario" length="10" />
             </key-property>
-            <key-property name="id" type="int">
-                <column name="id"/>
+            <key-property name="fecha" type="date" >
+                <column name="fecha" length="10" />
+            </key-property>
+            <key-property name="idUsuarioxAccion" type="int">
+                <column name="idUsuarioxAccion" />
             </key-property>
         </composite-id>
-        <many-to-one name="usuario" class="pe.edu.pucp.linelight.model.Usuario" update="false" insert="false" fetch="select">
+        <many-to-one name="usuario" class="pe.edu.pucp.linelight.model.Usuario" update="false" insert="false" fetch="select" lazy="false">
             <column name="idUsuario" length="10" not-null="true" />
         </many-to-one>
         <many-to-one name="accion" class="pe.edu.pucp.linelight.model.Accion" update="false" insert="false" fetch="select" lazy="false">
             <column name="idAccion" not-null="true" />
         </many-to-one>
-        <property name="fecha" type="date">
-            <column name="fecha" length="10" />
-        </property>
         <property name="ip" type="string">
             <column name="IP" length="20" />
         </property>

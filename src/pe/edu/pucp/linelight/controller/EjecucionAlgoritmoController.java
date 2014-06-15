@@ -26,6 +26,7 @@ import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 import org.hibernate.criterion.Order;
+import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Semaforo;
 import pe.edu.pucp.linelight.view.PanelSimulacionMonitoreo;
 
@@ -144,7 +145,10 @@ public class EjecucionAlgoritmoController {
         byte[] semafIni = individuo.getSemaforoInicio();
         byte[] semafFin = individuo.getSemaforoFin();
         long[] nodos = individuo.getIdNodoSemaforo();
+        Distrito distrito = DistritoController.obtenerDistritoActivo();
+        ArrayList<Semaforo> semaforos = semaforoController.obtenerSemaforosxdistrito(distrito.getNombre());
         
+        int j=0;   
         for (int i=0; i< numIdNodos; i++){
             /*Para cada idNodo del Mejor Individuo*/
 
@@ -172,8 +176,19 @@ public class EjecucionAlgoritmoController {
                 eaxsemaforoId.setIdDistrito(listaSemaforos.get(0).getId().getIdDistrito());
                 eaxsemaforo.setId(eaxsemaforoId);
 
-                int tiempoIni = semafIni[i] ;
-                int tiempoFin = semafFin[i];
+                /****************************************/
+                int tiempoIni;
+                int tiempoFin;
+                if (semaforos.get(j).getEstado()) {
+                    tiempoIni = semafIni[i] ;
+                    tiempoFin = semafFin[i];
+                }
+                else { 
+                    tiempoIni = 0;
+                    tiempoFin = 0;
+                }              
+                /****************************************/
+                
                 eaxsemaforo.setTverde(tiempoIni);
                 eaxsemaforo.setTrojo(tiempoFin);
 
@@ -202,8 +217,17 @@ public class EjecucionAlgoritmoController {
                 eaxsemaforoId2.setIdDistrito(listaSemaforos.get(1).getId().getIdDistrito());
                 eaxsemaforo2.setId(eaxsemaforoId2);
 
-                tiempoIni = semafFin[i] ;
-                tiempoFin = semafIni[i];
+                /****************************************/
+                if (semaforos.get(j+1).getEstado()) {
+                    tiempoIni = semafFin[i] ;
+                    tiempoFin = semafIni[i];
+                }
+                else {
+                    tiempoIni = 0;
+                    tiempoFin = 0;                    
+                }
+                /****************************************/
+                
                 eaxsemaforo2.setTverde(tiempoIni);
                 eaxsemaforo2.setTrojo(tiempoFin);
 
@@ -214,6 +238,8 @@ public class EjecucionAlgoritmoController {
                 }
 
             }
+            
+            j+=2;
         }
         
 //        try {

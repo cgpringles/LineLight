@@ -479,7 +479,7 @@ public void init_logs() throws JRException, ParseException{
           for(int i=0;i<lista_acciones.size();i++){
               logs log=new logs();
               log.setAccion(lista_acciones.get(i).getAccion().getDescripcion());
-              log.setFecha(dt.format(lista_acciones.get(i).getFecha()));
+              log.setFecha(dt.format(lista_acciones.get(i).getId().getFecha()));
               log.setTabla(lista_acciones.get(i).getTabla());
               log.setUsuario(lista_acciones.get(i).getUsuario().getIdUsuario());
               log.setIp(lista_acciones.get(i).getIp());

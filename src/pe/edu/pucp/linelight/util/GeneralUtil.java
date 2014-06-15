@@ -46,10 +46,10 @@ public class GeneralUtil {
          UsuarioxaccionId id= new UsuarioxaccionId();
          id.setIdAccion(idAccion);
          id.setIdUsuario(usuario_sesion.getIdUsuario());
+         id.setFecha(new java.util.Date());
          Accion accion=UsuarioController.getAccionByid(idAccion);
          Usuarioxaccion item=new Usuarioxaccion();
          item.setId(id);
-         item.setFecha(new java.util.Date());
          item.setUsuario(usuario_sesion);
          item.setAccion(accion);
          item.setIp(IP.getHostAddress());

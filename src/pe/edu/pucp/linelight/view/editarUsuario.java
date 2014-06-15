@@ -454,7 +454,7 @@ public class editarUsuario extends javax.swing.JFrame {
           if (this.usuario_e.getText().trim().length() != 0 
                 && this.correo_e.getText().trim().length() != 0 && this.dni_e.getText().trim().length() != 0
                 && this.nombres_e.getText().trim().length() != 0 && this.app_e.getText().trim().length() != 0
-                && this.apm_e.getText().trim().length() != 0 && ValidationUtil.isEmailvalido()) {
+                && this.apm_e.getText().trim().length() != 0) {
           
               int seleccion = JOptionPane.showOptionDialog(
                     editarUsuario.this, // Componente padre
