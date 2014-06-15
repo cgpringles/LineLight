@@ -236,7 +236,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         jLabel13.setText("Nombre Siimulación:");
 
-        jTextField6.setText("Mi simulacion DP1");
         jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField6KeyTyped(evt);
@@ -559,13 +558,11 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         });
         tablaSemaforo.setToolTipText("");
         jScrollPane2.setViewportView(tablaSemaforo);
-        if (tablaSemaforo.getColumnModel().getColumnCount() > 0) {
-            tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
-        }
+        tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
 
         jProgressBar1.setToolTipText("");
         jProgressBar1.setName(""); // NOI18N
@@ -702,8 +699,18 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         String datosSemaforoInicio[] = new String[5];
                         datosSemaforoInicio[0] = "" + semaforos.get(j).getId().getIdSemaforo();
                         datosSemaforoInicio[1] = "" + individuo.getNodoSemaforo(i);
-                        datosSemaforoInicio[2] = "" + individuo.getTiempoSemaforoInicio(i);
-                        datosSemaforoInicio[3] = "" + individuo.getTiempoSemaforoFin(i);
+                        /************************* Setear Semaforos *******************************/
+                        if (semaforos.get(j).getEstado()) {
+                            /*Si el semaforo esta habilitado se considera los tiempos del algoritmo*/
+                            datosSemaforoInicio[2] = "" + individuo.getTiempoSemaforoInicio(i);
+                            datosSemaforoInicio[3] = "" + individuo.getTiempoSemaforoFin(i);
+                        }
+                        else { 
+                            datosSemaforoInicio[2] = "" + 0;
+                            datosSemaforoInicio[3] = "" + 0;
+                        }
+                        /*************************************************************************/
+                        
                         if (semaforos.get(j).getEstado()) datosSemaforoInicio[4] = "" + 1;
                         else datosSemaforoInicio[4] = "" + 0;
                         tbm.addRow(datosSemaforoInicio);
@@ -711,8 +718,19 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         String datosSemaforoFin[] = new String[5];                                                
                         datosSemaforoFin[0] = " " + semaforos.get(j+1).getId().getIdSemaforo();
                         datosSemaforoFin[1] = "" + individuo.getNodoSemaforo(i);
-                        datosSemaforoFin[2] = "" + individuo.getTiempoSemaforoFin(i);
-                        datosSemaforoFin[3] = "" + individuo.getTiempoSemaforoInicio(i);
+                        
+                        
+                        /*************************** Setear Semaforos ***************************/
+                        if (semaforos.get(j+1).getEstado()) {
+                            /*Si el semaforo esta habilitado se considera los tiempos del algoritmo*/
+                            datosSemaforoFin[2] = "" + individuo.getTiempoSemaforoFin(i);
+                            datosSemaforoFin[3] = "" + individuo.getTiempoSemaforoInicio(i);
+                        }
+                        else { 
+                            datosSemaforoFin[2] = "" + 0;
+                            datosSemaforoFin[3] = "" + 0;
+                        }                        
+                        /****************************************************************************/
                         if (semaforos.get(j+1).getEstado()) datosSemaforoFin[4] = "" + 1;
                         else datosSemaforoFin[4] = "" + 0;
                         tbm.addRow(datosSemaforoFin);
@@ -754,7 +772,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private void agregarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSimulacionActionPerformed
         // TODO add your handling code here:
         
-        if (this.jTextField6.getText().trim().length() != 0 ) {        
+        if (this.jTextField6.getText().trim().length() != 0 &&
+                this.jComboBox1.getSelectedIndex() != 0 && this.jComboBox2.getSelectedIndex() != 0 &&
+                this.jTextField7.getText().trim().length() != 0 && this.jTextField3.getText().trim().length() != 0 && this.jTextField4.getText().trim().length() != 0) 
+        {
             
             int seleccion = JOptionPane.showOptionDialog(
                 PanelSimulacionMonitoreo.this, // Componente padre
@@ -777,41 +798,41 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     jProgressBar1.setString("Saving Simulation ...");
                     iniciarSimulacionButton.setEnabled(false);
                     agregarSimulacion.setEnabled(false);
+                    jTextField6.setEnabled(false);
                     jComboBox1.setEnabled(false);
                     jComboBox2.setEnabled(false);
                     /**/       
-                                        
-                       /*Se necesita nombre de simulacion, tiempo de ejecucion*/
-                       Ejecucionalgoritmo ejecucionAlgoritmo = new Ejecucionalgoritmo();
-                       Usuario user = GeneralUtil.getUsuario_sesion();
+                    
+                    /*Se necesita nombre de simulacion, tiempo de ejecucion*/
+                    Ejecucionalgoritmo ejecucionAlgoritmo = new Ejecucionalgoritmo();
+                    Usuario user = GeneralUtil.getUsuario_sesion();
+                    
+                    //El id de la ejecucion
+                    EjecucionalgoritmoId idEjecucionalgoritmo = new EjecucionalgoritmoId();
+                    int Ejecucionalgoritmoid = EjecucionAlgoritmoController.getNextId();
+                    idEjecucionalgoritmo.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
+                    idEjecucionalgoritmo.setIdParamAlgoritmo(1); // Tome el primer registro de parametros
+                    idEjecucionalgoritmo.setIdConfiguracionSistema(1); // Tome el rpimer registro de configuracion
+                    idEjecucionalgoritmo.setIdUsuario(user.getIdUsuario());
+                    
+                    int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
+                    int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
+                    Horario horario = HorarioController.getHorarioId(seleccion_dia, seleccion_hora);
+                    int horarioid = horario.getIdHorario();
+                    idEjecucionalgoritmo.setIdHorario(horarioid);
 
-                       //El id de la ejecucion
-                       EjecucionalgoritmoId idEjecucionalgoritmo = new EjecucionalgoritmoId();
-                       int Ejecucionalgoritmoid = EjecucionAlgoritmoController.getNextId();
-                       idEjecucionalgoritmo.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);                  
-                       idEjecucionalgoritmo.setIdParamAlgoritmo(1); // Tome el primer registro de parametros
-                       idEjecucionalgoritmo.setIdConfiguracionSistema(1); // Tome el rpimer registro de configuracion
-                       idEjecucionalgoritmo.setIdUsuario(user.getIdUsuario());
-                                              
-                       int seleccion_dia = this.jComboBox1.getSelectedIndex(); // se captura el dia de simulacion del combobox
-                       int seleccion_hora = this.jComboBox2.getSelectedIndex();  // se captura la hora de simulacion del combobox
-                       Horario horario = HorarioController.getHorarioId(seleccion_dia, seleccion_hora);
-                       int horarioid = horario.getIdHorario();
-                       idEjecucionalgoritmo.setIdHorario(horarioid);
-          
-                       //Registramos la ejecucion
-                       ejecucionAlgoritmo.setId(idEjecucionalgoritmo);
+                    //Registramos la ejecucion
+                    ejecucionAlgoritmo.setId(idEjecucionalgoritmo);                    
+                    ejecucionAlgoritmo.setFecha(new Date());
+                    ejecucionAlgoritmo.setVelocidadMaxima(Double.parseDouble(this.jTextField3.getText()));
+                    ejecucionAlgoritmo.setVelocidadHistoria(Double.parseDouble(this.jTextField7.getText()));
+                    
+                    String nombre = this.jTextField6.getText() + "/" + horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h" ;
+                    ejecucionAlgoritmo.setNombreSimulacion(nombre);
+                    ejecucionAlgoritmo.setTiempoEjecucion(Double.parseDouble(this.jTextField4.getText()));
 
-                       ejecucionAlgoritmo.setFecha(new Date());
-                       ejecucionAlgoritmo.setVelocidadMaxima(Double.parseDouble(this.jTextField3.getText()));
-                       ejecucionAlgoritmo.setVelocidadHistoria(Double.parseDouble(this.jTextField7.getText()));
-   
-                       String nombre = this.jTextField6.getText() + "/" + horario.getDia() + " " + horario.getHora() + " Vel:" + (int)(GA.velocidad) + "km/h" ;
-                       ejecucionAlgoritmo.setNombreSimulacion(nombre);
-                       ejecucionAlgoritmo.setTiempoEjecucion(Double.parseDouble(this.jTextField4.getText()));
-
-                       int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
-                       if(ok == 1)
+                    int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
+                    if(ok == 1)
                        {
                            
                            int idInicio = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
@@ -820,20 +841,60 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                            
                            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
                            
-                           /*Hablitar bbotones y campos de ventana y actualziar valores*/                                                      
+                           /************* Hablitar botones y campos de ventana y actualziar valores ********************/                                                   
                            jProgressBar1.setStringPainted(false);
                            iniciarSimulacionButton.setEnabled(true);
                            agregarSimulacion.setEnabled(true);
                            jComboBox1.setEnabled(true);
                            jComboBox2.setEnabled(true);
+                           jTextField6.setEnabled(true);
+                           jTextField3.setText(" ");
+                           jTextField4.setText(" ");
+                           jTextField7.setText(" ");
+                           jTextField6.setText(" ");
+                           List<Horario> horariosNuevo = new ArrayList<>();
+                           horariosNuevo = HorarioController.getAllHorarios();                           
                            /**/                        
+                           
+                           /*Agregar dias en combobox*/
+                           this.jComboBox1.removeAllItems();
+                           this.dias_id.add(0);
+                           jComboBox1.addItem("Seleccione");
+                           String diaAnt = null;
+                           for (Horario horarioNuevo : horariosNuevo) { 
+                               String dia = horarioNuevo.getDia();
+                               if (!dia.equalsIgnoreCase(diaAnt)) {
+                                   jComboBox1.addItem(horarioNuevo.getDia());
+                                   dias_id.add(horarioNuevo.getIdHorario());
+                                   diaAnt = horarioNuevo.getDia();
+                               }
+                           }                           
+                           
+                           /*Agregar horas en combobox*/
+                           this.jComboBox2.removeAllItems();
+                           this.horas_id.add(0);
+                           jComboBox2.addItem("Seleccione");
+                           int hora=0;           
+                           for (Horario horarioNuevo : horariosNuevo) {
+                               if (hora < 3) {
+                                   jComboBox2.addItem(horarioNuevo.getHora());
+                                   horas_id.add(horarioNuevo.getIdHorario());
+                                   hora++;
+                               }
+                           }
+                        
+                           DefaultTableModel tbm= new DefaultTableModel();
+                           String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+                           tbm.setColumnIdentifiers(titulos);
+                           tablaSemaforo.setModel(tbm);
+                           /********************************************************************************************/                        
                            
                            /*Es para agregar la accion de insertar*/
 //                           try {
 //                               GeneralUtil.insertaLog(1, "ejecucionAlgoritmo"); // 1 por la accion de insertar y 
 //                           } catch (UnknownHostException ex) {
 //                               Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-//                           }                          
+//                           }                         
                            
                        }
                        else
@@ -852,7 +913,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
         // TODO add your handling code here:
-        ValidationUtil.validateCaracteresNumerosDosPuntos(jTextField6.getText(), 12, evt);
+        ValidationUtil.validateCaracteresNumerosSpace(jTextField6.getText(), 15, evt);
         
     }//GEN-LAST:event_jTextField6KeyTyped
 
@@ -903,6 +964,51 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     }//GEN-LAST:event_configuracionComboBoxActionPerformed
 
     private void tabbedPaneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMousePressed
+        
+        if (tabbedPane.getSelectedIndex() == 1) { 
+            
+            jTextField3.setText(" ");
+            jTextField4.setText(" ");
+            jTextField7.setText(" ");
+            jTextField6.setText(" ");
+            
+            List<Horario> horarios = new ArrayList<>();
+            horarios = HorarioController.getAllHorarios();
+            
+            /*Agregar dias en combobox*/
+            this.jComboBox1.removeAllItems();
+            this.dias_id.add(0);
+            jComboBox1.addItem("Seleccione");
+            String diaAnt = null;
+            for (Horario horario : horarios) { 
+                String dia = horario.getDia();
+                if (!dia.equalsIgnoreCase(diaAnt)) {
+                    jComboBox1.addItem(horario.getDia());
+                    dias_id.add(horario.getIdHorario());
+                    diaAnt = horario.getDia();
+                }
+            }
+            
+            /*Agregar horas en combobox*/
+            this.jComboBox2.removeAllItems();
+            this.horas_id.add(0);
+            jComboBox2.addItem("Seleccione");
+            int hora=0;           
+            for (Horario horario : horarios) {
+                if (hora < 3) {
+                    jComboBox2.addItem(horario.getHora());
+                    horas_id.add(horario.getIdHorario());
+                    hora++;
+                }
+            }
+            
+        }
+        
+        DefaultTableModel tbm= new DefaultTableModel();
+        String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+        tbm.setColumnIdentifiers(titulos);
+        tablaSemaforo.setModel(tbm);
+        
         lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
         configuracionComboBox.removeAllItems();
         configuracionComboBox.addItem("--Configuración por defecto--");

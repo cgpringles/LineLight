@@ -7,6 +7,7 @@ package pe.edu.pucp.linelight.util;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -93,19 +94,17 @@ public class ValidationUtil {
             }
     }
     
-    public static void validateCaracteresNumerosDosPuntos(String cadena, int tam, java.awt.event.KeyEvent evt) {
+    public static void validateCaracteresNumerosSpace(String cadena, int tam, java.awt.event.KeyEvent evt) {
 
         char car = evt.getKeyChar();        
-        if((car<'0' || car>'9') && (car<'a' || car>'z') && (car<'A' || car>'Z') && cadena.contains(":"))  {
+        if(cadena.length() > tam - 1 || ((car<'0' || car>'9') && (car<'a' || car>'z') && (car<'A' || car>'Z') &&
+                    (car!=(char)KeyEvent.VK_SPACE)) )  {
             if (cadena.length() > tam - 1) {
+                Toolkit.getDefaultToolkit().beep();
                 evt.consume();
             }
             evt.consume();            
-        }
-        else
-            if((car<'0' || car>'9') && (car<'a' || car>'z') && (car<'A' || car>'Z') && (car!=':')){
-                evt.consume();
-            }            
+        }           
     }
 
 }
