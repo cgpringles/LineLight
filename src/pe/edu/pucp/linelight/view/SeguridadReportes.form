@@ -90,7 +90,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre de la simualci&#xf3;n:"/>
+            <Property name="text" type="java.lang.String" value="Nombre de la simulaci&#xf3;n:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="simulaciones">
@@ -281,7 +281,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre de la simualci&#xf3;n:"/>
+            <Property name="text" type="java.lang.String" value="Nombre de la simulaci&#xf3;n:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="simulaciones_dh">

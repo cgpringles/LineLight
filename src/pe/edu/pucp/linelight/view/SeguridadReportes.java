@@ -112,7 +112,7 @@ public class SeguridadReportes extends javax.swing.JPanel {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuración de semáforos por optimización"));
 
-        jLabel10.setText("Nombre de la simualción:");
+        jLabel10.setText("Nombre de la simulación:");
 
         simulaciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -221,7 +221,7 @@ public class SeguridadReportes extends javax.swing.JPanel {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Histórica de Vehículos"));
 
-        jLabel14.setText("Nombre de la simualción:");
+        jLabel14.setText("Nombre de la simulación:");
 
         simulaciones_dh.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         simulaciones_dh.addActionListener(new java.awt.event.ActionListener() {

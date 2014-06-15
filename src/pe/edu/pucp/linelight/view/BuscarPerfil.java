@@ -54,18 +54,12 @@ public class BuscarPerfil extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         descrip = new javax.swing.JTextField();
         buscar_perfil_button = new javax.swing.JButton();
         jComboBoxEstado = new javax.swing.JComboBox();
-        jCheckBox_seguridad = new javax.swing.JCheckBox();
-        jCheckBox_conf = new javax.swing.JCheckBox();
-        jCheckBox_Opt = new javax.swing.JCheckBox();
-        jCheckBox_Mant = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
-        jCheckBox_rep = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -81,8 +75,6 @@ public class BuscarPerfil extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 457));
 
         jLabel1.setText("Descripción:");
-
-        jLabel2.setText("Permisos:");
 
         jLabel3.setText("Estado:");
 
@@ -111,24 +103,6 @@ public class BuscarPerfil extends javax.swing.JPanel {
             }
         });
 
-        jCheckBox_seguridad.setText("Seguridad");
-        jCheckBox_seguridad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox_seguridadActionPerformed(evt);
-            }
-        });
-
-        jCheckBox_conf.setText("Configuración");
-
-        jCheckBox_Opt.setText("Optimización");
-        jCheckBox_Opt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox_OptActionPerformed(evt);
-            }
-        });
-
-        jCheckBox_Mant.setText("Mantenimientos");
-
         jLabel4.setText("Nombre:");
 
         nombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -137,8 +111,6 @@ public class BuscarPerfil extends javax.swing.JPanel {
             }
         });
 
-        jCheckBox_rep.setText("Reportes");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,36 +118,22 @@ public class BuscarPerfil extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(34, 34, 34)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1))
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buscar_perfil_button)
-                        .addGap(77, 77, 77))
+                        .addComponent(jLabel3)
+                        .addGap(41, 41, 41)
+                        .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox_seguridad)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCheckBox_conf)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCheckBox_Opt))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(nombre)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1)
-                                .addGap(68, 68, 68)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(descrip, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox_Mant)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox_rep)))
-                        .addContainerGap(32, Short.MAX_VALUE))))
+                        .addGap(2, 2, 2)
+                        .addComponent(descrip)))
+                .addGap(46, 46, 46)
+                .addComponent(buscar_perfil_button)
+                .addGap(88, 88, 88))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,23 +143,15 @@ public class BuscarPerfil extends javax.swing.JPanel {
                     .addComponent(buscar_perfil_button)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(descrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel4)
-                            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jCheckBox_seguridad)
-                            .addComponent(jCheckBox_conf)
-                            .addComponent(jCheckBox_Opt)
-                            .addComponent(jCheckBox_Mant)
-                            .addComponent(jCheckBox_rep))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(descrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultados"));
@@ -286,7 +236,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(545, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
@@ -298,7 +248,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(40, Short.MAX_VALUE))
+                        .addGap(40, 40, 40))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(40, 40, 40))))
@@ -316,7 +266,7 @@ public class BuscarPerfil extends javax.swing.JPanel {
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -326,24 +276,9 @@ public class BuscarPerfil extends javax.swing.JPanel {
 
     private void buscar_perfil_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_perfil_buttonActionPerformed
         List<Perfil> perfiles_b = new ArrayList<>();
-        Set permisos = new HashSet();
-        if (this.jCheckBox_conf.isSelected()) {
-            permisos.add(PerfilController.getMenuById(configuracion));
-        }
-        if (this.jCheckBox_Mant.isSelected()) {
-            permisos.add(PerfilController.getMenuById(mantenimiento));
-        }
-        if (this.jCheckBox_Opt.isSelected()) {
-            permisos.add(PerfilController.getMenuById(optimizacion));
-        }
-        if (this.jCheckBox_seguridad.isSelected()) {
-            permisos.add(PerfilController.getMenuById(seguridad));
-        }
-        if (this.jCheckBox_rep.isSelected()) {
-            permisos.add(PerfilController.getMenuById(reportes));
-        }
 
-        perfiles_b = PerfilController.getPerfiles(this.nombre.getText(), this.descrip.getText(), this.jComboBoxEstado.getSelectedIndex(),permisos);
+
+        perfiles_b = PerfilController.getPerfiles(this.nombre.getText(), this.descrip.getText(), this.jComboBoxEstado.getSelectedIndex());
         DefaultTableModel modelo = new DefaultTableModel();
         String[] colName = {"Identificador", "Nombre", "Descripción", "Estado"};
         modelo.setColumnIdentifiers(colName);
@@ -426,14 +361,6 @@ public class BuscarPerfil extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxEstadoActionPerformed
 
-    private void jCheckBox_seguridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_seguridadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox_seguridadActionPerformed
-
-    private void jCheckBox_OptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_OptActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox_OptActionPerformed
-
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
         ValidationUtil.validateLenght(this.nombre.getText(), 20, evt);
     }//GEN-LAST:event_nombreKeyTyped
@@ -449,14 +376,8 @@ public class BuscarPerfil extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox_Mant;
-    private javax.swing.JCheckBox jCheckBox_Opt;
-    private javax.swing.JCheckBox jCheckBox_conf;
-    private javax.swing.JCheckBox jCheckBox_rep;
-    private javax.swing.JCheckBox jCheckBox_seguridad;
     private javax.swing.JComboBox jComboBoxEstado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

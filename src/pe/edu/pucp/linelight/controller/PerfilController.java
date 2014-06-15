@@ -72,7 +72,7 @@ public class PerfilController {
         return ok;
     }
 
-    public static List<Perfil> getPerfiles(String nombre, String descripcion, int estado,Set permisos) throws HibernateException {
+    public static List<Perfil> getPerfiles(String nombre, String descripcion, int estado) throws HibernateException {
         List<Perfil> listaPerfiles = new ArrayList<>();
         Session s = null;
         
