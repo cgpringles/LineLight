@@ -10,11 +10,16 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import pe.edu.pucp.linelight.controller.TipoViaController;
+import pe.edu.pucp.linelight.controller.parseSemaforosStructure;
 import pe.edu.pucp.linelight.controller.semaforoController;
 import pe.edu.pucp.linelight.model.Semaforo;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
@@ -412,6 +417,11 @@ public class editarSemáforo extends javax.swing.JFrame {
                         semaforoHermano.setTverde(Integer.parseInt(txtTiempoRojo.getText()));
                         semaforoController.actualizarSemaforo(semaforo);
                         semaforoController.actualizarSemaforo(semaforoHermano);
+                        try {
+                            GeneralUtil.insertaLog(2, "Semáforo");
+                        } catch (UnknownHostException ex) {
+                            Logger.getLogger(parseSemaforosStructure.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         this.dispose();
                         }
                         }

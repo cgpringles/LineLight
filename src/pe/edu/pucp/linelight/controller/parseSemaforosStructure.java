@@ -5,9 +5,12 @@
 package pe.edu.pucp.linelight.controller;
 
 import java.io.File;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -22,6 +25,7 @@ import pe.edu.pucp.linelight.model.SemaforoId;
 import pe.edu.pucp.linelight.model.Tramo;
 import pe.edu.pucp.linelight.model.Tramoxnodo;
 import pe.edu.pucp.linelight.model.Via;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.view.DetalleSemaforo;
 import pe.edu.pucp.linelight.view.DetalleVias;
 import pe.edu.pucp.linelight.view.NuevaVia;
@@ -97,6 +101,12 @@ public class parseSemaforosStructure implements Runnable{
                System.out.print(dRef.getIdDistrito());
                numSem = numSem + 2;  
             }
+            try {
+                GeneralUtil.insertaLog(1, "Semáforo");
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(parseSemaforosStructure.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             System.out.println("Fin carga de xml");
             band=true;
             DetalleSemaforo nuevo = new DetalleSemaforo(numSem,dRef.getNombre());

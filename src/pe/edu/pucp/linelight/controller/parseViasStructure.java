@@ -5,10 +5,13 @@
 package pe.edu.pucp.linelight.controller;
 
 import java.io.File;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -31,6 +34,7 @@ import pe.edu.pucp.linelight.model.ViaId;
 import pe.edu.pucp.linelight.model.Viaxhorario;
 import pe.edu.pucp.linelight.model.ViaxhorarioId;
 import pe.edu.pucp.linelight.structure.MapParser;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.view.DetalleVias;
 import pe.edu.pucp.linelight.view.NuevaVia;
 
@@ -68,6 +72,11 @@ public class parseViasStructure implements Runnable{
                 parseEdge(element, dRef,listaVias,listaTramos,listaTramoxNodo);
             }           
             ViaController.agregarVia(listaVias);
+            try {
+                GeneralUtil.insertaLog(1, "Vías");
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(parseSemaforosStructure.class.getName()).log(Level.SEVERE, null, ex);
+            }
             //
             //Obtener todos los id de los horarios que estan en base de datos.
             ArrayList <Horario> listaHor= new ArrayList <Horario>();
@@ -104,7 +113,11 @@ public class parseViasStructure implements Runnable{
                 
                //Metodo para insertar
                 ViaController.InsertarHorariosxvia(nuevaListaHorarios);
-                
+                try {
+                GeneralUtil.insertaLog(1, "HorarioxVía");
+                } catch (UnknownHostException ex) {
+                Logger.getLogger(parseSemaforosStructure.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             //

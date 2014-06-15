@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,7 @@ import pe.edu.pucp.linelight.model.SemaforoId;
 import pe.edu.pucp.linelight.model.Tipovia;
 import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.structure.MapParser;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
@@ -632,6 +634,11 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                     null,
                                     new Object[] { "Ok"},    
                                     "Ok");
+                                     try {
+                                          GeneralUtil.insertaLog(1, "Semáforo");
+                                      } catch (UnknownHostException ex) {
+                                          Logger.getLogger(parseSemaforosStructure.class.getName()).log(Level.SEVERE, null, ex);
+                                      }
                                   NuevoSemaforo.this.dispose();
                                   }
                             }
