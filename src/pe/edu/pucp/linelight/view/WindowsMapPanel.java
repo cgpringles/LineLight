@@ -143,9 +143,14 @@ public class WindowsMapPanel extends javax.swing.JPanel {
             if (s!=null)
             {
                 if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.red);
-                else g2d.setColor(Color.green);
+                else g2d.setColor(Color.YELLOW);
                 
-                g2d.fillOval((int)edge.getOriginNode().getX()+x_offset,(int)edge.getOriginNode().getY()+y_offset,7,7); 
+                g2d.fillOval((int)edge.getOriginNode().getX()+x_offset,(int)edge.getOriginNode().getY()+y_offset,5,5); 
+                
+                if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.YELLOW);
+                else g2d.setColor(Color.red);
+                
+                g2d.fillOval((int)edge.getOriginNode().getX()+5,(int)edge.getOriginNode().getY()+5,5,5);
             }
             
             if (edge.getFlujoActual()==0) continue;

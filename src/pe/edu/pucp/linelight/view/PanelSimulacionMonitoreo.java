@@ -43,6 +43,7 @@ import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.model.Semaforo;
+import pe.edu.pucp.linelight.model.SemaforoId;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.model.Vehiculo;
 import pe.edu.pucp.linelight.structure.Node;
@@ -345,7 +346,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         tabbedPane.addTab("Simulación", simulacionPanel);
 
-        iniciarMonitoreoButton.setBackground(new java.awt.Color(0, 153, 204));
         iniciarMonitoreoButton.setText("Iniciar Monitoreo");
         iniciarMonitoreoButton.setBorderPainted(false);
         iniciarMonitoreoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -623,9 +623,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         {
 //            Ejecucionalgoritmo ea= lEjec.get(configuracionComboBox.getSelectedIndex()-1);
 //            Horario h=HorarioController.obtenerHorarioPorID(d.getIdDistrito(), ea.getId().getIdHorario());
-            String[] c=configuracionComboBox.getSelectedItem().toString().split(" ");
+            String[] c=configuracionComboBox.getSelectedItem().toString().split("/");
+            String[] f=c[1].split(" ");
             List<Ejecucionalgoritmoxsemaforo> listaAlgxSem=EjecucionAlgoritmoController.obtenerAlgoritmoxSemaforo();
-            gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),c[0],c[1],listaAlgxSem);
+            gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),f[0],f[1],listaAlgxSem);
         }
 
     }//GEN-LAST:event_iniciarMonitoreoButtonActionPerformed
@@ -833,14 +834,44 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void configuracionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionComboBoxActionPerformed
         
-//        Ejecucionalgoritmo ejecAlg=lEjec.get(configuracionComboBox.getSelectedIndex());
-//        List<Ejecucionalgoritmoxsemaforo> ejecAlgSem=((List<Ejecucionalgoritmoxsemaforo>)
-//                                                        ejecAlg.getEjecucionalgoritmoxsemaforos());
-//        
-        
-        
-        
-        
+        System.out.println(configuracionComboBox.getSelectedIndex());
+        if (configuracionComboBox.getSelectedIndex()>0)
+        {
+            Ejecucionalgoritmo ejecAlg=lEjec.get(configuracionComboBox.getSelectedIndex());
+
+            List<Ejecucionalgoritmoxsemaforo> lEjecAlgSem=EjecucionAlgoritmoController.
+                                                            getEjecucionxSemaforoById(ejecAlg.getId().getIdEjecucionAlgoritmo());
+
+            DefaultTableModel tbm= new DefaultTableModel();
+            String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+            tbm.setColumnIdentifiers(titulos);
+            tablaSemaforo.setModel(tbm); 
+            
+            List<Semaforo> sMod=new ArrayList<>();
+            for (Ejecucionalgoritmoxsemaforo eas:lEjecAlgSem)
+            {
+                String datosSemaforoInicio[] = new String[5];
+                Semaforo s=eas.getSemaforo();
+                datosSemaforoInicio[0] = "" + s.getId().getIdSemaforo();
+                datosSemaforoInicio[1] = "" + s.getId().getIdNodo();
+//                datosSemaforoInicio[2] = "" + s.getTverde();
+                datosSemaforoInicio[2] = "" + eas.getTrojo();
+//                datosSemaforoInicio[3] = "" + s.getTrojo();
+                datosSemaforoInicio[3] = "" + eas.getTverde();
+                if (s.getEstado()) datosSemaforoInicio[4] = "" + 1;
+                else datosSemaforoInicio[4] = "" + 0;
+                tbm.addRow(datosSemaforoInicio);
+
+                tablaSemaforo.setModel(tbm);
+                Semaforo sm=new Semaforo();
+                sm.setId(new SemaforoId(eas.getId().getIdSemaforo(), eas.getId().getIdNodo(), eas.getId().getIdDistrito()));
+                sm.setTrojo(eas.getTrojo());
+                sm.setTverde(eas.getTverde());
+                sm.setEstado(true);
+                sMod.add(sm);
+            }
+            semaforoController.actualizarSemaforosMonitoreo(sMod);
+        }
     }//GEN-LAST:event_configuracionComboBoxActionPerformed
 
     private void tabbedPaneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMousePressed

@@ -606,6 +606,26 @@ public class semaforoController {
         }
         return lista;
     }
+    
+    public static List<Semaforo> obtenerSemaforosxIDdistrito(int idDist) {
+        Session s=null;
+        List<Semaforo> lista= new ArrayList<Semaforo>();
+        try
+        {
+            s=HibernateUtil.iniciaOperacion();
+            lista=(List<Semaforo>)s.createCriteria(Semaforo.class).add(Restrictions.eq("id.idDistrito", idDist)).list();
+            HibernateUtil.cierraOperacion(s);   
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally
+        {
+            s.close();  
+        }
+        return lista;
+    }
 
     public static boolean verificarSemaforo(long nodoId) {
         Session s = null;
@@ -664,5 +684,32 @@ public class semaforoController {
         }
     return semaforoHermano;
     }    
+    
+    public static void actualizarSemaforosMonitoreo(List<Semaforo> ls)
+    {
+        Session s = null; 
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            for (Semaforo sem:ls)
+            {
+                Semaforo semMod=(Semaforo)s.get(Semaforo.class, sem);
+                semMod.setTverde(sem.getTverde());
+                semMod.setTverde(sem.getTrojo());
+                s.update(semMod);
+            }
+            
+            HibernateUtil.cierraOperacion(s);
+            
+        }
+        catch (HibernateException e)
+        {
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+    }
    
 }
