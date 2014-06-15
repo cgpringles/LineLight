@@ -125,11 +125,12 @@ public class VehiculoController {
         System.out.println("Cantidad de Vehiculos : " +  listaVehiculos.size());
         VehiculoController.agregarVehiculoLista(listaVehiculos);
              
-//        try {
-//            GeneralUtil.insertaLog(1, "vehiculo"); // 1 por la accion de insertar y 
-//        } catch (UnknownHostException ex) {
-//            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        /*Guardar el log de insertar*/
+        try {
+            GeneralUtil.insertaLog(1, "vehiculo"); // 1 por la accion de insertar y 
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return idVehiculo;
     }
@@ -249,11 +250,11 @@ public class VehiculoController {
             idInicio++;
         }
                 
-//         try {
-//             GeneralUtil.insertaLog(1, "vehiculoXNodo"); // 1 por la accion de insertar y 
-//         } catch (UnknownHostException ex) {
-//             Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-//         }
+         try {
+             GeneralUtil.insertaLog(1, "vehiculoXNodo"); // 1 por la accion de insertar y 
+         } catch (UnknownHostException ex) {
+             Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+         }
                  
          return ok;        
      }

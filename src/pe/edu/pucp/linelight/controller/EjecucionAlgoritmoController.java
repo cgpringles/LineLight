@@ -5,15 +5,15 @@
 package pe.edu.pucp.linelight.controller;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import pe.edu.pucp.linelight.algorithm.Poblacion;
+import org.hibernate.criterion.Order;
 import pe.edu.pucp.linelight.algorithm.Individuo;
 import pe.edu.pucp.linelight.algorithm.Config;
 import pe.edu.pucp.linelight.algorithm.GA;
@@ -23,11 +23,10 @@ import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.EjecucionalgoritmoxsemaforoId;
 import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.model.Usuario;
-import pe.edu.pucp.linelight.util.GeneralUtil;
-import pe.edu.pucp.linelight.util.HibernateUtil;
-import org.hibernate.criterion.Order;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Semaforo;
+import pe.edu.pucp.linelight.util.GeneralUtil;
+import pe.edu.pucp.linelight.util.HibernateUtil;
 import pe.edu.pucp.linelight.view.PanelSimulacionMonitoreo;
 
 /**
@@ -55,6 +54,13 @@ public class EjecucionAlgoritmoController {
         } finally {
             s.close();
         }
+        
+        /*Guardar el log de insertar*/
+        try {
+            GeneralUtil.insertaLog(1, "ejecucionAlgoritmo"); // 1 por la accion de insertar y la tabla donde se inserta
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return ok;
     }
@@ -64,8 +70,7 @@ public class EjecucionAlgoritmoController {
         Session s = null;         
         try
         {
-            s = HibernateUtil.iniciaOperacion();
-                        
+            s = HibernateUtil.iniciaOperacion();                        
             String sequel = "Select max(id.idEjecucionAlgoritmo) from Ejecucionalgoritmo";
             Query q = s.createQuery(sequel);
             List currentSeq = q.list();
@@ -75,8 +80,7 @@ public class EjecucionAlgoritmoController {
             }
             else {                
                 id = (int) currentSeq.get(0);
-            }
-            
+            }            
         }
         catch (HibernateException e)
         {
@@ -242,11 +246,12 @@ public class EjecucionAlgoritmoController {
             j+=2;
         }
         
-//        try {
-//            GeneralUtil.insertaLog(1, "ejecucionAlgoritmoXSemaforo"); // 1 por la accion de insertar y 
-//        } catch (UnknownHostException ex) {
-//            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        /*Guardar el log de insertar*/
+        try {
+            GeneralUtil.insertaLog(1, "ejecucionAlgoritmoXSemaforo"); // 1 por la accion de insertar y la tabla donde se inserta
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return ok;
     }
