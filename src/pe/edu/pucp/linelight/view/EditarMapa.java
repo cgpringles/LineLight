@@ -11,6 +11,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,6 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import pe.edu.pucp.linelight.controller.MapaController;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Zona;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 
 /**
  *
@@ -275,7 +279,11 @@ public class EditarMapa extends javax.swing.JFrame {
                     }
                     MapaController.editarMapa(distrito, nombreTextField.getText(), activo, sourceFile);                
                     JOptionPane.showMessageDialog(EditarMapa.this, "Item editado", "Acción", INFORMATION_MESSAGE, null);
-
+                    try {
+                        GeneralUtil.insertaLog(2,"Distrito");
+                    } catch (UnknownHostException ex) {
+                        Logger.getLogger(EditarMapa.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     EditarMapa.this.dispose();
                 }
                 else
