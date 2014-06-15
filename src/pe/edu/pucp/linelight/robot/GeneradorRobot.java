@@ -78,7 +78,7 @@ public class GeneradorRobot extends Thread{
     {
         this.cantRobots=cantRobots;
         Horario h=HorarioController.obtenerHorario(dd, hh);
-        listaSemaforos=semaforoController.obtenerSemaforosxdistrito(DistritoController.obtenerNombDistrito(idDistrito));
+        listaSemaforos=semaforoController.obtenerSemaforosxIDdistrito(idDistrito);
         
 //        if ((lAlgSem!=null) && (lAlgSem.size()>0))
 //        {
@@ -129,6 +129,7 @@ public class GeneradorRobot extends Thread{
             c.setStartPoint(e);
             listaCarros.add(c);
         }
+        System.out.println("Start");
         start();
     }
     
@@ -319,10 +320,7 @@ public class GeneradorRobot extends Thread{
                     if ((c.getCuadra().getEndNode().getS()==null) || ((c.getCuadra().getEndNode().getS()!=null) &&
                        (c.getCuadra().getEndNode().getS().getEstado()!=Semaforo.ROJO)))
                         c.moveCar(T_PAUSA);
-                    else
-                        System.out.println("Stop");
-                }
-                    
+                }   
             }
             
             //Removemos los vehículos fuera del mapa
