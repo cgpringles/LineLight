@@ -6,6 +6,7 @@
 
 package pe.edu.pucp.linelight.view;
 
+import org.dom4j.DocumentException;
 import java.awt.Dimension;
 import java.io.File;
 import java.net.UnknownHostException;
@@ -16,45 +17,39 @@ import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JOptionPane;
-import pe.edu.pucp.linelight.algorithm.GA;
-import pe.edu.pucp.linelight.algorithm.Trafico;
-import pe.edu.pucp.linelight.controller.DistritoController;
-import pe.edu.pucp.linelight.controller.EjecucionAlgoritmoController;
-import pe.edu.pucp.linelight.model.Distrito;
-import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
-import pe.edu.pucp.linelight.model.Zona;
-import pe.edu.pucp.linelight.robot.GeneradorRobot;
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import javax.swing.table.DefaultTableModel;
-import org.dom4j.DocumentException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import pe.edu.pucp.linelight.algorithm.GA;
 import pe.edu.pucp.linelight.algorithm.Individuo;
+import pe.edu.pucp.linelight.controller.DistritoController;
+import pe.edu.pucp.linelight.controller.EjecucionAlgoritmoController;
 import pe.edu.pucp.linelight.controller.HorarioController;
-import pe.edu.pucp.linelight.controller.ParamAlgoritmoController;
 import pe.edu.pucp.linelight.controller.VehiculoController;
 import pe.edu.pucp.linelight.controller.jcThread;
 import pe.edu.pucp.linelight.controller.semaforoController;
-import pe.edu.pucp.linelight.model.Configuracionsistema;
+import pe.edu.pucp.linelight.model.Distrito;
+import pe.edu.pucp.linelight.model.Ejecucionalgoritmo;
+import pe.edu.pucp.linelight.model.Zona;
 import pe.edu.pucp.linelight.model.EjecucionalgoritmoId;
 import pe.edu.pucp.linelight.model.Ejecucionalgoritmoxsemaforo;
 import pe.edu.pucp.linelight.model.Horario;
-import pe.edu.pucp.linelight.model.Paramalgoritmo;
 import pe.edu.pucp.linelight.model.Semaforo;
 import pe.edu.pucp.linelight.model.SemaforoId;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.model.Vehiculo;
+import pe.edu.pucp.linelight.robot.GeneradorRobot;
 import pe.edu.pucp.linelight.structure.Node;
 import pe.edu.pucp.linelight.util.ConfigPanelMapa;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
-
 /**
  *
- * @author Julio
+ * @author Angel
  */
 public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
@@ -66,14 +61,13 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     Distrito d;
     int zona=0;
     List<Ejecucionalgoritmo> lEjec;
+    
     /**
      * Creates new form PanelSimulacionMonitoreo
      */
+    
     public PanelSimulacionMonitoreo() throws Exception {
         initComponents();
-//        Date fecha=new Date();
-//        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
-//        txtFecha.setText(sdf.format(fecha));
         
         List<Horario> horarios = new ArrayList<>();
         horarios = HorarioController.getAllHorarios();
@@ -205,7 +199,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             }
         });
 
-        iniciarSimulacionButton.setBackground(new java.awt.Color(0, 153, 204));
         iniciarSimulacionButton.setText("Iniciar Simulación");
         iniciarSimulacionButton.setBorderPainted(false);
         iniciarSimulacionButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -475,12 +468,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(134, 134, 134)
                     .addComponent(jLabel19)
-                    .addContainerGap(248, Short.MAX_VALUE)))
+                    .addContainerGap(247, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,7 +498,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addGap(44, 44, 44)))
         );
 
-        zoomInButton.setBackground(new java.awt.Color(0, 153, 204));
         zoomInButton.setText("+");
         zoomInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -513,7 +505,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             }
         });
 
-        zoomOutButton.setBackground(new java.awt.Color(0, 153, 204));
         zoomOutButton.setText("-");
         zoomOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,7 +591,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 71, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -675,7 +667,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     EjecucionAlgoritmoController.iniciarSimulacion(numSemaforos, semaforos);
                     jProgressBar1.setValue(100);
                     t.stop();
-
                     
                     /*Hablitar bbotones y campos de ventana y actualziar valores*/
                     jTextField3.setText("" + GA.velocidad);
@@ -889,13 +880,6 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                            tablaSemaforo.setModel(tbm);
                            /********************************************************************************************/                        
                            
-                           /*Es para agregar la accion de insertar*/
-//                           try {
-//                               GeneralUtil.insertaLog(1, "ejecucionAlgoritmo"); // 1 por la accion de insertar y 
-//                           } catch (UnknownHostException ex) {
-//                               Logger.getLogger(PanelSimulacionMonitoreo.class.getName()).log(Level.SEVERE, null, ex);
-//                           }                         
-                           
                        }
                        else
                        {
@@ -903,7 +887,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                        }
                 }
             }            
-        
+            
         }        
         else {
             JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Ingrese los campos para agregar Simulación", "Error", ERROR_MESSAGE, null);

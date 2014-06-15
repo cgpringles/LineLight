@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.apache.xmlbeans.impl.xb.xsdschema.RestrictionDocument;
 import pe.edu.pucp.linelight.algorithm.Individuo;
 import pe.edu.pucp.linelight.algorithm.Config;
 import pe.edu.pucp.linelight.algorithm.GA;
@@ -70,7 +70,8 @@ public class EjecucionAlgoritmoController {
         Session s = null;         
         try
         {
-            s = HibernateUtil.iniciaOperacion();                        
+            s = HibernateUtil.iniciaOperacion();
+            
             String sequel = "Select max(id.idEjecucionAlgoritmo) from Ejecucionalgoritmo";
             Query q = s.createQuery(sequel);
             List currentSeq = q.list();
@@ -151,6 +152,7 @@ public class EjecucionAlgoritmoController {
         long[] nodos = individuo.getIdNodoSemaforo();
         Distrito distrito = DistritoController.obtenerDistritoActivo();
         ArrayList<Semaforo> semaforos = semaforoController.obtenerSemaforosxdistrito(distrito.getNombre());
+        Usuario user = GeneralUtil.getUsuario_sesion();
         
         int j=0;   
         for (int i=0; i< numIdNodos; i++){
@@ -162,8 +164,6 @@ public class EjecucionAlgoritmoController {
             
                 /* Primer Semaforo de Interseccion*/
                 Ejecucionalgoritmoxsemaforo eaxsemaforo = new Ejecucionalgoritmoxsemaforo();
-                Usuario user = GeneralUtil.getUsuario_sesion();
-
                 EjecucionalgoritmoxsemaforoId eaxsemaforoId = new EjecucionalgoritmoxsemaforoId();
 
                 eaxsemaforoId.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);
@@ -203,8 +203,7 @@ public class EjecucionAlgoritmoController {
                 }
                 
                 /* Segundo Semaforo de Interseccion*/
-                Ejecucionalgoritmoxsemaforo eaxsemaforo2 = new Ejecucionalgoritmoxsemaforo();                
-
+                Ejecucionalgoritmoxsemaforo eaxsemaforo2 = new Ejecucionalgoritmoxsemaforo();
                 EjecucionalgoritmoxsemaforoId eaxsemaforoId2 = new EjecucionalgoritmoxsemaforoId();
 
                 eaxsemaforoId2.setIdEjecucionAlgoritmo(Ejecucionalgoritmoid);

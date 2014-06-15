@@ -10,20 +10,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.HibernateException;
 import pe.edu.pucp.linelight.algorithm.GA;
 import pe.edu.pucp.linelight.algorithm.Ruta;
 import pe.edu.pucp.linelight.model.Vehiculo;
-
-import pe.edu.pucp.linelight.util.HibernateUtil;
-import pe.edu.pucp.linelight.algorithm.Trafico;
 import pe.edu.pucp.linelight.model.Usuario;
 import pe.edu.pucp.linelight.model.VehiculoId;
 import pe.edu.pucp.linelight.model.Vehiculoxnodo;
 import pe.edu.pucp.linelight.model.VehiculoxnodoId;
+import pe.edu.pucp.linelight.util.HibernateUtil;
 import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.view.PanelSimulacionMonitoreo;
 
@@ -33,9 +31,8 @@ import pe.edu.pucp.linelight.view.PanelSimulacionMonitoreo;
  */
 public class VehiculoController {
 
-    /**
-     * ************** CONTROLLER PARA TABLA VEHICULO ****************
-     */
+    /**************** CONTROLLER PARA TABLA VEHICULO *****************/
+    /*Agrega vehiculo por vehiculo, uno por uno*/
     public static int agregarVehiculo(Vehiculo vehiculo) {
         Session s = null;
         int ok = 0;
@@ -54,6 +51,7 @@ public class VehiculoController {
         return ok;
     }
     
+    /*Agrega lista de vehiculos*/
     public static void agregarVehiculoLista(List<Vehiculo> listaVehiculo)
     {
         Session s=null;
@@ -78,19 +76,17 @@ public class VehiculoController {
     }   
 
     public static int agregarGeneracionVehiculos(int Ejecucionalgoritmoid, int horarioid) {
-        int ok = 0;
-        pe.edu.pucp.linelight.algorithm.Vehiculo[] vehiculos = GA.trafico.getVehiculos();
-        int numVehiculos = vehiculos.length;
-        int idInicio = 0;
-        int idVehiculo = getNextId();
         
+        pe.edu.pucp.linelight.algorithm.Vehiculo[] vehiculos = GA.trafico.getVehiculos();
+        int numVehiculos = vehiculos.length;        
+        int idVehiculo = getNextId();
+        Usuario user = GeneralUtil.getUsuario_sesion();        
         List<Vehiculo> listaVehiculos = new ArrayList<>();
+        
         for (int i = 0; i < numVehiculos; i++) {
+            
             /*Para cada vehiculo*/
-
             Vehiculo vehiculo = new Vehiculo();
-            Usuario user = GeneralUtil.getUsuario_sesion();
-
             VehiculoId vehiculoId = new VehiculoId();
 
             vehiculoId.setIdVehiculo(idVehiculo + i);
@@ -160,9 +156,8 @@ public class VehiculoController {
         return id + 1;
     }
 
-    /**
-     * ************** CONTROLLER PARA TABLA VEHICULOXNODO ****************
-     */
+    /**************** CONTROLLER PARA TABLA VEHICULOXNODO *****************/
+    /*Agrega vehiculoxnodo, uno por uno*/
     public static int agregarVehiculoXNodo(Vehiculoxnodo vehiculoxnodo) {
         Session s = null;
         int ok = 0;
@@ -181,9 +176,7 @@ public class VehiculoController {
         return ok;
     }
     
-    
-    
-    
+    /*Agrega lista de vehiculoxnodo, toda la ruta del vehiculo*/   
     public static void agregarVehiculoXNdodoLista(List<Vehiculoxnodo> listaVehiculosXNodo)
     {
         Session s=null;
@@ -205,13 +198,13 @@ public class VehiculoController {
         {
             s.close();
         }
-    }  
-    
+    }    
 
     public static int agregarGeneracionVehiculosXNodo(int idInicio, int Ejecucionalgoritmoid, int horarioid) {
         int ok = 0;
         pe.edu.pucp.linelight.algorithm.Vehiculo[] vehiculos = GA.trafico.getVehiculos();
         int numVehiculos = vehiculos.length;
+        Usuario user = GeneralUtil.getUsuario_sesion();
         
         for (int i = 0; i < numVehiculos; i++) {
 
@@ -221,11 +214,9 @@ public class VehiculoController {
             int numNodos = Nodos.size();
 
             for (int j = 0; j < numNodos; j++) {
+                
                 /*Para cada Nodo de la Ruta*/
-
                 Vehiculoxnodo vehiculoxnodo = new Vehiculoxnodo();
-                Usuario user = GeneralUtil.getUsuario_sesion();
-
                 VehiculoxnodoId vehiculoxnodoId = new VehiculoxnodoId();
 
                 vehiculoxnodoId.setIdVehiculo(idInicio);
@@ -258,8 +249,6 @@ public class VehiculoController {
                  
          return ok;        
      }
-     
-//   
 
     public static List<Vehiculo> getVehiculosByIdEjecucion(int idEjecucionAlgoritmo) {
              List<Vehiculo> lista = new ArrayList<>();
@@ -282,4 +271,4 @@ public class VehiculoController {
         return lista;
     }
     
-    }
+}

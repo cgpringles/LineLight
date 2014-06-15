@@ -5,9 +5,9 @@
 package pe.edu.pucp.linelight.controller;
 
 import java.util.List;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.HibernateException;
 import pe.edu.pucp.linelight.model.Configuracionsistema;
 import pe.edu.pucp.linelight.util.HibernateUtil;
 
