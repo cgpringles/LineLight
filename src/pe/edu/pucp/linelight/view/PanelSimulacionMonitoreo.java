@@ -934,8 +934,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 datosSemaforoInicio[2] = "" + eas.getTrojo();
 //                datosSemaforoInicio[3] = "" + s.getTrojo();
                 datosSemaforoInicio[3] = "" + eas.getTverde();
-                if (s.getEstado()) datosSemaforoInicio[4] = "" + 1;
-                else datosSemaforoInicio[4] = "" + 0;
+//                if (s.getEstado()) datosSemaforoInicio[4] = "" + 1;
+//                else datosSemaforoInicio[4] = "" + 0;
+                if (s.getEstado()) datosSemaforoInicio[4] = "HABILITADO";
+                else datosSemaforoInicio[4] = "DESHABILITADO";
                 tbm.addRow(datosSemaforoInicio);
 
                 tablaSemaforo.setModel(tbm);

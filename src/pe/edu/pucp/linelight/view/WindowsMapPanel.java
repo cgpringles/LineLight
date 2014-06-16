@@ -147,14 +147,14 @@ public class WindowsMapPanel extends javax.swing.JPanel {
                 
                 //Semaforos deshabilitados
                 if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
-                g2d.fillOval((int)edge.getOriginNode().getX()+x_offset,(int)edge.getOriginNode().getY()+y_offset,5,5); 
+                g2d.fillOval((int)(edge.getOriginNode().getX()*scale-x_offset),(int)(edge.getOriginNode().getY()*scale-y_offset),5,5); 
                 
                 if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.YELLOW);
                 else g2d.setColor(Color.red);
                 
                 //Semaforos deshabilitados - espejo
                 if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
-                g2d.fillOval((int)edge.getOriginNode().getX()+5,(int)edge.getOriginNode().getY()+5,5,5);
+                g2d.fillOval((int)(edge.getOriginNode().getX()*scale - x_offset)+5,(int)(edge.getOriginNode().getY()*scale - y_offset+5),5,5);
             }
             
             if (edge.getFlujoActual()==0) continue;
