@@ -33,8 +33,10 @@ public class WindowPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form WindowPrincipal
      */
+    private final Dimension shortsize = new Dimension(800,450);
     private final Dimension smallsize = new Dimension(800,700);
-    private final Dimension bigsize = new Dimension(1200,700); 
+    private final Dimension bigsize = new Dimension(1200,700);
+    private final Dimension longsize = new Dimension(1200,700);
 
     
     public WindowPrincipal() {
@@ -296,9 +298,9 @@ public class WindowPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
          System.out.print("ikikikiki2");
-        this.setSize(smallsize);
+        this.setSize(shortsize);
         this.setTitle("Configuración");
-        panel_principal.setSize(smallsize.width,647);    
+        panel_principal.setSize(shortsize.width,400);    
         PanelConfiguracion panel_config= new PanelConfiguracion();
         panel_config.setSize(panel_principal.getSize());
         panel_principal.removeAll();
@@ -345,9 +347,9 @@ public class WindowPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try{
-            this.setSize(bigsize);
+            this.setSize(longsize);
             this.setTitle("Optimización");
-            panel_principal.setSize(bigsize.width-20, bigsize.height-111);
+            panel_principal.setSize(longsize.width-20, 650);
             panel_principal.revalidate();
             PanelSimulacionMonitoreo panelSimulacionMonitoreo = new PanelSimulacionMonitoreo();
             panelSimulacionMonitoreo.setSize(panel_principal.getSize());
@@ -418,9 +420,9 @@ public class WindowPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         System.out.print("ikikikiki2");
-        this.setSize(smallsize);
+        this.setSize(shortsize);
         this.setTitle("Configuración");
-        panel_principal.setSize(smallsize.width,647);    
+        panel_principal.setSize(shortsize.width,400);    
         PanelParametrosAlgoritmo panel_config= new PanelParametrosAlgoritmo();
         panel_config.setSize(panel_principal.getSize());
         panel_principal.removeAll();

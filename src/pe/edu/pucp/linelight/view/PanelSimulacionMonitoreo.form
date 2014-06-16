@@ -58,7 +58,8 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel3" min="-2" pref="79" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="71" max="32767" attributes="0"/>
@@ -204,9 +205,6 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="iniciarSimulacionButton">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="99" red="0" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Iniciar Simulaci&#xf3;n"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -481,13 +479,13 @@
                       <Component id="jLabel20" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="jLabel21" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="80" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="248" max="32767" attributes="0"/>
+                      <EmptySpace pref="247" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -607,9 +605,6 @@
     </Container>
     <Component class="javax.swing.JButton" name="zoomInButton">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="99" red="0" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="+"/>
       </Properties>
       <Events>
@@ -618,9 +613,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="zoomOutButton">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="99" red="0" type="rgb"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="-"/>
       </Properties>
       <Events>
