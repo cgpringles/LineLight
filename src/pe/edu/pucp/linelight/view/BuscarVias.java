@@ -269,11 +269,13 @@ public class BuscarVias extends javax.swing.JPanel {
             if (tipoVia.equals("Seleccione") ) tipoVia = null;
         String via = (String)cmbVia.getSelectedItem();
             if (via.equals("Seleccione") ) via = null;
-    
+        System.out.println("inicio");
         ArrayList<Via> viaCriteria = ViaController.obtenerViaCriteria(identificador,distrito,tipoVia, via);
+        System.out.println("fin");
         String [] titulos={"Identificador","Distrito","Tipo de Via","Nombre","Veloc.Máxima","Descripción"};
         tbm.setColumnIdentifiers(titulos);
         tablaVia.setModel(tbm);
+        
         for (int i=0;i<viaCriteria.size();i++){
         String datos[]=new String[6];
         String tipo;
@@ -283,7 +285,8 @@ public class BuscarVias extends javax.swing.JPanel {
         else
             tipo = "Via no clasificada";
         veloc=(viaCriteria.get(i).getVelocidad());
-        distrito=DistritoController.obtenerNombDistrito(((Via)(viaCriteria.get(i))).getDistrito().getIdDistrito());
+        //distrito=DistritoController.obtenerNombDistrito(((Via)(viaCriteria.get(i))).getDistrito().getIdDistrito());
+        distrito=viaCriteria.get(i).getDistrito().getNombre();
         datos[0]=Long.toString(viaCriteria.get(i).getId().getIdVia());
         datos[1]=distrito;
         datos[2]=tipo;

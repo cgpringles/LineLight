@@ -15,7 +15,7 @@
         <many-to-one name="tipovia" class="pe.edu.pucp.linelight.model.Tipovia" fetch="select" lazy="false">
             <column name="idTipoVia" />
         </many-to-one>
-        <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">
+        <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select" lazy="false">
             <column name="idDistrito" not-null="true" />
         </many-to-one>
         <property name="nombre" type="string">
