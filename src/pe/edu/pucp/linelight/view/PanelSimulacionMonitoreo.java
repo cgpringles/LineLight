@@ -1014,7 +1014,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         configuracionComboBox.addItem("--Configuración por defecto--");
         for (Ejecucionalgoritmo e:lEjec)
         {
-            configuracionComboBox.addItem(e.getNombreSimulacion());
+            configuracionComboBox.addItem(e.getNombreSimulacion().split("/")[0]);
             
         }
     }//GEN-LAST:event_tabbedPaneMousePressed
