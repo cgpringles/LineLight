@@ -79,6 +79,7 @@ public class GeneradorRobot extends Thread{
         this.cantRobots=cantRobots;
         Horario h=HorarioController.obtenerHorario(dd, hh);
         listaSemaforos=semaforoController.obtenerSemaforosxIDdistrito(idDistrito);
+        wmp.mostrarVias=true;
         
 //        if ((lAlgSem!=null) && (lAlgSem.size()>0))
 //        {
@@ -297,6 +298,7 @@ public class GeneradorRobot extends Thread{
     {
         monitorear=false;
         wmp.mostrarVias=false;
+        wmp.repaint();
     }
     
     @Override

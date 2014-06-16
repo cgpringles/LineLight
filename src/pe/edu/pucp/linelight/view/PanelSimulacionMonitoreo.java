@@ -498,14 +498,16 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addGap(44, 44, 44)))
         );
 
-        zoomInButton.setText("+");
+        zoomInButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/zoomIn.png"))); // NOI18N
+        zoomInButton.setToolTipText("");
         zoomInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 zoomInButtonActionPerformed(evt);
             }
         });
 
-        zoomOutButton.setText("-");
+        zoomOutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/zoomOut.png"))); // NOI18N
+        zoomOutButton.setToolTipText("");
         zoomOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 zoomOutButtonActionPerformed(evt);
@@ -549,11 +551,13 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         });
         tablaSemaforo.setToolTipText("");
         jScrollPane2.setViewportView(tablaSemaforo);
-        tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+        if (tablaSemaforo.getColumnModel().getColumnCount() > 0) {
+            tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
+            tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jProgressBar1.setToolTipText("");
         jProgressBar1.setName(""); // NOI18N
@@ -594,12 +598,11 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 71, Short.MAX_VALUE)
+                        .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(zoomInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(zoomOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(zoomInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(zoomOutButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
