@@ -201,12 +201,12 @@ public class WindowsMapPanel extends javax.swing.JPanel {
     }
     
     public void zoomIn(){
-        scale *= 1.5;
+        scale *= 2.3;
         repaint();
     }
     
     public void zoomOut(){
-        scale /= 1.5;
+        scale =1;
         repaint();
     }
     
