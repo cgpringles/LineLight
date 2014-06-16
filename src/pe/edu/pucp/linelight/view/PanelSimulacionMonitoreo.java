@@ -954,6 +954,17 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void tabbedPaneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMousePressed
         
+        if (tabbedPane.getSelectedIndex()==0)
+        {
+            if (gr!=null)
+                {
+                    System.out.println("Hilo stop");
+                    gr.detenerHilo();
+
+                }
+        }
+        System.out.println("Index: "+tabbedPane.getSelectedIndex());
+        
         if (tabbedPane.getSelectedIndex() == 1) { 
             
             jTextField3.setText(" ");

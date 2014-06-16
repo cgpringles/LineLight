@@ -296,6 +296,7 @@ public class GeneradorRobot extends Thread{
     public void detenerHilo()
     {
         monitorear=false;
+        wmp.mostrarVias=false;
     }
     
     @Override
