@@ -643,6 +643,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     agregarSimulacion.setEnabled(false);
                     jComboBox1.setEnabled(false);
                     jComboBox2.setEnabled(false);
+                    zoomInButton.setEnabled(false);
+                    zoomOutButton.setEnabled(false);
                     /**/
                     
                     DefaultTableModel tbm= new DefaultTableModel();
@@ -681,6 +683,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     agregarSimulacion.setEnabled(true);
                     jComboBox1.setEnabled(true);
                     jComboBox2.setEnabled(true);
+                    zoomInButton.setEnabled(true);
+                    zoomOutButton.setEnabled(true);
                     /**/
                                         
                     Individuo individuo = GA.mejorIndividuo;
@@ -705,8 +709,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         }
                         /*************************************************************************/
                         
-                        if (semaforos.get(j).getEstado()) datosSemaforoInicio[4] = "" + 1;
-                        else datosSemaforoInicio[4] = "" + 0;
+                        if (semaforos.get(j).getEstado()) datosSemaforoInicio[4] = "Habilitado";
+                        else datosSemaforoInicio[4] = "Deshabilitado";
                         tbm.addRow(datosSemaforoInicio);
                         
                         String datosSemaforoFin[] = new String[5];                                                
@@ -725,8 +729,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                             datosSemaforoFin[3] = "" + 0;
                         }                        
                         /****************************************************************************/
-                        if (semaforos.get(j+1).getEstado()) datosSemaforoFin[4] = "" + 1;
-                        else datosSemaforoFin[4] = "" + 0;
+                        if (semaforos.get(j+1).getEstado()) datosSemaforoFin[4] = "Habilitado";
+                        else datosSemaforoFin[4] = "Deshabilitado";
                         tbm.addRow(datosSemaforoFin);
                         
                         j+=2;
