@@ -137,10 +137,15 @@ public class WindowsMapPanelVias extends javax.swing.JPanel {
             nodoFin = NodoController.obtenerNodoPorId(listaNodos.get(0).getId().getIdNodo());
             Point2D p = ConvertUtil.convertirGPStoPixel(nodoOrigen.getLatitud(), nodoOrigen.getLongitud(),z);
             Point2D p2 = ConvertUtil.convertirGPStoPixel(nodoFin.getLatitud(), nodoFin.getLongitud(),z);
-            g2d.drawLine((int) ((p.getX() + x_offset)*scale),
-                            (int) ((p.getY() + y_offset)*scale),
-                            (int) ((p2.getX() + x_offset)*scale), 
-                            (int) ((p2.getY() + y_offset)*scale));  
+//            g2d.drawLine((int) ((p.getX() + x_offset)*scale),
+//                            (int) ((p.getY() + y_offset)*scale),
+//                            (int) ((p2.getX() + x_offset)*scale), 
+//                            (int) ((p2.getY() + y_offset)*scale));  
+            
+            g2d.drawLine((int) (p.getX()*scale -x_offset),
+                            (int) (p.getY()*scale - y_offset),
+                            (int) (p2.getX()*scale - x_offset), 
+                            (int) (p2.getY()*scale  - y_offset));  
             }
         }
     }
