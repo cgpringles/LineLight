@@ -62,7 +62,7 @@ public class WindowsMapPanelVias extends javax.swing.JPanel {
     private int x_offset = 0;
     private int y_offset = 0;
     private Point mousePt;
-    private float scale = (float) 1.0;
+    private float scale = (float) 2.3;
     public ArrayList<Integer> idTramos = null;
     public Nodo nodoOrigen = null;
     public Nodo nodoFin = null;

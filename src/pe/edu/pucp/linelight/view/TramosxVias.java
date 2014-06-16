@@ -96,12 +96,13 @@ public class TramosxVias extends javax.swing.JFrame {
             }
         }
         mapPanel.changeMapFile(imagen);
-//        Zona zona_obj = d.getZona(zona+1);
-//        if(zona_obj!=null){
-//            zona++;
-//            mapPanel.changeMapFile(zona_obj.getImagen());
-//            mapPanel.zoomIn();
-//        }     
+        Zona zona_obj = d.getZona(zona+1);
+        if(zona_obj!=null){
+            zona++;
+            mapPanel.changeMapFile(zona_obj.getImagen());
+            mapPanel.zoomIn();
+            
+        }     
        Graphics offgc;
                         Image offscreen;
                         offscreen=createImage(ConfigPanelMapa.width, ConfigPanelMapa.height);  
