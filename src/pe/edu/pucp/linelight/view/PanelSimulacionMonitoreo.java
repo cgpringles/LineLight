@@ -932,18 +932,19 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             List<Semaforo> sMod=new ArrayList<>();
             for (Ejecucionalgoritmoxsemaforo eas:lEjecAlgSem)
             {
-                String datosSemaforoInicio[] = new String[5];
+                String datosSemaforoInicio[] = new String[6];
                 Semaforo s=eas.getSemaforo();
                 datosSemaforoInicio[0] = "" + s.getId().getIdSemaforo();
-                datosSemaforoInicio[1] = "" + s.getId().getIdNodo();
-//                datosSemaforoInicio[2] = "" + s.getTverde();
-                datosSemaforoInicio[2] = "" + eas.getTrojo();
-//                datosSemaforoInicio[3] = "" + s.getTrojo();
+                //V. Principal.
+                datosSemaforoInicio[1] = "" + s.getVia1();
+                //V. Secundaria
+                datosSemaforoInicio[2] = "" + s.getVia2();
                 datosSemaforoInicio[3] = "" + eas.getTverde();
+                datosSemaforoInicio[4] = "" + eas.getTrojo();
 //                if (s.getEstado()) datosSemaforoInicio[4] = "" + 1;
 //                else datosSemaforoInicio[4] = "" + 0;
-                if (s.getEstado()) datosSemaforoInicio[4] = "Habilitado";
-                else datosSemaforoInicio[4] = "Deshabilitado";
+                if (s.getEstado()) datosSemaforoInicio[5] = "Habilitado";
+                else datosSemaforoInicio[5] = "Deshabilitado";
                 tbm.addRow(datosSemaforoInicio);
 
                 tablaSemaforo.setModel(tbm);
