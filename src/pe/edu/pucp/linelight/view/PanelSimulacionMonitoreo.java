@@ -613,7 +613,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 //            Ejecucionalgoritmo ea= lEjec.get(configuracionComboBox.getSelectedIndex()-1);
 //            Horario h=HorarioController.obtenerHorarioPorID(d.getIdDistrito(), ea.getId().getIdHorario());
 //            String[] c=configuracionComboBox.getSelectedItem().toString().split("/");
-            String c[]=lEjec.get(configuracionComboBox.getSelectedIndex()).getNombreSimulacion().split("/");
+            String c[]=lEjec.get(configuracionComboBox.getSelectedIndex()-1).getNombreSimulacion().split("/");
             String[] f=c[1].split(" ");
             List<Ejecucionalgoritmoxsemaforo> listaAlgxSem=EjecucionAlgoritmoController.obtenerAlgoritmoxSemaforo();
             gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),f[0],f[1],listaAlgxSem);
