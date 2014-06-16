@@ -498,14 +498,16 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addGap(44, 44, 44)))
         );
 
-        zoomInButton.setText("+");
+        zoomInButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/zoomIn.png"))); // NOI18N
+        zoomInButton.setToolTipText("");
         zoomInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 zoomInButtonActionPerformed(evt);
             }
         });
 
-        zoomOutButton.setText("-");
+        zoomOutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/zoomOut.png"))); // NOI18N
+        zoomOutButton.setToolTipText("");
         zoomOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 zoomOutButtonActionPerformed(evt);
@@ -514,29 +516,29 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         tablaSemaforo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Semaforo", "ID Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"
+                "ID Semaforo", "Vía P", "Vía S", "T.Verde", "T.Rojo", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -551,9 +553,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tablaSemaforo);
         tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
         tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
-        tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
         tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
         tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(5).setResizable(false);
 
         jProgressBar1.setToolTipText("");
         jProgressBar1.setName(""); // NOI18N
@@ -594,12 +596,11 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 71, Short.MAX_VALUE)
+                        .addGap(0, 35, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(zoomInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(zoomOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(zoomInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(zoomOutButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
@@ -613,7 +614,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 //            Ejecucionalgoritmo ea= lEjec.get(configuracionComboBox.getSelectedIndex()-1);
 //            Horario h=HorarioController.obtenerHorarioPorID(d.getIdDistrito(), ea.getId().getIdHorario());
 //            String[] c=configuracionComboBox.getSelectedItem().toString().split("/");
-            String c[]=lEjec.get(configuracionComboBox.getSelectedIndex()).getNombreSimulacion().split("/");
+            String c[]=lEjec.get(configuracionComboBox.getSelectedIndex()-1).getNombreSimulacion().split("/");
             String[] f=c[1].split(" ");
             List<Ejecucionalgoritmoxsemaforo> listaAlgxSem=EjecucionAlgoritmoController.obtenerAlgoritmoxSemaforo();
             gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),f[0],f[1],listaAlgxSem);
@@ -643,10 +644,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     agregarSimulacion.setEnabled(false);
                     jComboBox1.setEnabled(false);
                     jComboBox2.setEnabled(false);
+                    zoomInButton.setEnabled(false);
+                    zoomOutButton.setEnabled(false);
                     /**/
                     
                     DefaultTableModel tbm= new DefaultTableModel();
-                    String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+                    String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
                     tbm.setColumnIdentifiers(titulos);
                     tablaSemaforo.setModel(tbm);                    
                           
@@ -681,6 +684,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     agregarSimulacion.setEnabled(true);
                     jComboBox1.setEnabled(true);
                     jComboBox2.setEnabled(true);
+                    zoomInButton.setEnabled(true);
+                    zoomOutButton.setEnabled(true);
                     /**/
                                         
                     Individuo individuo = GA.mejorIndividuo;
@@ -690,43 +695,44 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     tablaSemaforo.setModel(tbm);
                     int j=0;
                     for (int i=0; i< tamano; i++){
-                        String datosSemaforoInicio[] = new String[5];
+                        
+                        String datosSemaforoInicio[] = new String[6];
                         datosSemaforoInicio[0] = "" + semaforos.get(j).getId().getIdSemaforo();
-                        datosSemaforoInicio[1] = "" + individuo.getNodoSemaforo(i);
+                        datosSemaforoInicio[1] = "" + semaforos.get(j).getVia1();
+                        datosSemaforoInicio[2] = "" + semaforos.get(j).getVia2();
                         /************************* Setear Semaforos *******************************/
                         if (semaforos.get(j).getEstado()) {
                             /*Si el semaforo esta habilitado se considera los tiempos del algoritmo*/
-                            datosSemaforoInicio[2] = "" + individuo.getTiempoSemaforoInicio(i);
-                            datosSemaforoInicio[3] = "" + individuo.getTiempoSemaforoFin(i);
+                            datosSemaforoInicio[3] = "" + individuo.getTiempoSemaforoInicio(i);
+                            datosSemaforoInicio[4] = "" + individuo.getTiempoSemaforoFin(i);
                         }
                         else { 
-                            datosSemaforoInicio[2] = "" + 0;
                             datosSemaforoInicio[3] = "" + 0;
+                            datosSemaforoInicio[4] = "" + 0;
                         }
-                        /*************************************************************************/
-                        
-                        if (semaforos.get(j).getEstado()) datosSemaforoInicio[4] = "" + 1;
-                        else datosSemaforoInicio[4] = "" + 0;
+                        /*************************************************************************/                        
+                        if (semaforos.get(j).getEstado()) datosSemaforoInicio[5] = "Habilitado";
+                        else datosSemaforoInicio[5] = "Deshabilitado";
                         tbm.addRow(datosSemaforoInicio);
                         
-                        String datosSemaforoFin[] = new String[5];                                                
+                        
+                        String datosSemaforoFin[] = new String[6];
                         datosSemaforoFin[0] = " " + semaforos.get(j+1).getId().getIdSemaforo();
-                        datosSemaforoFin[1] = "" + individuo.getNodoSemaforo(i);
-                        
-                        
+                        datosSemaforoFin[1] = "" + semaforos.get(j+1).getVia1();
+                        datosSemaforoFin[2] = "" + semaforos.get(j+1).getVia2();
                         /*************************** Setear Semaforos ***************************/
                         if (semaforos.get(j+1).getEstado()) {
                             /*Si el semaforo esta habilitado se considera los tiempos del algoritmo*/
-                            datosSemaforoFin[2] = "" + individuo.getTiempoSemaforoFin(i);
-                            datosSemaforoFin[3] = "" + individuo.getTiempoSemaforoInicio(i);
+                            datosSemaforoFin[3] = "" + individuo.getTiempoSemaforoFin(i);
+                            datosSemaforoFin[4] = "" + individuo.getTiempoSemaforoInicio(i);
                         }
                         else { 
-                            datosSemaforoFin[2] = "" + 0;
                             datosSemaforoFin[3] = "" + 0;
+                            datosSemaforoFin[4] = "" + 0;
                         }                        
                         /****************************************************************************/
-                        if (semaforos.get(j+1).getEstado()) datosSemaforoFin[4] = "" + 1;
-                        else datosSemaforoFin[4] = "" + 0;
+                        if (semaforos.get(j+1).getEstado()) datosSemaforoFin[5] = "Habilitado";
+                        else datosSemaforoFin[5] = "Deshabilitado";
                         tbm.addRow(datosSemaforoFin);
                         
                         j+=2;
@@ -878,7 +884,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                            }
                         
                            DefaultTableModel tbm= new DefaultTableModel();
-                           String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+                           String [] titulos={"Id Semaforo", "Via P", "Vía S", "T.Verde", "T.Rojo", "Estado"};
                            tbm.setColumnIdentifiers(titulos);
                            tablaSemaforo.setModel(tbm);
                            /********************************************************************************************/                        
@@ -919,23 +925,26 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                                             getEjecucionxSemaforoById(ejecAlg.getId().getIdEjecucionAlgoritmo());
 
             DefaultTableModel tbm= new DefaultTableModel();
-            String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+            String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
             tbm.setColumnIdentifiers(titulos);
             tablaSemaforo.setModel(tbm); 
             
             List<Semaforo> sMod=new ArrayList<>();
             for (Ejecucionalgoritmoxsemaforo eas:lEjecAlgSem)
             {
-                String datosSemaforoInicio[] = new String[5];
+                String datosSemaforoInicio[] = new String[6];
                 Semaforo s=eas.getSemaforo();
                 datosSemaforoInicio[0] = "" + s.getId().getIdSemaforo();
-                datosSemaforoInicio[1] = "" + s.getId().getIdNodo();
-//                datosSemaforoInicio[2] = "" + s.getTverde();
-                datosSemaforoInicio[2] = "" + eas.getTrojo();
-//                datosSemaforoInicio[3] = "" + s.getTrojo();
+                //V. Principal.
+                datosSemaforoInicio[1] = "" + s.getVia1();
+                //V. Secundaria
+                datosSemaforoInicio[2] = "" + s.getVia2();
                 datosSemaforoInicio[3] = "" + eas.getTverde();
-                if (s.getEstado()) datosSemaforoInicio[4] = "" + 1;
-                else datosSemaforoInicio[4] = "" + 0;
+                datosSemaforoInicio[4] = "" + eas.getTrojo();
+//                if (s.getEstado()) datosSemaforoInicio[4] = "" + 1;
+//                else datosSemaforoInicio[4] = "" + 0;
+                if (s.getEstado()) datosSemaforoInicio[5] = "Habilitado";
+                else datosSemaforoInicio[5] = "Deshabilitado";
                 tbm.addRow(datosSemaforoInicio);
 
                 tablaSemaforo.setModel(tbm);
@@ -951,6 +960,17 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     }//GEN-LAST:event_configuracionComboBoxActionPerformed
 
     private void tabbedPaneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMousePressed
+        
+        if (tabbedPane.getSelectedIndex()==0)
+        {
+            if (gr!=null)
+                {
+                    System.out.println("Hilo stop");
+                    gr.detenerHilo();
+
+                }
+        }
+        System.out.println("Index: "+tabbedPane.getSelectedIndex());
         
         if (tabbedPane.getSelectedIndex() == 1) { 
             
@@ -992,7 +1012,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         }
         
         DefaultTableModel tbm= new DefaultTableModel();
-        String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+        String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
         tbm.setColumnIdentifiers(titulos);
         tablaSemaforo.setModel(tbm);
         

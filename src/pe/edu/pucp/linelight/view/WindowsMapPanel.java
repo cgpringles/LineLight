@@ -59,6 +59,7 @@ public class WindowsMapPanel extends javax.swing.JPanel {
     private final Color traficoMuerto=Color.decode("#471011");
     
     private List<Carro> listaCarros=null;
+    public boolean mostrarVias=true;
 
     public List<Carro> getListaCarros() {
         return listaCarros;
@@ -137,46 +138,49 @@ public class WindowsMapPanel extends javax.swing.JPanel {
                 , x_offset, y_offset, x_offset+ConfigPanelMapa.width, y_offset+ConfigPanelMapa.height, null);
         
         g2d.setStroke(new BasicStroke(2f));
-        for (Edge edge : map.getEdges()) {
-            
-            Semaforo s=edge.getOriginNode().getS();
-            if (s!=null)
-            {
-                if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.red);
-                else g2d.setColor(Color.YELLOW);
-                
-                //Semaforos deshabilitados
-                if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
-                g2d.fillOval((int)edge.getOriginNode().getX()+x_offset,(int)edge.getOriginNode().getY()+y_offset,5,5); 
-                
-                if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.YELLOW);
-                else g2d.setColor(Color.red);
-                
-                //Semaforos deshabilitados - espejo
-                if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
-                g2d.fillOval((int)edge.getOriginNode().getX()+5,(int)edge.getOriginNode().getY()+5,5,5);
+        if (mostrarVias)
+        {
+            for (Edge edge : map.getEdges()) {
+
+                Semaforo s=edge.getOriginNode().getS();
+                if (s!=null)
+                {
+                    if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.red);
+                    else g2d.setColor(Color.YELLOW);
+
+                    //Semaforos deshabilitados
+                    if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
+                    g2d.fillOval((int)(edge.getOriginNode().getX()*scale-x_offset),(int)(edge.getOriginNode().getY()*scale-y_offset),5,5); 
+
+                    if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.YELLOW);
+                    else g2d.setColor(Color.red);
+
+                    //Semaforos deshabilitados - espejo
+                    if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
+                    g2d.fillOval((int)(edge.getOriginNode().getX()*scale - x_offset)+5,(int)(edge.getOriginNode().getY()*scale - y_offset+5),5,5);
+                }
+
+                if (edge.getFlujoActual()==0) continue;
+                //Mostrar detalle velocidad
+
+    //            int textX=Math.round((edge.getEndNode().getX()-edge.getOriginNode().getX())/2)+edge.getOriginNode().getX();
+    //            int textY=Math.round((edge.getEndNode().getY()-edge.getOriginNode().getY())/2)+edge.getOriginNode().getY();
+
+    //            g2d.drawString("Holaaaaaaaaaaa", 0, 0);
+
+                g2d.setColor(getColorTraffic(edge.getVelocidad()));
+    //            g2d.setColor(getColorTraffic(Math.random()*80));
+                g2d.drawLine((int) ((edge.getOriginNode().getX())*scale - x_offset),
+                            (int) ((edge.getOriginNode().getY())*scale - y_offset),
+                            (int) ((edge.getEndNode().getX())*scale - x_offset), 
+                            (int) ((edge.getEndNode().getY())*scale - y_offset));
+
+                //Cargamos la data de la estructura matriz
+
+    //            Node n1=edge.getOriginNode();
+    //            Node n2=edge.getEndNode();
             }
-            
-            if (edge.getFlujoActual()==0) continue;
-            //Mostrar detalle velocidad
-            
-//            int textX=Math.round((edge.getEndNode().getX()-edge.getOriginNode().getX())/2)+edge.getOriginNode().getX();
-//            int textY=Math.round((edge.getEndNode().getY()-edge.getOriginNode().getY())/2)+edge.getOriginNode().getY();
-            
-//            g2d.drawString("Holaaaaaaaaaaa", 0, 0);
-            
-            g2d.setColor(getColorTraffic(edge.getVelocidad()));
-//            g2d.setColor(getColorTraffic(Math.random()*80));
-            g2d.drawLine((int) ((edge.getOriginNode().getX())*scale - x_offset),
-                        (int) ((edge.getOriginNode().getY())*scale - y_offset),
-                        (int) ((edge.getEndNode().getX())*scale - x_offset), 
-                        (int) ((edge.getEndNode().getY())*scale - y_offset));
-            
-            //Cargamos la data de la estructura matriz
-            
-//            Node n1=edge.getOriginNode();
-//            Node n2=edge.getEndNode();
-	}
+        }
     }
     
     
