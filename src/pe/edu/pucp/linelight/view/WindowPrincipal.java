@@ -347,6 +347,7 @@ public class WindowPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try{
+            
             this.setSize(longsize);
             this.setTitle("Optimización");
             panel_principal.setSize(longsize.width-20, 650);
@@ -360,6 +361,10 @@ public class WindowPrincipal extends javax.swing.JFrame {
             panel_principal.add(panelSimulacionMonitoreo);
 
             panel_principal.revalidate();
+            
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            WindowPrincipal.this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);            
+            
         }
         catch(Exception e){
             this.setSize(smallsize);
