@@ -145,11 +145,15 @@ public class WindowsMapPanel extends javax.swing.JPanel {
                 if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.red);
                 else g2d.setColor(Color.YELLOW);
                 
+                //Semaforos deshabilitados
+                if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
                 g2d.fillOval((int)edge.getOriginNode().getX()+x_offset,(int)edge.getOriginNode().getY()+y_offset,5,5); 
                 
                 if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.YELLOW);
                 else g2d.setColor(Color.red);
                 
+                //Semaforos deshabilitados - espejo
+                if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
                 g2d.fillOval((int)edge.getOriginNode().getX()+5,(int)edge.getOriginNode().getY()+5,5,5);
             }
             
@@ -163,10 +167,10 @@ public class WindowsMapPanel extends javax.swing.JPanel {
             
             g2d.setColor(getColorTraffic(edge.getVelocidad()));
 //            g2d.setColor(getColorTraffic(Math.random()*80));
-            g2d.drawLine((int) ((edge.getOriginNode().getX() + x_offset)*scale),
-                        (int) ((edge.getOriginNode().getY() + y_offset)*scale),
-                        (int) ((edge.getEndNode().getX() + x_offset)*scale), 
-                        (int) ((edge.getEndNode().getY() + y_offset)*scale));
+            g2d.drawLine((int) ((edge.getOriginNode().getX())*scale - x_offset),
+                        (int) ((edge.getOriginNode().getY())*scale - y_offset),
+                        (int) ((edge.getEndNode().getX())*scale - x_offset), 
+                        (int) ((edge.getEndNode().getY())*scale - y_offset));
             
             //Cargamos la data de la estructura matriz
             
@@ -197,12 +201,12 @@ public class WindowsMapPanel extends javax.swing.JPanel {
     }
     
     public void zoomIn(){
-        scale *= 1.2;
+        scale *= 2.3;
         repaint();
     }
     
     public void zoomOut(){
-        scale /= 1.2;
+        scale =1;
         repaint();
     }
     
