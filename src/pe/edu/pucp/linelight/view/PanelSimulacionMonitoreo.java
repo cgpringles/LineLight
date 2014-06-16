@@ -516,29 +516,29 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         tablaSemaforo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Semaforo", "ID Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"
+                "ID Semaforo", "Vía P", "Vía S", "T.Verde", "T.Rojo", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -551,13 +551,11 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         });
         tablaSemaforo.setToolTipText("");
         jScrollPane2.setViewportView(tablaSemaforo);
-        if (tablaSemaforo.getColumnModel().getColumnCount() > 0) {
-            tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(2).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
-            tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
-        }
+        tablaSemaforo.getColumnModel().getColumn(0).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(1).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(3).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(4).setResizable(false);
+        tablaSemaforo.getColumnModel().getColumn(5).setResizable(false);
 
         jProgressBar1.setToolTipText("");
         jProgressBar1.setName(""); // NOI18N
@@ -651,7 +649,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     /**/
                     
                     DefaultTableModel tbm= new DefaultTableModel();
-                    String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+                    String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
                     tbm.setColumnIdentifiers(titulos);
                     tablaSemaforo.setModel(tbm);                    
                           
@@ -697,43 +695,44 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     tablaSemaforo.setModel(tbm);
                     int j=0;
                     for (int i=0; i< tamano; i++){
-                        String datosSemaforoInicio[] = new String[5];
+                        
+                        String datosSemaforoInicio[] = new String[6];
                         datosSemaforoInicio[0] = "" + semaforos.get(j).getId().getIdSemaforo();
-                        datosSemaforoInicio[1] = "" + individuo.getNodoSemaforo(i);
+                        datosSemaforoInicio[1] = "" + semaforos.get(j).getVia1();
+                        datosSemaforoInicio[2] = "" + semaforos.get(j).getVia2();
                         /************************* Setear Semaforos *******************************/
                         if (semaforos.get(j).getEstado()) {
                             /*Si el semaforo esta habilitado se considera los tiempos del algoritmo*/
-                            datosSemaforoInicio[2] = "" + individuo.getTiempoSemaforoInicio(i);
-                            datosSemaforoInicio[3] = "" + individuo.getTiempoSemaforoFin(i);
+                            datosSemaforoInicio[3] = "" + individuo.getTiempoSemaforoInicio(i);
+                            datosSemaforoInicio[4] = "" + individuo.getTiempoSemaforoFin(i);
                         }
                         else { 
-                            datosSemaforoInicio[2] = "" + 0;
                             datosSemaforoInicio[3] = "" + 0;
+                            datosSemaforoInicio[4] = "" + 0;
                         }
-                        /*************************************************************************/
-                        
-                        if (semaforos.get(j).getEstado()) datosSemaforoInicio[4] = "Habilitado";
-                        else datosSemaforoInicio[4] = "Deshabilitado";
+                        /*************************************************************************/                        
+                        if (semaforos.get(j).getEstado()) datosSemaforoInicio[5] = "Habilitado";
+                        else datosSemaforoInicio[5] = "Deshabilitado";
                         tbm.addRow(datosSemaforoInicio);
                         
-                        String datosSemaforoFin[] = new String[5];                                                
+                        
+                        String datosSemaforoFin[] = new String[6];
                         datosSemaforoFin[0] = " " + semaforos.get(j+1).getId().getIdSemaforo();
-                        datosSemaforoFin[1] = "" + individuo.getNodoSemaforo(i);
-                        
-                        
+                        datosSemaforoFin[1] = "" + semaforos.get(j+1).getVia1();
+                        datosSemaforoFin[2] = "" + semaforos.get(j+1).getVia2();
                         /*************************** Setear Semaforos ***************************/
                         if (semaforos.get(j+1).getEstado()) {
                             /*Si el semaforo esta habilitado se considera los tiempos del algoritmo*/
-                            datosSemaforoFin[2] = "" + individuo.getTiempoSemaforoFin(i);
-                            datosSemaforoFin[3] = "" + individuo.getTiempoSemaforoInicio(i);
+                            datosSemaforoFin[3] = "" + individuo.getTiempoSemaforoFin(i);
+                            datosSemaforoFin[4] = "" + individuo.getTiempoSemaforoInicio(i);
                         }
                         else { 
-                            datosSemaforoFin[2] = "" + 0;
                             datosSemaforoFin[3] = "" + 0;
+                            datosSemaforoFin[4] = "" + 0;
                         }                        
                         /****************************************************************************/
-                        if (semaforos.get(j+1).getEstado()) datosSemaforoFin[4] = "Habilitado";
-                        else datosSemaforoFin[4] = "Deshabilitado";
+                        if (semaforos.get(j+1).getEstado()) datosSemaforoFin[5] = "Habilitado";
+                        else datosSemaforoFin[5] = "Deshabilitado";
                         tbm.addRow(datosSemaforoFin);
                         
                         j+=2;
@@ -885,7 +884,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                            }
                         
                            DefaultTableModel tbm= new DefaultTableModel();
-                           String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+                           String [] titulos={"Id Semaforo", "Via P", "Vía S", "T.Verde", "T.Rojo", "Estado"};
                            tbm.setColumnIdentifiers(titulos);
                            tablaSemaforo.setModel(tbm);
                            /********************************************************************************************/                        
@@ -926,7 +925,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                                             getEjecucionxSemaforoById(ejecAlg.getId().getIdEjecucionAlgoritmo());
 
             DefaultTableModel tbm= new DefaultTableModel();
-            String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+            String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
             tbm.setColumnIdentifiers(titulos);
             tablaSemaforo.setModel(tbm); 
             
@@ -943,8 +942,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 datosSemaforoInicio[3] = "" + eas.getTverde();
 //                if (s.getEstado()) datosSemaforoInicio[4] = "" + 1;
 //                else datosSemaforoInicio[4] = "" + 0;
-                if (s.getEstado()) datosSemaforoInicio[4] = "HABILITADO";
-                else datosSemaforoInicio[4] = "DESHABILITADO";
+                if (s.getEstado()) datosSemaforoInicio[4] = "Habilitado";
+                else datosSemaforoInicio[4] = "Deshabilitado";
                 tbm.addRow(datosSemaforoInicio);
 
                 tablaSemaforo.setModel(tbm);
@@ -1012,7 +1011,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         }
         
         DefaultTableModel tbm= new DefaultTableModel();
-        String [] titulos={"Id Semaforo", "Id Nodo", "Tiempo Verde", "Tiempo Rojo", "Estado"};
+        String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
         tbm.setColumnIdentifiers(titulos);
         tablaSemaforo.setModel(tbm);
         
