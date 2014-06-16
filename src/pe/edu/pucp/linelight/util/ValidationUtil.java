@@ -60,13 +60,58 @@ public class ValidationUtil {
     }
     
     public static void validateLenght2(String cadena, int tam, java.awt.event.KeyEvent evt){
-    if (cadena.length() > tam - 1 || ((evt.getKeyChar()<'a' || evt.getKeyChar()>'z') && (evt.getKeyChar()<'A' || evt.getKeyChar()>'Z'))) {
+    if (cadena.length() > tam - 1 || ((evt.getKeyChar()<'a' || evt.getKeyChar()>'z') && (evt.getKeyChar() != (char)KeyEvent.VK_SPACE) && 
+            (evt.getKeyChar() != (char)KeyEvent.VK_0)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_1)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_2)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_3)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_4)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_5)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_6)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_7)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_8)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_9)
+            && (evt.getKeyChar()<'A' || evt.getKeyChar()>'Z'))) {
             Toolkit.getDefaultToolkit().beep();
             evt.consume();
         }
     }
     
-
+public static void validateLenght3(String cadena, int tam, java.awt.event.KeyEvent evt){
+    if (cadena.length() > tam - 1 || ((evt.getKeyChar()<'a' || evt.getKeyChar()>'z') && (evt.getKeyChar() != (char)KeyEvent.VK_SPACE) && 
+            (evt.getKeyChar() != (char)KeyEvent.VK_0)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_1)
+            && (evt.getKeyChar() != '.')
+            && (evt.getKeyChar() != (char)KeyEvent.VK_2)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_3)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_4)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_5)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_6)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_7)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_8)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_9)
+            && (evt.getKeyChar()<'A' || evt.getKeyChar()>'Z'))) {
+            Toolkit.getDefaultToolkit().beep();
+            evt.consume();
+        }
+    }
+public static void validateLenght4(String cadena, int tam, java.awt.event.KeyEvent evt){
+    if (cadena.length() > tam - 1 || ((evt.getKeyChar()<'a' || evt.getKeyChar()>'z')&& 
+            (evt.getKeyChar() != (char)KeyEvent.VK_0)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_1)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_2)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_3)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_4)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_5)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_6)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_7)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_8)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_9)
+            && (evt.getKeyChar()<'A' || evt.getKeyChar()>'Z'))) {
+            Toolkit.getDefaultToolkit().beep();
+            evt.consume();
+        }
+    }
     public static void validateNumTam(String cadena, int tam, java.awt.event.KeyEvent evt) {
 
         if (!Character.isDigit(evt.getKeyChar()) && !Character.isISOControl(evt.getKeyChar())) {

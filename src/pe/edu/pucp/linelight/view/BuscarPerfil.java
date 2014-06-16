@@ -360,11 +360,11 @@ public class BuscarPerfil extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBoxEstadoActionPerformed
 
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
-        ValidationUtil.validateLenght(this.nombre.getText(), 20, evt);
+        ValidationUtil.validateLenght2(this.nombre.getText(), 20, evt);
     }//GEN-LAST:event_nombreKeyTyped
 
     private void descripKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descripKeyTyped
-        ValidationUtil.validateLenght(this.nombre.getText(), 45, evt);
+        ValidationUtil.validateLenght2(this.nombre.getText(), 45, evt);
     }//GEN-LAST:event_descripKeyTyped
 
 

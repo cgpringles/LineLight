@@ -64,7 +64,6 @@ public class WindowCambiarContrasena extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        sendPasswordButton.setBackground(new java.awt.Color(0, 153, 204));
         sendPasswordButton.setText("Aceptar");
         sendPasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +71,6 @@ public class WindowCambiarContrasena extends javax.swing.JFrame {
             }
         });
 
-        sendPasswordButton1.setBackground(new java.awt.Color(0, 153, 204));
         sendPasswordButton1.setText("Cancelar");
         sendPasswordButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,9 +87,17 @@ public class WindowCambiarContrasena extends javax.swing.JFrame {
         jLabel29.setForeground(new java.awt.Color(255, 0, 0));
         jLabel29.setText("(*)");
 
+        jPassword_ant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPassword_antActionPerformed(evt);
+            }
+        });
         jPassword_ant.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jPassword_antKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPassword_antKeyTyped(evt);
             }
         });
 
@@ -124,11 +130,11 @@ public class WindowCambiarContrasena extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(sendPasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(sendPasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sendPasswordButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sendPasswordButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,13 +145,13 @@ public class WindowCambiarContrasena extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPassword_ant, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                             .addComponent(jPassword_new, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPassword_new2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel28)
-                                .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jLabel27))))
+                            .addComponent(jPassword_new2))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel28)
+                        .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel27))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -176,8 +182,8 @@ public class WindowCambiarContrasena extends javax.swing.JFrame {
                             .addComponent(jLabel3))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sendPasswordButton)
-                    .addComponent(sendPasswordButton1))
+                    .addComponent(sendPasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sendPasswordButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
 
@@ -219,16 +225,24 @@ public class WindowCambiarContrasena extends javax.swing.JFrame {
     }//GEN-LAST:event_jPassword_antKeyPressed
 
     private void jPassword_newKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassword_newKeyTyped
-         ValidationUtil.validateLenght2(this.jPassword_new.getText(),20, evt);
+         ValidationUtil.validateLenght4(this.jPassword_new.getText(),20, evt);
     }//GEN-LAST:event_jPassword_newKeyTyped
 
     private void jPassword_new2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassword_new2KeyTyped
-         ValidationUtil.validateLenght2(this.jPassword_new2.getText(),20, evt);
+         ValidationUtil.validateLenght4(this.jPassword_new2.getText(),20, evt);
     }//GEN-LAST:event_jPassword_new2KeyTyped
 
     private void jPassword_new2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPassword_new2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPassword_new2ActionPerformed
+
+    private void jPassword_antActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPassword_antActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPassword_antActionPerformed
+
+    private void jPassword_antKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassword_antKeyTyped
+        ValidationUtil.validateLenght4(this.jPassword_new2.getText(),20, evt);
+    }//GEN-LAST:event_jPassword_antKeyTyped
 
     /**
      * @param args the command line arguments

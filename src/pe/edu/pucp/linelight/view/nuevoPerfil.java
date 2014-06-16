@@ -25,6 +25,7 @@ import pe.edu.pucp.linelight.controller.PerfilController;
 import pe.edu.pucp.linelight.model.Menu;
 import pe.edu.pucp.linelight.model.Perfil;
 import pe.edu.pucp.linelight.util.GeneralUtil;
+import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
  *
@@ -91,6 +92,11 @@ public class nuevoPerfil extends javax.swing.JFrame {
                 nombreActionPerformed(evt);
             }
         });
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreKeyTyped(evt);
+            }
+        });
 
         jCheckBox_seguridad.setText("Seguridad");
         jCheckBox_seguridad.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -109,6 +115,12 @@ public class nuevoPerfil extends javax.swing.JFrame {
         jCheckBox_opt.setText("Optimización");
 
         jCheckBox_conf.setText("Configuración");
+
+        desc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                descKeyTyped(evt);
+            }
+        });
 
         jLabel26.setForeground(new java.awt.Color(255, 0, 0));
         jLabel26.setText("(*)");
@@ -308,6 +320,14 @@ public class nuevoPerfil extends javax.swing.JFrame {
     private void jCheckBox_seguridadStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox_seguridadStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox_seguridadStateChanged
+
+    private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
+    ValidationUtil.validateLenght2(nombre.getText(), 20, evt);
+    }//GEN-LAST:event_nombreKeyTyped
+
+    private void descKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descKeyTyped
+       ValidationUtil.validateLenght2(desc.getText(), 45, evt);
+    }//GEN-LAST:event_descKeyTyped
 
     /**
      * @param args the command line arguments
