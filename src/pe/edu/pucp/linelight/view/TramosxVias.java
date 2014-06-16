@@ -47,7 +47,9 @@ public class TramosxVias extends javax.swing.JFrame {
      public TramosxVias(long idvia,String distrito,String via, String tipo) {
         initComponents();
         DefaultTableModel tbm= new DefaultTableModel();
-        ArrayList<Tramo> listaTramos=new ArrayList<Tramo>();
+        
+         ArrayList<Integer> idTramos = new ArrayList<Integer>();
+       
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         txtDistrito.setText(distrito);
@@ -56,17 +58,7 @@ public class TramosxVias extends javax.swing.JFrame {
         //System.out.println(idvia);
         idViaGen=idvia;
         int idDistrito=DistritoController.obteneridDistrito(distrito);
-        //necesito el mapa del distrito cargado
-        /*
-        Distrito dist=DistritoController.obtenerDistrito(distrito);
-         Zona zona0 = (Zona) dist.getZonas().toArray()[0];
-        Image img = Toolkit.getDefaultToolkit().createImage(zona0.getImagen());
-        ImageIcon icon =new ImageIcon(img);
-        labelmapa.setIcon(icon);
-*/
-        
-        //System.out.println(listaTramos.size());
-        
+        ArrayList<Tramo> listaTramos=new ArrayList<Tramo>();
         listaTramos=ViaController.obtenerTramosxVias(idvia, idDistrito);
         String [] titulos={"Estado","Tramo"};
         tbm.setColumnIdentifiers(titulos);
@@ -74,9 +66,12 @@ public class TramosxVias extends javax.swing.JFrame {
         for (int i=0;i<listaTramos.size();i++){
         String datos[]=new String[2];
         boolean estado=listaTramos.get(i).getEstado();
+        int tramo = listaTramos.get(i).getId().getIdTramo();    
         if (estado==true) datos[0]="Habilitado";
-        else{datos[0]="Deshabilitado";}
-        int tramo=listaTramos.get(i).getId().getIdTramo();
+        else{
+            datos[0]="Deshabilitado";
+            idTramos.add(tramo);
+        }
         datos[1]= "Tramo"+" "+ tramo;
         tbm.addRow(datos);
         }
@@ -101,12 +96,30 @@ public class TramosxVias extends javax.swing.JFrame {
             }
         }
         mapPanel.changeMapFile(imagen);
-        Zona zona_obj = d.getZona(zona+1);
-        if(zona_obj!=null){
-            zona++;
-            mapPanel.changeMapFile(zona_obj.getImagen());
-            mapPanel.zoomIn();
-        }     
+//        Zona zona_obj = d.getZona(zona+1);
+//        if(zona_obj!=null){
+//            zona++;
+//            mapPanel.changeMapFile(zona_obj.getImagen());
+//            mapPanel.zoomIn();
+//            
+//        }     
+       Graphics offgc;
+                        Image offscreen;
+                        offscreen=createImage(ConfigPanelMapa.width, ConfigPanelMapa.height);  
+                        offgc = offscreen.getGraphics();
+                        // clear the exposed area
+                        offgc.setColor(getBackground());
+                        offgc.fillRect(0, 0, ConfigPanelMapa.width,ConfigPanelMapa.height);
+                        offgc.setColor(getForeground());
+                        // do normal redraw
+                        mapPanel.idTramos = idTramos;
+                        mapPanel.idViaGen = idvia;
+                        mapPanel.idDistrito = idDistrito;
+                        mapPanel.repaint();
+        
+        
+        
+        
     }
     
 
@@ -298,17 +311,19 @@ public class TramosxVias extends javax.swing.JFrame {
                    }
                    else 
                    {
+                       ArrayList<Integer> idTramos = new ArrayList<Integer>();
                        for (int i = 0; i < numFila.length; i++){
                                         String tramo =(String)tablaTramos.getValueAt(numFila[i], 1);
                                         int idTramo = Integer.parseInt(tramo.substring(6, tramo.length()));
                                         String e =(String)tablaTramos.getValueAt(numFila[i], 0);
-                                        //System.out.println(idVia);
                                         Boolean estado=true;
                                         if (e.equals("Habilitado")) estado=false;
                                         if (e.equals("Deshabilitado")) estado=true;
-                                         ViaController.cambiarEstadoTramo(estado,idVia,idDist,idTramo);
+                                        ViaController.cambiarEstadoTramo(estado,idVia,idDist,idTramo);
                                         
+                                                            
                        }
+                       
                        DefaultTableModel tbm1 = new DefaultTableModel();
                        ArrayList<Tramo> listaTramos=new ArrayList<Tramo>();
                        listaTramos=ViaController.obtenerTramosxVias(idVia, idDist);
@@ -318,18 +333,32 @@ public class TramosxVias extends javax.swing.JFrame {
                        for (int i=0; i < listaTramos.size(); i++){
                         String datos[] = new String[2];
                         boolean est=listaTramos.get(i).getEstado();
-                        if (est==true) datos[0]="Habilitado";
-                        else{datos[0]="Deshabilitado";}
                         int tram=listaTramos.get(i).getId().getIdTramo();
+                        if (est==true) datos[0]="Habilitado";
+                        else{
+                            idTramos.add(tram);  
+                            datos[0]="Deshabilitado";}
+                        
                         datos[1]= "Tramo"+" "+Integer.toString(tram);
                         tbm1.addRow(datos);
                         }
-                       
-                            tablaTramos.setModel(tbm1);
-                            tablaTramos.repaint();
+                       Graphics offgc;
+                        Image offscreen;
+                        offscreen=createImage(ConfigPanelMapa.width, ConfigPanelMapa.height);  
+                        offgc = offscreen.getGraphics();
+                        // clear the exposed area
+                        offgc.setColor(getBackground());
+                        offgc.fillRect(0, 0, ConfigPanelMapa.width,ConfigPanelMapa.height);
+                        offgc.setColor(getForeground());
+                        // do normal redraw
+                        mapPanel.idTramos = idTramos;
+                        mapPanel.idViaGen = idVia;
+                        mapPanel.idDistrito = idDist;
+                        tablaTramos.setModel(tbm1);
+                        tablaTramos.repaint();
+                        mapPanel.repaint();
+                        
                       
-                       //this.dispose();
-
                    }
                 }
         }else{
