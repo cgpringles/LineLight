@@ -15,6 +15,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Tramo;
+import pe.edu.pucp.linelight.model.Tramoxnodo;
 import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.model.Viaxhorario;
 import pe.edu.pucp.linelight.util.HibernateUtil;
@@ -519,7 +520,62 @@ public class ViaController {
   
   
   }
-  
+   public static Tramo obtenerTramos(long idVia,int idDist, int idTramo){
+         Session s=null;
+         Tramo tramo=null;
+          try
+        {
+        s=HibernateUtil.iniciaOperacion();
+            String hql= "FROM Tramo WHERE idVia = :id AND idDistrito =:idDist AND idTramo=:idTram";
+            Query q= s.createQuery(hql);
+            q.setParameter("id", idVia);
+            q.setParameter("idDist", idDist);
+            q.setParameter("idTram", idTramo);
+            tramo= (Tramo) q.list().get(0);
+            
+        HibernateUtil.cierraOperacion(s);   
+        }
+        catch (HibernateException e)
+        {
+        HibernateUtil.manejaExcepcion(s);
+        }
+        finally
+        {
+            s.close();  
+        }
+         
+         return tramo;
+         
+         
+     }
+  public static ArrayList<Tramoxnodo> obtenerTramoxnodo(long idVia,int idDist,int idTramo){
+         Session s=null;
+         ArrayList<Tramoxnodo> lista= new ArrayList<Tramoxnodo>();
+         try
+         {
+        s=HibernateUtil.iniciaOperacion();
+            String hql= "FROM Tramoxnodo WHERE idVia = :id AND idDistrito =:idDist AND idTramo= :idTram";
+            Query q= s.createQuery(hql);
+            q.setParameter("id", idVia);
+            q.setParameter("idDist", idDist);
+            q.setParameter("idTram", idTramo);
+            lista=(ArrayList<Tramoxnodo>) q.list();
+            
+        HibernateUtil.cierraOperacion(s);   
+        }
+        catch (HibernateException e)
+        {
+        HibernateUtil.manejaExcepcion(s);
+        }
+        finally
+        {
+            s.close();  
+        }
+         
+         return lista;
+         
+         
+     }
     
     
 }

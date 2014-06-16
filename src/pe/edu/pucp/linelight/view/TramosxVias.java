@@ -7,6 +7,7 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -14,11 +15,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import pe.edu.pucp.linelight.controller.DistritoController;
+import pe.edu.pucp.linelight.controller.NodoController;
 import pe.edu.pucp.linelight.controller.TipoViaController;
 import pe.edu.pucp.linelight.controller.ViaController;
 import pe.edu.pucp.linelight.model.Distrito;
+import pe.edu.pucp.linelight.model.Nodo;
 import pe.edu.pucp.linelight.model.Tramo;
+import pe.edu.pucp.linelight.model.Tramoxnodo;
 import pe.edu.pucp.linelight.model.Zona;
+import pe.edu.pucp.linelight.structure.Edge;
+import pe.edu.pucp.linelight.util.ConfigPanelMapa;
 
 /**
  *
@@ -29,6 +35,10 @@ public class TramosxVias extends javax.swing.JFrame {
     /**
      * Creates new form TramosxVias
      */
+    WindowsMapPanelVias mapPanel;
+    int zona=0;
+    long idViaGen=0;
+    
     public TramosxVias() {
         initComponents();
         Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
@@ -44,7 +54,7 @@ public class TramosxVias extends javax.swing.JFrame {
         txtVia.setText(via);
         txtTipo.setText(tipo);
         //System.out.println(idvia);
-        
+        idViaGen=idvia;
         int idDistrito=DistritoController.obteneridDistrito(distrito);
         //necesito el mapa del distrito cargado
         /*
@@ -71,6 +81,32 @@ public class TramosxVias extends javax.swing.JFrame {
         tbm.addRow(datos);
         }
         tablaTramos.setModel(tbm);
+        
+        mapPanel = new WindowsMapPanelVias(new Dimension(ConfigPanelMapa.width,ConfigPanelMapa.height));
+        mapContainerPanel.setVisible(true);
+        mapPanel.setVisible(true);        
+        
+        mapContainerPanel.removeAll();
+        mapContainerPanel.add(mapPanel);
+                
+        Distrito d = DistritoController.obtenerDistritoById(idDistrito);
+        /*Se debe validar que haya un mapa activo*/
+        byte[] imagen=null;
+        for (Object z:d.getZonas())
+        {
+            //Validamos que sea zona 0 = mapa general
+            if (((Zona)z).getId().getIdZona()==0)
+            {
+                imagen=((Zona)z).getImagen();
+            }
+        }
+        mapPanel.changeMapFile(imagen);
+        Zona zona_obj = d.getZona(zona+1);
+        if(zona_obj!=null){
+            zona++;
+            mapPanel.changeMapFile(zona_obj.getImagen());
+            mapPanel.zoomIn();
+        }     
     }
     
 
@@ -94,7 +130,7 @@ public class TramosxVias extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTramos = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
-        labelmapa = new javax.swing.JLabel();
+        mapContainerPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Habilitar/Deshabilitar Tramo");
@@ -125,11 +161,12 @@ public class TramosxVias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                        .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(txtVia))
                 .addContainerGap())
         );
@@ -146,7 +183,7 @@ public class TramosxVias extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtVia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jButton1.setText("Habilitar/Deshabilitar");
@@ -176,21 +213,35 @@ public class TramosxVias extends javax.swing.JFrame {
             }
         });
 
+        mapContainerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        mapContainerPanel.setName("svdv"); // NOI18N
+
+        javax.swing.GroupLayout mapContainerPanelLayout = new javax.swing.GroupLayout(mapContainerPanel);
+        mapContainerPanel.setLayout(mapContainerPanelLayout);
+        mapContainerPanelLayout.setHorizontalGroup(
+            mapContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 743, Short.MAX_VALUE)
+        );
+        mapContainerPanelLayout.setVerticalGroup(
+            mapContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 571, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelmapa, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mapContainerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -199,14 +250,16 @@ public class TramosxVias extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(mapContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(labelmapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -293,10 +346,6 @@ public class TramosxVias extends javax.swing.JFrame {
         }
          
         }
-       
-       
-       
-       // this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -342,7 +391,7 @@ public class TramosxVias extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelmapa;
+    private javax.swing.JPanel mapContainerPanel;
     private javax.swing.JTable tablaTramos;
     private javax.swing.JTextField txtDistrito;
     private javax.swing.JTextField txtTipo;
