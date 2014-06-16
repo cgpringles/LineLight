@@ -185,7 +185,7 @@ public class WindowsMapPanelVias extends javax.swing.JPanel {
     }
     
     public void zoomOut(){
-        scale /= 1.2;
+        scale =1;
         repaint();
     }
     
