@@ -46,9 +46,7 @@ public class DistritoController {
                 
                 Query query = s.createQuery(queryString);
                 query.setParameter(0, new byte[] {(byte)0});
-                System.out.println("dslnkfdslk ju ja");
                 int result = query.executeUpdate();
-                System.out.println("dslnkfdslk ju ja "+result);
             }
             
             idDistrito=(int)(s.save(d));
@@ -274,9 +272,7 @@ public class DistritoController {
             String queryString = "UPDATE Distrito SET activo=?";
             Query query = s.createQuery(queryString);
             query.setParameter(0, new byte[] {(byte)0});
-            System.out.println("dslnkfdslk ju ja");
             int result = query.executeUpdate();
-            System.out.println("dslnkfdslk ju ja "+result);
         }
         
         s.update(distrito);
