@@ -6,6 +6,7 @@
 
 package pe.edu.pucp.linelight.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -117,6 +118,52 @@ public class TramoController {
         }
         
         return listaTramosxNodo;
+    }
+    
+    public static List<Tramoxnodo> obtenerTramoxNodoXSemaforo(Long idNodo)
+    {
+        Session s=null;
+        List<Tramoxnodo> ltxn=new ArrayList<>();
+        List<Tramoxnodo> ltxnInicial=new ArrayList<>();
+        try
+        {
+            s=HibernateUtil.iniciaOperacion();
+            ltxn=(List<Tramoxnodo>)s.createCriteria(Tramoxnodo.class).add(Restrictions.eq("posicionTramo", 'F')).
+                        add(Restrictions.eq("id.idNodo", idNodo)).
+                        list();
+            
+            
+            for (Tramoxnodo txn:ltxn)
+            {
+                Tramoxnodo t=(Tramoxnodo)s.createCriteria(Tramoxnodo.class).add(Restrictions.eq("id.idVia", txn.getId().getIdVia()))
+                        .add(Restrictions.eq("posicionTramo", 'I')).
+                        add(Restrictions.eq("id.idTramo", txn.getId().getIdTramo())).list().get(0);
+                ltxnInicial.add(t);
+            }
+            
+            //Validamos que tenga fin
+            if (ltxn.size()<2)
+            {
+                Tramoxnodo tn=(Tramoxnodo)s.createCriteria(Tramoxnodo.class).
+                                add(Restrictions.ne("id.idVia", ltxn.get(0).getId().getIdVia())).
+                                add(Restrictions.eq("posicionTramo",'I' )).list().get(0);
+                ltxnInicial.add(tn);
+            }
+            
+            HibernateUtil.cierraOperacion(s);
+             
+        }
+        catch (HibernateException e)
+        {
+            e.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+        
+        return ltxnInicial;
     }
     
     

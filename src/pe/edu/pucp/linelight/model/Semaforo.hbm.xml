@@ -18,7 +18,7 @@
         <many-to-one name="distrito" class="pe.edu.pucp.linelight.model.Distrito" update="false" insert="false" fetch="select">
             <column name="idDistrito" not-null="true" />
         </many-to-one>
-        <many-to-one name="nodo" class="pe.edu.pucp.linelight.model.Nodo" update="false" insert="false" fetch="select">
+        <many-to-one name="nodo" class="pe.edu.pucp.linelight.model.Nodo" update="false" insert="false" fetch="select" lazy="false">
             <column name="idNodo" not-null="true" />
         </many-to-one>
         <property name="tverde" type="java.lang.Integer">

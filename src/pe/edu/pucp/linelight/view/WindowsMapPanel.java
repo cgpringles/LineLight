@@ -149,8 +149,14 @@ public class WindowsMapPanel extends javax.swing.JPanel {
                     else g2d.setColor(Color.YELLOW);
 
                     //Semaforos deshabilitados
+                    
+//                    s.calcularOffsetxVia();
+//                    System.out.println("ID"+s.getId().getIdSemaforo()+"-"+s.positionOffset.length);
+//                    System.out.println(s.positionOffset[0].getX()+"-"+s.positionOffset[0].getY());
+//                    System.out.println(s.positionOffset[1].getX()+"-"+s.positionOffset[1].getY());
                     if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
                     g2d.fillOval((int)(edge.getOriginNode().getX()*scale-x_offset),(int)(edge.getOriginNode().getY()*scale-y_offset),5,5); 
+//                    g2d.fillOval((int)(s.positionOffset[0].getX()*scale-x_offset),(int)(s.positionOffset[0].getY()*scale-y_offset),5,5); 
 
                     if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.YELLOW);
                     else g2d.setColor(Color.red);
@@ -158,6 +164,7 @@ public class WindowsMapPanel extends javax.swing.JPanel {
                     //Semaforos deshabilitados - espejo
                     if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
                     g2d.fillOval((int)(edge.getOriginNode().getX()*scale - x_offset)+5,(int)(edge.getOriginNode().getY()*scale - y_offset+5),5,5);
+//                    g2d.fillOval((int)(s.positionOffset[1].getX()*scale-x_offset),(int)(s.positionOffset[1].getY()*scale-y_offset),5,5); 
                 }
 
                 if (edge.getFlujoActual()==0) continue;
