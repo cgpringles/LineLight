@@ -245,6 +245,7 @@ public class NuevaVia extends javax.swing.JFrame {
                                                       jButton4.setEnabled(false);
                                                       jButton5.setEnabled(false);
                                                       cmbDistrito.setEnabled(false);
+                                                      
                                                       new Thread(new jcThread( this.jProgressBar1 , 500, 0) ).start();
                                                       new Thread(new parseViasStructure(sourceFile,d,this)).start();
                                                   } catch (DocumentException ex) {
