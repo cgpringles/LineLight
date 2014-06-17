@@ -50,6 +50,8 @@ public class TramosxVias extends javax.swing.JFrame {
     }
      public TramosxVias(long idvia,String distrito,String via, String tipo) {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         DefaultTableModel tbm= new DefaultTableModel();
         
          ArrayList<Integer> idTramos = new ArrayList<Integer>();

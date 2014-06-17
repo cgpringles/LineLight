@@ -98,6 +98,36 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 hora++;
             }
         }
+        
+           List<Horario> horariosNuevo = new ArrayList<>();
+           horariosNuevo = HorarioController.getAllHorarios();                                                   
+
+           /*Agregar dias en combobox*/
+           cmbDia.removeAllItems();
+           dias_id.add(0);
+           cmbDia.addItem("Seleccione");
+
+           for (Horario horarioNuevo : horariosNuevo) { 
+               String dia = horarioNuevo.getDia();
+               if (!dia.equalsIgnoreCase(diaAnt)) {
+                   cmbDia.addItem(horarioNuevo.getDia());
+                   dias_id.add(horarioNuevo.getIdHorario());
+                   diaAnt = horarioNuevo.getDia();
+               }
+           }                           
+
+           /*Agregar horas en combobox*/
+           cmbHorario.removeAllItems();
+           horas_id.add(0);
+           cmbHorario.addItem("Seleccione");
+           hora=0;
+           for (Horario horarioNuevo : horariosNuevo) {
+               if (hora < 3) {
+                   cmbHorario.addItem(horarioNuevo.getHora());
+                   horas_id.add(horarioNuevo.getIdHorario());
+                   hora++;
+               }
+           }
                 
         this.setBackground(new java.awt.Color(240, 240, 240));
         
@@ -163,8 +193,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox();
         fechaLabel1 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botonSemaforo = new javax.swing.JButton();
+        botonVia = new javax.swing.JButton();
         monitoreoPanel = new javax.swing.JPanel();
         iniciarMonitoreoButton = new javax.swing.JButton();
         configuracionLabel = new javax.swing.JLabel();
@@ -172,6 +202,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txtVelProm = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        fechaLabel2 = new javax.swing.JLabel();
+        cmbDia = new javax.swing.JComboBox();
+        fechaLabel3 = new javax.swing.JLabel();
+        cmbHorario = new javax.swing.JComboBox();
         mapContainerPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -247,17 +281,17 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton2.setText("Semáforo");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonSemaforo.setText("Semáforo");
+        botonSemaforo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonSemaforoActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Vía");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonVia.setText("Vía");
+        botonVia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonViaActionPerformed(evt);
             }
         });
 
@@ -269,10 +303,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(simulacionPanelLayout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonSemaforo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addComponent(botonVia, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addComponent(iniciarSimulacionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(simulacionPanelLayout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,8 +365,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonSemaforo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonVia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(iniciarSimulacionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -362,6 +396,19 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
         jLabel6.setText("Km/h");
 
+        fechaLabel2.setText("Día de Simulación:");
+
+        cmbDia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        fechaLabel3.setText("Horario:");
+
+        cmbHorario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbHorarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout monitoreoPanelLayout = new javax.swing.GroupLayout(monitoreoPanel);
         monitoreoPanel.setLayout(monitoreoPanelLayout);
         monitoreoPanelLayout.setHorizontalGroup(
@@ -370,20 +417,30 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monitoreoPanelLayout.createSequentialGroup()
-                        .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(configuracionLabel)
-                            .addComponent(jLabel4))
-                        .addGap(34, 34, 34)
+                        .addComponent(iniciarMonitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monitoreoPanelLayout.createSequentialGroup()
                         .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(monitoreoPanelLayout.createSequentialGroup()
-                                .addComponent(txtVelProm, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(fechaLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fechaLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel6))
-                            .addComponent(configuracionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(89, 89, 89))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monitoreoPanelLayout.createSequentialGroup()
-                        .addComponent(iniciarMonitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cmbHorario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbDia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(monitoreoPanelLayout.createSequentialGroup()
+                                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(configuracionLabel)
+                                    .addComponent(jLabel4))
+                                .addGap(34, 34, 34)
+                                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(monitoreoPanelLayout.createSequentialGroup()
+                                        .addComponent(txtVelProm, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel6))
+                                    .addComponent(configuracionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(89, 89, 89))))
         );
         monitoreoPanelLayout.setVerticalGroup(
             monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +454,15 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(txtVelProm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fechaLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(iniciarMonitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -616,24 +681,26 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 
     private void iniciarMonitoreoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarMonitoreoButtonActionPerformed
         // TODO add your handling code here:
-        if (configuracionComboBox.getSelectedIndex()>0)
+        String[] f = null;
+        String dd="";
+        String hh="";
+        
+        if(configuracionComboBox.getSelectedIndex()==0)
         {
-//            Ejecucionalgoritmo ea= lEjec.get(configuracionComboBox.getSelectedIndex()-1);
-//            Horario h=HorarioController.obtenerHorarioPorID(d.getIdDistrito(), ea.getId().getIdHorario());
-//            String[] c=configuracionComboBox.getSelectedItem().toString().split("/");
-            String c[]=lEjec.get(configuracionComboBox.getSelectedIndex()-1).getNombreSimulacion().split("/");
-            String[] f=c[1].split(" ");
-            List<Ejecucionalgoritmoxsemaforo> listaAlgxSem=EjecucionAlgoritmoController.obtenerAlgoritmoxSemaforo();
-            
-            gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),f[0],f[1],listaAlgxSem);
-
+            semaforoController.actualizarSemaforosMonitoreoDefecto();
+//            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Debe seleccionar una configuración de semáforos", "Error", ERROR_MESSAGE, null);
         }
-//        else
-//        {
-//            semaforoController.actualizarSemaforosMonitoreoDefecto(null);
-////            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Debe seleccionar una configuración de semáforos", "Error", ERROR_MESSAGE, null);
-//            
-//        }
+        
+        if (cmbDia.getSelectedIndex()==0 || cmbHorario.getSelectedIndex()==0) 
+        {
+            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Faltan datos", "Error", ERROR_MESSAGE, null);
+        }
+        else
+        {
+            dd=cmbDia.getSelectedItem().toString();
+            hh=cmbHorario.getSelectedItem().toString();
+            gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),dd,hh);
+        }
 
     }//GEN-LAST:event_iniciarMonitoreoButtonActionPerformed
 
@@ -654,6 +721,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     jTextField7.setText(" ");
                     iniciarSimulacionButton.setEnabled(false);
                     agregarSimulacion.setEnabled(false);
+                    botonSemaforo.setEnabled(false);
+                    botonVia.setEnabled(false);
                     jComboBox1.setEnabled(false);
                     jComboBox2.setEnabled(false);
                     zoomInButton.setEnabled(false);
@@ -693,6 +762,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     jProgressBar1.setStringPainted(false);
                     iniciarSimulacionButton.setEnabled(true);
                     agregarSimulacion.setEnabled(true);
+                    botonSemaforo.setEnabled(true);
+                    botonVia.setEnabled(true);
                     jComboBox1.setEnabled(true);
                     jComboBox2.setEnabled(true);
                     zoomInButton.setEnabled(true);
@@ -813,7 +884,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         jProgressBar1.setStringPainted(true);
                         jProgressBar1.setString("Guardando Simulacion ...");                        
                         iniciarSimulacionButton.setEnabled(false);
-                        agregarSimulacion.setEnabled(false);                        
+                        agregarSimulacion.setEnabled(false);
+                        agregarSimulacion.setEnabled(false);
+                        botonSemaforo.setEnabled(false);                        
                         jTextField6.setEnabled(false);
                         jComboBox1.setEnabled(false);
                         jComboBox2.setEnabled(false);
@@ -872,6 +945,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                jComboBox1.setEnabled(true);
                                jComboBox2.setEnabled(true);
                                jTextField6.setEnabled(true);
+                               agregarSimulacion.setEnabled(true);
+                               botonSemaforo.setEnabled(true);
                                jTextField3.setText(" ");                               
                                jTextField7.setText(" ");
                                jTextField6.setText(" ");
@@ -1028,10 +1103,17 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     gr.detenerHilo();
                     txtVelProm.setText("");
                 }
+            System.out.println("Index: "+tabbedPane.getSelectedIndex());
+            DefaultTableModel tbm= new DefaultTableModel();
+            String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
+            tbm.setColumnIdentifiers(titulos);        
+            tablaSemaforo.setModel(tbm);
         }
-        System.out.println("Index: "+tabbedPane.getSelectedIndex());
         
-        if (tabbedPane.getSelectedIndex() == 1) { 
+        
+        
+        if (tabbedPane.getSelectedIndex() == 1) {
+            
             
             jTextField3.setText(" ");            
             jTextField7.setText(" ");
@@ -1069,10 +1151,11 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             
         }
         
-        DefaultTableModel tbm= new DefaultTableModel();
-        String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
-        tbm.setColumnIdentifiers(titulos);
-        tablaSemaforo.setModel(tbm);
+//        DefaultTableModel tbm= new DefaultTableModel();
+//        String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
+//        tbm.setColumnIdentifiers(titulos);        
+//        tablaSemaforo.setModel(tbm);
+                
         Distrito d=DistritoController.obtenerDistritoActivo();
         lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
         configuracionComboBox.removeAllItems();
@@ -1082,12 +1165,18 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             Ejecucionalgoritmoxsemaforo eas=EjecucionAlgoritmoController.getEjecucionxSemaforoById(e.getId().getIdEjecucionAlgoritmo()).get(0);
             
             if (eas.getId().getIdDistrito()==d.getIdDistrito())
-                configuracionComboBox.addItem(e.getNombreSimulacion().split("/")[0]);
-            
+                configuracionComboBox.addItem(e.getNombreSimulacion().split("/")[0]);            
         }
+        
+        DefaultTableModel tbm= new DefaultTableModel();
+        String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
+        tbm.setColumnIdentifiers(titulos);        
+        tablaSemaforo.setModel(tbm);
+        
+        
     }//GEN-LAST:event_tabbedPaneMousePressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonSemaforoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSemaforoActionPerformed
         // TODO add your handling code here:     
         BloqueoSemaforo nuevo= new BloqueoSemaforo();
         nuevo.setVisible(true);
@@ -1115,24 +1204,32 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 //                    "Aceptar");
 //        }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonSemaforoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonViaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonViaActionPerformed
         BloqueoVia nuevo= new BloqueoVia();
         nuevo.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonViaActionPerformed
+
+    private void cmbHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHorarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbHorarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarSimulacion;
+    private javax.swing.JButton botonSemaforo;
+    private javax.swing.JButton botonVia;
+    private javax.swing.JComboBox cmbDia;
+    private javax.swing.JComboBox cmbHorario;
     private javax.swing.JComboBox configuracionComboBox;
     private javax.swing.JLabel configuracionLabel;
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JLabel fechaLabel1;
+    private javax.swing.JLabel fechaLabel2;
+    private javax.swing.JLabel fechaLabel3;
     private javax.swing.JButton iniciarMonitoreoButton;
     private javax.swing.JButton iniciarSimulacionButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;

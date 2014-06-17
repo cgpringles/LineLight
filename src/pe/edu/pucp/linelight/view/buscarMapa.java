@@ -196,12 +196,24 @@ public class buscarMapa extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        int numFila = jTable1.getSelectedRow();
+        if (numFila >= 0){
         Distrito d = new Distrito();
         int idDistrito=(int)jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
         d = DistritoController.obtenerDistritoById(idDistrito);
         EditarMapa editar = new EditarMapa(d);
         editar.setVisible(true);
+        }else{
+             int seleccion = JOptionPane.showOptionDialog(
+                    buscarMapa.this, // Componente padre
+                    "Debe seleccionar una fila", //Mensaje
+                    "Mensaje de sugerencia", // Título
+                    JOptionPane.OK_OPTION,
+                    JOptionPane.OK_OPTION,
+                    null,    // null para icono por defecto.
+                    new Object[] { "Aceptar"},    // null para YES, NO y CANCEL
+                    "Aceptar");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void buscarMapaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarMapaButtonActionPerformed
