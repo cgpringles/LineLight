@@ -1033,13 +1033,16 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
         tbm.setColumnIdentifiers(titulos);
         tablaSemaforo.setModel(tbm);
-        
+        Distrito d=DistritoController.obtenerDistritoActivo();
         lEjec=EjecucionAlgoritmoController.obtenerConfiguraciónSimulación();
         configuracionComboBox.removeAllItems();
         configuracionComboBox.addItem("--Configuración por defecto--");
         for (Ejecucionalgoritmo e:lEjec)
         {
-            configuracionComboBox.addItem(e.getNombreSimulacion().split("/")[0]);
+            Ejecucionalgoritmoxsemaforo eas=EjecucionAlgoritmoController.getEjecucionxSemaforoById(e.getId().getIdEjecucionAlgoritmo()).get(0);
+            
+            if (eas.getId().getIdDistrito()==d.getIdDistrito())
+                configuracionComboBox.addItem(e.getNombreSimulacion().split("/")[0]);
             
         }
     }//GEN-LAST:event_tabbedPaneMousePressed
