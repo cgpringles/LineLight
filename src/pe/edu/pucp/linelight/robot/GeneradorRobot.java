@@ -115,7 +115,7 @@ public class GeneradorRobot extends Thread{
                 do
                 {
                     e=listaEdge.get(rnd.nextInt(numTramos));
-                } while (!isAvenida(e));
+                } while ((!isAvenida(e)) || (e.getStatus()==e.DESHABILITADO));
 //                System.out.println("Avenida");
             }
             else
@@ -123,7 +123,7 @@ public class GeneradorRobot extends Thread{
                 do
                 {
                     e=listaEdge.get(rnd.nextInt(numTramos));  
-                } while (!isCalle(e));
+                } while ((!isCalle(e)) || (e.getStatus()==e.DESHABILITADO));
 //                System.out.println("Calle");
             }
             
@@ -255,6 +255,8 @@ public class GeneradorRobot extends Thread{
             if (tv!=null) tvia=tv.getDescripcion();
             
             Edge e=new Edge(txni.getTramo().getId().getIdTramo(),nodeOrigin,nodeFinal,20,tvia);
+            if (txni.getTramo().getEstado()) e.setStatus(e.HABILITADO);
+            else e.setStatus(e.DESHABILITADO);
             nodeOrigin.agregarListaCuadra(e);
             listaEdge.add(e);
         }
