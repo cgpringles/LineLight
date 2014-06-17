@@ -74,7 +74,7 @@ public class GeneradorRobot extends Thread{
     }
     
     //
-    public GeneradorRobot(WindowsMapPanel wmp,int idDistrito,String dd, String hh,List<Ejecucionalgoritmoxsemaforo> lAlgSem)
+    public GeneradorRobot(WindowsMapPanel wmp,int idDistrito,String dd, String hh)
     {
         this.cantRobots=cantRobots;
         Horario h=HorarioController.obtenerHorario(dd, hh);
