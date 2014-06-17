@@ -155,7 +155,7 @@ public class WindowsMapPanel extends javax.swing.JPanel {
 //                    System.out.println(s.positionOffset[0].getX()+"-"+s.positionOffset[0].getY());
 //                    System.out.println(s.positionOffset[1].getX()+"-"+s.positionOffset[1].getY());
                     if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
-                    g2d.fillOval((int)(edge.getOriginNode().getX()*scale-x_offset),(int)(edge.getOriginNode().getY()*scale-y_offset),5,5); 
+                    g2d.fillOval((int)(edge.getOriginNode().getX()*scale-x_offset+4*scale),(int)(edge.getOriginNode().getY()*scale-y_offset+4*scale),5,5); 
 //                    g2d.fillOval((int)(s.positionOffset[0].getX()*scale-x_offset),(int)(s.positionOffset[0].getY()*scale-y_offset),5,5); 
 
                     if (s.getEstado()==Semaforo.ROJO) g2d.setColor(Color.YELLOW);
@@ -163,7 +163,7 @@ public class WindowsMapPanel extends javax.swing.JPanel {
 
                     //Semaforos deshabilitados - espejo
                     if (s.getTverde()==0) g2d.setColor(Color.DARK_GRAY);
-                    g2d.fillOval((int)(edge.getOriginNode().getX()*scale - x_offset+5),(int)(edge.getOriginNode().getY()*scale - y_offset),5,5);
+                    g2d.fillOval((int)(edge.getOriginNode().getX()*scale - x_offset+7 *scale),(int)(edge.getOriginNode().getY()*scale - y_offset+7*scale),5,5);
 //                    g2d.fillOval((int)(s.positionOffset[1].getX()*scale-x_offset),(int)(s.positionOffset[1].getY()*scale-y_offset),5,5); 
                 }
 
@@ -177,10 +177,10 @@ public class WindowsMapPanel extends javax.swing.JPanel {
 
                 g2d.setColor(getColorTraffic(edge.getVelocidad()));
     //            g2d.setColor(getColorTraffic(Math.random()*80));
-                g2d.drawLine((int) ((edge.getOriginNode().getX()+5)*scale - x_offset),
-                            (int) ((edge.getOriginNode().getY()+5)*scale - y_offset),
-                            (int) ((edge.getEndNode().getX()+5)*scale - x_offset), 
-                            (int) ((edge.getEndNode().getY()+5)*scale - y_offset));
+                g2d.drawLine((int) ((edge.getOriginNode().getX()+7)*scale - x_offset),
+                            (int) ((edge.getOriginNode().getY()+7)*scale - y_offset),
+                            (int) ((edge.getEndNode().getX()+7)*scale - x_offset), 
+                            (int) ((edge.getEndNode().getY()+7)*scale - y_offset));
 
                 //Cargamos la data de la estructura matriz
 
@@ -212,7 +212,7 @@ public class WindowsMapPanel extends javax.swing.JPanel {
     }
     
     public void zoomIn(){
-        scale *= 2.3;
+        scale *= 2.0;
         repaint();
     }
     
