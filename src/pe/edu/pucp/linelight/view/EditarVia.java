@@ -569,7 +569,7 @@ public class EditarVia extends javax.swing.JFrame {
 
     private void txtDescKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescKeyTyped
         // TODO add your handling code here:
-        ValidationUtil.validateLenght(txtDesc.getText(), 45, evt);
+        ValidationUtil.validateLenght2(txtDesc.getText(), 45, evt);
     }//GEN-LAST:event_txtDescKeyTyped
 
     private void cmbDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDiaActionPerformed

@@ -52,6 +52,7 @@ public class WindowOlvidasteContrasena extends javax.swing.JFrame {
 
         emailTextField = new javax.swing.JTextField();
         sendPasswordButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,7 +67,6 @@ public class WindowOlvidasteContrasena extends javax.swing.JFrame {
             }
         });
 
-        sendPasswordButton.setBackground(new java.awt.Color(0, 153, 204));
         sendPasswordButton.setText("Enviar nueva contraseña");
         sendPasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,25 +74,34 @@ public class WindowOlvidasteContrasena extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Correo electrónico:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(sendPasswordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(emailTextField))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(166, Short.MAX_VALUE)
+                        .addComponent(sendPasswordButton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(sendPasswordButton)
-                .addGap(50, 50, 50))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sendPasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,6 +134,7 @@ public class WindowOlvidasteContrasena extends javax.swing.JFrame {
                     
                     if(mail.send(mensaje, usuario_correo.getCorreo())){
                         JOptionPane.showMessageDialog(WindowOlvidasteContrasena.this, "Correo enviado","Acción",INFORMATION_MESSAGE,null);
+                        this.dispose();
                     }else{
                     
                          JOptionPane.showMessageDialog(WindowOlvidasteContrasena.this, "No se pudo enviar el correo","Error",ERROR_MESSAGE,null);
@@ -137,6 +147,7 @@ public class WindowOlvidasteContrasena extends javax.swing.JFrame {
         }
         
         }
+        
  
     }//GEN-LAST:event_sendPasswordButtonActionPerformed
 
@@ -181,6 +192,7 @@ public class WindowOlvidasteContrasena extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField emailTextField;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton sendPasswordButton;
     // End of variables declaration//GEN-END:variables
 }

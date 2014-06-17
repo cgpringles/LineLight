@@ -91,7 +91,7 @@ public class BuscarVias extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(800, 647));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Criterios de Búsqueda"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Criterios de Búsqueda"));
 
         jLabel1.setText("Identificador:");
 
@@ -131,7 +131,7 @@ public class BuscarVias extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
+                .addContainerGap(78, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -140,7 +140,7 @@ public class BuscarVias extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(218, 218, 218))
+                        .addContainerGap(398, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbDistrito, 0, 147, Short.MAX_VALUE)
@@ -149,9 +149,9 @@ public class BuscarVias extends javax.swing.JPanel {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbVia, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buscar_usuario_button)
-                        .addGap(63, 63, 63))))
+                        .addGap(32, 32, 32))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +176,7 @@ public class BuscarVias extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Resultados"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Resultados"));
 
         tablaVia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -254,7 +254,7 @@ public class BuscarVias extends javax.swing.JPanel {
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -269,11 +269,13 @@ public class BuscarVias extends javax.swing.JPanel {
             if (tipoVia.equals("Seleccione") ) tipoVia = null;
         String via = (String)cmbVia.getSelectedItem();
             if (via.equals("Seleccione") ) via = null;
-    
+        System.out.println("inicio");
         ArrayList<Via> viaCriteria = ViaController.obtenerViaCriteria(identificador,distrito,tipoVia, via);
+        System.out.println("fin");
         String [] titulos={"Identificador","Distrito","Tipo de Via","Nombre","Veloc.Máxima","Descripción"};
         tbm.setColumnIdentifiers(titulos);
         tablaVia.setModel(tbm);
+        
         for (int i=0;i<viaCriteria.size();i++){
         String datos[]=new String[6];
         String tipo;
@@ -283,7 +285,8 @@ public class BuscarVias extends javax.swing.JPanel {
         else
             tipo = "Via no clasificada";
         veloc=(viaCriteria.get(i).getVelocidad());
-        distrito=DistritoController.obtenerNombDistrito(((Via)(viaCriteria.get(i))).getDistrito().getIdDistrito());
+        //distrito=DistritoController.obtenerNombDistrito(((Via)(viaCriteria.get(i))).getDistrito().getIdDistrito());
+        distrito=viaCriteria.get(i).getDistrito().getNombre();
         datos[0]=Long.toString(viaCriteria.get(i).getId().getIdVia());
         datos[1]=distrito;
         datos[2]=tipo;
