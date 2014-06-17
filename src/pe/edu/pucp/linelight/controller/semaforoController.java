@@ -271,9 +271,9 @@ public class semaforoController {
          ArrayList<String> nombreVias = new ArrayList<String>();  
          ArrayList<String> nombreViasTipo1 = new ArrayList<String>();  
          ArrayList<String> nombreViasTipo2 = new ArrayList<String>();  
-         
+         int idDistrito = 0;
          if (distrito != null){
-         int idDistrito = DistritoController.obteneridDistrito(distrito);
+          idDistrito = DistritoController.obteneridDistrito(distrito);
                    ArrayList<Via> vias = ViaController.obtenerVias(idDistrito);
                           
                    //Cargamos lista de vias para la criteria de vias que pertenecen a un distrito
@@ -287,8 +287,7 @@ public class semaforoController {
          
          Criterion idSemaforoCriteria = (identificador == null ? Restrictions.isNotNull("id.idSemaforo") : Restrictions.eq("id.idSemaforo", Long.parseLong(identificador)));
          
-         Criterion distritoCriteria = Restrictions.or(distrito == null ? Restrictions.isNotNull("via1") : Property.forName("via1").in(nombreVias), 
-                 distrito == null ? Restrictions.isNotNull("via2") : Property.forName("via2").in(nombreVias));
+         Criterion distritoCriteria = (distrito == null ? Restrictions.isNotNull("id.idDistrito") : Restrictions.eq("id.idDistrito", idDistrito));
          
          Criterion via1Criteria =  (via1 == null ? Restrictions.isNotNull("via1") : Restrictions.eq("via1", via1));
          

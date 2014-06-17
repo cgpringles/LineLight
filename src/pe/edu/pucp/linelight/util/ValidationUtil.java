@@ -107,6 +107,9 @@ public static void validateLenght4(String cadena, int tam, java.awt.event.KeyEve
             && (evt.getKeyChar() != (char)KeyEvent.VK_7)
             && (evt.getKeyChar() != (char)KeyEvent.VK_8)
             && (evt.getKeyChar() != (char)KeyEvent.VK_9)
+            && (evt.getKeyChar() != (char)KeyEvent.VK_DELETE)
+            
+            
             && (evt.getKeyChar()<'A' || evt.getKeyChar()>'Z'))) {
             Toolkit.getDefaultToolkit().beep();
             evt.consume();

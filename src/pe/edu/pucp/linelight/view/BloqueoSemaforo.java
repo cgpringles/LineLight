@@ -7,7 +7,9 @@
 package pe.edu.pucp.linelight.view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,8 +22,10 @@ public class BloqueoSemaforo extends javax.swing.JFrame {
      */
     public BloqueoSemaforo() {
         initComponents();
-         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         buscarSemaforo panel_semaforos= new buscarSemaforo();
         panel_semaforos.setSize(panel_sem.getSize());
         panel_sem.removeAll();

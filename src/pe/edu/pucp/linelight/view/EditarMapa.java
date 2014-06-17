@@ -39,6 +39,7 @@ public class EditarMapa extends javax.swing.JFrame {
      */
     public EditarMapa(Distrito distrito) {
         initComponents();
+        
         this.distrito = distrito;
         
         nombreTextField.setText(distrito.getNombre());
