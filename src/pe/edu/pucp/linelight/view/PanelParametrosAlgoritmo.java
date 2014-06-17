@@ -57,7 +57,7 @@ public class PanelParametrosAlgoritmo extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         checkbox1 = new java.awt.Checkbox();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Algoritmo"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Algoritmo"));
         jPanel1.setName(""); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(720, 226));
 
@@ -173,7 +173,7 @@ public class PanelParametrosAlgoritmo extends javax.swing.JPanel {
                             .addGap(24, 24, 24)
                             .addComponent(jLabel6))
                         .addComponent(checkbox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(19, 19, 19))
         );

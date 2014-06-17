@@ -11,6 +11,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,6 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import pe.edu.pucp.linelight.controller.MapaController;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Zona;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 
 /**
  *
@@ -35,6 +39,7 @@ public class EditarMapa extends javax.swing.JFrame {
      */
     public EditarMapa(Distrito distrito) {
         initComponents();
+        
         this.distrito = distrito;
         
         nombreTextField.setText(distrito.getNombre());
@@ -76,7 +81,7 @@ public class EditarMapa extends javax.swing.JFrame {
         setTitle("Editar Mapa");
         setResizable(false);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Mapa"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Datos del Mapa"));
 
         jLabel10.setText("Nombre:");
 
@@ -188,7 +193,7 @@ public class EditarMapa extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mapLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(mapLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,9 +279,14 @@ public class EditarMapa extends javax.swing.JFrame {
                         activo = true;
                     }
                     MapaController.editarMapa(distrito, nombreTextField.getText(), activo, sourceFile);                
-                    JOptionPane.showMessageDialog(EditarMapa.this, "Item editado", "Acción", INFORMATION_MESSAGE, null);
-
+                    JOptionPane.showMessageDialog(EditarMapa.this, "Item editado", "Acción", INFORMATION_MESSAGE, null);                    
                     EditarMapa.this.dispose();
+                    
+                      try { 
+                          GeneralUtil.insertaLog(2, "Mapa");
+                      } catch (UnknownHostException ex) {
+                          Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                      }
                 }
                 else
                 {

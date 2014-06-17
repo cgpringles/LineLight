@@ -10,7 +10,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +28,7 @@ import pe.edu.pucp.linelight.model.Tramoxnodo;
 import pe.edu.pucp.linelight.model.Zona;
 import pe.edu.pucp.linelight.structure.Edge;
 import pe.edu.pucp.linelight.util.ConfigPanelMapa;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 
 /**
  *
@@ -321,6 +325,12 @@ public class TramosxVias extends javax.swing.JFrame {
                                         if (e.equals("Habilitado")) estado=false;
                                         if (e.equals("Deshabilitado")) estado=true;
                                         ViaController.cambiarEstadoTramo(estado,idVia,idDist,idTramo);
+                                        
+                                      try { 
+                                          GeneralUtil.insertaLog(2, "TramoXVía");
+                                      } catch (UnknownHostException ex) {
+                                          Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                                      }
                                         
                                                             
                        }
