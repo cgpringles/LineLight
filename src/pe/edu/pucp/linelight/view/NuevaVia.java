@@ -195,6 +195,19 @@ public class NuevaVia extends javax.swing.JFrame {
        
         //Cargar masivo
         String nombDistrito=(String)cmbDistrito.getSelectedItem();
+        if (nombDistrito.equals("Seleccione")){
+        //mensaje de aviso
+            int seleccion = JOptionPane.showOptionDialog(
+                    NuevaVia.this, // Componente padre
+                    "Debe seleccionar un distrito", //Mensaje
+                    "Mensaje de sugerencia", // Título
+                    JOptionPane.INFORMATION_MESSAGE,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,    // null para icono por defecto.
+                    new Object[] { "Aceptar"},    // null para YES, NO y CANCEL
+                    "Aceptar"); 
+        }
+        else{
                      
          //Fin carga Masiva 
         int seleccion = JOptionPane.showOptionDialog(
@@ -234,7 +247,7 @@ public class NuevaVia extends javax.swing.JFrame {
                            if (viasCargadas == true)
                                ViaController.eliminarVias(nombDistrito);
                                     JFileChooser fc = new JFileChooser();
-                                          FileNameExtensionFilter filter = new FileNameExtensionFilter("XML","xml");
+                                          FileNameExtensionFilter filter = new FileNameExtensionFilter("OSM","osm");
                                           fc.setFileFilter(filter);
                                           int returnVal = fc.showOpenDialog(this);
                                               if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -267,7 +280,7 @@ public class NuevaVia extends javax.swing.JFrame {
                                               }
                         }
                    }
-                }
+                }}
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

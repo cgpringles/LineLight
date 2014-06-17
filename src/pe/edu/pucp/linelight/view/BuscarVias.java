@@ -323,8 +323,8 @@ public class BuscarVias extends javax.swing.JPanel {
                     BuscarVias.this, // Componente padre
                     "Debe seleccionar una fila", //Mensaje
                     "Mensaje de sugerencia", // Título
-                    JOptionPane.OK_OPTION,
-                    JOptionPane.OK_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    JOptionPane.WARNING_MESSAGE,
                     null,    // null para icono por defecto.
                     new Object[] { "Aceptar"},    // null para YES, NO y CANCEL
                     "Aceptar");
