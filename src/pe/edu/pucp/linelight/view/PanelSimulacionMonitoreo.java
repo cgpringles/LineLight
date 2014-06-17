@@ -164,6 +164,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         fechaLabel1 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         monitoreoPanel = new javax.swing.JPanel();
         iniciarMonitoreoButton = new javax.swing.JButton();
         configuracionLabel = new javax.swing.JLabel();
@@ -191,6 +192,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1206, 700));
         setRequestFocusEnabled(false);
 
+        tabbedPane.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabbedPaneMousePressed(evt);
@@ -252,6 +254,13 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Vía");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout simulacionPanelLayout = new javax.swing.GroupLayout(simulacionPanel);
         simulacionPanel.setLayout(simulacionPanelLayout);
         simulacionPanelLayout.setHorizontalGroup(
@@ -261,7 +270,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                 .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(simulacionPanelLayout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addComponent(iniciarSimulacionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(simulacionPanelLayout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,9 +283,8 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addGroup(simulacionPanelLayout.createSequentialGroup()
                         .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(fechaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(fechaLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fechaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(simulacionPanelLayout.createSequentialGroup()
@@ -306,10 +316,10 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fechaLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fechaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
@@ -319,11 +329,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(simulacionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(iniciarSimulacionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iniciarSimulacionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         tabbedPane.addTab("Simulación", simulacionPanel);
@@ -358,8 +369,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             .addGroup(monitoreoPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(iniciarMonitoreoButton)
-                    .addGroup(monitoreoPanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monitoreoPanelLayout.createSequentialGroup()
                         .addGroup(monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(configuracionLabel)
                             .addComponent(jLabel4))
@@ -369,8 +379,11 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                                 .addComponent(txtVelProm, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6))
-                            .addComponent(configuracionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(89, 89, 89))
+                            .addComponent(configuracionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(89, 89, 89))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, monitoreoPanelLayout.createSequentialGroup()
+                        .addComponent(iniciarMonitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         monitoreoPanelLayout.setVerticalGroup(
             monitoreoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,9 +397,9 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(txtVelProm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(17, 17, 17)
-                .addComponent(iniciarMonitoreoButton)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addComponent(iniciarMonitoreoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tabbedPane.addTab("Monitoreo", monitoreoPanel);
@@ -1044,32 +1057,39 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     }//GEN-LAST:event_tabbedPaneMousePressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:       
-        int numFila = tablaSemaforo.getSelectedRow();
-        if (numFila >= 0){
-            String idSemaforo = (String) tablaSemaforo.getValueAt(numFila,0);
-            //String nombreDistrito = (String) tablaSemaforo.getValueAt(numFila,1);
-            String via1 = (String) tablaSemaforo.getValueAt(numFila,1);
-            String via2 = (String) tablaSemaforo.getValueAt(numFila,2);
-            String tiempoVerde = (String) tablaSemaforo.getValueAt(numFila,3);
-            String tiempoRojo = (String) tablaSemaforo.getValueAt(numFila,4);
-            String estado = (String) tablaSemaforo.getValueAt(numFila,5);
-             String nombreDistrito = DistritoController.obtenerDistritoActivo().getNombre();
-            editarSemáforo editar= new editarSemáforo(idSemaforo, nombreDistrito, via1, via2, tiempoVerde, tiempoRojo, estado);
-            editar.setVisible(true);  
-        }else{
-            int seleccion = JOptionPane.showOptionDialog(
-                    PanelSimulacionMonitoreo.this, // Componente padre
-                    "Debe seleccionar una fila", //Mensaje
-                    "Mensaje de sugerencia", // Título
-                    JOptionPane.OK_OPTION,
-                    JOptionPane.OK_OPTION,
-                    null,    // null para icono por defecto.
-                    new Object[] { "Aceptar"},    // null para YES, NO y CANCEL
-                    "Aceptar");
-        }
+        // TODO add your handling code here:     
+        BloqueoSemaforo nuevo= new BloqueoSemaforo();
+        nuevo.setVisible(true);
+//        int numFila = tablaSemaforo.getSelectedRow();
+//        if (numFila >= 0){
+//            String idSemaforo = (String) tablaSemaforo.getValueAt(numFila,0);
+//            //String nombreDistrito = (String) tablaSemaforo.getValueAt(numFila,1);
+//            String via1 = (String) tablaSemaforo.getValueAt(numFila,1);
+//            String via2 = (String) tablaSemaforo.getValueAt(numFila,2);
+//            String tiempoVerde = (String) tablaSemaforo.getValueAt(numFila,3);
+//            String tiempoRojo = (String) tablaSemaforo.getValueAt(numFila,4);
+//            String estado = (String) tablaSemaforo.getValueAt(numFila,5);
+//             String nombreDistrito = DistritoController.obtenerDistritoActivo().getNombre();
+//            editarSemáforo editar= new editarSemáforo(idSemaforo, nombreDistrito, via1, via2, tiempoVerde, tiempoRojo, estado);
+//            editar.setVisible(true);  
+//        }else{
+//            int seleccion = JOptionPane.showOptionDialog(
+//                    PanelSimulacionMonitoreo.this, // Componente padre
+//                    "Debe seleccionar una fila", //Mensaje
+//                    "Mensaje de sugerencia", // Título
+//                    JOptionPane.OK_OPTION,
+//                    JOptionPane.OK_OPTION,
+//                    null,    // null para icono por defecto.
+//                    new Object[] { "Aceptar"},    // null para YES, NO y CANCEL
+//                    "Aceptar");
+//        }
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        BloqueoVia nuevo= new BloqueoVia();
+        nuevo.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1080,6 +1100,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private javax.swing.JLabel fechaLabel1;
     private javax.swing.JButton iniciarMonitoreoButton;
     private javax.swing.JButton iniciarSimulacionButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
