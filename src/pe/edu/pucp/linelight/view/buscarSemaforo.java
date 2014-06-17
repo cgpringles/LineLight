@@ -479,7 +479,7 @@ public class buscarSemaforo extends javax.swing.JPanel {
             String tiempoVerde = (String) tablaSemaforo.getValueAt(numFila,4);
             String tiempoRojo = (String) tablaSemaforo.getValueAt(numFila,5);
             String estado = (String) tablaSemaforo.getValueAt(numFila,6);
-            
+           
             editarSemáforo editar= new editarSemáforo(idSemaforo, nombreDistrito, via1, via2, tiempoVerde, tiempoRojo, estado);
             editar.setVisible(true);  
         }else{
