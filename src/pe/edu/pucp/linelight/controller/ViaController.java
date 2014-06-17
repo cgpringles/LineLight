@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import pe.edu.pucp.linelight.model.Horario;
 import pe.edu.pucp.linelight.model.Tramo;
@@ -352,7 +353,7 @@ public class ViaController {
          Criterion distritoCriteria = (distrito != null ? Restrictions.eq("distrito.idDistrito", idDistrito) : null);
          Criterion viaCriteria = (via != null ? Restrictions.like("nombre", via) : null);
          Criterion tipoViaCriteria = (tipoVia != null ? Restrictions.like("tipovia.idTipoVia", idTipoVia) : null);
-
+         
          if (idViaCriteria != null)
              criteria.add(Restrictions.conjunction().add(idViaCriteria));
          if (distritoCriteria != null)
@@ -361,7 +362,7 @@ public class ViaController {
              criteria.add(Restrictions.conjunction().add(viaCriteria));
          if (tipoViaCriteria != null)
              criteria.add(Restrictions.conjunction().add(tipoViaCriteria));
-         
+         criteria.addOrder(Order.desc("nombre"));
          if (idViaCriteria == null && distritoCriteria == null && viaCriteria == null && tipoViaCriteria == null)
              return vias;
          

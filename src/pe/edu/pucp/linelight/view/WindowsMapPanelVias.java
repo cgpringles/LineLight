@@ -129,7 +129,7 @@ public class WindowsMapPanelVias extends javax.swing.JPanel {
         
         g2d.setStroke(new BasicStroke(2f));
         g2d.setColor(Color.RED);
-        Zona z=ZonaController.obtenerZonaCentral(DistritoController.obtenerDistritoActivo().getIdDistrito());
+        Zona z=ZonaController.obtenerZonaCentral(idDistrito);
         if (idTramos != null){ 
             for (int i = 0; i < idTramos.size(); i++){
             ArrayList<Tramoxnodo> listaNodos = ViaController.obtenerTramoxnodo(idViaGen, idDistrito, idTramos.get(i));
@@ -142,10 +142,10 @@ public class WindowsMapPanelVias extends javax.swing.JPanel {
 //                            (int) ((p2.getX() + x_offset)*scale), 
 //                            (int) ((p2.getY() + y_offset)*scale));  
             
-            g2d.drawLine((int) (p.getX()*scale -x_offset),
-                            (int) (p.getY()*scale - y_offset),
-                            (int) (p2.getX()*scale - x_offset), 
-                            (int) (p2.getY()*scale  - y_offset));  
+            g2d.drawLine((int) ((p.getX()+5)*scale -x_offset),
+                            (int) ((p.getY()+5)*scale - y_offset),
+                            (int) ((p2.getX()+5)*scale - x_offset), 
+                            (int) ((p2.getY()+5)*scale  - y_offset));  
             }
         }
     }
@@ -159,7 +159,7 @@ public class WindowsMapPanelVias extends javax.swing.JPanel {
     }
 
     public void zoomIn(){
-        scale *= 2;
+        scale *= 2.0;
         repaint();
     }
     
