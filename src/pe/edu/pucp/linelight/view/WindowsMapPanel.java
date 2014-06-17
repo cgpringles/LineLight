@@ -177,10 +177,10 @@ public class WindowsMapPanel extends javax.swing.JPanel {
 
                 g2d.setColor(getColorTraffic(edge.getVelocidad()));
     //            g2d.setColor(getColorTraffic(Math.random()*80));
-                g2d.drawLine((int) ((edge.getOriginNode().getX())*scale - x_offset),
-                            (int) ((edge.getOriginNode().getY())*scale - y_offset),
-                            (int) ((edge.getEndNode().getX())*scale - x_offset), 
-                            (int) ((edge.getEndNode().getY())*scale - y_offset));
+                g2d.drawLine((int) ((edge.getOriginNode().getX()+5)*scale - x_offset),
+                            (int) ((edge.getOriginNode().getY()+5)*scale - y_offset),
+                            (int) ((edge.getEndNode().getX()+5)*scale - x_offset), 
+                            (int) ((edge.getEndNode().getY()+5)*scale - y_offset));
 
                 //Cargamos la data de la estructura matriz
 
