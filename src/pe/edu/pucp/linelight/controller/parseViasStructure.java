@@ -90,10 +90,22 @@ public class parseViasStructure implements Runnable{
                     Random ran= new Random ();
                     if (tipo!=null){
                         if (tipo.getIdTipoVia()==1){
-                        nuevo.setNumCarros(ran.nextInt(5)+20);
+                            if (listaHor.get(j).getDia().equals("Lunes"))nuevo.setNumCarros(ran.nextInt(5)+30);
+                            if (listaHor.get(j).getDia().equals("Martes"))nuevo.setNumCarros(ran.nextInt(5)+25);
+                            if (listaHor.get(j).getDia().equals("Miercoles"))nuevo.setNumCarros(ran.nextInt(5)+20);
+                            if (listaHor.get(j).getDia().equals("Jueves"))nuevo.setNumCarros(ran.nextInt(5)+20);
+                            if (listaHor.get(j).getDia().equals("Viernes"))nuevo.setNumCarros(ran.nextInt(5)+50);
+                            if (listaHor.get(j).getDia().equals("Sabado"))nuevo.setNumCarros(ran.nextInt(5)+20);
+                            if (listaHor.get(j).getDia().equals("Domingo"))nuevo.setNumCarros(ran.nextInt(5)+15);
                         }
                         if (tipo.getIdTipoVia()==2){
-                        nuevo.setNumCarros(ran.nextInt(50)+200);
+                            if (listaHor.get(j).getDia().equals("Lunes"))nuevo.setNumCarros(ran.nextInt(5)+100);
+                            if (listaHor.get(j).getDia().equals("Martes"))nuevo.setNumCarros(ran.nextInt(5)+70);
+                            if (listaHor.get(j).getDia().equals("Miercoles"))nuevo.setNumCarros(ran.nextInt(5)+70);
+                            if (listaHor.get(j).getDia().equals("Jueves"))nuevo.setNumCarros(ran.nextInt(5)+65);
+                            if (listaHor.get(j).getDia().equals("Viernes"))nuevo.setNumCarros(ran.nextInt(5)+70);
+                            if (listaHor.get(j).getDia().equals("Sabado"))nuevo.setNumCarros(ran.nextInt(5)+50);
+                            if (listaHor.get(j).getDia().equals("Domingo"))nuevo.setNumCarros(ran.nextInt(5)+45);
                         }                   
                     }
                     else{
@@ -119,6 +131,7 @@ public class parseViasStructure implements Runnable{
             DetalleVias nuevo=new DetalleVias(numVias,dRef.getNombre());
             this.ventana.dispose();
             nuevo.setVisible(true);
+            band = false;
     }
     
     

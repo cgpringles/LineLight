@@ -618,8 +618,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     /*Inicializar y bloquear campos y botones*/
                     jProgressBar1.setValue(0);
                     jProgressBar1.setStringPainted(true);                    
-                    jProgressBar1.setString("Ejecutando Simulacion ...");
-                    //jProgressBar1.setVisible(true);                    
+                    jProgressBar1.setString("Ejecutando Simulacion ...");                                    
                     jTextField3.setText(" ");                    
                     jTextField7.setText(" ");
                     iniciarSimulacionButton.setEnabled(false);
@@ -642,7 +641,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                     Distrito distrito = DistritoController.obtenerDistritoActivo();
                     int numVehiculos = HorarioController.obtenerCarrosxHorarioxDistrito(horario.getIdHorario(),distrito.getIdDistrito());
                                             
-                    Thread t =  new Thread(new jcThread(jProgressBar1 , 100, 1) );
+                    Thread t =  new Thread(new jcThread(jProgressBar1, 100, 1) );
                     t.start();      
                     gr = new GeneradorRobot(numVehiculos, d.getIdDistrito(), mapPanel);
                     List<Object> vehiculos = gr.getListaVehiculosRuta();                                       
@@ -781,8 +780,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         /*Inicializar y bloquear campos y botones*/
                         jProgressBar1.setValue(0);
                         jProgressBar1.setStringPainted(true);
-                        jProgressBar1.setString("Guardando Simulacion ...");
-                        //jProgressBar1.setVisible(true);
+                        jProgressBar1.setString("Guardando Simulacion ...");                        
                         iniciarSimulacionButton.setEnabled(false);
                         agregarSimulacion.setEnabled(false);                        
                         jTextField6.setEnabled(false);
@@ -823,18 +821,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
                         int ok = EjecucionAlgoritmoController.agregarEjecucionAlgoritmo(ejecucionAlgoritmo);
                         if(ok == 1)
                            {
-                               
-//                               /******************* Deshabilitar e iniciar valores *****************/
-//                               jProgressBar1.setValue(0);
-//                               jProgressBar1.setStringPainted(true);
-//                               jProgressBar1.setString("Guardando Simulacion ...");
-//                               iniciarSimulacionButton.setEnabled(false);
-//                               agregarSimulacion.setEnabled(false);
-//                               jTextField6.setEnabled(false);
-//                               jComboBox1.setEnabled(false);
-//                               jComboBox2.setEnabled(false);
-//                               /**/
-//                               
+                             
                                Thread t2 =  new Thread(new jcThread(jProgressBar1 , 100, 1) );
                                t2.start();
                                int idInicio = VehiculoController.agregarGeneracionVehiculos(Ejecucionalgoritmoid, horarioid);
@@ -845,8 +832,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
 //                               
                                JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Simulación agregada","Acción",INFORMATION_MESSAGE,null);
 
-                               /*Hablitar botones y campos de ventana y actualziar valores*/
-                               
+                               /*Hablitar botones y campos de ventana y actualziar valores*/                               
                                jProgressBar1.setStringPainted(false);
                                jProgressBar1.setValue(0);
                                //jProgressBar1.setVisible(false);

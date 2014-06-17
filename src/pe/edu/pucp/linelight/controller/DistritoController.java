@@ -52,20 +52,26 @@ public class DistritoController {
             idDistrito=(int)(s.save(d));
             
             List<Horario> horarios = s.createCriteria(Horario.class).list();
-            
+            int numCarros=0;
             for(Horario horario : horarios){
                 Distritoxhorario dxh = new Distritoxhorario();
                 dxh.setId(new DistritoxhorarioId(d.getIdDistrito(), horario.getIdHorario()));
                 
                 Random rand = new Random();
+                if (horario.getDia().equals("Lunes"))numCarros = 3000;
+                if (horario.getDia().equals("Martes"))numCarros = 2700;
+                if (horario.getDia().equals("Miercoles"))numCarros = 2500;
+                if (horario.getDia().equals("Jueves"))numCarros = 2500;
+                if (horario.getDia().equals("Viernes"))numCarros = 3000;
+                if (horario.getDia().equals("Sabado"))numCarros = 2500;
+                if (horario.getDia().equals("Domingo"))numCarros = 2000;
                 
-                int numCarros = 100;
                 numCarros += rand.nextInt(40);
                 if (horario.getIdHorario()%3==2){
-                    numCarros -= rand.nextInt(50);
+                    numCarros -= rand.nextInt(500);
                 }
                 if (horario.getIdHorario()> 15){
-                    numCarros -= rand.nextInt(30);
+                    numCarros -= rand.nextInt(300);
                 }
                 
                 dxh.setNumCarros(numCarros);

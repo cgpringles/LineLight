@@ -102,6 +102,7 @@ public class parseSemaforosStructure implements Runnable{
             DetalleSemaforo nuevo = new DetalleSemaforo(numSem,dRef.getNombre());
             this.ventana.dispose();
             nuevo.setVisible(true);
+            band = false;
           
     }
 }
