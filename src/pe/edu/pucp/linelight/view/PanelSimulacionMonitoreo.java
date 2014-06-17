@@ -605,8 +605,12 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             
             gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),f[0],f[1],listaAlgxSem);
         }
-        else
-            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Debe seleccionar una configuración de semáforos", "Error", ERROR_MESSAGE, null);
+//        else
+//        {
+//            semaforoController.actualizarSemaforosMonitoreoDefecto(null);
+////            JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Debe seleccionar una configuración de semáforos", "Error", ERROR_MESSAGE, null);
+//            
+//        }
 
     }//GEN-LAST:event_iniciarMonitoreoButtonActionPerformed
 
@@ -920,6 +924,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
     private void configuracionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionComboBoxActionPerformed
         
         System.out.println(configuracionComboBox.getSelectedIndex());
+        if (gr!=null) gr.detenerHilo();
         if (configuracionComboBox.getSelectedIndex()>0)
         {
             Ejecucionalgoritmo ejecAlg=lEjec.get(configuracionComboBox.getSelectedIndex()-1);
@@ -961,7 +966,33 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             semaforoController.actualizarSemaforosMonitoreo(sMod);
             txtVelProm.setText(ejecAlg.getVelocidadMaxima().toString());
         }
-        else txtVelProm.setText("");
+        else
+        {
+            semaforoController.actualizarSemaforosMonitoreoDefecto();
+            List<Semaforo> ls=semaforoController.obtenerTodosSemaforos();
+            
+            DefaultTableModel tbm= new DefaultTableModel();
+            String [] titulos={"Id Semaforo","Vía P", "Vía S", "T.verde", "T.Rojo", "Estado"};
+            tbm.setColumnIdentifiers(titulos);
+            tablaSemaforo.setModel(tbm); 
+            
+            for (Semaforo s:ls)
+            {
+                String datosSemaforoInicio[] = new String[6];
+                datosSemaforoInicio[0] = "" + s.getId().getIdSemaforo();
+                //V. Principal.
+                datosSemaforoInicio[1] = "" + s.getVia1();
+                //V. Secundaria
+                datosSemaforoInicio[2] = "" + s.getVia2();
+                datosSemaforoInicio[3] = "60";
+                datosSemaforoInicio[4] = "60";
+                datosSemaforoInicio[5] = "Habilitado";
+                tbm.addRow(datosSemaforoInicio);
+
+                tablaSemaforo.setModel(tbm);
+            }
+            txtVelProm.setText("");
+        }
     }//GEN-LAST:event_configuracionComboBoxActionPerformed
 
     private void tabbedPaneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMousePressed

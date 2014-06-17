@@ -713,5 +713,58 @@ public class semaforoController {
             s.close();
         }
     }
-   
+    
+    public static void actualizarSemaforosMonitoreoDefecto()
+    {
+        System.out.println("Actualizando semaforos...");
+        Session s = null; 
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            List<Semaforo> ls=s.createCriteria(Semaforo.class).list();
+            for (Semaforo sem:ls)
+            {
+                Semaforo semMod=(Semaforo)s.get(Semaforo.class, sem.getId());
+                semMod.setTverde(60);
+                semMod.setTrojo(60);
+                s.update(semMod);
+            }
+            
+            HibernateUtil.cierraOperacion(s);
+            
+        }
+        catch (HibernateException e)
+        {
+            e.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+    }
+    
+    public static List<Semaforo> obtenerTodosSemaforos()
+    {
+        Session s = null; 
+        List<Semaforo> ls=new ArrayList<>();
+        try
+        {
+            s = HibernateUtil.iniciaOperacion();
+            ls=s.createCriteria(Semaforo.class).list();            
+            HibernateUtil.cierraOperacion(s);
+            
+        }
+        catch (HibernateException e)
+        {
+            e.printStackTrace();
+            HibernateUtil.manejaExcepcion(s);
+        }
+        finally 
+        {
+            s.close();
+        }
+        
+        return ls;
+    }
 }
