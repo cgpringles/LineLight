@@ -42,6 +42,8 @@ public class EditarVia extends javax.swing.JFrame {
     }
     public EditarVia( String idVia,String dist,String tipoVia,String nombVia,String veloc,String desc) {
         initComponents();
+        Image icon = new ImageIcon(getClass().getResource("/images/semaforo.png")).getImage();
+        setIconImage(icon);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         txtDistrito.setText(dist);
