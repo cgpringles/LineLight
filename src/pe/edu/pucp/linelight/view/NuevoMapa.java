@@ -10,6 +10,9 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -18,6 +21,7 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import pe.edu.pucp.linelight.controller.MapaController;
 import pe.edu.pucp.linelight.model.Distrito;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 
 /**
  *
@@ -188,7 +192,6 @@ public class NuevoMapa extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Selec. Archivo");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,11 +280,25 @@ public class NuevoMapa extends javax.swing.JFrame {
                         MapaController.agregarMapaDistritoZonas(nombreTextField.getText(), activo, sourceFile);
                         JOptionPane.showMessageDialog(NuevoMapa.this, "Item agregado", "Acción", INFORMATION_MESSAGE, null);
                         NuevoMapa.this.dispose();
+                        
+                        try {
+                            GeneralUtil.insertaLog(1, "Manual Distrito");
+                        } catch (UnknownHostException ex) {
+                            Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                        }                        
+                        
                     }
                     else{
                         MapaController.agregarMapaMasivoDistritoZonas(sourceFileMasivo);
                         JOptionPane.showMessageDialog(NuevoMapa.this, "Items agregados", "Acción", INFORMATION_MESSAGE, null);
                         NuevoMapa.this.dispose();
+                        
+                        try {
+                            GeneralUtil.insertaLog(1, "Masivo Distrito");
+                        } catch (UnknownHostException ex) {
+                            Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
                     }
                 }
                 else

@@ -9,6 +9,9 @@ package pe.edu.pucp.linelight.view;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import pe.edu.pucp.linelight.controller.DistritoController;
@@ -16,6 +19,7 @@ import pe.edu.pucp.linelight.controller.TipoViaController;
 import pe.edu.pucp.linelight.controller.ViaController;
 import pe.edu.pucp.linelight.model.Viaxhorario;
 import pe.edu.pucp.linelight.model.ViaxhorarioId;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 
@@ -445,6 +449,13 @@ public class EditarVia extends javax.swing.JFrame {
                    {
                        ViaController.modificarVia(idVia,nuevaDesc);
                        this.dispose();
+                       
+                      try { 
+                          GeneralUtil.insertaLog(2, "Vías");
+                      } catch (UnknownHostException ex) {
+                          Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+                       
                    }
                 }  
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -516,6 +527,12 @@ public class EditarVia extends javax.swing.JFrame {
                        viaxHorario.setNumCarros(numCarros);
                        
                        ViaController.modificarNumerodeCarros(viaxHorario);
+                      
+                       try { 
+                          GeneralUtil.insertaLog(2, "VíaXhorario");
+                      } catch (UnknownHostException ex) {
+                          Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                      }
                        
                    }
                 }    

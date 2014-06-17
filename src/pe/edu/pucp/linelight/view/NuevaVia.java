@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,7 @@ import pe.edu.pucp.linelight.controller.parseViasStructure;
 import pe.edu.pucp.linelight.model.Distrito;
 import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.structure.MapParser;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 
 /**
  *
@@ -248,6 +250,13 @@ public class NuevaVia extends javax.swing.JFrame {
                                                       
                                                       new Thread(new jcThread( this.jProgressBar1 , 500, 0) ).start();
                                                       new Thread(new parseViasStructure(sourceFile,d,this)).start();
+                                                      
+                                                      try { 
+                                                          GeneralUtil.insertaLog(1, "Masivo Vías");
+                                                      } catch (UnknownHostException ex) {
+                                                          Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                                                      }
+                                                      
                                                   } catch (DocumentException ex) {
                                                       Logger.getLogger(WindowPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                                                   }

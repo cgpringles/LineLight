@@ -604,6 +604,7 @@ public class PanelSimulacionMonitoreo extends javax.swing.JPanel {
             List<Ejecucionalgoritmoxsemaforo> listaAlgxSem=EjecucionAlgoritmoController.obtenerAlgoritmoxSemaforo();
             
             gr=new GeneradorRobot(mapPanel,d.getIdDistrito(),f[0],f[1],listaAlgxSem);
+
         }
         else
             JOptionPane.showMessageDialog(PanelSimulacionMonitoreo.this, "Debe seleccionar una configuración de semáforos", "Error", ERROR_MESSAGE, null);

@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,7 @@ import pe.edu.pucp.linelight.model.SemaforoId;
 import pe.edu.pucp.linelight.model.Tipovia;
 import pe.edu.pucp.linelight.model.Via;
 import pe.edu.pucp.linelight.structure.MapParser;
+import pe.edu.pucp.linelight.util.GeneralUtil;
 import pe.edu.pucp.linelight.util.ValidationUtil;
 
 /**
@@ -633,6 +635,15 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                     new Object[] { "Aceptar"},    
                                     "Aceptar");
                                   NuevoSemaforo.this.dispose();
+                                  
+                                   try { 
+                                      GeneralUtil.insertaLog(1, "Manual Semaforo");
+                                  } catch (UnknownHostException ex) {
+                                      Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                                  }
+                                  
+                                  
+                                  
                                   }
                             }
                     }
@@ -727,6 +738,12 @@ public class NuevoSemaforo extends javax.swing.JFrame {
                                                  cmbDistritoMasivo.setEnabled(false);
                                                  new Thread(new jcThread(this.jProgressBar1 , 50, 1) ).start();
                                                  new Thread(new parseSemaforosStructure(sourceFile,d,this)).start();
+                                                 
+                                                 try { 
+                                                      GeneralUtil.insertaLog(1, "Masivo Semaforo");
+                                                  } catch (UnknownHostException ex) {
+                                                      Logger.getLogger(NuevoMapa.class.getName()).log(Level.SEVERE, null, ex);
+                                                  }
                                                  
                                                  //numSemCargados = semaforoController.parseSemaforos(sourceFile, d);
                                              } catch (DocumentException ex) {

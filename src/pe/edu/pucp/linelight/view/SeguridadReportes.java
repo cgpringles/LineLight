@@ -66,8 +66,8 @@ public class SeguridadReportes extends javax.swing.JPanel {
          simulaciones_dh.addItem("Seleccione");
         for (Ejecucionalgoritmo e:lEjec)
         {
-            simulaciones.addItem(e.getNombreSimulacion());
-            simulaciones_dh.addItem(e.getNombreSimulacion());
+            simulaciones.addItem(e.getNombreSimulacion().split("/")[0]);
+            simulaciones_dh.addItem(e.getNombreSimulacion().split("/")[0]);
         }
         users=UsuarioController.getAllUsuarios();
         usuarios.removeAllItems();
@@ -379,7 +379,7 @@ URL in = null;
           List<SemaforosReport> lista = new ArrayList<>();
           SemaforosReport raut=new SemaforosReport();
 
-          raut.setSimulacion(lEjec.get(simulaciones.getSelectedIndex()-1).getNombreSimulacion());
+          raut.setSimulacion(lEjec.get(simulaciones.getSelectedIndex()-1).getNombreSimulacion().split("/")[0]);
 
           
           List<Ejecucionalgoritmoxsemaforo> lista_sem=EjecucionAlgoritmoController.getEjecucionxSemaforoById(lEjec.get(simulaciones.getSelectedIndex()-1).getId().getIdEjecucionAlgoritmo());
