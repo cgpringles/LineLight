@@ -4,15 +4,40 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="idUsuario" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="app" class="java.lang.String"/>
+	<field name="apm" class="java.lang.String"/>
+	<field name="dni" class="java.lang.String"/>
+	<field name="correo" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement uuid="86651103-e707-4386-b017-180800223f43" x="37" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="1" y="0" width="100" height="20" uuid="18717663-1bda-4dd8-9a1c-8032d3b77ed1"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{idUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="0" width="101" height="20" uuid="8ce3a50d-005f-41a0-8f4e-682f75159946"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="0" width="100" height="20" uuid="59a3fb8b-90ac-4769-b678-857d24cfa3bb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{app} + " " + $F{apm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="0" width="80" height="20" uuid="69a77a9c-4379-4ff4-91a6-2a46bfee8bfe"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="0" width="102" height="20" uuid="0ad207bd-80cf-4350-847b-b544c3fdd676"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

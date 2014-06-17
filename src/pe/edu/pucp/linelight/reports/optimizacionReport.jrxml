@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuariosReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f65bd00c-2439-44fb-936c-6d4e83f44d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="30"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -19,15 +19,12 @@
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
-	<field name="semaforos" class="java.util.List"/>
-	<field name="simulacion" class="java.lang.String"/>
-	<field name="dia" class="java.lang.String"/>
-	<field name="hora" class="java.lang.String"/>
+	<field name="simulaciones" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="161" splitType="Stretch">
+		<band height="153" splitType="Stretch">
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="95" backcolor="#A5D3E2" uuid="c3c1b2c7-aeda-407d-962e-14d0e322ad3c"/>
 				<staticText>
@@ -35,7 +32,7 @@
 					<textElement textAlignment="Center">
 						<font size="24" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Reporte de Configuración de Semáforos]]></text>
+					<text><![CDATA[Reporte de Optimizaciones]]></text>
 				</staticText>
 				<image>
 					<reportElement x="425" y="0" width="130" height="95" uuid="91d6fdb5-0233-4075-becf-06311da9c216"/>
@@ -52,54 +49,47 @@
 					<textFieldExpression><![CDATA["Hora: " +new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
-			<textField>
-				<reportElement x="2" y="112" width="314" height="19" forecolor="#FFFFFF" uuid="beb4126c-6563-4b46-944e-571845496bd0"/>
-				<textElement>
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Nombre:" + $F{simulacion}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="26" splitType="Stretch">
+		<band height="37" splitType="Stretch">
 			<staticText>
 				<reportElement style="Column header" x="0" y="7" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[ID Semaforo]]></text>
+				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="116" y="8" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[ID Nodo]]></text>
+				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="236" y="8" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
+				<reportElement style="Column header" x="233" y="0" width="101" height="36" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Tiempo en Verde]]></text>
+				<text><![CDATA[Velocidad Maxima]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="350" y="8" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
+				<reportElement style="Column header" x="353" y="0" width="101" height="36" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Tiempo en Rojo]]></text>
+				<text><![CDATA[Velocidad Historica]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="465" y="7" width="88" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Estado]]></text>
+				<text><![CDATA[Usuario]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -110,8 +100,8 @@
 			</frame>
 			<subreport>
 				<reportElement x="0" y="0" width="553" height="99" uuid="4897b4b1-9eab-424a-835e-5e78d09204d8"/>
-				<dataSourceExpression><![CDATA[new  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{semaforos})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["semafororsReport_subreport.jasper"]]></subreportExpression>
+				<dataSourceExpression><![CDATA[new  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{simulaciones})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["optimizacionReport_subreport.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

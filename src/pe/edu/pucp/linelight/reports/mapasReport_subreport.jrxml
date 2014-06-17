@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuariosReport_subreport" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0ab0fc12-961b-43a9-a331-f1815b1da854">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="idDistrito" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="fec_registro" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="100" height="20" uuid="18717663-1bda-4dd8-9a1c-8032d3b77ed1"/>
+				<textFieldExpression><![CDATA[$F{idDistrito}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="0" width="101" height="20" uuid="8ce3a50d-005f-41a0-8f4e-682f75159946"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="0" width="100" height="20" uuid="59a3fb8b-90ac-4769-b678-857d24cfa3bb"/>
+				<textFieldExpression><![CDATA[$F{fec_registro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="0" width="88" height="20" uuid="0ad207bd-80cf-4350-847b-b544c3fdd676"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -157,6 +157,8 @@ public class UsuarioController {
         return listaUsuarios;
     }
 
+
+    
     public static Usuario getUsuarioById(String idUsuario) throws HibernateException {
         Usuario usuario = new Usuario();
         Session s = null;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuariosReport_subreport" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0ab0fc12-961b-43a9-a331-f1815b1da854">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="idEjecucionAlgoritmo" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="velocidadMaxima" class="java.lang.String"/>
+	<field name="velocidadHistoria" class="java.lang.String"/>
+	<field name="idUsuario" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="4e74e0dc-5fa2-4bda-a739-f123be7a724e"/>
+				<textFieldExpression><![CDATA[$F{idEjecucionAlgoritmo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="116" y="0" width="100" height="20" uuid="f5ed8c7c-860b-4940-ae6e-7b64e34c3d4d"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="0" width="100" height="20" uuid="f223a7f6-4ee1-4dea-ad67-5f6fd51f9822"/>
+				<textFieldExpression><![CDATA[$F{velocidadMaxima}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="101" height="20" uuid="b930fb30-0f17-4f64-947e-989ef74ead83"/>
+				<textFieldExpression><![CDATA[$F{velocidadHistoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="0" width="88" height="20" uuid="f83dec88-922b-44fe-adcc-fb2e9ab70916"/>
+				<textFieldExpression><![CDATA[$F{idUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

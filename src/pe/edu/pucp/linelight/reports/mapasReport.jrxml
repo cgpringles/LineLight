@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuariosReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f65bd00c-2439-44fb-936c-6d4e83f44d11">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="4"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -19,46 +19,36 @@
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
-	<field name="semaforos" class="java.util.List"/>
-	<field name="simulacion" class="java.lang.String"/>
-	<field name="dia" class="java.lang.String"/>
-	<field name="hora" class="java.lang.String"/>
+	<field name="distritos" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="161" splitType="Stretch">
+		<band height="132" splitType="Stretch">
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="95" backcolor="#A5D3E2" uuid="c3c1b2c7-aeda-407d-962e-14d0e322ad3c"/>
+				<image>
+					<reportElement x="423" y="0" width="130" height="95" uuid="91d6fdb5-0233-4075-becf-06311da9c216"/>
+					<imageExpression><![CDATA["lineLightLogo.png"]]></imageExpression>
+				</image>
 				<staticText>
-					<reportElement style="Title" x="22" y="23" width="370" height="72" uuid="e1f62b47-61db-45d7-8ead-8896c096e3b0"/>
+					<reportElement style="Title" x="20" y="28" width="370" height="39" uuid="9448c28b-8bef-4114-96fc-977504ba1376"/>
 					<textElement textAlignment="Center">
 						<font size="24" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Reporte de Configuración de Semáforos]]></text>
+					<text><![CDATA[Reporte de Mapas Registrados]]></text>
 				</staticText>
-				<image>
-					<reportElement x="425" y="0" width="130" height="95" uuid="91d6fdb5-0233-4075-becf-06311da9c216"/>
-					<imageExpression><![CDATA["lineLightLogo.png"]]></imageExpression>
-				</image>
 			</frame>
 			<frame>
-				<reportElement mode="Opaque" x="0" y="100" width="555" height="32" forecolor="#000000" backcolor="#CC0000" uuid="abf1ac9a-aaa6-4438-92bf-fc328c4d4f4b"/>
-				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-					<reportElement x="307" y="12" width="246" height="20" forecolor="#FFFFFF" uuid="a8699d3d-2943-4197-bbc5-2ddb1aa729c6"/>
+				<reportElement mode="Opaque" x="2" y="100" width="555" height="32" forecolor="#000000" backcolor="#CC0000" uuid="abf1ac9a-aaa6-4438-92bf-fc328c4d4f4b"/>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="411" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="a8699d3d-2943-4197-bbc5-2ddb1aa729c6"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Hora: " +new java.util.Date()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
-			<textField>
-				<reportElement x="2" y="112" width="314" height="19" forecolor="#FFFFFF" uuid="beb4126c-6563-4b46-944e-571845496bd0"/>
-				<textElement>
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Nombre:" + $F{simulacion}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -67,35 +57,28 @@
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="0" y="7" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
+				<reportElement style="Column header" x="0" y="7" width="101" height="18" forecolor="#000000" uuid="323fb0e9-c46e-42eb-95a3-a3eee832d00e"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[ID Semaforo]]></text>
+				<text><![CDATA[ID Distrito]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="116" y="8" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
+				<reportElement style="Column header" x="271" y="7" width="119" height="18" forecolor="#000000" uuid="cef3263f-8657-4e94-87de-36dddb00af37"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[ID Nodo]]></text>
+				<text><![CDATA[Fecha de Registro]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="236" y="8" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
+				<reportElement style="Column header" x="131" y="8" width="101" height="18" forecolor="#000000" uuid="3720541e-d4d5-4e5b-a520-a3eaa185f7a6"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Tiempo en Verde]]></text>
+				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="350" y="8" width="101" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
-				<textElement textAlignment="Center">
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Tiempo en Rojo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="465" y="7" width="88" height="18" forecolor="#000000" uuid="28f8321e-4c76-4c55-9f79-24d36fb9db89"/>
+				<reportElement style="Column header" x="433" y="7" width="101" height="18" forecolor="#000000" uuid="0b8a9d33-faff-4ce6-a0b9-40e17d05b6cc"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
@@ -110,8 +93,8 @@
 			</frame>
 			<subreport>
 				<reportElement x="0" y="0" width="553" height="99" uuid="4897b4b1-9eab-424a-835e-5e78d09204d8"/>
-				<dataSourceExpression><![CDATA[new  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{semaforos})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["semafororsReport_subreport.jasper"]]></subreportExpression>
+				<dataSourceExpression><![CDATA[new  net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{distritos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["mapasReport_subreport.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
