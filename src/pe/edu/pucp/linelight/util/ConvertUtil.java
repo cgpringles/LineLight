@@ -6,6 +6,7 @@
 
 package pe.edu.pucp.linelight.util;
 
+import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import pe.edu.pucp.linelight.controller.DistritoController;
 import pe.edu.pucp.linelight.controller.ZonaController;
 import pe.edu.pucp.linelight.model.Distrito;
@@ -44,9 +46,13 @@ public class ConvertUtil {
 //        
 //        double x=((lon-(-77.0708000))*pixelLon)-3;
 //        double y=(Math.abs(lat+12.0618000)*pixelLat)-5;
+       Image imagenmapa = new ImageIcon(z.getImagen()).getImage();
         
-        double pixelLat=ConfigPanelMapa.imageHeight/Math.abs(z.getIniLatitud()-z.getFinLatitud());
-        double pixelLon=ConfigPanelMapa.imageWidth/Math.abs(z.getIniLongitud()- z.getFinLongitud());
+        //double pixelLat=ConfigPanelMapa.imageHeight/Math.abs(z.getIniLatitud()-z.getFinLatitud());
+        //double pixelLon=ConfigPanelMapa.imageWidth/Math.abs(z.getIniLongitud()- z.getFinLongitud());
+        
+        double pixelLat=imagenmapa.getHeight(null)/Math.abs(z.getIniLatitud()-z.getFinLatitud());
+        double pixelLon=imagenmapa.getWidth(null)/Math.abs(z.getIniLongitud()- z.getFinLongitud());
         
         double x=((lon-z.getIniLongitud())*pixelLon)-5;
         double y=(Math.abs(lat - z.getIniLatitud())*pixelLat)-5;
